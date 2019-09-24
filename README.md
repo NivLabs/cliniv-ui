@@ -1,5 +1,5 @@
 # FT - Gestão de Prontuário - UI
-O FT - Gestão de Prontuário - UI (FTGP-UI) é uma UI Rest OpenSource criada inicialmente como doação para hospitais que não possuem nenhuma solução de automação no processo de prontuário. O FTGP-UI é integrado com um client baseado em Angular, o [FTGP-UI](https://github.com/viniciosarodrigues/gestao-de-prontuario).
+O FT - Gestão de Prontuário - UI (FTGP-UI) é uma UI Rest OpenSource criada inicialmente como doação para hospitais que não possuem nenhuma solução de automação no processo de prontuário. O FTGP-UI é integrado com um client baseado em Angular, o [FTGP-API](https://github.com/viniciosarodrigues/gestao-de-prontuario).
 
 
 Atualmente encontra-se na versão 1.0.0
