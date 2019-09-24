@@ -1,27 +1,28 @@
-# GestaoDeProntuarioUi
+# FT - Gestão de Prontuário - UI
+O FT - Gestão de Prontuário - UI (FTGP-UI) é uma UI Rest OpenSource criada inicialmente como doação para hospitais que não possuem nenhuma solução de automação no processo de prontuário. O FTGP-UI é integrado com um client baseado em Angular, o [FTGP-UI](https://github.com/viniciosarodrigues/gestao-de-prontuario).
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.5.
 
-## Development server
+Atualmente encontra-se na versão 1.0.0
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Funcionalidades da UI
+- Cadastro de Pacientes
+- Cadastro de Responsáveis (Enfermeiro, Médico, Técnico, etc)
+- Cadastro de Eventos (Consultas, exames, prescriçoes, etc)
+- Armazenamento de documentos (Resultado de exames, radiografia, tumografia, etc)
+- Histórico de visita em forma de timeline
+- Anamnese
 
-## Code scaffolding
+# Como densenvolver?
+Para contribuir com o projeto, existem alguns requisítos mínimos de configurações, são eles?
+- Node 10 + **(Obrigatório)**
+- Angular 8 (Community) **(Obrigatório)**
+- Qualquer editor de texto *(Opcional)*
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Como rodar a UI?
+Por ser um projeto Angular 8, não se faz necessário o uso de nenhum servidor externo, pois o framework já disponibiliza um Node Server embarcado, desta forma basta usar o comando **ng serve** -> **ng serve -port 9090** para rodar em porta específica.
 
-## Build
+## Como contribuir
+Caso queira contribuir, basta realizar um fork do repositório, fazer a implementação desejada, **criar uma issue de push** e realizar pull request para a **master**.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+## Contato
+Qualquer dúvida ou sugestão, favor enviar para o e-mai *viniciosarodrigues@gmail.com* ou enviar mensagem privada pelo próprio GitGub.
