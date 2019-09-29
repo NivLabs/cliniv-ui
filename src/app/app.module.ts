@@ -7,8 +7,7 @@ import { ProntuarioModule } from './modules/prontuario/prontuario.module';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 @NgModule({
   declarations: [
-    AppComponent,
-    ProntuarioModule
+    AppComponent
   ],
   imports: [
     BrowserModule,
