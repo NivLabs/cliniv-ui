@@ -12,7 +12,6 @@ import { EventosComponent } from './modules/prontuario/pages/eventos/eventos.com
 import { HistoricoClinicoComponent } from './modules/prontuario/pages/historico-clinico/historico-clinico.component';
 import { GestaoDeUsuariosComponent } from './modules/prontuario/pages/gestao-de-usuarios/gestao-de-usuarios.component';
 import { ProntuarioModule } from './modules/prontuario/prontuario.module';
-import { BorderComponent } from './prontuario/components/border/border.component';
 import { CheckboxComponent } from './components/checkbox/checkbox.component';
 import { ButtonComponent } from './components/button/button.component';
 import { ContainerComponent } from './components/container/container.component';
@@ -44,7 +43,6 @@ import { VerticalInfoComponent } from './components/vertical-info/vertical-info.
     EventosComponent,
     HistoricoClinicoComponent,
     GestaoDeUsuariosComponent,
-    BorderComponent,
     CheckboxComponent,
     ButtonComponent,
     ContainerComponent,
