@@ -4,12 +4,20 @@ import { BrowserModule  } from '@angular/platform-browser';
 import { Routes, RouterModule } from '@angular/router';
 
 import { LoginFormComponent } from './security/login-form/login-form.component';
+import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component'
 
 const routes: Routes =[
   {
     path: '',
     pathMatch: 'full',
     component: LoginFormComponent
+  }, {
+    path: '',
+    component: AdminLayoutComponent,
+    children: [{
+      path: '',
+      loadChildren: './layouts/admin-layout/admin-layout.module#AdminLayoutModule'
+    }]
   }
 ];
 

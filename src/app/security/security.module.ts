@@ -6,8 +6,6 @@ import { CommonModule } from '@angular/common';
 import { JwtModule } from '@auth0/angular-jwt';
 
 import { AuthGuard } from './auth.guard';
-import { AuthService } from './auth.service';
-import { AppHttp } from './app-http';
 import { SecurityRoutingModule } from './security-routing.module';
 import { LoginFormComponent } from './login-form/login-form.component';
 import { environment } from '../../environments/environment';
