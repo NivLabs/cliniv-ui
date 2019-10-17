@@ -35,4 +35,4 @@ export function tokenGetter() {
     AuthGuard
   ]
 })
-export class SegurancaModule { }
+export class SecurityModule { }

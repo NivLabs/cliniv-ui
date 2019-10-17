@@ -12,19 +12,19 @@ import { AuthService } from './../auth.service';
 export class LoginFormComponent {
 
   constructor(
-    private auth: AuthService,
+    //private auth: AuthService,
     private errorHandler: ErrorHandlerService,
     private router: Router
   ) { }
 
   login(username: string, password: string) {
-    this.auth.login(username, password)
+    /*this.auth.login(username, password)
       .then(() => {
         this.router.navigate(['/dashboard']);
       })
       .catch(erro => {
         this.errorHandler.handle(erro);
-      });
+      });*/
   }
 
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 declare var $: any;
+
 @Component({
   selector: 'app-notifications',
   templateUrl: './notifications.component.html',
@@ -8,17 +9,32 @@ declare var $: any;
 export class NotificationsComponent implements OnInit {
 
   constructor() { }
-  showNotification(from, align){
-      const type = ['','info','success','warning','danger'];
 
+  showInfo(message) {
+    this.showNotification('top','right', message, 'info');
+  }
+
+  showError(message) {
+    this.showNotification('top','right', message, 'danger');
+  }
+ 
+  showWarning(message) {
+    this.showNotification('top','right', message, 'warning');
+  }
+ 
+  showSucess(message) {
+      this.showNotification('top','right', message, 'success');
+  }
+  
+  private showNotification(from, align, message, type){
       const color = Math.floor((Math.random() * 4) + 1);
 
       $.notify({
           icon: "notifications",
-          message: "Welcome to <b>Material Dashboard</b> - a beautiful freebie for every web developer."
+          message: message
 
       },{
-          type: type[color],
+          type: type,
           timer: 4000,
           placement: {
               from: from,
