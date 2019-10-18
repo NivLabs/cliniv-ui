@@ -2,15 +2,13 @@ import { NgModule } from '@angular/core';
 import { CommonModule, } from '@angular/common';
 import { BrowserModule  } from '@angular/platform-browser';
 import { Routes, RouterModule } from '@angular/router';
-
-import { LoginFormComponent } from './security/login-form/login-form.component';
-import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component'
+import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 
 const routes: Routes =[
   {
-    path: '',
+    path: 'login',
     pathMatch: 'full',
-    component: LoginFormComponent
+    redirectTo: '/login'
   }, {
     path: '',
     component: AdminLayoutComponent,
@@ -21,6 +19,7 @@ const routes: Routes =[
   }
 ];
 
+
 @NgModule({
   imports: [
     CommonModule,
@@ -30,6 +29,7 @@ const routes: Routes =[
     })
   ],
   exports: [
+    RouterModule
   ],
 })
 export class AppRoutingModule { }

@@ -22,15 +22,14 @@ export class AuthService {
   }
 
   login(username: string, password: string): Promise<void> {
-    const headers = new HttpHeaders()
+    var headers = new HttpHeaders()
         .append('Content-Type', 'application/json');
-
     const body = `{"username": "${username}", "password": "${password}"}`;
     return this.http.post<any>(this.tokenUrl, body,
-        { headers })
+        { headers, withCredentials: true, responseType: 'json', observe: 'response' })
       .toPromise()
       .then(response => {
-        this.saveToken(response.headers['Authorization']);
+        this.saveToken(response.headers.get('Authorization'));
       })
       .catch(response => {
         if (response.status === 401) {

@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 
 import { ErrorHandlerService } from './../../core/error-handler.service';
 import { AuthService } from './../auth.service';
-import { NotificationsComponent } from 'app/core/notification/notifications.component';
 
 @Component({
   selector: 'app-login-form',
@@ -18,7 +17,11 @@ export class LoginFormComponent {
     private auth: AuthService,
     private errorHandler: ErrorHandlerService,
     private router: Router
-  ) {}
+  ) {
+    if(!this.auth.isInvalidAccessToken()){
+      this.router.navigate(['/dashboard']);
+    }
+  }
 
   login(username: string, password: string) {
     this.hasResponse = false;
