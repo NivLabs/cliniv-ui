@@ -3,12 +3,13 @@ import { Injectable } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 
 import { NotAuthenticatedError } from './../security/app-http';
+import { NotificationsComponent } from './notification/notifications.component';
 
 @Injectable()
 export class ErrorHandlerService {
 
   constructor(
-    //private messageService: MessageService,
+    private notification: NotificationsComponent,
     private router: Router
   ) { }
 
@@ -41,7 +42,7 @@ export class ErrorHandlerService {
       console.error('Ocorreu um erro', errorResponse);
     }
 
-    //this.messageService.add({ severity: 'error', detail: msg });
+    this.notification.showError(msg);
   }
 
 }

@@ -5,18 +5,17 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 
 
 import { environment } from './../../environments/environment';
-import { NotificationsComponent } from 'app/core/notification/notifications.component';
 
 @Injectable()
 export class AuthService {
 
   tokenUrl: string;
   jwtPayload: any;
+  hasResponse: boolean = true;
 
   constructor(
     private http: HttpClient,
     private jwtHelper: JwtHelperService,
-    private notification : NotificationsComponent = new NotificationsComponent
   ) {
     this.tokenUrl = `${environment.apiUrl}/login`;
     this.loadToken();
@@ -27,7 +26,6 @@ export class AuthService {
         .append('Content-Type', 'application/json');
 
     const body = `{"username": "${username}", "password": "${password}"}`;
-
     return this.http.post<any>(this.tokenUrl, body,
         { headers })
       .toPromise()
@@ -36,7 +34,6 @@ export class AuthService {
       })
       .catch(response => {
         if (response.status === 401) {
-            this.notification.showError("Usuário ou senha inválida!");
             return Promise.reject('Usuário ou senha inválida!');
         }
         return Promise.reject(response);
