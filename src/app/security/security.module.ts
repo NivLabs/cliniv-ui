@@ -9,6 +9,10 @@ import { AuthGuard } from './auth.guard';
 import { SecurityRoutingModule } from './security-routing.module';
 import { LoginFormComponent } from './login-form/login-form.component';
 import { environment } from '../../environments/environment';
+import { AuthService } from './auth.service';
+import { AppHttp } from './app-http';
+
+
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -30,7 +34,7 @@ export function tokenGetter() {
   ],
   declarations: [LoginFormComponent],
   providers: [
-    AuthGuard
+    AuthGuard, AuthService, AppHttp
   ]
 })
 export class SecurityModule { }

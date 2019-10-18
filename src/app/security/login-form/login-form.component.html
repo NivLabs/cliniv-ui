@@ -13,17 +13,17 @@
                          <span class="bmd-form-group">
                             <div class="input-group">
                                <div class="input-group-prepend"><span class="input-group-text"><i class="material-icons">face</i></span></div>
-                               <input class="form-control" placeholder="Nome de usuário..." type="text" required ngModel #username>
+                               <input class="form-control" placeholder="Nome de usuário..." type="text" required ngModel #username [ngModelOptions]="{standalone: true}">
                             </div>
                          </span>
                          <span class="bmd-form-group">
                             <div class="input-group">
                                <div class="input-group-prepend"><span class="input-group-text"><i class="material-icons">lock_outline</i></span></div>
-                               <input class="form-control" placeholder="Senha..." type="password" required ngModel #password>
+                               <input class="form-control" placeholder="Senha..." type="password" required ngModel #password [ngModelOptions]="{standalone: true}">
                             </div>
                          </span>
                       </div>
-                      <div class="card-footer justify-content-center"><a class="btn btn-danger btn-link btn-lg" (click)="login(user.username, user.password)">Entrar</a></div>
+                      <div class="card-footer justify-content-center"><a class="btn btn-danger btn-link btn-lg" (click)="login(username.value, password.value)">Entrar</a></div>
                    </div>
                 </form>
              </div>
