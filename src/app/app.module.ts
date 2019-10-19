@@ -14,6 +14,7 @@ import { CoreModule } from './core/core.module'
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { SecurityModule } from './security/security.module';
 import { SecurityRoutingModule } from './security/security-routing.module';
+import { AdminLayoutModule } from './layouts/admin-layout/admin-layout.module';
 
 @NgModule({
   imports: [
@@ -26,6 +27,7 @@ import { SecurityRoutingModule } from './security/security-routing.module';
     CoreModule,
     SecurityModule,
     SecurityRoutingModule,
+    AdminLayoutModule,
 
     AppRoutingModule
   ],
