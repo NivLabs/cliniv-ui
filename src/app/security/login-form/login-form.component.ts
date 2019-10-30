@@ -20,6 +20,9 @@ export class LoginFormComponent {
   ) {
     if(!this.auth.isInvalidAccessToken()){
       this.router.navigate(['/dashboard']);
+    } else {
+      this.auth.removeAccessToken();
+      this.router.navigate(['/login'])
     }
   }
 
