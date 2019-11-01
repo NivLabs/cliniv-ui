@@ -32,12 +32,10 @@ export class LoginFormComponent {
       .then(() => {
         this.hasResponse = true;
         this.router.navigate(['/dashboard']);
-        console.log('Tudo deu ok no login.')
       })
       .catch(erro => {
         this.hasResponse = true;
         this.errorHandler.handle(erro);
-        console.log('Algo está dando errado')
       });
   }
 

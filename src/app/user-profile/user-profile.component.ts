@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { UserProfileService, UserInfo, Document, Address } from './user-profile.service';
+import { ErrorHandlerService } from 'app/core/error-handler.service';
+
 
 @Component({
   selector: 'app-user-profile',
@@ -7,9 +10,27 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserProfileComponent implements OnInit {
 
-  constructor() { }
+  hasResponse:boolean;
+  userInfo: UserInfo;
+
+  constructor(private profileService: UserProfileService, private errorHandler: ErrorHandlerService) { 
+    this.userInfo = new UserInfo();
+
+    this.hasResponse = false;
+    this.profileService.getMe().then(resp => {
+      this.hasResponse = true;
+      this.userInfo = resp;
+    }).catch(error => {
+      this.hasResponse = true;
+      this.errorHandler.handle(error);  
+    });
+  }
 
   ngOnInit() {
+  }
+
+  save(f) {
+
   }
 
 }

@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHandler } from '@angular/common/http';
+import { HttpClient, HttpHandler, HttpHeaders } from '@angular/common/http';
 
 import { Observable, from as observableFromPromise } from 'rxjs';
 
 import { AuthService } from './auth.service';
 
-export class NotAuthenticatedError {}
+export class NotAuthenticatedError { }
 
 @Injectable()
 export class AppHttp extends HttpClient {

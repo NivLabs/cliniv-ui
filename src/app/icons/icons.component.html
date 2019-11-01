@@ -1,29 +1,71 @@
-
 <div class="main-content">
-  <div class="container-fluid">
-      <div class="card card-plain">
-          <div class="card-header card-header-danger">
-              <h4 class="card-title">Material Design Icons</h4>
-              <p class="card-category">Handcrafted by our friends from
-                  <a target="_blank" href="https://design.google.com/icons/">Google</a>
-              </p>
-          </div>
-          <div class="row">
-              <div class="col-md-12">
-                  <div class="card-body">
-                      <div class="iframe-container d-none d-lg-block">
-                          <iframe src="https://design.google.com/icons/">
-                              <p>Your browser does not support iframes.</p>
-                          </iframe>
-                      </div>
-                      <div class="col-md-12 d-none d-sm-block d-md-block d-lg-none d-block d-sm-none text-center ml-auto mr-auto">
-                          <h5>The icons are visible on Desktop mode inside an iframe. Since the iframe is not working on Mobile and Tablets please visit the icons on their original page on Google. Check the
-                              <a href="https://design.google.com/icons/" target="_blank">Material Icons</a>
-                          </h5>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-  </div>
+    <div class="container-fluid">
+        <div class="card card-plain">
+            <div class="card-header card-header-danger">
+                <h4 class="card-title">Pacientes</h4>
+                <p class="card-category">Cadastro de pacientes</p>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card-body">
+                        <div class="example-header">
+                            <mat-form-field>
+                                <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtro" />
+                            </mat-form-field>
+                        </div>
+
+                        <div class="example-container mat-elevation-z8">
+                            <mat-table [dataSource]="dataSource" matSort>
+                                <!-- ID Column -->
+                                <ng-container matColumnDef="id">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Matrícula</mat-header-cell>
+                                    <mat-cell *matCellDef="let row">{{row.id}}</mat-cell>
+                                </ng-container>
+
+                                <!-- Name Column -->
+                                <ng-container matColumnDef="name">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Nome</mat-header-cell>
+                                    <mat-cell *matCellDef="let row">{{row.name}}</mat-cell>
+                                </ng-container>
+
+                                <!-- Progress Column -->
+                                <ng-container matColumnDef="progress">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Progress</mat-header-cell>
+                                    <mat-cell *matCellDef="let row">{{row.progress}}%</mat-cell>
+                                </ng-container>
+
+                                <!-- Color Column -->
+                                <ng-container matColumnDef="color">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Estado</mat-header-cell>
+                                    <mat-cell *matCellDef="let row" [style.color]="row.color">{{row.color}}</mat-cell>
+                                </ng-container>
+
+                                <!-- Color Column -->
+                                <ng-container matColumnDef="actions">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Ação</mat-header-cell>
+                                    <mat-cell *matCellDef="let row" [style.color]="row.actions">
+                                        <span>
+                                            <i class="material-icons">
+                                                edit
+                                            </i>
+                                        </span>
+                                        <span>
+                                            <i class="material-icons">
+                                                close
+                                            </i>
+                                        </span>
+                                    </mat-cell>
+                                </ng-container>
+
+                                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                            </mat-table>
+
+                            <mat-paginator hidden [pageSizeOptions]="[10]"></mat-paginator>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
