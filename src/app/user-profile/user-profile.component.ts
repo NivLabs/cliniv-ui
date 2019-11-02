@@ -10,18 +10,17 @@ import { ErrorHandlerService } from 'app/core/error-handler.service';
 })
 export class UserProfileComponent implements OnInit {
 
-  hasResponse:boolean;
+  public loading = true;
   userInfo: UserInfo;
 
   constructor(private profileService: UserProfileService, private errorHandler: ErrorHandlerService) { 
     this.userInfo = new UserInfo();
 
-    this.hasResponse = false;
     this.profileService.getMe().then(resp => {
-      this.hasResponse = true;
+      this.loading = false;
       this.userInfo = resp;
     }).catch(error => {
-      this.hasResponse = true;
+      this.loading = false;
       this.errorHandler.handle(error);  
     });
   }

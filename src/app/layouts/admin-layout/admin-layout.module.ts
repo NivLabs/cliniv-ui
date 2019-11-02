@@ -15,6 +15,7 @@ import { NotificationsComponent } from '../../core/notification/notifications.co
 
 import {UserProfileService} from '../../user-profile/user-profile.service';
 
+import { NgxLoadingModule } from 'ngx-loading';
 
 import {
   MatAutocompleteModule,
@@ -84,6 +85,7 @@ import {
     MatTabsModule,
     MatToolbarModule,
     MatTooltipModule,
+    NgxLoadingModule,
 
     FormsModule,
 
