@@ -24,11 +24,21 @@ export class ErrorHandlerService {
       this.router.navigate(['/login']);
 
     } else if (errorResponse instanceof HttpErrorResponse
-        && errorResponse.status >= 400 && errorResponse.status <= 499) {
+      && errorResponse.status >= 400 && errorResponse.status <= 499) {
+
       msg = 'Ocorreu um erro ao processar a sua solicitação';
 
-      if (errorResponse.status === 403) {
+      if (errorResponse.status === 401) {
         msg = 'Você não tem permissão para executar esta ação';
+      }
+
+      if (errorResponse.status === 405 && errorResponse.error && errorResponse.error.message) {
+        msg = errorResponse.error.message;
+      }
+
+      if (errorResponse.status === 403) {
+        msg = 'Sua sessão expirou!';
+        this.router.navigate(['/login']);
       }
 
       try {

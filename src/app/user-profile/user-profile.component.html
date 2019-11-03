@@ -8,185 +8,129 @@
             <p class="card-category">Meus dados completos</p>
           </div>
           <div class="card-body">
-            <form #f="ngForm" autocomplete="off" (ngSubmit)="save(f)">
+            <form #form="ngForm" autocomplete="off" (ngSubmit)="save(f)">
               <div class="row">
                 <div class="col-md-3">
                   <mat-form-field class="example-full-width">
-                    <input
-                      matInput
-                      placeholder="Identificador do usuário"
-                      name="id"
-                      [(ngModel)]="userInfo.id"
-                      #id="ngModel"
-                      disabled
-                    />
+                    <input matInput placeholder="Identificador do usuário" name="id" [(ngModel)]="userInfo.id"
+                      #id="ngModel" disabled />
                   </mat-form-field>
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-6">
                   <mat-form-field class="example-full-width">
-                    <input
-                      matInput
-                      placeholder="Nome"
-                      name="firstName"
-                      [(ngModel)]="userInfo.firstName"
-                      #firstName="ngModel"
-                      type="text"
-                      required
-                    />
+                    <input matInput placeholder="Nome" name="firstName" [(ngModel)]="userInfo.firstName"
+                      #firstName="ngModel" type="text" required />
                   </mat-form-field>
                 </div>
                 <div class="col-md-6">
                   <mat-form-field class="example-full-width">
-                    <input
-                      matInput
-                      placeholder="Sobrenome"
-                      name="lastName"
-                      [(ngModel)]="userInfo.lastName"
-                      #lastName="ngModel"
-                      type="text"
-                      required
-                    />
+                    <input matInput placeholder="Sobrenome" name="lastName" [(ngModel)]="userInfo.lastName"
+                      #lastName="ngModel" type="text" required />
                   </mat-form-field>
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-12">
                   <mat-form-field class="example-full-width">
-                    <input
-                      matInput
-                      placeholder="Nome completo da Mãe"
-                      name="motherName"
-                      [(ngModel)]="userInfo.motherName"
-                      #motherName="ngModel"
-                      type="text"
-                    />
+                    <input matInput placeholder="Nome completo da Mãe" name="motherName"
+                      [(ngModel)]="userInfo.motherName" #motherName="ngModel" type="text" />
                   </mat-form-field>
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-12">
                   <mat-form-field class="example-full-width">
-                    <input
-                      matInput
-                      placeholder="Nome completo do Pai"
-                      name="fatherName"
-                      [(ngModel)]="userInfo.fatherName"
-                      #fatherName
-                      type="text"
-                    />
+                    <input matInput placeholder="Nome completo do Pai" name="fatherName"
+                      [(ngModel)]="userInfo.fatherName" #fatherName type="text" />
                   </mat-form-field>
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-4">
                   <mat-form-field class="example-full-width">
-                    <input
-                      matInput
-                      placeholder="Cadastro de Pessoa Física (CPF)"
-                      name="document"
-                      [(ngModel)]="userInfo.document.value"
-                      #document
-                      type="text"
-                      required
-                    />
+                    <input matInput placeholder="Cadastro de Pessoa Física (CPF)" name="document"
+                      [(ngModel)]="userInfo.document.value" #document type="text" required />
                   </mat-form-field>
                 </div>
                 <div class="col-md-2">
                   <mat-form-field class="example-full-width">
-                    <input
-                      matInput
-                      placeholder="Data de nascimento"
-                      name="bornDate"
-                      [(ngModel)]="userInfo.bornDate"
-                      #bornDate
-                      type="date"
-                      required
-                    />
+                    <input matInput placeholder="Data de nascimento" name="bornDate" [(ngModel)]="userInfo.bornDate"
+                      #bornDate type="date" required />
                   </mat-form-field>
                 </div>
-              </div>
-              <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-2">
                   <mat-form-field class="example-full-width">
-                    <input
-                      matInput
-                      placeholder="Endereço"
-                      name="street"
-                      [(ngModel)]="userInfo.address.street"
-                      #street
-                      type="text"
-                    />
+                    <select matNativeControl placeholder="Gênero" name="gender" (change)="filterForeCasts($event.target.value)"
+                      [(ngModel)]="userInfo.gender" #gender required>
+                      <option value="M">Masculino</option>
+                      <option value="F">Feminino</option>
+                    </select>
                   </mat-form-field>
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-4">
                   <mat-form-field class="example-full-width">
-                    <input
-                      matInput
-                      placeholder="Cidade"
-                      name="city"
-                      [(ngModel)]="userInfo.address.city"
-                      #city
-                      type="text"
-                    />
+                    <input matInput placeholder="Rua" name="street" [(ngModel)]="userInfo.address.street" #street
+                      type="text" />
+                  </mat-form-field>
+                </div>
+                <div class="col-md-2">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Número" name="addressNumber" [(ngModel)]="userInfo.address.addressNumber" #addressNumber
+                      type="text" />
+                  </mat-form-field>
+                </div>
+                <div class="col-md-3">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Complemento" name="complement" [(ngModel)]="userInfo.address.complement" #complement
+                      type="text" />
+                  </mat-form-field>
+                </div>
+                <div class="col-md-5">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Bairro" name="district" [(ngModel)]="userInfo.address.district" #district
+                      type="text" />
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Cidade" name="city" [(ngModel)]="userInfo.address.city" #city
+                      type="text" />
+                  </mat-form-field>
+                </div>
+                <div class="col-md-2">
+                  <mat-form-field class="example-full-width">
+                    <input matInput size="2" maxlength="2" placeholder="Estado" name="state" [(ngModel)]="userInfo.address.state" #state
+                      type="text" />
                   </mat-form-field>
                 </div>
                 <div class="col-md-4">
                   <mat-form-field class="example-full-width">
-                    <input
-                      matInput
-                      placeholder="Estado"
-                      name="state"
-                      [(ngModel)]="userInfo.address.state"
-                      #state
-                      type="text"
-                    />
-                  </mat-form-field>
-                </div>
-                <div class="col-md-4">
-                  <mat-form-field class="example-full-width">
-                    <input
-                      matInput
-                      placeholder="Código Postal (CEP)"
-                      name="cep"
-                      [(ngModel)]="userInfo.address.postalCode"
-                      #cep
-                      type="text"
-                    />
+                    <input matInput placeholder="Código Postal (CEP)" name="cep"
+                      [(ngModel)]="userInfo.address.postalCode" size="8" maxlength="8" #cep type="text" />
                   </mat-form-field>
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-6">
                   <mat-form-field class="example-full-width">
-                    <input
-                      matInput
-                      placeholder="Telefone principal (Apenas números)"
-                      name="phoneNumber"
-                      [(ngModel)]="userInfo.phoneNumber"
-                      #phoneNumber
-                      type="text"
-                      required
-                    />
+                    <input matInput placeholder="Telefone principal (Apenas números)" name="phoneNumber"
+                      [(ngModel)]="userInfo.phoneNumber" #phoneNumber type="text" required />
                   </mat-form-field>
                 </div>
                 <div class="col-md-6">
                   <mat-form-field class="example-full-width">
-                    <input
-                      matInput
-                      placeholder="Telefone secundário (Apenas números)"
-                      name="secondaryNumber"
-                      [(ngModel)]="userInfo.secondaryNumber"
-                      #secondaryNumber
-                      type="text"
-                    />
+                    <input matInput placeholder="Telefone secundário (Apenas números)" name="secondaryNumber"
+                      [(ngModel)]="userInfo.secondaryNumber" #secondaryNumber type="text" />
                   </mat-form-field>
                 </div>
               </div>
-              <button mat-raised-button type="submit" class="btn btn-danger pull-right">Salvar</button>
+              <button mat-raised-button type="submit" [disabled]="!form.valid" class="btn btn-danger pull-right">Salvar</button>
               <div class="clearfix"></div>
             </form>
           </div>
@@ -201,7 +145,9 @@
           </div>
           <div class="card-body">
             <h6 class="card-category text-gray">Matrícula: {{ userInfo.id}}</h6>
-            <h4 class="card-title">{{userInfo.firstName + " " + userInfo.lastName}}</h4>
+            <h4 class="card-title">
+              {{!userInfo.firstName ? '' : userInfo.firtName + " " + !userInfo.lastName ? '' : userInfo.lastName}}
+            </h4>
             <p class="card-description">
               {{userInfo.observations}}
             </p>

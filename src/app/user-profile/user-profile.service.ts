@@ -3,15 +3,18 @@ import { Injectable } from '@angular/core';
 
 import { environment } from '../../environments/environment';
 import { AppHttp } from '../security/app-http';
+import { empty } from 'rxjs';
 
 
 export class Address {
-  constructor() {}
-  street: string = "";
-  city: string = "";
-  state: string = "";
-  postalCode: string = "";
-  addressComplement: string = "";
+  constructor() { }
+  street: string = null;
+  city: string = null;
+  state: string = null;
+  postalCode: string = null;
+  addressNumber: string = null;
+  complement: string = null;
+  district: string = null;
 }
 
 export class Document {
@@ -50,8 +53,27 @@ export class UserProfileService {
 
   getMe(): Promise<UserInfo> {
     var headers = new HttpHeaders()
-        .append('Authorization', this.token);
+      .append('Authorization', this.token);
     return this.http.get<UserInfo>(`${this.profileUrl}`, { headers })
       .toPromise();
+  }
+
+  save(userInfo: UserInfo): Promise<UserInfo> {
+    var validUserInfo = this.validAddress(userInfo);
+    var headers = new HttpHeaders()
+      .append('Authorization', this.token);
+    return this.http.put<UserInfo>(`${this.profileUrl}/${validUserInfo.id}`, validUserInfo, { headers })
+      .toPromise();
+  }
+
+  validAddress(userInfo: UserInfo): UserInfo {
+    var validUserInfo = new UserInfo();
+    validUserInfo = JSON.parse(JSON.stringify(userInfo));
+    if (validUserInfo.address.state === '' && validUserInfo.address.street === '' && (validUserInfo.address.district === '' || validUserInfo.address.district === undefined) && validUserInfo.address.city === '') {
+      validUserInfo.address = null;
+    } if (validUserInfo.secondaryNumber === '') {
+      validUserInfo.secondaryNumber = null;
+    }
+    return validUserInfo;
   }
 }
