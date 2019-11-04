@@ -34,7 +34,7 @@ export class UserInfo {
   dispatcher: string;
   document?: Document = new Document('CPF');
   address?: Address = new Address();
-  phoneNumber: string;
+  principalNumber: string;
   secondaryNumber: string;
   bornDate: Date;
   observations: string;
@@ -71,8 +71,6 @@ export class UserProfileService {
     validUserInfo = JSON.parse(JSON.stringify(userInfo));
     if (validUserInfo.address.state === '' && validUserInfo.address.street === '' && (validUserInfo.address.district === '' || validUserInfo.address.district === undefined) && validUserInfo.address.city === '') {
       validUserInfo.address = null;
-    } if (validUserInfo.secondaryNumber === '') {
-      validUserInfo.secondaryNumber = null;
     }
     return validUserInfo;
   }
