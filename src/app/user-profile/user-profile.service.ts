@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 
 import { environment } from '../../environments/environment';
 import { AppHttp } from '../security/app-http';
-import { empty } from 'rxjs';
 
 
 export class Address {
@@ -69,9 +68,6 @@ export class UserProfileService {
   validAddress(userInfo: UserInfo): UserInfo {
     var validUserInfo = new UserInfo();
     validUserInfo = JSON.parse(JSON.stringify(userInfo));
-    if (validUserInfo.address.state === '' && validUserInfo.address.street === '' && (validUserInfo.address.district === '' || validUserInfo.address.district === undefined) && validUserInfo.address.city === '') {
-      validUserInfo.address = null;
-    }
     return validUserInfo;
   }
 }

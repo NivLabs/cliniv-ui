@@ -3,6 +3,7 @@ import { UserProfileService, UserInfo, Document, Address } from './user-profile.
 import { ErrorHandlerService } from 'app/core/error-handler.service';
 import { NotificationsComponent } from 'app/core/notification/notifications.component';
 import { FormGroup } from '@angular/forms';
+import { AddressService, AddressFromAPI } from 'app/core/address.service';
 
 
 @Component({
@@ -11,12 +12,12 @@ import { FormGroup } from '@angular/forms';
   styleUrls: ['./user-profile.component.css']
 })
 export class UserProfileComponent implements OnInit {
-  
+
   form: FormGroup;
   public loading: boolean;
-  userInfo: UserInfo;
+  userInfo: UserInfo = new UserInfo;
 
-  constructor(private profileService: UserProfileService, private errorHandler: ErrorHandlerService, private notification: NotificationsComponent) {
+  constructor(private profileService: UserProfileService, private addressService: AddressService, private errorHandler: ErrorHandlerService, private notification: NotificationsComponent) {
     this.userInfo = new UserInfo();
     this.loading = true;
     this.profileService.getMe().then(resp => {
@@ -46,6 +47,20 @@ export class UserProfileComponent implements OnInit {
     }).catch(error => {
       this.loading = false;
       this.errorHandler.handle(error);
+    });
+  }
+
+  searchAddressByCEP() {
+    this.loading = true;
+    this.addressService.getAddressByCep(this.userInfo.address.postalCode).then(address => {
+      this.loading = false;
+      this.userInfo.address.city = address.localidade;
+      this.userInfo.address.district = address.bairro;
+      this.userInfo.address.state = address.uf;
+      this.userInfo.address.street = address.logradouro;
+    }).catch(error => {
+      this.loading = false;
+      this.notification.showWarning("Não foi possível realizar a busca do CEP, verifique se o mesmo está correto e continue o cadastro normalmente.")
     });
   }
 

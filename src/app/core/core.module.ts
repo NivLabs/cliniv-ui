@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { ErrorHandlerService } from './error-handler.service';
+import { AddressService } from './address.service';
 import { NotificationsComponent } from './notification/notifications.component'
 
 export function tokenGetter() {
@@ -17,6 +18,7 @@ export function tokenGetter() {
   declarations: [],
   providers: [
     ErrorHandlerService,
+    AddressService,
     NotificationsComponent
   ]
 })

@@ -50,6 +50,12 @@
               <div class="row">
                 <div class="col-md-4">
                   <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Email" name="email" [(ngModel)]="userInfo.email" #email type="email"
+                      required />
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
                     <input matInput placeholder="Cadastro de Pessoa Física (CPF)" name="document"
                       [(ngModel)]="userInfo.document.value" #document type="text" required />
                   </mat-form-field>
@@ -62,8 +68,8 @@
                 </div>
                 <div class="col-md-2">
                   <mat-form-field class="example-full-width">
-                    <select matNativeControl placeholder="Gênero" name="gender" (change)="filterForeCasts($event.target.value)"
-                      [(ngModel)]="userInfo.gender" #gender required>
+                    <select matNativeControl placeholder="Gênero" name="gender"
+                      (change)="filterForeCasts($event.target.value)" [(ngModel)]="userInfo.gender" #gender required>
                       <option value="M">Masculino</option>
                       <option value="F">Feminino</option>
                     </select>
@@ -73,46 +79,76 @@
               <div class="row">
                 <div class="col-md-4">
                   <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Código Postal (CEP)" name="cep" (blur)="searchAddressByCEP()"
+                      [(ngModel)]="userInfo.address.postalCode" size="8" maxlength="8" #cep type="text" />
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
                     <input matInput placeholder="Rua" name="street" [(ngModel)]="userInfo.address.street" #street
                       type="text" />
                   </mat-form-field>
                 </div>
                 <div class="col-md-2">
                   <mat-form-field class="example-full-width">
-                    <input matInput placeholder="Número" name="addressNumber" [(ngModel)]="userInfo.address.addressNumber" #addressNumber
-                      type="text" />
+                    <input matInput placeholder="Número" name="addressNumber"
+                      [(ngModel)]="userInfo.address.addressNumber" #addressNumber type="text" />
                   </mat-form-field>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-2">
                   <mat-form-field class="example-full-width">
-                    <input matInput placeholder="Complemento" name="complement" [(ngModel)]="userInfo.address.complement" #complement
-                      type="text" />
-                  </mat-form-field>
-                </div>
-                <div class="col-md-5">
-                  <mat-form-field class="example-full-width">
-                    <input matInput placeholder="Bairro" name="district" [(ngModel)]="userInfo.address.district" #district
-                      type="text" />
+                    <input matInput placeholder="Complemento" name="complement"
+                      [(ngModel)]="userInfo.address.complement" #complement type="text" />
                   </mat-form-field>
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-4">
                   <mat-form-field class="example-full-width">
-                    <input matInput placeholder="Cidade" name="city" [(ngModel)]="userInfo.address.city" #city
-                      type="text" />
+                    <input matInput placeholder="Bairro" name="district" [(ngModel)]="userInfo.address.district"
+                      #district type="text" />
                   </mat-form-field>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-4">
                   <mat-form-field class="example-full-width">
-                    <input matInput size="2" maxlength="2" placeholder="Estado" name="state" [(ngModel)]="userInfo.address.state" #state
+                    <input matInput placeholder="Cidade" name="city" [(ngModel)]="userInfo.address.city" #city
                       type="text" />
                   </mat-form-field>
                 </div>
                 <div class="col-md-4">
                   <mat-form-field class="example-full-width">
-                    <input matInput placeholder="Código Postal (CEP)" name="cep"
-                      [(ngModel)]="userInfo.address.postalCode" size="8" maxlength="8" #cep type="text" />
+                    <select matNativeControl placeholder="Estado" name="state"
+                      (change)="filterForeCasts($event.target.value)" [(ngModel)]="userInfo.address.state" #state
+                      required>
+                      <option value="AC">Acre</option>
+                      <option value="AL">Alagoas</option>
+                      <option value="AP">Amapá</option>
+                      <option value="AM">Amazonas</option>
+                      <option value="BA">Bahia</option>
+                      <option value="CE">Ceará</option>
+                      <option value="DF">Distrito Federal</option>
+                      <option value="ES">Espírito Santo</option>
+                      <option value="GO">Goiás</option>
+                      <option value="MA">Maranhão</option>
+                      <option value="MT">Mato Grosso</option>
+                      <option value="MS">Mato Grosso do Sul</option>
+                      <option value="MG">Minas Gerais</option>
+                      <option value="PA">Pará</option>
+                      <option value="PB">Paraíba</option>
+                      <option value="PR">Paraná</option>
+                      <option value="PE">Pernambuco</option>
+                      <option value="PI">Piauí</option>
+                      <option value="RJ">Rio de Janeiro</option>
+                      <option value="RN">Rio Grande do Norte</option>
+                      <option value="RS">Rio Grande do Sul</option>
+                      <option value="RO">Rondônia</option>
+                      <option value="RR">Roraima</option>
+                      <option value="SC">Santa Catarina</option>
+                      <option value="SP">São Paulo</option>
+                      <option value="SE">Sergipe</option>
+                      <option value="TO">Tocantins</option>
+                      <option value="EX">Estrangeiro</option>
+                    </select>
                   </mat-form-field>
                 </div>
               </div>
@@ -130,7 +166,8 @@
                   </mat-form-field>
                 </div>
               </div>
-              <button mat-raised-button type="submit" [disabled]="!form.valid" class="btn btn-danger pull-right">Salvar</button>
+              <button mat-raised-button type="submit" [disabled]="!form.valid"
+                class="btn btn-danger pull-right">Salvar</button>
               <div class="clearfix"></div>
             </form>
           </div>
@@ -146,7 +183,7 @@
           <div class="card-body">
             <h6 class="card-category text-gray">Matrícula: {{ userInfo.id}}</h6>
             <h4 class="card-title">
-              {{!userInfo.firstName ? '' : userInfo.firtName + " " + !userInfo.lastName ? '' : userInfo.lastName}}
+              {{userInfo.email ? userInfo.email : ''}}
             </h4>
             <p class="card-description">
               {{userInfo.observations}}
