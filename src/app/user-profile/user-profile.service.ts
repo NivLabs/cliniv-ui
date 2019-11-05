@@ -37,6 +37,7 @@ export class UserInfo {
   secondaryNumber: string;
   bornDate: Date;
   observations: string;
+  email: string;
 }
 
 @Injectable()
