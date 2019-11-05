@@ -1,3 +1,6 @@
 export const environment = {
-  production: true
+  production: true,
+  apiUrl: "https://gestao-prontuario.herokuapp.com",
+  tokenWhitelistedDomains: [],
+  tokenBlacklistedRoutes: []
 };
