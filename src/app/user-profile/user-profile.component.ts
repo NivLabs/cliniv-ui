@@ -63,5 +63,10 @@ export class UserProfileComponent implements OnInit {
       this.notification.showWarning("Não foi possível realizar a busca do CEP, verifique se o mesmo está correto e continue o cadastro normalmente.")
     });
   }
-
+  selectState(newValue) {
+    this.userInfo.address.state = newValue;
+  }
+  selectGender(newValue) {
+    this.userInfo.gender = newValue;
+  }
 }

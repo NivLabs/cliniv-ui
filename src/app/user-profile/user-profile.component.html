@@ -69,7 +69,7 @@
                 <div class="col-md-2">
                   <mat-form-field class="example-full-width">
                     <select matNativeControl placeholder="Gênero" name="gender"
-                      (change)="filterForeCasts($event.target.value)" [(ngModel)]="userInfo.gender" #gender required>
+                      (change)="selectGender($event.target.value)" [(ngModel)]="userInfo.gender" #gender required>
                       <option value="M">Masculino</option>
                       <option value="F">Feminino</option>
                     </select>
@@ -118,7 +118,7 @@
                 <div class="col-md-4">
                   <mat-form-field class="example-full-width">
                     <select matNativeControl placeholder="Estado" name="state"
-                      (change)="filterForeCasts($event.target.value)" [(ngModel)]="userInfo.address.state" #state
+                      (change)="selectState($event.target.value)" [(ngModel)]="userInfo.address.state" #state
                       required>
                       <option value="AC">Acre</option>
                       <option value="AL">Alagoas</option>
