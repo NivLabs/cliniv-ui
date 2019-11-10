@@ -6,7 +6,10 @@ import { SecurityModule } from '../../security/security.module'
 
 import { AdminLayoutRoutes } from './admin-layout.routing';
 import { DashboardComponent } from '../../dashboard/dashboard.component';
+
 import { PatientComponent } from '../../patient/patient.component';
+import { PatientEditComponent } from '../../patient/patient-edit/patient-edit.component';
+
 import { UserProfileComponent } from '../../user-profile/user-profile.component'
 import { ProfessionalComponent } from '../../professional/professional.component';
 import { TableListComponent } from '../../table-list/table-list.component';
@@ -95,11 +98,15 @@ import {
   declarations: [
     DashboardComponent,
     PatientComponent,
+    PatientEditComponent,
     ProfessionalComponent,
     UserProfileComponent,
     TableListComponent,
     TypographyComponent,
     NotificationsComponent
+  ],
+  entryComponents:[
+    PatientEditComponent
   ],
   providers: [
     UserProfileService,

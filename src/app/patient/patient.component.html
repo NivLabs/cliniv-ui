@@ -30,6 +30,7 @@
                   </mat-form-field>
                 </div>
                 <button mat-raised-button type="submit" class="btn btn-danger pull-right">Filtrar</button>
+                <button mat-raised-button type="button" (click)="openDialog()" class="btn btn-info pull-right">Novo Paciente</button>
                 <div class="clearfix"></div>
               </div>
             </form>
@@ -40,7 +41,7 @@
     <div class="row">
       <div class="center" *ngIf="!loading && patientNotFound"><h1>Nenhum paciente encontrado...</h1></div>
       <div *ngFor="let patient of patients" class="col-md-3">
-        <div class="card link-card">
+        <div class="card link-card" (click="openDialog(patient.id)")>
           <div class="card-header card-header-success">
             <h4 class="card-title">{{patient.firstName + ' ' + patient.lastName}}</h4>
             <p class="card-category">Matrícula: {{patient.id}}</p>

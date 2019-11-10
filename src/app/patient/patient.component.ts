@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { PatientService, PatientPage } from './patient.service';
 import { ErrorHandlerService } from 'app/core/error-handler.service';
 import { NotificationsComponent } from 'app/core/notification/notifications.component';
+import { MatDialog } from '@angular/material';
+import { PatientEditComponent } from './patient-edit/patient-edit.component';
 
 @Component({
   selector: 'app-patient',
@@ -15,7 +17,7 @@ export class PatientComponent implements OnInit {
   patients: any;
   page: PatientPage;
 
-  constructor(private patientService: PatientService, private errorHandler: ErrorHandlerService, private notification: NotificationsComponent) { }
+  constructor(public dialog: MatDialog, private patientService: PatientService, private errorHandler: ErrorHandlerService, private notification: NotificationsComponent) { }
 
   ngOnInit() {
     this.loading = true;
@@ -30,4 +32,15 @@ export class PatientComponent implements OnInit {
       this.errorHandler.handle(error);
     });
   }
+  openDialog(id): void {
+    const dialogRef = this.dialog.open(PatientEditComponent, {
+      width: '70%',
+      data: { selectedPatient: id }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+
+    });
+  }
+
 }
