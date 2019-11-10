@@ -2,11 +2,11 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
 
 @Component({
-  selector: 'app-icons',
-  templateUrl: './icons.component.html',
-  styleUrls: ['./icons.component.css']
+  selector: 'app-professional',
+  templateUrl: './professional.component.html',
+  styleUrls: ['./professional.component.css']
 })
-export class IconsComponent implements OnInit {
+export class ProfessionalComponent implements OnInit {
 
   displayedColumns = ['id', 'name', 'progress', 'color', 'actions'];
   dataSource: MatTableDataSource<UserData>;

@@ -1,0 +1,16 @@
+.card-header-default {
+    background: linear-gradient(60deg, #696d69, #4d524d);
+}
+
+.link-card {
+    cursor: pointer;
+}
+.link-card:hover{
+    bottom: 3px;
+    cursor: pointer;
+}
+
+.center {
+    text-align: center;
+    width: 100%;
+}

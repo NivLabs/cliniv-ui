@@ -7,13 +7,14 @@ import { SecurityModule } from '../../security/security.module'
 import { AdminLayoutRoutes } from './admin-layout.routing';
 import { DashboardComponent } from '../../dashboard/dashboard.component';
 import { PatientComponent } from '../../patient/patient.component';
-import { UserProfileComponent } from '../../user-profile/user-profile.component';
+import { UserProfileComponent } from '../../user-profile/user-profile.component'
+import { ProfessionalComponent } from '../../professional/professional.component';
 import { TableListComponent } from '../../table-list/table-list.component';
 import { TypographyComponent } from '../../typography/typography.component';
-import { IconsComponent } from '../../icons/icons.component';
 import { NotificationsComponent } from '../../core/notification/notifications.component';
 
-import {UserProfileService} from '../../user-profile/user-profile.service';
+import { UserProfileService } from '../../user-profile/user-profile.service';
+import { PatientService } from '../../patient/patient.service';
 
 import { NgxLoadingModule } from 'ngx-loading';
 
@@ -94,15 +95,16 @@ import {
   declarations: [
     DashboardComponent,
     PatientComponent,
+    ProfessionalComponent,
     UserProfileComponent,
     TableListComponent,
     TypographyComponent,
-    IconsComponent,
     NotificationsComponent
-  ], 
+  ],
   providers: [
-    UserProfileService
+    UserProfileService,
+    PatientService
   ]
 })
 
-export class AdminLayoutModule {}
+export class AdminLayoutModule { }
