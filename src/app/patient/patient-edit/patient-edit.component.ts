@@ -52,6 +52,7 @@ export class PatientEditComponent {
   constructor(
     public dialogRef: MatDialogRef<PatientEditComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Patient) {
+    this.dialogRef.disableClose = true;
     this.patient = new Patient();
   }
 
