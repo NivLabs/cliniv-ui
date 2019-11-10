@@ -3,6 +3,7 @@ import { ErrorHandlerService } from 'app/core/error-handler.service';
 import { NotificationsComponent } from 'app/core/notification/notifications.component';
 import { PatientService } from '../patient.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { AddressService } from 'app/core/address.service';
 
 export class Address {
   constructor() { }
@@ -51,12 +52,38 @@ export class PatientEditComponent {
 
   constructor(
     public dialogRef: MatDialogRef<PatientEditComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Patient) {
+    @Inject(MAT_DIALOG_DATA) public data: Patient, private addressService: AddressService, private notification: NotificationsComponent) {
     this.dialogRef.disableClose = true;
     this.patient = new Patient();
   }
 
   onCancelClick(): void {
     this.dialogRef.close();
+  }
+
+  save() {
+
+  }
+
+  searchAddressByCEP() {
+    this.loading = true;
+    this.addressService.getAddressByCep(this.patient.address.postalCode).then(address => {
+      this.loading = false;
+      this.patient.address.city = address.localidade;
+      this.patient.address.district = address.bairro;
+      this.patient.address.state = address.uf;
+      this.patient.address.street = address.logradouro;
+    }).catch(error => {
+      this.loading = false;
+      this.notification.showWarning("Não foi possível realizar a busca do CEP, verifique se o mesmo está correto e continue o cadastro normalmente.")
+    });
+  }
+
+  selectGender(newValue) {
+    this.patient.gender = newValue;
+  }
+
+  selectState(newValue) {
+    this.patient.address.state = newValue;
   }
 }
