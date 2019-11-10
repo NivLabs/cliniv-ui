@@ -46,7 +46,7 @@ export class Patient {
 })
 export class PatientEditComponent {
 
-  private patient: Patient;
+  public patient: Patient;
   public loading: boolean;
 
   constructor(
