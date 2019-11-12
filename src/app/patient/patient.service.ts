@@ -71,6 +71,15 @@ export class PatientService {
         this.token = "Bearer " + localStorage.getItem('token');
     }
 
+    getById(id): Promise<Patient> {
+        var headers = new HttpHeaders()
+            .append('Authorization', this.token);
+        if (id) {
+            return this.http.get<Patient>(`${this.patientUrl}/${id}`, { headers }).toPromise();
+
+        }
+    }
+
     getPageOfPatients(filter): Promise<PatientPage> {
         var headers = new HttpHeaders()
             .append('Authorization', this.token);

@@ -55,11 +55,28 @@ export class PatientEditComponent implements OnInit {
     public dialogRef: MatDialogRef<PatientEditComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Patient, private patientService: PatientService, private addressService: AddressService, private notification: NotificationsComponent, private utilService: UtilService) {
     this.dialogRef.disableClose = true;
+
     this.patient = new Patient();
+
   }
 
   ngOnInit() {
-
+    if(this.dialogRef.componentInstance.data['selectedPatient'] !== null) {
+      var selectedPatientId = this.dialogRef.componentInstance.data['selectedPatient'];
+      this.patientService.getById(selectedPatientId).then(resp => {
+        this.loading = false;
+        console.log(this.patient);
+        this.patient = resp;
+        if (!resp.address) {
+          this.patient.address = new Address();
+        }
+      }).catch(error => {
+        this.loading = false;
+        var cpf = this.patient.document.value;
+        this.patient = new Patient();
+        this.patient.document.value = cpf;
+      });
+    }
   }
 
   onCancelClick(): void {

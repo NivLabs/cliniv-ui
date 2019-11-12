@@ -17,7 +17,7 @@
         <div class="col-md-4">
           <mat-form-field class="example-full-width">
             <input matInput placeholder="Cadastro de Pessoa Física (CPF)" name="document" (blur)="searchPatientByCpf()"
-              [(ngModel)]="patient.document.value" #document type="text" maxlength="11" required />
+              [(ngModel)]="patient.document.value" #document type="text" maxlength="11" [disabled]="patient.id" required />
           </mat-form-field>
         </div>
         <div class="col-md-4">
