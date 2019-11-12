@@ -4,6 +4,7 @@ import { NotificationsComponent } from 'app/core/notification/notifications.comp
 import { PatientService } from '../patient.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { AddressService } from 'app/core/address.service';
+import { UtilService } from 'app/core/util.service';
 
 export class Address {
   constructor() { }
@@ -45,16 +46,20 @@ export class Patient {
   selector: 'app-patient-edit',
   templateUrl: './patient-edit.component.html'
 })
-export class PatientEditComponent {
+export class PatientEditComponent implements OnInit {
 
   public patient: Patient;
   public loading: boolean;
 
   constructor(
     public dialogRef: MatDialogRef<PatientEditComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Patient, private addressService: AddressService, private notification: NotificationsComponent) {
+    @Inject(MAT_DIALOG_DATA) public data: Patient, private patientService: PatientService, private addressService: AddressService, private notification: NotificationsComponent, private utilService: UtilService) {
     this.dialogRef.disableClose = true;
     this.patient = new Patient();
+  }
+
+  ngOnInit() {
+
   }
 
   onCancelClick(): void {
@@ -62,7 +67,19 @@ export class PatientEditComponent {
   }
 
   save() {
+    if (this.patient.id) {
 
+    } else {
+      this.patientService.create(this.patient).then(resp => {
+        this.patient = resp;
+        if (!resp.address) {
+          this.patient.address = new Address();
+        }
+
+      }).catch(error => {
+        this.loading = false;
+      });
+    }
   }
 
   searchAddressByCEP() {
@@ -85,5 +102,27 @@ export class PatientEditComponent {
 
   selectState(newValue) {
     this.patient.address.state = newValue;
+  }
+
+  searchPatientByCpf() {
+    if (!this.utilService.cpfIsValid(this.patient.document.value)) {
+      this.notification.showError("CPF Inválido, favor informar um CPF válido e sem pontos e/ou traços");
+      this.patient = new Patient();
+    } else {
+      this.loading = true;
+      this.patientService.getByCpf(this.patient.document.value).then(resp => {
+        this.loading = false;
+        console.log(this.patient);
+        this.patient = resp;
+        if (!resp.address) {
+          this.patient.address = new Address();
+        }
+      }).catch(error => {
+        this.loading = false;
+        var cpf = this.patient.document.value;
+        this.patient = new Patient();
+        this.patient.document.value = cpf;
+      });
+    }
   }
 }

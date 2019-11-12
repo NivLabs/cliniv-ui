@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 
 import { ErrorHandlerService } from './error-handler.service';
 import { AddressService } from './address.service';
+import { UtilService } from './util.service';
 import { NotificationsComponent } from './notification/notifications.component'
 
 export function tokenGetter() {
@@ -19,6 +20,7 @@ export function tokenGetter() {
   providers: [
     ErrorHandlerService,
     AddressService,
+    UtilService,
     NotificationsComponent
   ]
 })

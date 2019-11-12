@@ -14,13 +14,19 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-4">
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Cadastro de Pessoa Física (CPF)" name="document" (blur)="searchPatientByCpf()"
+              [(ngModel)]="patient.document.value" #document type="text" maxlength="11" required />
+          </mat-form-field>
+        </div>
+        <div class="col-md-4">
           <mat-form-field class="example-full-width">
             <input matInput placeholder="Nome" name="firstName" [(ngModel)]="patient.firstName" #firstName="ngModel"
               type="text" required />
           </mat-form-field>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
           <mat-form-field class="example-full-width">
             <input matInput placeholder="Sobrenome" name="lastName" [(ngModel)]="patient.lastName" #lastName="ngModel"
               type="text" required />
@@ -52,17 +58,11 @@
         </div>
         <div class="col-md-4">
           <mat-form-field class="example-full-width">
-            <input matInput placeholder="Cadastro de Pessoa Física (CPF)" name="document"
-              [(ngModel)]="patient.document.value" #document type="text" required />
-          </mat-form-field>
-        </div>
-        <div class="col-md-2">
-          <mat-form-field class="example-full-width">
             <input matInput placeholder="Data de nascimento" name="bornDate" [(ngModel)]="patient.bornDate" #bornDate
               type="date" required />
           </mat-form-field>
         </div>
-        <div class="col-md-2">
+        <div class="col-md-4">
           <mat-form-field class="example-full-width">
             <select matNativeControl placeholder="Gênero" name="gender" (change)="selectGender($event.target.value)"
               [(ngModel)]="patient.gender" #gender required>
@@ -146,7 +146,7 @@
         </div>
       </div>
       <button mat-raised-button type="button" (click)="onCancelClick()"
-        class="btn btn-danger pull-right">Cancelar</button>
+        class="btn btn-danger pull-right">Fechar</button>
       <button mat-raised-button type="submit" [disabled]="!form.valid"
         class="btn btn-success pull-right">Salvar</button>
       <div class="clearfix"></div>
