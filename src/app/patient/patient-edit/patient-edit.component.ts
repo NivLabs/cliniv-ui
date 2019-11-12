@@ -92,7 +92,7 @@ export class PatientEditComponent implements OnInit {
         if (!resp.address) {
           this.patient.address = new Address();
         }
-
+        this.notification.showSucess("Paciente cadastrado com sucesso!");
       }).catch(error => {
         this.loading = false;
       });
