@@ -105,4 +105,13 @@ export class PatientService {
             return this.http.post<Patient>(`${this.patientUrl}`, patient, { headers }).toPromise();
         }
     }
+
+    update(patient: Patient): Promise<Patient> {
+        var headers = new HttpHeaders()
+            .append('Authorization', this.token)
+            .append('Content-Type', "application/json");
+        if (patient) {
+            return this.http.put<Patient>(`${this.patientUrl}/${patient.id}`, patient, { headers }).toPromise();
+        }
+    }
 }

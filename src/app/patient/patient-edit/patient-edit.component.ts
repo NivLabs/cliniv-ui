@@ -5,6 +5,7 @@ import { PatientService } from '../patient.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { AddressService } from 'app/core/address.service';
 import { UtilService } from 'app/core/util.service';
+import { pairs } from 'rxjs';
 
 export class Address {
   constructor() { }
@@ -60,6 +61,10 @@ export class PatientEditComponent implements OnInit {
 
   }
 
+  resetForm() {
+    this.patient = new Patient();
+  }
+
   ngOnInit() {
     if(this.dialogRef.componentInstance.data['selectedPatient'] !== null) {
       var selectedPatientId = this.dialogRef.componentInstance.data['selectedPatient'];
@@ -85,7 +90,15 @@ export class PatientEditComponent implements OnInit {
 
   save() {
     if (this.patient.id) {
-
+      this.patientService.update(this.patient).then(resp => {
+        this.patient = resp;
+        if (!resp.address) {
+          this.patient.address = new Address();
+        }
+        this.notification.showSucess("Paciente alterado com sucesso!");
+      }).catch(error => {
+        this.loading = false;
+      });
     } else {
       this.patientService.create(this.patient).then(resp => {
         this.patient = resp;

@@ -145,6 +145,8 @@
           </mat-form-field>
         </div>
       </div>
+      <button *ngIf="patient.id"mat-raised-button type="button" (click)="resetForm()"
+        class="btn btn-info pull-left">Novo paciente</button>
       <button mat-raised-button type="button" (click)="onCancelClick()"
         class="btn btn-danger pull-right">Fechar</button>
       <button mat-raised-button type="submit" [disabled]="!form.valid"
