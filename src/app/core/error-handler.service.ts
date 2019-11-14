@@ -4,13 +4,15 @@ import { HttpErrorResponse } from '@angular/common/http';
 
 import { NotAuthenticatedError } from './../security/app-http';
 import { NotificationsComponent } from './notification/notifications.component';
+import { AuthService } from 'app/security/auth.service';
 
 @Injectable()
 export class ErrorHandlerService {
 
   constructor(
     private notification: NotificationsComponent,
-    private router: Router
+    private router: Router,
+    private auth: AuthService
   ) { }
 
   handle(errorResponse: any) {
@@ -21,6 +23,8 @@ export class ErrorHandlerService {
 
     } else if (errorResponse instanceof NotAuthenticatedError) {
       msg = 'Sua sessão expirou!';
+
+      this.auth.removeAccessToken();
       this.router.navigate(['/login']);
 
     } else if (errorResponse instanceof HttpErrorResponse

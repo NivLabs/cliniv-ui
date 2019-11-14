@@ -29,6 +29,7 @@ export class AuthService {
         { headers, withCredentials: true, responseType: 'json', observe: 'response' })
       .toPromise()
       .then(response => {
+        this.removeAccessToken();
         this.saveToken(response.headers.get('Authorization'));
       })
       .catch(response => {

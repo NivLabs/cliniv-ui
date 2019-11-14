@@ -17,7 +17,8 @@
         <div class="col-md-4">
           <mat-form-field class="example-full-width">
             <input matInput placeholder="Cadastro de Pessoa Física (CPF)" name="document" (blur)="searchPatientByCpf()"
-              [(ngModel)]="patient.document.value" #document type="text" maxlength="11" [disabled]="patient.id" required />
+              [(ngModel)]="patient.document.value" #document type="text" maxlength="11" [disabled]="patient.id"
+              required />
           </mat-form-field>
         </div>
         <div class="col-md-4">
@@ -145,8 +146,10 @@
           </mat-form-field>
         </div>
       </div>
-      <button *ngIf="patient.id"mat-raised-button type="button" (click)="resetForm()"
+      <button *ngIf="patient.id" mat-raised-button type="button" (click)="resetForm()"
         class="btn btn-info pull-left">Novo paciente</button>
+      <button *ngIf="patient.id" mat-raised-button type="button"
+        class="btn btn-warning pull-left">Ir para Visitas</button>
       <button mat-raised-button type="button" (click)="onCancelClick()"
         class="btn btn-danger pull-right">Fechar</button>
       <button mat-raised-button type="submit" [disabled]="!form.valid"
