@@ -1,0 +1,167 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title">Visita</h4>
+                        <p class="card-category">Visita não iniciada...</p>
+                    </div>
+                    <div class="card-body">
+                        <form #form="ngForm" autocomplete="off">
+                            <button mat-raised-button type="submit" class="btn btn-danger pull-right">Iniciar
+                                Visita</button>
+                            <button mat-raised-button type="submit" class="btn btn-success pull-right">Liberar
+                                Paciente</button>
+                            <button mat-raised-button type="submit" class="btn btn-warning pull-right">Histórico do
+                                paciente</button>
+
+                            <button mat-raised-button type="submit" class="btn btn-info pull-right">Documentos</button>
+                            <button mat-raised-button type="submit" class="btn btn-info pull-right">Anamnese</button>
+                            <button mat-raised-button type="submit"
+                                class="btn btn-info pull-right">Medicamentos</button>
+                            <button mat-raised-button type="submit" class="btn btn-info pull-right">Prescrição</button>
+                            <div class="clearfix"></div>
+                            <hr />
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="Matrícula do Paciente" name="id"
+                                            [(ngModel)]="patient.id" #id="ngModel" />
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-3">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="Código da visita" name="visitId"
+                                            [(ngModel)]="patient.visitId" #id="ngModel" />
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <mat-form-field class="example-full-width">
+                                        <input [disabled]="true" matInput placeholder="Cadastro de Pessoa Física (CPF)"
+                                            name="document" (blur)="searchPatientByCpf()"
+                                            [(ngModel)]="patient.document.value" #document type="text" maxlength="11" />
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-4">
+                                    <mat-form-field class="example-full-width">
+                                        <input [disabled]="true" matInput placeholder="Nome" name="firstName"
+                                            [(ngModel)]="patient.firstName" #firstName="ngModel" type="text" />
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-4">
+                                    <mat-form-field class="example-full-width">
+                                        <input [disabled]="true" matInput placeholder="Sobrenome" name="lastName"
+                                            [(ngModel)]="patient.lastName" #lastName="ngModel" type="text" />
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <mat-form-field class="example-full-width">
+                                        <input [disabled]="true" matInput
+                                            placeholder="Telefone principal (Apenas números)" name="principalNumber"
+                                            [(ngModel)]="patient.principalNumber" #principalNumber type="text" />
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-4">
+                                    <mat-form-field class="example-full-width">
+                                        <input [disabled]="true" matInput placeholder="Data de nascimento"
+                                            name="bornDate" [(ngModel)]="patient.bornDate" #bornDate type="date" />
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-4">
+                                    <mat-form-field class="example-full-width">
+                                        <select [disabled]="true" matNativeControl placeholder="Gênero" name="gender"
+                                            (change)="selectGender($event.target.value)" [(ngModel)]="patient.gender"
+                                            #gender required>
+                                            <option value="M">Masculino</option>
+                                            <option value="F">Feminino</option>
+                                        </select>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title">Alergias</h4>
+                    </div>
+                    <div class="card-body">
+                        <ul>
+                            <li>Camarão</li>
+                            <li>Caranguejo</li>
+                            <li>Dipirona</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title">Eventos</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class=" text-primary">
+                                    <th>COD</th>
+                                    <th>Data - Hora</th>
+                                    <th>Motivo</th>
+                                    <th>Documento</th>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>000112</td>
+                                        <td>02/11/2019 - 12:25:43</td>
+                                        <td>Início do Atendimento</td>
+                                        <td>Não Gera</td>
+                                    </tr>
+                                    <tr>
+                                        <td>000097</td>
+                                        <td>02/11/2019 - 12:42:11</td>
+                                        <td>Classificação de Risco - Pulseira Verde</td>
+                                        <td><a href="#">Visualizar</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>000126</td>
+                                        <td>02/11/2019 - 12:42:19</td>
+                                        <td>Paciente de queixa de dor no ombro esquerdo</td>
+                                        <td>Não Gera</td>
+                                    </tr>
+                                    <tr>
+                                        <td>000184</td>
+                                        <td>02/11/2019 - 13:01:39</td>
+                                        <td>Paciente dá entrada na Radiografia</td>
+                                        <td><a href="#">Visualizar</a></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>000186</td>
+                                        <td>02/11/2019 - 13:12:09</td>
+                                        <td>Paciente recebe medicação</td>
+                                        <td><a href="#">Visualizar</a></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>000205</td>
+                                        <td>02/11/2019 - 13:31:39</td>
+                                        <td>Paciente recebe alta</td>
+                                        <td><a href="#">Visualizar</a></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

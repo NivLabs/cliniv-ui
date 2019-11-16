@@ -4,20 +4,20 @@ import { Router } from '@angular/router';
 
 declare const $: any;
 declare interface RouteInfo {
-    path: string;
-    title: string;
-    icon: string;
-    class: string;
+  path: string;
+  title: string;
+  icon: string;
+  class: string;
 }
 export const ROUTES: RouteInfo[] = [
-    { path: '/dashboard', title: 'Dashboard',  icon: 'dashboard', class: '' },
-    { path: '/patient', title: 'Pacientes',  icon:'people', class: '' },
-    { path: '/table-list', title: 'Visita',  icon:'content_paste', class: '' },
-    { path: '/typography', title: 'Exames',  icon:'library_books', class: '' },
-    { path: '/professional', title: 'Profissionais',  icon:'bubble_chart', class: '' },
-    { path: '/maps', title: 'Setores',  icon:'location_on', class: '' },
-    { path: '/notifications', title: 'Administrativo',  icon:'settings', class: '' },
-    { path: '/user-profile', title: 'Perfil',  icon:'person', class: '' }
+  { path: '/dashboard', title: 'Dashboard', icon: 'dashboard', class: '' },
+  { path: '/patient', title: 'Pacientes', icon: 'people', class: '' },
+  { path: '/visit', title: 'Prontuário', icon: 'content_paste', class: '' },
+  { path: '/typography', title: 'Exames', icon: 'library_books', class: '' },
+  { path: '/professional', title: 'Profissionais', icon: 'bubble_chart', class: '' },
+  { path: '/maps', title: 'Setores', icon: 'location_on', class: '' },
+  { path: '/notifications', title: 'Administrativo', icon: 'settings', class: '' },
+  { path: '/user-profile', title: 'Perfil', icon: 'person', class: '' }
 ];
 
 @Component({
@@ -36,10 +36,10 @@ export class SidebarComponent implements OnInit {
     this.menuItems = ROUTES.filter(menuItem => menuItem);
   }
   isMobileMenu() {
-      if ($(window).width() > 991) {
-          return false;
-      }
-      return true;
+    if ($(window).width() > 991) {
+      return false;
+    }
+    return true;
   };
 
   logoff() {

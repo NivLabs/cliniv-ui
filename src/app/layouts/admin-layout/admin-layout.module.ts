@@ -12,7 +12,7 @@ import { PatientEditComponent } from '../../patient/patient-edit/patient-edit.co
 
 import { UserProfileComponent } from '../../user-profile/user-profile.component'
 import { ProfessionalComponent } from '../../professional/professional.component';
-import { TableListComponent } from '../../table-list/table-list.component';
+import { VisitComponent } from '../../visit/visit.component';
 import { TypographyComponent } from '../../typography/typography.component';
 import { NotificationsComponent } from '../../core/notification/notifications.component';
 
@@ -101,7 +101,7 @@ import {
     PatientEditComponent,
     ProfessionalComponent,
     UserProfileComponent,
-    TableListComponent,
+    VisitComponent,
     TypographyComponent,
     NotificationsComponent
   ],
