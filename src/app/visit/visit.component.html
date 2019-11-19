@@ -41,7 +41,7 @@
                                 <div class="col-md-4">
                                     <mat-form-field class="example-full-width">
                                         <input [disabled]="true" matInput placeholder="Cadastro de Pessoa Física (CPF)"
-                                            name="document" (blur)="searchPatientByCpf()"
+                                            name="document" (blur)="searchVisitByCpf()"
                                             [(ngModel)]="patient.document.value" #document type="text" maxlength="11" />
                                     </mat-form-field>
                                 </div>
@@ -75,8 +75,7 @@
                                 <div class="col-md-4">
                                     <mat-form-field class="example-full-width">
                                         <select [disabled]="true" matNativeControl placeholder="Gênero" name="gender"
-                                            (change)="selectGender($event.target.value)" [(ngModel)]="patient.gender"
-                                            #gender required>
+                                            [(ngModel)]="patient.gender" #gender required>
                                             <option value="M">Masculino</option>
                                             <option value="F">Feminino</option>
                                         </select>

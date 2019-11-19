@@ -23,4 +23,8 @@ export class VisitComponent implements OnInit {
       gender: 'M'
     }
   }
+
+  searchVisitByCpf() {
+
+  }
 }
