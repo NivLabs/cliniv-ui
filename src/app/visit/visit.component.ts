@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { NotificationsComponent } from 'app/core/notification/notifications.component';
+import { ErrorHandlerService } from 'app/core/error-handler.service';
+import { VisitService } from './visit.service';
 
 @Component({
   selector: 'app-visit',
@@ -7,13 +10,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class VisitComponent implements OnInit {
 
-  constructor() { }
+  constructor(private visitService: VisitService, private errorHandler: ErrorHandlerService, private notification: NotificationsComponent) { }
 
   patient: any;
+  public loading: boolean;
 
   ngOnInit() {
     this.patient = {
-      id: 14124635,
+      id: 1,
       visitId: 73687168,
       document: { type: 'CPF', value: '08911768456' },
       firstName: 'Vinícios de Araújo',
@@ -24,6 +28,16 @@ export class VisitComponent implements OnInit {
     }
   }
 
+  searchVisitByPatientId() {
+    if (this.patient.id) {
+      this.visitService.getVisitsByPatientId(this.patient.id).then(result => {
+        console.log(result);
+      }).catch(error => {
+        this.loading = false;
+        this.errorHandler.handle(error);
+      });
+    }
+  }
   searchVisitByCpf() {
 
   }

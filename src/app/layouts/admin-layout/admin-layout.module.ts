@@ -18,6 +18,7 @@ import { NotificationsComponent } from '../../core/notification/notifications.co
 
 import { UserProfileService } from '../../user-profile/user-profile.service';
 import { PatientService } from '../../patient/patient.service';
+import { VisitService } from '../../visit/visit.service';
 
 import { NgxLoadingModule } from 'ngx-loading';
 
@@ -110,7 +111,8 @@ import {
   ],
   providers: [
     UserProfileService,
-    PatientService
+    PatientService,
+    VisitService
   ]
 })
 
