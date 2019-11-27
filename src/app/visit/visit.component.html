@@ -5,22 +5,28 @@
                 <div class="card">
                     <div class="card-header card-header-danger">
                         <h4 class="card-title">Visita</h4>
-                        <p class="card-category">Visita não iniciada...</p>
+                        <p class="card-category">Informe uma matrícula de paciente ou um código de visita...</p>
                     </div>
                     <div class="card-body">
                         <form #form="ngForm" autocomplete="off">
-                            <button mat-raised-button type="submit" class="btn btn-danger pull-right">Iniciar
+                            <button mat-raised-button type="submit" class="btn btn-danger pull-right"
+                                [disabled]="!patient.document.value" *ngIf="!patient.document.value">Iniciar
                                 Visita</button>
-                            <button mat-raised-button type="submit" class="btn btn-success pull-right">Liberar
+                            <button mat-raised-button type="submit" class="btn btn-success pull-right"
+                                *ngIf="patient.document.value">Liberar
                                 Paciente</button>
-                            <button mat-raised-button type="submit" class="btn btn-warning pull-right">Histórico do
+                            <button mat-raised-button type="submit" class="btn btn-warning pull-right"
+                                *ngIf="patient.document.value">Histórico do
                                 paciente</button>
 
-                            <button mat-raised-button type="submit" class="btn btn-info pull-right">Documentos</button>
-                            <button mat-raised-button type="submit" class="btn btn-info pull-right">Anamnese</button>
-                            <button mat-raised-button type="submit"
-                                class="btn btn-info pull-right">Medicamentos</button>
-                            <button mat-raised-button type="submit" class="btn btn-info pull-right">Prescrição</button>
+                            <button mat-raised-button type="submit" class="btn btn-info pull-right"
+                                *ngIf="patient.document.value">Documentos</button>
+                            <button mat-raised-button type="submit" class="btn btn-info pull-right"
+                                *ngIf="patient.document.value">Anamnese</button>
+                            <button mat-raised-button type="submit" class="btn btn-info pull-right"
+                                *ngIf="patient.document.value">Medicamentos</button>
+                            <button mat-raised-button type="submit" class="btn btn-info pull-right"
+                                *ngIf="patient.document.value">Prescrição</button>
                             <div class="clearfix"></div>
                             <hr />
                             <div class="row">
@@ -94,9 +100,8 @@
                     </div>
                     <div class="card-body">
                         <ul>
-                            <li>Camarão</li>
-                            <li>Caranguejo</li>
-                            <li>Dipirona</li>
+                            <li *ngFor="let allergy of patient.events">{{allergy}}</li>
+                            <li *ngIf="patient.events">O paciente não possui alergias ou desconhece.</li>
                         </ul>
                     </div>
                 </div>
@@ -117,43 +122,17 @@
                                     <th>Documento</th>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>000112</td>
-                                        <td>02/11/2019 - 12:25:43</td>
-                                        <td>Início do Atendimento</td>
-                                        <td>Não Gera</td>
+                                    <tr *ngFor="let visitEvent of patient.events">
+                                        <td>{{visitEvent.id}}</td>
+                                        <td>{{visitEvent.datetime}}</td>
+                                        <td>{{visitEvent.description}}</td>
+                                        <td>{{visitEvent.documentId ? '<a href="#">Visualizar</a>' : 'Não existe'}}</td>
                                     </tr>
-                                    <tr>
-                                        <td>000097</td>
-                                        <td>02/11/2019 - 12:42:11</td>
-                                        <td>Classificação de Risco - Pulseira Verde</td>
-                                        <td><a href="#">Visualizar</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>000126</td>
-                                        <td>02/11/2019 - 12:42:19</td>
-                                        <td>Paciente de queixa de dor no ombro esquerdo</td>
-                                        <td>Não Gera</td>
-                                    </tr>
-                                    <tr>
-                                        <td>000184</td>
-                                        <td>02/11/2019 - 13:01:39</td>
-                                        <td>Paciente dá entrada na Radiografia</td>
-                                        <td><a href="#">Visualizar</a></td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>000186</td>
-                                        <td>02/11/2019 - 13:12:09</td>
-                                        <td>Paciente recebe medicação</td>
-                                        <td><a href="#">Visualizar</a></td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>000205</td>
-                                        <td>02/11/2019 - 13:31:39</td>
-                                        <td>Paciente recebe alta</td>
-                                        <td><a href="#">Visualizar</a></td>
+                                    <tr *ngIf="patient.events.length === 0">
+                                        <td>Sem Registro</td>
+                                        <td>Sem Registro</td>
+                                        <td>Sem Registro</td>
+                                        <td>Sem Registro</td>
                                     </tr>
                                 </tbody>
                             </table>

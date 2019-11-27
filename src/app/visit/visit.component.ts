@@ -17,14 +17,16 @@ export class VisitComponent implements OnInit {
 
   ngOnInit() {
     this.patient = {
-      id: 1,
-      visitId: 73687168,
-      document: { type: 'CPF', value: '08911768456' },
-      firstName: 'Vinícios de Araújo',
-      lastName: 'Rodrigues',
-      principalNumber: '81 9 99509300',
-      bornDate: '1991-11-07',
-      gender: 'M'
+      id: null,
+      visitId: null,
+      document: { type: 'CPF', value: null },
+      firstName: null,
+      lastName: null,
+      principalNumber: null,
+      bornDate: null,
+      gender: null,
+      events: [],
+      allergies: []
     }
   }
 

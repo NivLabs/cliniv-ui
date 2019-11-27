@@ -4,11 +4,41 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { AppHttp } from '../security/app-http';
 import { NumberSymbol } from '@angular/common';
+import { Document } from 'app/patient/patient.service';
 
+/**
+ * Representa informações básicas da visita
+ */
 export class Visit {
     id: number;
     entryDatetime: Date;
     entryCause: string;
+}
+
+/**
+ * Representa informações detalhadas da visita
+ */
+export class VisitInfo {
+    id: number;
+    patientId: number;
+    document: Document;
+    firstName: string;
+    lastName: string;
+    principalNumber: string;
+    bornDate: Date;
+    gender: string;
+    events: Array<VisitEvent>;
+    allergies: Array<string>;
+}
+
+/**
+ * Representa o evento da visita
+ */
+export class VisitEvent {
+    id: number;
+    datetime: Date;
+    description: string;
+    documentId: number;
 }
 
 
