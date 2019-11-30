@@ -15,7 +15,7 @@ export class Address {
   postalCode: string = null;
   addressNumber: string = null;
   complement: string = null;
-  district: string = null;
+  neighborhood: string = null;
 }
 
 export class Document {
@@ -117,7 +117,7 @@ export class PatientEditComponent implements OnInit {
     this.addressService.getAddressByCep(this.patient.address.postalCode).then(address => {
       this.loading = false;
       this.patient.address.city = address.localidade;
-      this.patient.address.district = address.bairro;
+      this.patient.address.neighborhood = address.bairro;
       this.patient.address.state = address.uf;
       this.patient.address.street = address.logradouro;
     }).catch(error => {

@@ -55,7 +55,7 @@ export class UserProfileComponent implements OnInit {
     this.addressService.getAddressByCep(this.userInfo.address.postalCode).then(address => {
       this.loading = false;
       this.userInfo.address.city = address.localidade;
-      this.userInfo.address.district = address.bairro;
+      this.userInfo.address.neighborhood = address.bairro;
       this.userInfo.address.state = address.uf;
       this.userInfo.address.street = address.logradouro;
     }).catch(error => {

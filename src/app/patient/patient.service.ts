@@ -32,7 +32,7 @@ export class Address {
     postalCode: string = null;
     addressNumber: string = null;
     complement: string = null;
-    district: string = null;
+    neighborhood: string = null;
 }
 
 export class Document {
