@@ -13,13 +13,13 @@ import { PatientEditComponent } from '../../patient/patient-edit/patient-edit.co
 import { UserProfileComponent } from '../../user-profile/user-profile.component'
 import { ProfessionalComponent } from '../../professional/professional.component';
 import { VisitComponent } from '../../visit/visit.component';
-import { TypographyComponent } from '../../typography/typography.component';
+import { InstituteComponent } from '../../institute/institute.component';
 import { NotificationsComponent } from '../../core/notification/notifications.component';
 
 import { UserProfileService } from '../../user-profile/user-profile.service';
 import { PatientService } from '../../patient/patient.service';
 import { VisitService } from '../../visit/visit.service';
-
+import { InstituteService } from '../../institute/institute.service';
 import { NgxLoadingModule } from 'ngx-loading';
 
 import {
@@ -103,7 +103,7 @@ import {
     ProfessionalComponent,
     UserProfileComponent,
     VisitComponent,
-    TypographyComponent,
+    InstituteComponent,
     NotificationsComponent
   ],
   entryComponents:[
@@ -112,7 +112,8 @@ import {
   providers: [
     UserProfileService,
     PatientService,
-    VisitService
+    VisitService,
+    InstituteService
   ]
 })
 
