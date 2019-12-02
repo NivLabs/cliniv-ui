@@ -17,6 +17,7 @@ export class InstituteComponent implements OnInit {
 
   ngOnInit() {
     this.institute = new InstituteInfo();
+    this.loading = true;
     this.instituteService.getAbout().then(resp => {
       this.loading = false;
       this.institute = resp;
