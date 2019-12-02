@@ -6,7 +6,7 @@ import { environment } from '../../environments/environment';
 
 
 export class InstituteInfo {
-    cnpf: string = '';
+    cnpj: string = '';
     cnes: string = '';
     name: string = '';
     corporativeName: string = '';
