@@ -33,13 +33,15 @@
                                 <div class="col-md-3">
                                     <mat-form-field class="example-full-width">
                                         <input matInput placeholder="Matrícula do Paciente" name="id"
-                                            [(ngModel)]="patient.id" #id="ngModel" />
+                                            [(ngModel)]="patient.id" #id="ngModel"
+                                            [disabled]="patient.visitId !== null && patient.visitId !== ''" />
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-3">
                                     <mat-form-field class="example-full-width">
                                         <input matInput placeholder="Código da visita" name="visitId"
-                                            [(ngModel)]="patient.visitId" #id="ngModel" />
+                                            [(ngModel)]="patient.visitId" #id="ngModel"
+                                            [disabled]="patient.id !== null && patient.id !== ''" />
                                     </mat-form-field>
                                 </div>
                             </div>
@@ -129,7 +131,7 @@
                                         <td>{{visitEvent.documentId ? '<a href="#">Visualizar</a>' : 'Não existe'}}</td>
                                     </tr>
                                     <tr *ngIf="patient.events.length === 0">
-                                        <td>Sem Registro</td>x
+                                        <td>Sem Registro</td>
                                         <td>Sem Registro</td>
                                         <td>Sem Registro</td>
                                         <td>Sem Registro</td>
