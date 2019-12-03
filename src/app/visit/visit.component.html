@@ -102,7 +102,7 @@
                     </div>
                     <div class="card-body">
                         <ul>
-                            <li *ngFor="let allergy of visit.events">{{allergy}}</li>
+                            <li *ngFor="let allergy of visit.allergies">{{allergy}}</li>
                             <li *ngIf="visit.events">Sem registros de alergias.</li>
                         </ul>
                     </div>
@@ -128,7 +128,8 @@
                                         <td>{{visitEvent.id}}</td>
                                         <td>{{visitEvent.datetime}}</td>
                                         <td>{{visitEvent.description}}</td>
-                                        <td>{{visitEvent.documentId ? '<a href="#">Visualizar</a>' : 'Não existe'}}</td>
+                                        <td *ngIf="visitEvent.documentId"><a href="#">Visualizar</a></td>
+                                        <td *ngIf="!visitEvent.documentId">Não existe</td>
                                     </tr>
                                     <tr *ngIf="visit.events.length === 0">
                                         <td>Sem Registro</td>
