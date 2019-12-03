@@ -41,8 +41,8 @@ export class VisitComponent implements OnInit {
     }
   }
   searchVisitById() {
-    this.loading = true
     if (this.visit.id) {
+      this.loading = true
       this.visitService.getVisitById(this.visit.id).then(result => {
         this.loading = false
         this.visit = result;
