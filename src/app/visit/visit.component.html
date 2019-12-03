@@ -32,14 +32,14 @@
                             <div class="row">
                                 <div class="col-md-3">
                                     <mat-form-field class="example-full-width">
-                                        <input matInput type="number" placeholder="Código da visita" name="id"
-                                            [(ngModel)]="visit.id" #id="ngModel" (blur)="searchVisitById()"
+                                        <input matInput placeholder="Código da visita" name="id" [(ngModel)]="visit.id"
+                                            #id="ngModel" (blur)="searchVisitById()"
                                             [disabled]="visit.patientId !== null && visit.patientId !== ''" />
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-3">
                                     <mat-form-field class="example-full-width">
-                                        <input matInput type="number" placeholder="Código do paciente" name="patientId"
+                                        <input matInput placeholder="Código do paciente" name="patientId"
                                             [(ngModel)]="visit.patientId" #patientId="ngModel"
                                             [disabled]="visit.id !== null && visit.id !== ''" />
                                     </mat-form-field>
@@ -49,8 +49,8 @@
                                 <div class="col-md-4">
                                     <mat-form-field class="example-full-width">
                                         <input [disabled]="true" matInput placeholder="Cadastro de Pessoa Física (CPF)"
-                                            name="document" (blur)="searchVisitByCpf()"
-                                            [(ngModel)]="visit.document.value" #document type="text" maxlength="11" />
+                                            name="document" [(ngModel)]="visit.document.value" #document type="text"
+                                            maxlength="11" />
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-4">
