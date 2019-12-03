@@ -56,7 +56,15 @@ export class VisitService {
     getVisitsByPatientId(patientId: number): Promise<Visit> {
         var headers = new HttpHeaders()
             .append('Authorization', this.token);
-        return this.http.get<Visit>(`${this.profileUrl}`, { headers })
+        return this.http.get<Visit>(`${this.profileUrl}/${patientId}/patient`, { headers })
+            .toPromise();
+    }
+
+    getVisitById(visitId: number): Promise<VisitInfo> {
+        var headers = new HttpHeaders()
+            .append('Authorization', this.token);
+
+        return this.http.get<VisitInfo>(`${this.profileUrl}/${visitId}`, { headers })
             .toPromise();
     }
 }

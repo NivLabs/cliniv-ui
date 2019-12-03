@@ -5,6 +5,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { NotAuthenticatedError } from './../security/app-http';
 import { NotificationsComponent } from './notification/notifications.component';
 import { AuthService } from 'app/security/auth.service';
+import { error } from 'protractor';
 
 @Injectable()
 export class ErrorHandlerService {
@@ -32,6 +33,10 @@ export class ErrorHandlerService {
 
       msg = 'Ocorreu um erro ao processar a sua solicitação';
 
+      if(errorResponse.status === 404 && errorResponse.error && errorResponse.error.message) {
+        msg = errorResponse.error.message;
+      }
+
       if (errorResponse.status === 401) {
         msg = 'Você não tem permissão para executar esta ação';
       }
@@ -42,6 +47,7 @@ export class ErrorHandlerService {
 
       if (errorResponse.status === 403) {
         msg = 'Sua sessão expirou!';
+        this.auth.removeAccessToken();
         this.router.navigate(['/login']);
       }
 

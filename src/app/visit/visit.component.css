@@ -1,27 +1,36 @@
 .example-container {
-    display: flex;
-    flex-direction: column;
-    min-width: 300px;
-  }
-  
-  .example-header {
-    min-height: 64px;
-    padding: 8px 24px 0;
-  }
-  
-  .mat-form-field {
-    font-size: 14px;
-    width: 100%;
-  }
-  
-  .mat-table {
-    overflow: auto;
-    max-height: 500px;
-  }
-  
-  .align-middle {
-    display: grid;
-    width: 100%;
-    margin-left: 15px;
-    margin-right: 15px;
-  }
+  display: flex;
+  flex-direction: column;
+  min-width: 300px;
+}
+
+.example-header {
+  min-height: 64px;
+  padding: 8px 24px 0;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+.mat-table {
+  overflow: auto;
+  max-height: 500px;
+}
+
+.align-middle {
+  display: grid;
+  width: 100%;
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+.vertical-line {
+  border-left: 1px solid #d4cece;
+  border-right: 1px solid #d4cece;
+  margin-left: 5px;
+  margin-right: 5px;
+  padding: 1px;
+  height: 50px;
+}

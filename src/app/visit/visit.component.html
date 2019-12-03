@@ -9,39 +9,39 @@
                     </div>
                     <div class="card-body">
                         <form #form="ngForm" autocomplete="off">
-                            <button mat-raised-button type="submit" class="btn btn-danger pull-right"
-                                [disabled]="!patient.document.value" *ngIf="!patient.document.value">Iniciar
-                                Visita</button>
-                            <button mat-raised-button type="submit" class="btn btn-success pull-right"
-                                *ngIf="patient.document.value">Liberar
-                                Paciente</button>
-                            <button mat-raised-button type="submit" class="btn btn-warning pull-right"
-                                *ngIf="patient.document.value">Histórico do
+                            <button mat-raised-button class="btn btn-success pull-right"
+                                *ngIf="visit.document.value">Realizar Alta</button>
+                            <button mat-raised-button class="btn btn-warning pull-right"
+                                *ngIf="visit.document.value">Histórico do
                                 paciente</button>
+                            <button mat-raised-button (click)="ngOnInit()" class="btn btn-danger pull-right"
+                                *ngIf="visit.document.value">Nova Consulta</button>
 
-                            <button mat-raised-button type="submit" class="btn btn-info pull-right"
-                                *ngIf="patient.document.value">Documentos</button>
-                            <button mat-raised-button type="submit" class="btn btn-info pull-right"
-                                *ngIf="patient.document.value">Anamnese</button>
-                            <button mat-raised-button type="submit" class="btn btn-info pull-right"
-                                *ngIf="patient.document.value">Medicamentos</button>
-                            <button mat-raised-button type="submit" class="btn btn-info pull-right"
-                                *ngIf="patient.document.value">Prescrição</button>
+                            <div class="vertical-line pull-right" *ngIf="visit.document.value"></div>
+
+                            <button mat-raised-button class="btn btn-info pull-right"
+                                *ngIf="visit.document.value">Anamnese</button>
+                            <button mat-raised-button class="btn btn-info pull-right"
+                                *ngIf="visit.document.value">Medicamentos</button>
+                            <button mat-raised-button class="btn btn-info pull-right"
+                                *ngIf="visit.document.value">Prescrição</button>
+                            <button mat-raised-button class="btn btn-info pull-right"
+                                *ngIf="visit.document.value">Evolução</button>
                             <div class="clearfix"></div>
                             <hr />
                             <div class="row">
                                 <div class="col-md-3">
                                     <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="Matrícula do Paciente" name="id"
-                                            [(ngModel)]="patient.id" #id="ngModel"
-                                            [disabled]="patient.visitId !== null && patient.visitId !== ''" />
+                                        <input matInput type="number" placeholder="Código da visita" name="id"
+                                            [(ngModel)]="visit.id" #id="ngModel" (blur)="searchVisitById()"
+                                            [disabled]="visit.patientId !== null && visit.patientId !== ''" />
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-3">
                                     <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="Código da visita" name="visitId"
-                                            [(ngModel)]="patient.visitId" #id="ngModel"
-                                            [disabled]="patient.id !== null && patient.id !== ''" />
+                                        <input matInput type="number" placeholder="Código do paciente" name="patientId"
+                                            [(ngModel)]="visit.patientId" #patientId="ngModel"
+                                            [disabled]="visit.id !== null && visit.id !== ''" />
                                     </mat-form-field>
                                 </div>
                             </div>
@@ -50,19 +50,19 @@
                                     <mat-form-field class="example-full-width">
                                         <input [disabled]="true" matInput placeholder="Cadastro de Pessoa Física (CPF)"
                                             name="document" (blur)="searchVisitByCpf()"
-                                            [(ngModel)]="patient.document.value" #document type="text" maxlength="11" />
+                                            [(ngModel)]="visit.document.value" #document type="text" maxlength="11" />
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-4">
                                     <mat-form-field class="example-full-width">
                                         <input [disabled]="true" matInput placeholder="Nome" name="firstName"
-                                            [(ngModel)]="patient.firstName" #firstName="ngModel" type="text" />
+                                            [(ngModel)]="visit.firstName" #firstName="ngModel" type="text" />
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-4">
                                     <mat-form-field class="example-full-width">
                                         <input [disabled]="true" matInput placeholder="Sobrenome" name="lastName"
-                                            [(ngModel)]="patient.lastName" #lastName="ngModel" type="text" />
+                                            [(ngModel)]="visit.lastName" #lastName="ngModel" type="text" />
                                     </mat-form-field>
                                 </div>
                             </div>
@@ -71,19 +71,19 @@
                                     <mat-form-field class="example-full-width">
                                         <input [disabled]="true" matInput
                                             placeholder="Telefone principal (Apenas números)" name="principalNumber"
-                                            [(ngModel)]="patient.principalNumber" #principalNumber type="text" />
+                                            [(ngModel)]="visit.principalNumber" #principalNumber type="text" />
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-4">
                                     <mat-form-field class="example-full-width">
                                         <input [disabled]="true" matInput placeholder="Data de nascimento"
-                                            name="bornDate" [(ngModel)]="patient.bornDate" #bornDate type="date" />
+                                            name="bornDate" [(ngModel)]="visit.bornDate" #bornDate type="date" />
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-4">
                                     <mat-form-field class="example-full-width">
                                         <select [disabled]="true" matNativeControl placeholder="Gênero" name="gender"
-                                            [(ngModel)]="patient.gender" #gender required>
+                                            [(ngModel)]="visit.gender" #gender required>
                                             <option value="M">Masculino</option>
                                             <option value="F">Feminino</option>
                                         </select>
@@ -102,8 +102,8 @@
                     </div>
                     <div class="card-body">
                         <ul>
-                            <li *ngFor="let allergy of patient.events">{{allergy}}</li>
-                            <li *ngIf="patient.events">O paciente não possui alergias ou desconhece.</li>
+                            <li *ngFor="let allergy of visit.events">{{allergy}}</li>
+                            <li *ngIf="visit.events">Sem registros de alergias.</li>
                         </ul>
                     </div>
                 </div>
@@ -120,17 +120,17 @@
                                 <thead class=" text-primary">
                                     <th>COD</th>
                                     <th>Data - Hora</th>
-                                    <th>Motivo</th>
+                                    <th>Tipo</th>
                                     <th>Documento</th>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let visitEvent of patient.events">
+                                    <tr *ngFor="let visitEvent of visit.events">
                                         <td>{{visitEvent.id}}</td>
                                         <td>{{visitEvent.datetime}}</td>
                                         <td>{{visitEvent.description}}</td>
                                         <td>{{visitEvent.documentId ? '<a href="#">Visualizar</a>' : 'Não existe'}}</td>
                                     </tr>
-                                    <tr *ngIf="patient.events.length === 0">
+                                    <tr *ngIf="visit.events.length === 0">
                                         <td>Sem Registro</td>
                                         <td>Sem Registro</td>
                                         <td>Sem Registro</td>
@@ -145,3 +145,4 @@
         </div>
     </div>
 </div>
+<ngx-loading [show]="loading"></ngx-loading>

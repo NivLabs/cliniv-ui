@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NotificationsComponent } from 'app/core/notification/notifications.component';
 import { ErrorHandlerService } from 'app/core/error-handler.service';
-import { VisitService } from './visit.service';
+import { VisitService, VisitInfo } from './visit.service';
 
 @Component({
   selector: 'app-visit',
@@ -12,13 +12,13 @@ export class VisitComponent implements OnInit {
 
   constructor(private visitService: VisitService, private errorHandler: ErrorHandlerService, private notification: NotificationsComponent) { }
 
-  patient: any;
+  visit: VisitInfo;
   public loading: boolean;
 
   ngOnInit() {
-    this.patient = {
+    this.visit = {
+      patientId: null,
       id: null,
-      visitId: null,
       document: { type: 'CPF', value: null },
       firstName: null,
       lastName: null,
@@ -31,8 +31,8 @@ export class VisitComponent implements OnInit {
   }
 
   searchVisitByPatientId() {
-    if (this.patient.id) {
-      this.visitService.getVisitsByPatientId(this.patient.id).then(result => {
+    if (this.visit.id) {
+      this.visitService.getVisitsByPatientId(this.visit.patientId).then(result => {
         console.log(result);
       }).catch(error => {
         this.loading = false;
@@ -40,7 +40,16 @@ export class VisitComponent implements OnInit {
       });
     }
   }
-  searchVisitByCpf() {
-
+  searchVisitById() {
+    this.loading = true
+    if (this.visit.id) {
+      this.visitService.getVisitById(this.visit.id).then(result => {
+        this.loading = false
+        this.visit = result;
+      }).catch(error => {
+        this.loading = false;
+        this.errorHandler.handle(error);
+      });
+    }
   }
 }
