@@ -27,10 +27,28 @@ export class VisitInfo {
     principalNumber: string;
     bornDate: Date;
     gender: string;
-    events: Array<VisitEvent>;
     allergies: Array<string>;
+    events: Array<VisitEvent>;
+    evolutions: Array<Evolution>;
+    medicines: Array<Medicine>;
 }
 
+/**
+ * Representa um item da evolução
+ */
+export class Evolution {
+    id: number;
+    datetime: Date;
+}
+
+export class Medicine {
+    id: number;
+    datetime: Date;
+    description: string;
+    amount: string;
+    prescriptionOfficer: string;
+    responsibleForTheAdministration: string;
+}
 /**
  * Representa o evento da visita
  */

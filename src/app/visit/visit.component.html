@@ -20,13 +20,13 @@
                             <div class="vertical-line pull-right" *ngIf="visit.document.value"></div>
 
                             <button mat-raised-button class="btn btn-info pull-right"
-                                *ngIf="visit.document.value">Anamnese</button>
-                            <button mat-raised-button class="btn btn-info pull-right"
-                                *ngIf="visit.document.value">Medicamentos</button>
+                                *ngIf="visit.document.value">Consultar anamnese</button>
+                            <button mat-raised-button class="btn btn-info pull-right" *ngIf="visit.document.value">Usar
+                                medicamento</button>
                             <button mat-raised-button class="btn btn-info pull-right"
                                 *ngIf="visit.document.value">Prescrição</button>
                             <button mat-raised-button class="btn btn-info pull-right"
-                                *ngIf="visit.document.value">Evolução</button>
+                                *ngIf="visit.document.value">Adicionar Evolução</button>
                             <div class="clearfix"></div>
                             <hr />
                             <div class="row">
@@ -40,8 +40,7 @@
                                 <div class="col-md-3">
                                     <mat-form-field class="example-full-width">
                                         <input matInput type="number" placeholder="Código do paciente" name="patientId"
-                                            [(ngModel)]="visit.patientId" #patientId="ngModel"
-                                            [disabled]="visit.id" />
+                                            [(ngModel)]="visit.patientId" #patientId="ngModel" [disabled]="visit.id" />
                                     </mat-form-field>
                                 </div>
                             </div>
@@ -97,7 +96,7 @@
 
             <div class="col-md-4">
                 <div class="card">
-                    <div class="card-header card-header-danger">
+                    <div class="card-header card-header-warning">
                         <h4 class="card-title">Alergias</h4>
                     </div>
                     <div class="card-body">
@@ -111,7 +110,7 @@
 
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header card-header-danger">
+                    <div class="card-header card-header-info">
                         <h4 class="card-title">Eventos</h4>
                     </div>
                     <div class="card-body">
@@ -126,12 +125,82 @@
                                 <tbody>
                                     <tr *ngFor="let visitEvent of visit.events">
                                         <td>{{visitEvent.id}}</td>
-                                        <td>{{visitEvent.datetime}}</td>
+                                        <td>{{visitEvent.datetime | date: 'dd/MM/yyyy - HH:mm'}}</td>
                                         <td>{{visitEvent.description}}</td>
                                         <td *ngIf="visitEvent.documentId"><a href="#">Visualizar</a></td>
                                         <td *ngIf="!visitEvent.documentId">Não existe</td>
                                     </tr>
                                     <tr *ngIf="visit.events.length === 0">
+                                        <td>Sem Registro</td>
+                                        <td>Sem Registro</td>
+                                        <td>Sem Registro</td>
+                                        <td>Sem Registro</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header card-header-success">
+                        <h4 class="card-title">Evoluções</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class=" text-primary">
+                                    <th>COD</th>
+                                    <th>Data - Hora</th>
+                                    <th>Ação</th>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let evolution of visit.evolutions">
+                                        <td>{{evolution.id}}</td>
+                                        <td>{{evolution.datetime | date: 'dd/MM/yyyy - HH:mm'}}</td>
+                                        <td><a href="#">Visualizar</a></td>
+                                    </tr>
+                                    <tr *ngIf="visit.evolutions.length === 0">
+                                        <td>Sem Registro</td>
+                                        <td>Sem Registro</td>
+                                        <td>Sem Registro</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title">Medicamentos</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class=" text-primary">
+                                    <th>COD</th>
+                                    <th>Data - Hora</th>
+                                    <th>Descrição</th>
+                                    <th>Dosagem</th>
+                                    <th>Médico</th>
+                                    <th>Administração</th>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let medicine of visit.medicines">
+                                        <td>{{medicine.id}}</td>
+                                        <td>{{medicine.datetime | date: 'dd/MM/yyyy - HH:mm'}}</td>
+                                        <td>{{medicine.description}}</td>
+                                        <td>{{medicine.amount}}</td>
+                                        <td>{{medicine.prescriptionOfficer}}</td>
+                                        <td>{{medicine.responsibleForTheAdministration}}</td>
+                                    </tr>
+                                    <tr *ngIf="visit.medicines.length === 0">
+                                        <td>Sem Registro</td>
+                                        <td>Sem Registro</td>
                                         <td>Sem Registro</td>
                                         <td>Sem Registro</td>
                                         <td>Sem Registro</td>

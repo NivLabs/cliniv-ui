@@ -26,7 +26,9 @@ export class VisitComponent implements OnInit {
       bornDate: null,
       gender: null,
       events: [],
-      allergies: []
+      allergies: [],
+      evolutions: [],
+      medicines: []
     }
   }
 
