@@ -66,11 +66,11 @@ export class PatientEditComponent implements OnInit {
   }
 
   ngOnInit() {
-    if(this.dialogRef.componentInstance.data['selectedPatient'] !== null) {
+    if (this.dialogRef.componentInstance.data['selectedPatient'] !== null) {
+      this.loading = true;
       var selectedPatientId = this.dialogRef.componentInstance.data['selectedPatient'];
       this.patientService.getById(selectedPatientId).then(resp => {
         this.loading = false;
-        console.log(this.patient);
         this.patient = resp;
         if (!resp.address) {
           this.patient.address = new Address();
@@ -80,6 +80,7 @@ export class PatientEditComponent implements OnInit {
         var cpf = this.patient.document.value;
         this.patient = new Patient();
         this.patient.document.value = cpf;
+        this.notification.showError("Não foi possível realizar a busca do paciente selecionado.")
       });
     }
   }
