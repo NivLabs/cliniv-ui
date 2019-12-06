@@ -156,4 +156,18 @@ export class PatientEditComponent implements OnInit {
       });
     }
   }
+
+  /**
+   * 
+   * Executa um evento à partir da tecla enter
+   * 
+   * @param event Evento de tecla
+   */
+  enterKeyPress(event: any) {
+    console.log(event);
+    // Windows
+    if (event.key === "Enter") {
+      this.searchPatientByCpf();
+    }
+  }
 }
