@@ -15,6 +15,7 @@ import { ProfessionalComponent } from '../../professional/professional.component
 import { VisitComponent } from '../../visit/visit.component';
 import { InstituteComponent } from '../../institute/institute.component';
 import { NotificationsComponent } from '../../core/notification/notifications.component';
+import { ConfirmDialogComponent } from '../../core/confirm-dialog/confirm-dialog.component';
 
 import { UserProfileService } from '../../user-profile/user-profile.service';
 import { PatientService } from '../../patient/patient.service';
@@ -104,10 +105,12 @@ import {
     UserProfileComponent,
     VisitComponent,
     InstituteComponent,
-    NotificationsComponent
+    NotificationsComponent,
+    ConfirmDialogComponent
   ],
   entryComponents:[
-    PatientEditComponent
+    PatientEditComponent,
+    ConfirmDialogComponent
   ],
   providers: [
     UserProfileService,

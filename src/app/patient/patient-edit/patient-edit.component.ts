@@ -2,10 +2,11 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { ErrorHandlerService } from 'app/core/error-handler.service';
 import { NotificationsComponent } from 'app/core/notification/notifications.component';
 import { PatientService } from '../patient.service';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
 import { AddressService } from 'app/core/address.service';
 import { UtilService } from 'app/core/util.service';
 import { pairs } from 'rxjs';
+import { ConfirmDialogComponent } from 'app/core/confirm-dialog/confirm-dialog.component';
 
 export class Address {
   constructor() { }
@@ -52,7 +53,7 @@ export class PatientEditComponent implements OnInit {
   public patient: Patient;
   public loading: boolean;
 
-  constructor(
+  constructor(public confirmDialog: MatDialog,
     public dialogRef: MatDialogRef<PatientEditComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Patient, private patientService: PatientService, private addressService: AddressService, private notification: NotificationsComponent, private utilService: UtilService) {
     this.dialogRef.disableClose = true;
@@ -62,7 +63,15 @@ export class PatientEditComponent implements OnInit {
   }
 
   resetForm() {
-    this.patient = new Patient();
+    const confirmDialogRef = this.confirmDialog.open(ConfirmDialogComponent, {
+      data: { title: 'Confirmação', message: 'Você confirma a limpeza do formulário?' }
+    });
+
+    confirmDialogRef.afterClosed().subscribe(result => {
+      if (result.isConfirmed) {
+        this.patient = new Patient();
+      }
+    });
   }
 
   ngOnInit() {
