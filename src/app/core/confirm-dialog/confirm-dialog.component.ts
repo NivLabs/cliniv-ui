@@ -5,6 +5,10 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 class DialogInfo {
     title: string;
     message: string;
+    button: {
+        yes: string;
+        no: string;
+    }
     isConfirmed: boolean;
 }
 
@@ -21,6 +25,19 @@ export class ConfirmDialogComponent implements OnInit {
 
     ngOnInit() {
         this.data.isConfirmed = true;
+        if (this.data.button === undefined) {
+            this.data.button = {
+                yes: "Confirmar",
+                no: "Cancelar"
+            }
+        } else {
+            if (this.data.button.yes === undefined || this.data.button.yes === "") {
+                this.data.button.yes = "Confirmar";
+            }
+            if (this.data.button.no === undefined || this.data.button.no === "") {
+                this.data.button.no = "Cancelar";
+            }
+        }
     }
 
     onNoClick() {

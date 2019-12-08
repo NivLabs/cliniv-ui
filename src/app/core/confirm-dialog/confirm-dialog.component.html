@@ -4,7 +4,7 @@
 </div>
 <div class="card-footer">
     <div mat-dialog-actions>
-        <button mat-button (click)="onNoClick()">Cancelar</button>
-        <button mat-button class="btn btn-success" [mat-dialog-close]="data" cdkFocusInitial>Confirmar</button>
+        <button mat-button (click)="onNoClick()">{{data.button.no}}</button>
+        <button mat-button class="btn btn-success" [mat-dialog-close]="data" cdkFocusInitial>{{data.button.yes}}</button>
     </div>
 </div>
