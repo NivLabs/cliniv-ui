@@ -68,7 +68,7 @@ export class PatientEditComponent implements OnInit {
     });
 
     confirmDialogRef.afterClosed().subscribe(result => {
-      if (result.isConfirmed) {
+      if (result !== undefined && result.isConfirmed) {
         this.patient = new Patient();
       }
     });
