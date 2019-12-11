@@ -40,7 +40,8 @@
                                 <div class="col-md-3">
                                     <mat-form-field class="example-full-width">
                                         <input matInput type="number" placeholder="Código do paciente" name="patientId"
-                                            [(ngModel)]="visit.patientId" #patientId="ngModel" [disabled]="visit.id" />
+                                            [(ngModel)]="visit.patientId" #patientId="ngModel"
+                                            (blur)="searchVisitByPatientId()" [disabled]="visit.id" />
                                     </mat-form-field>
                                 </div>
                             </div>

@@ -71,10 +71,10 @@ export class VisitService {
         this.token = "Bearer " + localStorage.getItem('token');
     }
 
-    getVisitsByPatientId(patientId: number): Promise<Visit> {
+    getActivedVisitByPatientId(patientId: number): Promise<VisitInfo> {
         var headers = new HttpHeaders()
             .append('Authorization', this.token);
-        return this.http.get<Visit>(`${this.profileUrl}/${patientId}/patient`, { headers })
+        return this.http.get<VisitInfo>(`${this.profileUrl}/actived/${patientId}/patient`, { headers })
             .toPromise();
     }
 

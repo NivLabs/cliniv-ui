@@ -33,9 +33,10 @@ export class VisitComponent implements OnInit {
   }
 
   searchVisitByPatientId() {
-    if (this.visit.id) {
-      this.visitService.getVisitsByPatientId(this.visit.patientId).then(result => {
-        console.log(result);
+    if (this.visit.patientId) {
+      this.visitService.getActivedVisitByPatientId(this.visit.patientId).then(result => {
+        this.loading = false
+        this.visit = result;
       }).catch(error => {
         this.loading = false;
         this.errorHandler.handle(error);
