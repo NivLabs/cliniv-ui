@@ -32,27 +32,32 @@ export class VisitComponent implements OnInit {
     }
   }
 
-  searchVisitByPatientId() {
+  searchActivedVisitByPatientId() {
     if (this.visit.patientId) {
-      this.visitService.getActivedVisitByPatientId(this.visit.patientId).then(result => {
-        this.loading = false
-        this.visit = result;
-      }).catch(error => {
-        this.loading = false;
-        this.errorHandler.handle(error);
-      });
+      this.loading = true
+      this.visitService.getActivedVisitByPatientId(this.visit.patientId)
+        .then(result => this.onFindVisitInfo(result))
+        .catch(error => this.onServiceException(error));
     }
   }
+
   searchVisitById() {
     if (this.visit.id) {
       this.loading = true
-      this.visitService.getVisitById(this.visit.id).then(result => {
-        this.loading = false
-        this.visit = result;
-      }).catch(error => {
-        this.loading = false;
-        this.errorHandler.handle(error);
-      });
+      this.visitService.getVisitById(this.visit.id)
+        .then(result => this.onFindVisitInfo(result))
+        .catch(error => this.onServiceException(error));
     }
+  }
+
+  onFindVisitInfo(result) {
+    this.loading = false
+    this.visit = result;
+  }
+
+  onServiceException(error) {
+
+    this.loading = false;
+    this.errorHandler.handle(error);
   }
 }
