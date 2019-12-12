@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NotificationsComponent } from 'app/core/notification/notifications.component';
 import { ErrorHandlerService } from 'app/core/error-handler.service';
-import { VisitService, VisitInfo } from './visit.service';
+import { VisitService, VisitInfo, Visit } from './visit.service';
+import { PatientHistoryComponent } from './history/patient-history.component';
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-visit',
@@ -10,7 +12,7 @@ import { VisitService, VisitInfo } from './visit.service';
 })
 export class VisitComponent implements OnInit {
 
-  constructor(private visitService: VisitService, private errorHandler: ErrorHandlerService, private notification: NotificationsComponent) { }
+  constructor(public dialog: MatDialog, private visitService: VisitService, private errorHandler: ErrorHandlerService, private notification: NotificationsComponent) { }
 
   visit: VisitInfo;
   public loading: boolean;
@@ -59,5 +61,25 @@ export class VisitComponent implements OnInit {
 
     this.loading = false;
     this.errorHandler.handle(error);
+  }
+
+  searchPatientHistory(): void {
+    this.visitService.getPatientHistory(this.visit.patientId).
+      then(result => this.openHistoryDialog(result))
+      .catch(error => this.onServiceException(error))
+  }
+
+  openHistoryDialog(patientHistory) {
+    const dialogPatitenHistory = this.dialog.open(PatientHistoryComponent, {
+      width: '70%',
+      data: { patientHistory }
+    });
+
+    dialogPatitenHistory.afterClosed().subscribe(result => {
+      if (result !== undefined) {
+        this.visit.id = result.id;
+        this.searchVisitById();
+      }
+    });
   }
 }

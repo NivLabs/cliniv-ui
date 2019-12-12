@@ -12,7 +12,7 @@
                             <button mat-raised-button class="btn btn-success pull-right"
                                 *ngIf="visit.document.value">Realizar Alta</button>
                             <button mat-raised-button class="btn btn-warning pull-right"
-                                *ngIf="visit.document.value">Histórico do
+                                *ngIf="visit.document.value" (click)="searchPatientHistory()">Histórico do
                                 paciente</button>
                             <button mat-raised-button (click)="ngOnInit()" class="btn btn-danger pull-right"
                                 *ngIf="visit.document.value">Nova Consulta</button>

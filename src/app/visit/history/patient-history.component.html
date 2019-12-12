@@ -1,0 +1,47 @@
+<div class="card">
+    <div class="card-header card-header-danger">
+        <h4 class="card-title">Histórico de visitas do paciente</h4>
+        <p class="card-category">Visitas encontradas...</p>
+    </div>
+    <div class="card-body">
+        <mat-table [dataSource]="dataSource" matSort>
+            <!-- ID Column -->
+            <ng-container matColumnDef="id">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Identificador</mat-header-cell>
+                <mat-cell *matCellDef="let row">{{row.id}}</mat-cell>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="entryDatetime">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Dt. Entrada</mat-header-cell>
+                <mat-cell *matCellDef="let row">{{row.entryDatetime}}</mat-cell>
+            </ng-container>
+
+            <!-- Progress Column -->
+            <ng-container matColumnDef="entryCause">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Motivo da entrada</mat-header-cell>
+                <mat-cell *matCellDef="let row">{{row.entryCause}}</mat-cell>
+            </ng-container>
+
+            <!-- Color Column -->
+            <ng-container matColumnDef="isFinished">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Situação</mat-header-cell>
+                <mat-cell *matCellDef="let row" [style.color]="row.isFinished ? '#ED4E4A' : '#5EB462'">
+                    <h5>{{showStatus(row.isFinished)}}</h5></mat-cell>
+            </ng-container>
+
+            <!-- Color Column -->
+            <ng-container matColumnDef="actions">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Ação</mat-header-cell>
+                <mat-cell *matCellDef="let row" style="text-align: center; display: block;">
+                    <button mat-raised-button (click)="ngOnInit()" class="btn btn-info pull-right"
+                    [mat-dialog-close]="row">Visualizar</button>
+
+                </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+    </div>
+</div>

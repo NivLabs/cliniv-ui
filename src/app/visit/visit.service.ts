@@ -13,6 +13,7 @@ export class Visit {
     id: number;
     entryDatetime: Date;
     entryCause: string;
+    isFinished: boolean;
 }
 
 /**
@@ -83,6 +84,13 @@ export class VisitService {
             .append('Authorization', this.token);
 
         return this.http.get<VisitInfo>(`${this.profileUrl}/${visitId}`, { headers })
+            .toPromise();
+    }
+
+    getPatientHistory(patientId: number): Promise<Visit> {
+        var headers = new HttpHeaders()
+            .append('Authorization', this.token);
+        return this.http.get<Visit>(`${this.profileUrl}?patientId=${patientId}`, { headers })
             .toPromise();
     }
 }
