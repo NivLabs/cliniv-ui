@@ -71,7 +71,7 @@ export class VisitComponent implements OnInit {
 
   openHistoryDialog(patientHistory) {
     const dialogPatitenHistory = this.dialog.open(PatientHistoryComponent, {
-      width: '70%',
+      width: '90%',
       data: { patientHistory }
     });
 

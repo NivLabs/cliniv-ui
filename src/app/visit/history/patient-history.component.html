@@ -32,10 +32,10 @@
 
             <!-- Color Column -->
             <ng-container matColumnDef="actions">
-                <mat-header-cell *matHeaderCellDef mat-sort-header>Ação</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Selecionar</mat-header-cell>
                 <mat-cell *matCellDef="let row" style="text-align: center; display: block;">
-                    <button mat-raised-button (click)="ngOnInit()" class="btn btn-info pull-right"
-                    [mat-dialog-close]="row">Visualizar</button>
+                    <button mat-raised-button (click)="ngOnInit()" class="btn btn-info"
+                    [mat-dialog-close]="row"><i class="fa fa-eye"></i></button>
 
                 </mat-cell>
             </ng-container>

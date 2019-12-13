@@ -1,8 +1,13 @@
 <div class="main-content">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-md-8">
-        <div class="card">
+      <div class="col-md-12">
+        <div class="card card-profile">
+          <div class="card-avatar">
+            <a href="javascript:void(0)">
+              <img class="img" src="./assets/img/doctor.png" />
+            </a>
+          </div>
           <div class="card-header card-header-danger">
             <h4 class="card-title">Dados pessoais</h4>
             <p class="card-category">Meus dados completos</p>
@@ -118,8 +123,7 @@
                 <div class="col-md-4">
                   <mat-form-field class="example-full-width">
                     <select matNativeControl placeholder="Estado" name="state"
-                      (change)="selectState($event.target.value)" [(ngModel)]="userInfo.address.state" #state
-                      required>
+                      (change)="selectState($event.target.value)" [(ngModel)]="userInfo.address.state" #state required>
                       <option value="AC">Acre</option>
                       <option value="AL">Alagoas</option>
                       <option value="AP">Amapá</option>
@@ -170,24 +174,6 @@
                 class="btn btn-danger pull-right">Salvar</button>
               <div class="clearfix"></div>
             </form>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="card card-profile">
-          <div class="card-avatar">
-            <a href="javascript:void(0)">
-              <img class="img" src="./assets/img/doctor.png" />
-            </a>
-          </div>
-          <div class="card-body">
-            <h6 class="card-category text-gray">Matrícula: {{ userInfo.id}}</h6>
-            <h4 class="card-title">
-              {{userInfo.email ? userInfo.email : ''}}
-            </h4>
-            <p class="card-description">
-              {{userInfo.observations}}
-            </p>
           </div>
         </div>
       </div>

@@ -4,6 +4,7 @@
 
 .link-card {
     cursor: pointer;
+    height: 250px;
 }
 .link-card:hover{
     bottom: 3px;

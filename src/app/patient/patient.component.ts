@@ -34,7 +34,7 @@ export class PatientComponent implements OnInit {
   }
   openDialog(id): void {
     const dialogRef = this.dialog.open(PatientEditComponent, {
-      width: '70%',
+      width: '80%',
       data: { selectedPatient: id }
     });
 
