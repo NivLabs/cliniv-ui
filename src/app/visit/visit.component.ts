@@ -69,6 +69,16 @@ export class VisitComponent implements OnInit {
       .catch(error => this.onServiceException(error))
   }
 
+  enterKeyPress(event: any) {
+    if (event.key === "Enter") {
+      if (this.visit.id) {
+        this.searchVisitById();
+      } else if (this.visit.patientId) {
+        this.searchActivedVisitByPatientId();
+      }
+    }
+  }
+
   openHistoryDialog(patientHistory) {
     const dialogPatitenHistory = this.dialog.open(PatientHistoryComponent, {
       width: '90%',

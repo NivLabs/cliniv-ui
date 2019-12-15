@@ -173,7 +173,6 @@ export class PatientEditComponent implements OnInit {
    * @param event Evento de tecla
    */
   enterKeyPress(event: any) {
-    console.log(event);
     // Windows
     if (event.key === "Enter") {
       this.searchPatientByCpf();

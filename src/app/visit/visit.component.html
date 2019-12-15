@@ -11,8 +11,8 @@
                         <form #form="ngForm" autocomplete="off">
                             <button mat-raised-button class="btn btn-success pull-right"
                                 *ngIf="visit.document.value">Realizar Alta</button>
-                            <button mat-raised-button class="btn btn-warning pull-right"
-                                *ngIf="visit.document.value" (click)="searchPatientHistory()">Histórico do
+                            <button mat-raised-button class="btn btn-warning pull-right" *ngIf="visit.document.value"
+                                (click)="searchPatientHistory()">Histórico do
                                 paciente</button>
                             <button mat-raised-button (click)="ngOnInit()" class="btn btn-danger pull-right"
                                 *ngIf="visit.document.value">Nova Consulta</button>
@@ -30,15 +30,16 @@
                                 <div class="col-md-3">
                                     <mat-form-field class="example-full-width">
                                         <input matInput type="number" placeholder="Código da visita" name="id"
-                                            [(ngModel)]="visit.id" #id="ngModel" (blur)="searchVisitById()"
-                                            [disabled]="visit.patientId" />
+                                            [(ngModel)]="visit.id" #id="ngModel" (keypress)="enterKeyPress($event)"
+                                            (blur)="searchVisitById()" [disabled]="visit.patientId" />
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-3">
                                     <mat-form-field class="example-full-width">
                                         <input matInput type="number" placeholder="Código do paciente" name="patientId"
                                             [(ngModel)]="visit.patientId" #patientId="ngModel"
-                                            (blur)="searchActivedVisitByPatientId()" [disabled]="visit.id" />
+                                            (keypress)="enterKeyPress($event)" (blur)="searchActivedVisitByPatientId()"
+                                            [disabled]="visit.id" />
                                     </mat-form-field>
                                 </div>
                             </div>
