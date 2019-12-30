@@ -1,10 +1,25 @@
+.patient-name {
+    color: #00BCD4;
+    font-weight: 400;
+}
+
+.patient-info {
+    color: rgb(20, 59, 65);
+    font-weight: 400;
+}
+
 .card-header-default {
     background: linear-gradient(60deg, #696d69, #4d524d);
 }
 
+.margin-color-active {
+    border-left: 10px solid #00BCD4;
+    height: 180px;
+}
+
 .link-card {
     cursor: pointer;
-    height: 250px;
+    height: 180px;
 }
 .link-card:hover{
     bottom: 3px;
@@ -14,4 +29,13 @@
 .center {
     text-align: center;
     width: 100%;
+}
+
+li {
+    list-style-type: none;
+    text-transform: uppercase;
+}
+
+ul {
+    padding: 0;
 }
