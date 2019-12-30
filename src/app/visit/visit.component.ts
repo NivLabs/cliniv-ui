@@ -4,6 +4,7 @@ import { ErrorHandlerService } from 'app/core/error-handler.service';
 import { VisitService, VisitInfo, Visit } from './visit.service';
 import { PatientHistoryComponent } from './history/patient-history.component';
 import { MatDialog } from '@angular/material';
+import { ConfirmDialogComponent } from 'app/core/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-visit',
@@ -12,7 +13,7 @@ import { MatDialog } from '@angular/material';
 })
 export class VisitComponent implements OnInit {
 
-  constructor(public dialog: MatDialog, private visitService: VisitService, private errorHandler: ErrorHandlerService, private notification: NotificationsComponent) { }
+  constructor(public confirmDialog: MatDialog, public dialog: MatDialog, private visitService: VisitService, private errorHandler: ErrorHandlerService, private notification: NotificationsComponent) { }
 
   visit: VisitInfo;
   public loading: boolean;
@@ -39,7 +40,22 @@ export class VisitComponent implements OnInit {
       this.loading = true
       this.visitService.getActivedVisitByPatientId(this.visit.patientId)
         .then(result => this.onFindVisitInfo(result))
-        .catch(error => this.onServiceException(error));
+        .catch(error => {
+          this.loading = false;
+          if (error.error && error.error.status === 400) {
+            const confirmDialogRef = this.confirmDialog.open(ConfirmDialogComponent, {
+              data: { title: 'Confirmação', message: 'Não há visita ativa para o paciente informado, deseja iniciar uma nova visita?' }
+            });
+
+            confirmDialogRef.afterClosed().subscribe(result => {
+              if (result !== undefined && result.isConfirmed) {
+                this.visitService.initializeVisit(this.visit.patientId);
+              }
+            });
+          } else {
+            this.onServiceException(error)
+          }
+        });
     }
   }
 

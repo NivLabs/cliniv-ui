@@ -20,16 +20,16 @@ export class AddressFromAPI {
 @Injectable()
 export class AddressService {
 
-    baseUrl: string;
+    resourceUrl: string;
     token: string;
 
     constructor(private http: AppHttp) {
-        this.baseUrl = `https://viacep.com.br/ws`;
+        this.resourceUrl = `https://viacep.com.br/ws`;
         this.token = "Bearer " + localStorage.getItem('token');
     }
 
     getAddressByCep(cep: string): Promise<AddressFromAPI> {
-        return this.http.get<AddressFromAPI>(`${this.baseUrl}/${cep}/json`, { })
+        return this.http.get<AddressFromAPI>(`${this.resourceUrl}/${cep}/json`, { })
             .toPromise();
     }
 }

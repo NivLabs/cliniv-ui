@@ -9,7 +9,7 @@ import { environment } from './../../environments/environment';
 @Injectable()
 export class AuthService {
 
-  tokenUrl: string;
+  resourceUrl: string;
   jwtPayload: any;
   hasResponse: boolean = true;
 
@@ -17,7 +17,7 @@ export class AuthService {
     private http: HttpClient,
     private jwtHelper: JwtHelperService,
   ) {
-    this.tokenUrl = `${environment.apiUrl}/login`;
+    this.resourceUrl = `${environment.apiUrl}/login`;
     this.loadToken();
   }
 
@@ -25,7 +25,7 @@ export class AuthService {
     var headers = new HttpHeaders()
         .append('Content-Type', 'application/json');
     const body = `{"username": "${username}", "password": "${password}"}`;
-    return this.http.post<any>(this.tokenUrl, body,
+    return this.http.post<any>(this.resourceUrl, body,
         { headers, withCredentials: true, responseType: 'json', observe: 'response' })
       .toPromise()
       .then(response => {

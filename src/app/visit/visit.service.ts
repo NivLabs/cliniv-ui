@@ -5,6 +5,7 @@ import { environment } from '../../environments/environment';
 import { AppHttp } from '../security/app-http';
 import { NumberSymbol } from '@angular/common';
 import { Document } from 'app/patient/patient.service';
+import { viewClassName } from '@angular/compiler';
 
 /**
  * Representa informações básicas da visita
@@ -13,6 +14,7 @@ export class Visit {
     id: number;
     entryDatetime: Date;
     entryCause: string;
+    responsibleId: number;
     isFinished: boolean;
 }
 
@@ -64,18 +66,31 @@ export class VisitEvent {
 @Injectable()
 export class VisitService {
 
-    profileUrl: string;
+    resourceUrl: string;
     token: string;
 
     constructor(private http: AppHttp) {
-        this.profileUrl = `${environment.apiUrl}/visit`;
+        this.resourceUrl = `${environment.apiUrl}/visit`;
         this.token = "Bearer " + localStorage.getItem('token');
+    }
+
+    initializeVisit(patientId: number) {
+        var headers = new HttpHeaders()
+            .append('Authorization', this.token);
+
+        var patientVisit = new Visit();
+        patientVisit.id = patientId;
+        patientVisit.entryCause = "";
+        patientVisit.responsibleId = 1;
+
+        return this.http.post<VisitInfo>(`${this.resourceUrl}`, patientVisit, { headers })
+            .toPromise();
     }
 
     getActivedVisitByPatientId(patientId: number): Promise<VisitInfo> {
         var headers = new HttpHeaders()
             .append('Authorization', this.token);
-        return this.http.get<VisitInfo>(`${this.profileUrl}/actived/${patientId}/patient`, { headers })
+        return this.http.get<VisitInfo>(`${this.resourceUrl}/actived/${patientId}/patient`, { headers })
             .toPromise();
     }
 
@@ -83,14 +98,14 @@ export class VisitService {
         var headers = new HttpHeaders()
             .append('Authorization', this.token);
 
-        return this.http.get<VisitInfo>(`${this.profileUrl}/${visitId}`, { headers })
+        return this.http.get<VisitInfo>(`${this.resourceUrl}/${visitId}`, { headers })
             .toPromise();
     }
 
     getPatientHistory(patientId: number): Promise<Visit> {
         var headers = new HttpHeaders()
             .append('Authorization', this.token);
-        return this.http.get<Visit>(`${this.profileUrl}?patientId=${patientId}`, { headers })
+        return this.http.get<Visit>(`${this.resourceUrl}?patientId=${patientId}`, { headers })
             .toPromise();
     }
 }

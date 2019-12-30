@@ -44,18 +44,18 @@ export class UserInfo {
 @Injectable()
 export class UserProfileService {
 
-  profileUrl: string;
+  resourceUrl: string;
   token: string;
 
   constructor(private http: AppHttp) {
-    this.profileUrl = `${environment.apiUrl}/profile`;
+    this.resourceUrl = `${environment.apiUrl}/profile`;
     this.token = "Bearer " + localStorage.getItem('token');
   }
 
   getMe(): Promise<UserInfo> {
     var headers = new HttpHeaders()
       .append('Authorization', this.token);
-    return this.http.get<UserInfo>(`${this.profileUrl}`, { headers })
+    return this.http.get<UserInfo>(`${this.resourceUrl}`, { headers })
       .toPromise();
   }
 
@@ -63,7 +63,7 @@ export class UserProfileService {
     var validUserInfo = this.validAddress(userInfo);
     var headers = new HttpHeaders()
       .append('Authorization', this.token);
-    return this.http.put<UserInfo>(`${this.profileUrl}/${validUserInfo.id}`, validUserInfo, { headers })
+    return this.http.put<UserInfo>(`${this.resourceUrl}/${validUserInfo.id}`, validUserInfo, { headers })
       .toPromise();
   }
 

@@ -31,15 +31,14 @@
                                     <mat-form-field class="example-full-width">
                                         <input matInput type="number" placeholder="Código da visita" name="id"
                                             [(ngModel)]="visit.id" #id="ngModel" (keypress)="enterKeyPress($event)"
-                                            (blur)="searchVisitById()" [disabled]="visit.patientId" />
+                                            [disabled]="visit.patientId" />
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-3">
                                     <mat-form-field class="example-full-width">
                                         <input matInput type="number" placeholder="Código do paciente" name="patientId"
                                             [(ngModel)]="visit.patientId" #patientId="ngModel"
-                                            (keypress)="enterKeyPress($event)" (blur)="searchActivedVisitByPatientId()"
-                                            [disabled]="visit.id" />
+                                            (keypress)="enterKeyPress($event)" [disabled]="visit.id" />
                                     </mat-form-field>
                                 </div>
                             </div>
