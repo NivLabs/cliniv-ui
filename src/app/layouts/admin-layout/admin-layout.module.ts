@@ -12,6 +12,7 @@ import { PatientEditComponent } from '../../patient/patient-edit/patient-edit.co
 
 import { VisitComponent } from '../../visit/visit.component';
 import { PatientHistoryComponent } from '../../visit/history/patient-history.component';
+import { NewVisitComponent } from '../../visit/newVisit/new-visit.component';
 
 import { UserProfileComponent } from '../../user-profile/user-profile.component'
 import { ProfessionalComponent } from '../../professional/professional.component';
@@ -111,6 +112,7 @@ import {
     
     VisitComponent,
     PatientHistoryComponent,
+    NewVisitComponent,
 
     InstituteComponent,
     NotificationsComponent,
@@ -119,6 +121,7 @@ import {
   entryComponents:[
     PatientEditComponent,
     PatientHistoryComponent,
+    NewVisitComponent,
     ConfirmDialogComponent
   ],
   providers: [

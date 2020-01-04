@@ -74,16 +74,11 @@ export class VisitService {
         this.token = "Bearer " + localStorage.getItem('token');
     }
 
-    initializeVisit(patientId: number) {
+    initializeVisit(newVisit: Visit) {
         var headers = new HttpHeaders()
             .append('Authorization', this.token);
 
-        var patientVisit = new Visit();
-        patientVisit.id = patientId;
-        patientVisit.entryCause = "";
-        patientVisit.responsibleId = 1;
-
-        return this.http.post<VisitInfo>(`${this.resourceUrl}`, patientVisit, { headers })
+        return this.http.post<VisitInfo>(`${this.resourceUrl}`, newVisit, { headers })
             .toPromise();
     }
 

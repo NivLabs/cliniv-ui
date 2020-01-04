@@ -5,6 +5,7 @@ import { VisitService, VisitInfo, Visit } from './visit.service';
 import { PatientHistoryComponent } from './history/patient-history.component';
 import { MatDialog } from '@angular/material';
 import { ConfirmDialogComponent } from 'app/core/confirm-dialog/confirm-dialog.component';
+import { NewVisitComponent } from './newVisit/new-visit.component';
 
 @Component({
   selector: 'app-visit',
@@ -48,9 +49,7 @@ export class VisitComponent implements OnInit {
             });
 
             confirmDialogRef.afterClosed().subscribe(result => {
-              if (result !== undefined && result.isConfirmed) {
-                this.visitService.initializeVisit(this.visit.patientId);
-              }
+              this.openNewVisitDialog(this.visit.patientId);
             });
           } else {
             this.onServiceException(error)
@@ -74,7 +73,6 @@ export class VisitComponent implements OnInit {
   }
 
   onServiceException(error) {
-
     this.loading = false;
     this.errorHandler.handle(error);
   }
@@ -95,6 +93,28 @@ export class VisitComponent implements OnInit {
     }
   }
 
+
+  openNewVisitDialog(patientId) {
+    const dialogNewVisit = this.dialog.open(NewVisitComponent, {
+      width: '90%',
+      data: { patientId }
+    });
+
+    dialogNewVisit.afterClosed().subscribe(result => {
+      if (result !== undefined) {
+        this.createNewVisit(result);
+      }
+    });
+  }
+
+  createNewVisit(newVisit: Visit) {
+    this.loading = true;
+    this.visitService.initializeVisit(newVisit).then(resp => {
+      this.loading = false;
+      this.visit.patientId = newVisit.id;
+      this.searchActivedVisitByPatientId();
+    }).catch(error => this.onServiceException(error));
+  }
   openHistoryDialog(patientHistory) {
     const dialogPatitenHistory = this.dialog.open(PatientHistoryComponent, {
       width: '90%',
