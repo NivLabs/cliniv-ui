@@ -1,8 +1,33 @@
 import { Injectable } from "@angular/core";
+import { HttpHeaders } from "@angular/common/http";
+import { environment } from "environments/environment";
+import { AppHttp } from "app/security/app-http";
 
+
+export class EventType {
+    id: number;
+    superEventType: EventType;
+    name: string;
+    description: string;
+}
 
 @Injectable()
 export class UtilService {
+
+    token: string;
+    private eventTypes: Array<EventType>;
+
+    constructor(private http: AppHttp) {
+        this.token = "Bearer " + localStorage.getItem('token');
+    }
+
+    getEventTypes(): Promise<Array<EventType>> {
+        var headers = new HttpHeaders()
+            .append('Authorization', this.token);
+
+        return this.http.get<Array<EventType>>(`${environment.apiUrl}/event-type`, { headers })
+            .toPromise();
+    }
 
     cpfIsValid(strCPF) {
         var sum;

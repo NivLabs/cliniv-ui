@@ -2,10 +2,8 @@ import { HttpParams, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { environment } from '../../environments/environment';
-import { AppHttp } from '../security/app-http';
-import { NumberSymbol } from '@angular/common';
+import { AppHttp } from '../security/app-http'; 
 import { Document } from 'app/patient/patient.service';
-import { viewClassName } from '@angular/compiler';
 
 /**
  * Representa informações básicas da visita
@@ -34,6 +32,34 @@ export class VisitInfo {
     events: Array<VisitEvent>;
     evolutions: Array<Evolution>;
     medicines: Array<Medicine>;
+}
+
+/**
+ * Representa um profissional
+ */
+export class Responsible {
+    id: number;
+    name: string;
+    registerProfessional: string;
+    specialization: Array<Specialization>;
+}
+
+/**
+ * Representa uma especialidade
+ */
+export class Specialization {
+    id: number;
+    name: string;
+    description: string;
+}
+
+/**
+ * Representa o tipo de entrada (Filho de VisitType)
+ */
+export class EntryType {
+    id: number;
+    name: string;
+    description: string;
 }
 
 /**
