@@ -17,11 +17,11 @@ export class NavbarComponent implements OnInit {
     private sidebarVisible: boolean;
     userName: string;
 
-    constructor(location: Location, private element: ElementRef, private router: Router, private jwtHelper:JwtHelperService) {
+    constructor(location: Location, private element: ElementRef, private router: Router, private jwtHelper: JwtHelperService) {
         this.location = location;
         this.sidebarVisible = false;
         const token = localStorage.getItem('token');
-        this.userName =  this.jwtHelper.decodeToken(token).sub;
+        this.userName = this.jwtHelper.decodeToken(token) !== null ? this.jwtHelper.decodeToken(token).sub : '';
     }
 
     ngOnInit() {
