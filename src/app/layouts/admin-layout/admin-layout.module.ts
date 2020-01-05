@@ -63,6 +63,8 @@ import {
   imports: [
     CommonModule,
     RouterModule.forChild(AdminLayoutRoutes),
+    FormsModule,
+
     MatAutocompleteModule,
     MatButtonModule,
     MatButtonToggleModule,
@@ -96,7 +98,7 @@ import {
     MatTooltipModule,
     NgxLoadingModule,
 
-    FormsModule,
+    ReactiveFormsModule,
 
     SecurityModule
   ],
