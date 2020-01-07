@@ -61,11 +61,20 @@ export class NewVisitComponent implements OnInit {
                 startWith(''),
                 map(value => this._filterEventTypes(value))
             );
-        })
+        });
     }
 
     loadSpecializations() {
+        this.utilService.getSpecialization().then(specs => {
+            specs.forEach(spec => {
+                this.specializations.push(spec);
 
+            });
+            this.filteredSpecializationsOptions = this.specializationControl.valueChanges.pipe(
+                startWith(''),
+                map(value => this._filterSpecs(value))
+            );
+        });
     }
 
     private _filterEventTypes(value: string): EventType[] {

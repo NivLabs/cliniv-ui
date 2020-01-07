@@ -36,11 +36,11 @@
                     <mat-form-field>
                         <input type="text" matInput [formControl]="specializationControl"
                             [disabled]="!eventTypeSelectedId" [matAutocomplete]="specializationOption"
-                            placeholder="Escolha a especialidade">
+                            placeholder="Escolha a especialidade" required>
                     </mat-form-field>
                     <mat-autocomplete #specializationOption="matAutocomplete">
-                        <mat-option *ngFor="let specialization of specializations" [value]="specialization.id">
-                            {{specialization.name}}</mat-option>
+                        <mat-option *ngFor="let specialization of specializations" [value]="specialization.id + ' - ' + specialization.description">
+                            {{specialization.id + ' - ' + specialization.description}}</mat-option>
                     </mat-autocomplete>
                 </div>
                 <div class="col-md-4">
