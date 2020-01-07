@@ -30,8 +30,8 @@ export class NewVisitComponent implements OnInit {
     specializations: Specialization[] = [];
     responsibles: Responsible[] = [];
 
-    specializationSelectedId = undefined;
-    visitTypeSelectedId = undefined;
+    specializationSelectedId: number;
+    eventTypeSelectedId: number;
     newVisit: Visit;
 
     constructor(public dialogRef: MatDialogRef<NewVisitComponent>, public notification: NotificationsComponent, public utilService: UtilService, public visitService: VisitService,
