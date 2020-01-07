@@ -50,7 +50,7 @@
                             placeholder="Escolha um profissional">
                     </mat-form-field>
                     <mat-autocomplete #responsibleOption="matAutocomplete">
-                        <mat-option *ngFor="let specialization of specializations" [value]="responsible.id">
+                        <mat-option *ngFor="let responsible of responsibles" [value]="responsible.id">
                             {{responsible.name}}</mat-option>
                     </mat-autocomplete>
                 </div>
