@@ -2,7 +2,7 @@ import { HttpParams, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { environment } from '../../environments/environment';
-import { AppHttp } from '../security/app-http'; 
+import { AppHttp } from '../security/app-http';
 import { Document } from 'app/patient/patient.service';
 
 /**
@@ -12,8 +12,15 @@ export class Visit {
     id: number;
     entryDatetime: Date;
     entryCause: string;
-    responsibleId: number;
     isFinished: boolean;
+}
+
+export class NewVisit {
+    patientId: number;
+    eventTypeId: number;
+    responsibleId: number;
+    entryCause: string;
+
 }
 
 /**
@@ -39,9 +46,15 @@ export class VisitInfo {
  */
 export class Responsible {
     id: number;
-    name: string;
-    registerProfessional: string;
-    specialization: Array<Specialization>;
+    firstName: string;
+    lastName: string;
+    professionalIdentity: string;
+}
+
+export class SpecializationInfo {
+    id: number;
+    description: string;
+    responsibles: Array<Responsible>;
 }
 
 /**

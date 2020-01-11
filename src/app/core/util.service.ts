@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpHeaders } from "@angular/common/http";
 import { environment } from "environments/environment";
 import { AppHttp } from "app/security/app-http";
-import { Specialization } from "app/visit/visit.service";
+import { Specialization, SpecializationInfo } from "app/visit/visit.service";
 
 
 export class EventType {
@@ -35,6 +35,14 @@ export class UtilService {
             .append('Authorization', this.token);
 
         return this.http.get<Array<Specialization>>(`${environment.apiUrl}/speciality`, { headers })
+            .toPromise();
+    }
+
+    getSpecializationById(id: number): Promise<SpecializationInfo> {
+        var headers = new HttpHeaders()
+            .append('Authorization', this.token);
+
+        return this.http.get<SpecializationInfo>(`${environment.apiUrl}/speciality/${id}`, { headers })
             .toPromise();
     }
 

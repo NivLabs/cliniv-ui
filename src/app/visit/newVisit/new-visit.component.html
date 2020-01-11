@@ -18,7 +18,8 @@
                         <input type="text" matInput [formControl]="eventTypeControl" [matAutocomplete]="eventTypeOption"
                             placeholder="Escolha o tipo de entrada" required>
                     </mat-form-field>
-                    <mat-autocomplete #eventTypeOption="matAutocomplete">
+                    <mat-autocomplete #eventTypeOption="matAutocomplete"
+                        (optionSelected)='selectAutocompleOption($event.option.value, "EVENT")'>
                         <mat-option *ngFor="let eventType of filteredEventTypesOptions | async"
                             [value]="eventType.id + ' - ' + eventType.description">
                             {{eventType.id + ' - ' + eventType.description}}</mat-option>
@@ -35,23 +36,27 @@
                 <div class="col-md-4">
                     <mat-form-field>
                         <input type="text" matInput [formControl]="specializationControl"
-                            [disabled]="!eventTypeSelectedId" [matAutocomplete]="specializationOption"
+                            [disabled]="eventTypeSelectedId" [matAutocomplete]="specializationOption"
                             placeholder="Escolha a especialidade" required>
                     </mat-form-field>
-                    <mat-autocomplete #specializationOption="matAutocomplete">
-                        <mat-option *ngFor="let specialization of specializations" [value]="specialization.id + ' - ' + specialization.description">
+                    <mat-autocomplete #specializationOption="matAutocomplete"
+                        (optionSelected)='selectAutocompleOption($event.option.value, "SPEC")'>
+                        <mat-option *ngFor="let specialization of specializations"
+                            [value]="specialization.id + ' - ' + specialization.description">
                             {{specialization.id + ' - ' + specialization.description}}</mat-option>
                     </mat-autocomplete>
                 </div>
                 <div class="col-md-4">
                     <mat-form-field>
                         <input type="text" matInput [formControl]="responsibleControl"
-                            [disabled]="!specializationSelectedId" [matAutocomplete]="responsibleOption"
-                            placeholder="Escolha um profissional">
+                            [disabled]="!responsibles || responsibles.length === 0"
+                            [matAutocomplete]="responsibleOption" placeholder="Escolha um profissional">
                     </mat-form-field>
-                    <mat-autocomplete #responsibleOption="matAutocomplete">
-                        <mat-option *ngFor="let responsible of responsibles" [value]="responsible.id">
-                            {{responsible.name}}</mat-option>
+                    <mat-autocomplete #responsibleOption="matAutocomplete"
+                        (optionSelected)='selectAutocompleOption($event.option.value, "RESP")'>
+                        <mat-option *ngFor="let responsible of responsibles"
+                            [value]="responsible.id + ' - ' + responsible.firstName + ' ' + responsible.lastName">
+                            {{responsible.id + ' - ' + responsible.firstName + ' ' + responsible.lastName}}</mat-option>
                     </mat-autocomplete>
                 </div>
                 <button mat-raised-button type="submit" [disabled]="!form.valid" class="btn btn-success pull-right"
