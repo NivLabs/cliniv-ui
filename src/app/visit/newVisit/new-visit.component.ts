@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit, Output, EventEmitter } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA, MatAutocompleteSelectedEvent } from '@angular/material';
 import { NotificationsComponent } from 'app/core/notification/notifications.component';
 import { EventType, UtilService } from 'app/core/util.service';
@@ -16,14 +16,9 @@ export class NewVisitComponent implements OnInit {
 
     loading = false;
 
-    eventTypeControl = new FormControl();
-    specializationControl = new FormControl();
+    eventTypeControl = new FormControl('', [Validators.required]);
+    specializationControl = new FormControl('', [Validators.required]);
     responsibleControl = new FormControl();
-
-
-    filteredEventTypesOptions: Observable<EventType[]>;
-    filteredSpecializationsOptions: Observable<Specialization[]>;
-    filteredResponsiblesptions: Observable<Responsible[]>;
 
 
     eventTypes: Array<EventType> = [];
@@ -55,10 +50,6 @@ export class NewVisitComponent implements OnInit {
                 if (event.superEventType && event.superEventType.id === 1)
                     this.eventTypes.push(event);
             })
-            this.filteredEventTypesOptions = this.eventTypeControl.valueChanges.pipe(
-                startWith(''),
-                map(value => this._filterEventTypes(value))
-            );
         });
     }
 
@@ -68,59 +59,16 @@ export class NewVisitComponent implements OnInit {
                 this.specializations.push(spec);
 
             });
-            this.filteredSpecializationsOptions = this.specializationControl.valueChanges.pipe(
-                startWith(''),
-                map(value => this._filterSpecs(value))
-            );
         });
     }
 
-    loadResponsibles(id: number) {
-        this.utilService.getSpecializationById(id).then(response => {
-            this.responsibles = response.responsibles;
-            this.filteredResponsiblesptions = this.responsibleControl.valueChanges.pipe(
-                startWith(''),
-                map(value => this._filterResponsibles(value))
-            );
-        });
+    loadResponsibles(event: any) {
+        if (event.value && event.value instanceof Number)
+            this.utilService.getSpecializationById(event.value).then(response => {
+                this.responsibles = response.responsibles;
+            });
+        else
+            this.responsibles = [];
     }
 
-    selectAutocompleOption(value: any, type: string) {
-
-        switch (type) {
-            case "EVENT":
-                var id = value.split(' -')[0];
-                this.newVisit.eventTypeId = id;
-                break;
-            case "SPEC":
-                var id = value.split(' -')[0];
-                if (id)
-                    this.loadResponsibles(id);
-                else
-                    this.responsibles = [];
-            case "RESP":
-                var id = value.split(' -')[0];
-                this.newVisit.responsibleId = id;
-            default:
-                break;
-        }
-    }
-
-    private _filterEventTypes(value: string): EventType[] {
-        const filterValue = value.toLowerCase();
-
-        return this.eventTypes.filter(option => option.id.toString().toLowerCase().includes(value) || option.description.toLowerCase().includes(filterValue));
-    }
-
-    private _filterSpecs(value: string): Specialization[] {
-        const filterValue = value.toLowerCase();
-
-        return this.specializations.filter(option => option.id.toString().toLowerCase().includes(value) || option.name.toLowerCase().includes(filterValue));
-    }
-
-    private _filterResponsibles(value: string): Responsible[] {
-        const filterValue = value.toLowerCase();
-
-        return this.responsibles.filter(option => option.id.toString().toLowerCase().includes(value) || option.firstName.toLowerCase().includes(filterValue) || option.lastName.toLowerCase().includes(filterValue));
-    }
 }  
