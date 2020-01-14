@@ -49,7 +49,8 @@ export class VisitComponent implements OnInit {
             });
 
             confirmDialogRef.afterClosed().subscribe(result => {
-              this.openNewVisitDialog(this.visit.patientId);
+              if (result)
+                this.openNewVisitDialog(this.visit.patientId);
             });
           } else {
             this.onServiceException(error)
