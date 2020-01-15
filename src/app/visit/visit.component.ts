@@ -44,14 +44,17 @@ export class VisitComponent implements OnInit {
         .catch(error => {
           this.loading = false;
           if (error.error && error.error.status === 400) {
-            const confirmDialogRef = this.confirmDialog.open(ConfirmDialogComponent, {
-              data: { title: 'Confirmação', message: 'Não há visita ativa para o paciente informado, deseja iniciar uma nova visita?' }
-            });
-
-            confirmDialogRef.afterClosed().subscribe(result => {
-              if (result)
-                this.openNewVisitDialog(this.visit.patientId);
-            });
+            this.visitService.getPatientHistory(this.visit.patientId)
+              .then(result => this.openHistoryDialog(result))
+              .catch(error => {
+                const confirmDialogRef = this.confirmDialog.open(ConfirmDialogComponent, {
+                  data: { title: 'Confirmação', message: 'Não há visita ativa nem histórico para o paciente informado, deseja iniciar uma nova visita?' }
+                });
+                confirmDialogRef.afterClosed().subscribe(result => {
+                  if (result)
+                    this.openNewVisitDialog(this.visit.patientId);
+                });
+              });
           } else {
             this.onServiceException(error)
           }
