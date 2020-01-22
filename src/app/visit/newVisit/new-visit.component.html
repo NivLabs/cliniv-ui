@@ -39,8 +39,11 @@
                         <mat-label>Especialidade</mat-label>
                         <mat-select [formControl]="specializationControl" (selectionChange)="loadResponsibles($event)"
                             required>
-                            <mat-option>
+                            <mat-option *ngIf="specializations && specializations.length > 0">
                                 Selecione uma especialidade
+                            </mat-option>
+                            <mat-option *ngIf="!specializations || specializations.length === 0">
+                                Não há especialidade cadastrada
                             </mat-option>
                             <mat-option *ngFor="let specialization of specializations" [value]="specialization.id">
                                 {{specialization.id + ' - ' + specialization.description}}
