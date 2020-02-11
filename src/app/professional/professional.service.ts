@@ -3,25 +3,7 @@ import { Injectable } from '@angular/core';
 
 import { AppHttp } from '../security/app-http';
 import { environment } from '../../environments/environment';
-
-export class Pageable {
-    pageNumber: number;
-    pageSize: number;
-    paged: boolean;
-}
-export class ProfessionalPage {
-    content: any;
-    empty: boolean;
-    first: boolean;
-    number: number;
-    numberOfElements: number;
-    pageable: Pageable;
-    size: number;
-    totalElements: number;
-    totalPages: number;
-}
-
-
+import { Page } from 'app/core/util.service';
 
 export class Address {
     constructor() { }
@@ -66,7 +48,7 @@ export class ProfessionalService {
     token: string;
 
     constructor(private http: AppHttp) {
-        this.baseUrl = `${environment.apiUrl}/professional`;
+        this.baseUrl = `${environment.apiUrl}/responsible`;
         this.token = "Bearer " + localStorage.getItem('token');
     }
 
@@ -79,11 +61,11 @@ export class ProfessionalService {
         }
     }
 
-    getPageOfProfessionals(filter): Promise<ProfessionalPage> {
+    getPageOfProfessionals(filter): Promise<Page> {
         var headers = new HttpHeaders()
             .append('Authorization', this.token);
         if (!filter) {
-            return this.http.get<ProfessionalPage>(this.baseUrl, { headers }).toPromise();
+            return this.http.get<Page>(this.baseUrl, { headers }).toPromise();
         }
     }
 

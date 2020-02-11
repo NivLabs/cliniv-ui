@@ -1,71 +1,56 @@
 <div class="main-content">
     <div class="container-fluid">
-        <div class="card card-plain">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
             <div class="card-header card-header-danger">
-                <h4 class="card-title">Pacientes</h4>
-                <p class="card-category">Cadastro de pacientes</p>
+              <h4 class="card-title">Filtros</h4>
             </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card-body">
-                        <div class="example-header">
-                            <mat-form-field>
-                                <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtro" />
-                            </mat-form-field>
-                        </div>
-
-                        <div class="example-container mat-elevation-z8">
-                            <mat-table [dataSource]="dataSource" matSort>
-                                <!-- ID Column -->
-                                <ng-container matColumnDef="id">
-                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Matrícula</mat-header-cell>
-                                    <mat-cell *matCellDef="let row">{{row.id}}</mat-cell>
-                                </ng-container>
-
-                                <!-- Name Column -->
-                                <ng-container matColumnDef="name">
-                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Nome</mat-header-cell>
-                                    <mat-cell *matCellDef="let row">{{row.name}}</mat-cell>
-                                </ng-container>
-
-                                <!-- Progress Column -->
-                                <ng-container matColumnDef="progress">
-                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Progress</mat-header-cell>
-                                    <mat-cell *matCellDef="let row">{{row.progress}}%</mat-cell>
-                                </ng-container>
-
-                                <!-- Color Column -->
-                                <ng-container matColumnDef="color">
-                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Estado</mat-header-cell>
-                                    <mat-cell *matCellDef="let row" [style.color]="row.color">{{row.color}}</mat-cell>
-                                </ng-container>
-
-                                <!-- Color Column -->
-                                <ng-container matColumnDef="actions">
-                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Ação</mat-header-cell>
-                                    <mat-cell *matCellDef="let row"  style="text-align: right; display: block;" [style.color]="row.actions">
-                                        <span>
-                                            <i class="material-icons">
-                                                edit
-                                            </i>
-                                        </span>
-                                        <span>
-                                            <i class="material-icons">
-                                                close
-                                            </i>
-                                        </span>
-                                    </mat-cell>
-                                </ng-container>
-
-                                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-                                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-                            </mat-table>
-
-                            <mat-paginator hidden [pageSizeOptions]="[10]"></mat-paginator>
-                        </div>
-                    </div>
+            <div class="card-body">
+              <form #form="ngForm" autocomplete="off">
+                <div class="row">
+                  <div class="col-md-2">
+                    <mat-form-field class="example-full-width">
+                      <input matInput placeholder="Matrícula do responsible" name="id" />
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-3">
+                    <mat-form-field class="example-full-width">
+                      <input matInput placeholder="CPF do responsible" name="cpf" />
+                    </mat-form-field>
+                  </div>
+                  <button mat-raised-button type="submit" class="btn btn-danger pull-right">Filtrar</button>
+                  <button mat-raised-button type="button" (click)="openDialog(null)" class="btn btn-info pull-right">Novo
+                    Profissional</button>
+                  <div class="clearfix"></div>
                 </div>
+              </form>
             </div>
+          </div>
         </div>
+      </div>
+      <div class="row">
+        <div class="center" *ngIf="!loading && responsibleNotFound">
+          <h1>Nenhum responsible encontrado...</h1>
+        </div>
+        <div *ngFor="let responsible of responsibles" class="col-12 col-sm-6 col-md-4 col-lg-3">
+          <div class="card link-card" (click)="openDialog(responsible.id)">
+            <div class="card-body margin-color-active">
+              <ul>
+                <li class="responsible-name"> {{responsible.firstName + ' ' + responsible.lastName}}</li>
+                <li><span class="fa fa-user responsible-info"> Matrícula:</span> {{responsible.id}}</li>
+                <li><span class="fa fa-calendar responsible-info"> Nascimento:</span> {{responsible.bornDate}}</li>
+                <li><span class="fa fa-venus-mars responsible-info"> Gênero:</span>
+                  {{ responsible.gender === 'M' ? 'Masculino' : 'Feminino'}}
+                </li>
+                <li><span class="fa fa-id-card responsible-info"> Documento:</span> {{responsible.cpf}}</li>
+                <li><span class="fa fa-phone responsible-info"> Tel:</span>
+                  {{responsible.principalNumber ? responsible.principalNumber : 'Não informado'}}</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-</div>
+  </div>
+  <ngx-loading [show]="loading"></ngx-loading>
