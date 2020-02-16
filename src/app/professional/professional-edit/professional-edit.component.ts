@@ -2,10 +2,9 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { ErrorHandlerService } from 'app/core/error-handler.service';
 import { NotificationsComponent } from 'app/core/notification/notifications.component';
 import { ProfessionalService } from '../professional.service';
-import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { AddressService } from 'app/core/address.service';
 import { UtilService } from 'app/core/util.service';
-import { pairs } from 'rxjs';
 import { ConfirmDialogComponent } from 'app/core/confirm-dialog/confirm-dialog.component';
 
 export class Address {

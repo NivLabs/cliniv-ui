@@ -1,10 +1,8 @@
 import { Component, Inject, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA, MatAutocompleteSelectedEvent } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { NotificationsComponent } from 'app/core/notification/notifications.component';
 import { EventType, UtilService } from 'app/core/util.service';
-import { Observable } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
 import { Responsible, Specialization, Visit, VisitService, NewVisit } from '../visit.service';
 
 

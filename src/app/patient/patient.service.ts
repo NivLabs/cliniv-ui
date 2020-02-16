@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 
 import { AppHttp } from '../security/app-http';
 import { environment } from '../../environments/environment';
-import { promise } from 'selenium-webdriver';
 import { Page } from 'app/core/util.service';
 
 export class Address {

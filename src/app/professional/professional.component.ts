@@ -1,10 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatTableDataSource, MatPaginator, MatSort, MatDialog } from '@angular/material';
-import { Page } from 'app/core/util.service';
-import { ProfessionalService } from './professional.service';
+import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ErrorHandlerService } from 'app/core/error-handler.service';
 import { NotificationsComponent } from 'app/core/notification/notifications.component';
+import { Page } from 'app/core/util.service';
 import { PatientEditComponent } from 'app/patient/patient-edit/patient-edit.component';
+import { ProfessionalService } from './professional.service';
 
 @Component({
   selector: 'app-professional',
