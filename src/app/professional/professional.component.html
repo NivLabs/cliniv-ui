@@ -1,56 +1,54 @@
 <div class="main-content">
     <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="card">
-            <div class="card-header card-header-danger">
-              <h4 class="card-title">Filtros</h4>
-            </div>
-            <div class="card-body">
-              <form #form="ngForm" autocomplete="off">
-                <div class="row">
-                  <div class="col-md-2">
-                    <mat-form-field class="example-full-width">
-                      <input matInput placeholder="Matrícula do responsible" name="id" />
-                    </mat-form-field>
-                  </div>
-                  <div class="col-md-3">
-                    <mat-form-field class="example-full-width">
-                      <input matInput placeholder="CPF do responsible" name="cpf" />
-                    </mat-form-field>
-                  </div>
-                  <button mat-raised-button type="submit" class="btn btn-danger pull-right">Filtrar</button>
-                  <button mat-raised-button type="button" (click)="openDialog(null)" class="btn btn-info pull-right">Novo
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title">Filtros</h4>
+                    </div>
+                    <div class="card-body">
+                        <form #form="ngForm" autocomplete="off">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="Matrícula do responsible" name="id" />
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-3">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="CPF do responsible" name="cpf" />
+                                    </mat-form-field>
+                                </div>
+                                <button mat-raised-button type="submit" class="btn btn-danger pull-right">Filtrar</button>
+                                <button mat-raised-button type="button" (click)="openDialog(null)" class="btn btn-info pull-right">Novo
                     Profissional</button>
-                  <div class="clearfix"></div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-              </form>
             </div>
-          </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="center" *ngIf="!loading && responsibleNotFound">
-          <h1>Nenhum responsible encontrado...</h1>
-        </div>
-        <div *ngFor="let responsible of responsibles" class="col-12 col-sm-6 col-md-4 col-lg-3">
-          <div class="card link-card" (click)="openDialog(responsible.id)">
-            <div class="card-body margin-color-active">
-              <ul>
-                <li class="responsible-name"> {{responsible.firstName + ' ' + responsible.lastName}}</li>
-                <li><span class="fa fa-user responsible-info"> Matrícula:</span> {{responsible.id}}</li>
-                <li><span class="fa fa-calendar responsible-info"> Nascimento:</span> {{responsible.bornDate}}</li>
-                <li><span class="fa fa-venus-mars responsible-info"> Gênero:</span>
-                  {{ responsible.gender === 'M' ? 'Masculino' : 'Feminino'}}
-                </li>
-                <li><span class="fa fa-id-card responsible-info"> Documento:</span> {{responsible.cpf}}</li>
-                <li><span class="fa fa-phone responsible-info"> Tel:</span>
-                  {{responsible.principalNumber ? responsible.principalNumber : 'Não informado'}}</li>
-              </ul>
+        <div class="row">
+            <div class="center" *ngIf="!loading && responsibleNotFound">
+                <h1>Nenhum profissional encontrado...</h1>
             </div>
-          </div>
+            <div *ngFor="let responsible of responsibles" class="col-12 col-sm-6 col-md-4 col-lg-3">
+                <div class="card link-card" (click)="openDialog(responsible.id)">
+                    <div class="card-body margin-color-active">
+                        <ul>
+                            <li class="responsible-name"> {{responsible.firstName + ' ' + responsible.lastName}}</li>
+                            <li><span class="fa fa-user responsible-info"> Matrícula:</span> {{responsible.id}}</li>
+                            <li><span class="fa fa-calendar responsible-info"> Nascimento:</span> {{responsible.bornDate}}</li>
+                            <li><span class="fa fa-venus-mars responsible-info"> Gênero:</span> {{ responsible.gender === 'M' ? 'Masculino' : 'Feminino'}}
+                            </li>
+                            <li><span class="fa fa-id-card responsible-info"> Documento:</span> {{responsible.cpf}}</li>
+                            <li><span class="fa fa-phone responsible-info"> Tel:</span> {{responsible.principalNumber ? responsible.principalNumber : 'Não informado'}}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
-  <ngx-loading [show]="loading"></ngx-loading>
+</div>
+<ngx-loading [show]="loading"></ngx-loading>
