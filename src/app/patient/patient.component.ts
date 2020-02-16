@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { PatientService, PatientPage } from './patient.service';
+import { PatientService } from './patient.service';
 import { ErrorHandlerService } from 'app/core/error-handler.service';
 import { NotificationsComponent } from 'app/core/notification/notifications.component';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { PatientEditComponent } from './patient-edit/patient-edit.component';
+import { Page } from 'app/core/util.service';
 
 @Component({
   selector: 'app-patient',
@@ -15,7 +16,7 @@ export class PatientComponent implements OnInit {
   public loading: boolean;
   public patientNotFound: boolean;
   patients: any;
-  page: PatientPage;
+  page: Page;
 
   constructor(public dialog: MatDialog, private patientService: PatientService, private errorHandler: ErrorHandlerService, private notification: NotificationsComponent) { }
 

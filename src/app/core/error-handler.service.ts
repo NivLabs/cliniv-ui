@@ -5,7 +5,6 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { NotAuthenticatedError } from './../security/app-http';
 import { NotificationsComponent } from './notification/notifications.component';
 import { AuthService } from 'app/security/auth.service';
-import { error } from 'protractor';
 
 @Injectable()
 export class ErrorHandlerService {

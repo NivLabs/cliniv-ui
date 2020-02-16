@@ -21,6 +21,7 @@
               "src/favicon.ico"
             ],
             "styles": [
+              "node_modules/font-awesome/css/font-awesome.css",
               "node_modules/perfect-scrollbar/css/perfect-scrollbar.css",
               "src/assets/scss/material-dashboard.scss",
               "src/assets/css/demo.css"
@@ -119,9 +120,8 @@
       "projectType": "application",
       "architect": {
         "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
+          "builder": "@angular-devkit/build-angular",
           "options": {
-            "protractorConfig": "./protractor.conf.js",
             "devServerTarget": "material-dashboard-angular:serve"
           }
         },

@@ -23,7 +23,7 @@ export class Document {
     type: string; // CPF, CNPJ, PASSAPORTE, RNE
     value: string; // Valor do documento
 }
-export class Patient {
+export class Professional {
     id: number;
     firstName: string;
     lastName: string;
@@ -43,56 +43,56 @@ export class Patient {
 
 
 @Injectable()
-export class PatientService {
-    patientUrl: string;
+export class ProfessionalService {
+    baseUrl: string;
     token: string;
 
     constructor(private http: AppHttp) {
-        this.patientUrl = `${environment.apiUrl}/patient`;
+        this.baseUrl = `${environment.apiUrl}/responsible`;
         this.token = "Bearer " + localStorage.getItem('token');
     }
 
-    getById(id): Promise<Patient> {
+    getById(id): Promise<Professional> {
         var headers = new HttpHeaders()
             .append('Authorization', this.token);
         if (id) {
-            return this.http.get<Patient>(`${this.patientUrl}/${id}`, { headers }).toPromise();
+            return this.http.get<Professional>(`${this.baseUrl}/${id}`, { headers }).toPromise();
 
         }
     }
 
-    getPageOfPatients(filter): Promise<Page> {
+    getPageOfProfessionals(filter): Promise<Page> {
         var headers = new HttpHeaders()
             .append('Authorization', this.token);
         if (!filter) {
-            return this.http.get<Page>(this.patientUrl, { headers }).toPromise();
+            return this.http.get<Page>(this.baseUrl, { headers }).toPromise();
         }
     }
 
 
-    getByCpf(cpf: string): Promise<Patient> {
+    getByCpf(cpf: string): Promise<Professional> {
         var headers = new HttpHeaders()
             .append('Authorization', this.token);
         if (cpf) {
-            return this.http.get<Patient>(`${this.patientUrl}/CPF/${cpf}`, { headers }).toPromise();
+            return this.http.get<Professional>(`${this.baseUrl}/CPF/${cpf}`, { headers }).toPromise();
         }
     }
 
-    create(patient: Patient): Promise<Patient> {
+    create(professional: Professional): Promise<Professional> {
         var headers = new HttpHeaders()
             .append('Authorization', this.token)
             .append('Content-Type', "application/json");
-        if (patient) {
-            return this.http.post<Patient>(`${this.patientUrl}`, patient, { headers }).toPromise();
+        if (professional) {
+            return this.http.post<Professional>(`${this.baseUrl}`, professional, { headers }).toPromise();
         }
     }
 
-    update(patient: Patient): Promise<Patient> {
+    update(professional: Professional): Promise<Professional> {
         var headers = new HttpHeaders()
             .append('Authorization', this.token)
             .append('Content-Type', "application/json");
-        if (patient) {
-            return this.http.put<Patient>(`${this.patientUrl}/${patient.id}`, patient, { headers }).toPromise();
+        if (professional) {
+            return this.http.put<Professional>(`${this.baseUrl}/${professional.id}`, professional, { headers }).toPromise();
         }
     }
 }

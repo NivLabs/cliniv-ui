@@ -1,11 +1,10 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { ErrorHandlerService } from 'app/core/error-handler.service';
 import { NotificationsComponent } from 'app/core/notification/notifications.component';
-import { PatientService } from '../patient.service';
+import { ProfessionalService } from '../professional.service';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { AddressService } from 'app/core/address.service';
 import { UtilService } from 'app/core/util.service';
-import { pairs } from 'rxjs';
 import { ConfirmDialogComponent } from 'app/core/confirm-dialog/confirm-dialog.component';
 
 export class Address {
@@ -26,7 +25,7 @@ export class Document {
   type: string; // CPF, CNPJ, PASSAPORTE, RNE
   value: string; // Valor do documento
 }
-export class Patient {
+export class Professional {
   id: number;
   firstName: string;
   lastName: string;
@@ -45,20 +44,20 @@ export class Patient {
 }
 
 @Component({
-  selector: 'app-patient-edit',
-  templateUrl: './patient-edit.component.html'
+  selector: 'app-professional-edit',
+  templateUrl: './professional-edit.component.html'
 })
-export class PatientEditComponent implements OnInit {
+export class ProfessionalEditComponent implements OnInit {
 
-  public patient: Patient;
+  public professional: Professional;
   public loading: boolean;
 
   constructor(public confirmDialog: MatDialog,
-    public dialogRef: MatDialogRef<PatientEditComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Patient, private patientService: PatientService, private addressService: AddressService, private notification: NotificationsComponent, private utilService: UtilService) {
+    public dialogRef: MatDialogRef<ProfessionalEditComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: Professional, private professionalService: ProfessionalService, private addressService: AddressService, private notification: NotificationsComponent, private utilService: UtilService) {
     this.dialogRef.disableClose = true;
 
-    this.patient = new Patient();
+    this.professional = new Professional();
 
   }
 
@@ -69,26 +68,26 @@ export class PatientEditComponent implements OnInit {
 
     confirmDialogRef.afterClosed().subscribe(result => {
       if (result !== undefined && result.isConfirmed) {
-        this.patient = new Patient();
+        this.professional = new Professional();
       }
     });
   }
 
   ngOnInit() {
-    if (this.dialogRef.componentInstance.data['selectedPatient'] !== null) {
+    if (this.dialogRef.componentInstance.data['selectedProfessional'] !== null) {
       this.loading = true;
-      var selectedPatientId = this.dialogRef.componentInstance.data['selectedPatient'];
-      this.patientService.getById(selectedPatientId).then(resp => {
+      var selectedProfessionalId = this.dialogRef.componentInstance.data['selectedProfessional'];
+      this.professionalService.getById(selectedProfessionalId).then(resp => {
         this.loading = false;
-        this.patient = resp;
+        this.professional = resp;
         if (!resp.address) {
-          this.patient.address = new Address();
+          this.professional.address = new Address();
         }
       }).catch(error => {
         this.loading = false;
-        var cpf = this.patient.document.value;
-        this.patient = new Patient();
-        this.patient.document.value = cpf;
+        var cpf = this.professional.document.value;
+        this.professional = new Professional();
+        this.professional.document.value = cpf;
         this.notification.showError("Não foi possível realizar a busca do paciente selecionado.")
       });
     }
@@ -99,21 +98,21 @@ export class PatientEditComponent implements OnInit {
   }
 
   save() {
-    if (this.patient.id) {
-      this.patientService.update(this.patient).then(resp => {
-        this.patient = resp;
+    if (this.professional.id) {
+      this.professionalService.update(this.professional).then(resp => {
+        this.professional = resp;
         if (!resp.address) {
-          this.patient.address = new Address();
+          this.professional.address = new Address();
         }
         this.notification.showSucess("Paciente alterado com sucesso!");
       }).catch(error => {
         this.loading = false;
       });
     } else {
-      this.patientService.create(this.patient).then(resp => {
-        this.patient = resp;
+      this.professionalService.create(this.professional).then(resp => {
+        this.professional = resp;
         if (!resp.address) {
-          this.patient.address = new Address();
+          this.professional.address = new Address();
         }
         this.notification.showSucess("Paciente cadastrado com sucesso!");
       }).catch(error => {
@@ -124,12 +123,12 @@ export class PatientEditComponent implements OnInit {
 
   searchAddressByCEP() {
     this.loading = true;
-    this.addressService.getAddressByCep(this.patient.address.postalCode).then(address => {
+    this.addressService.getAddressByCep(this.professional.address.postalCode).then(address => {
       this.loading = false;
-      this.patient.address.city = address.localidade;
-      this.patient.address.neighborhood = address.bairro;
-      this.patient.address.state = address.uf;
-      this.patient.address.street = address.logradouro;
+      this.professional.address.city = address.localidade;
+      this.professional.address.neighborhood = address.bairro;
+      this.professional.address.state = address.uf;
+      this.professional.address.street = address.logradouro;
     }).catch(error => {
       this.loading = false;
       this.notification.showWarning("Não foi possível realizar a busca do CEP, verifique se o mesmo está correto e continue o cadastro normalmente.")
@@ -137,31 +136,31 @@ export class PatientEditComponent implements OnInit {
   }
 
   selectGender(newValue) {
-    this.patient.gender = newValue;
+    this.professional.gender = newValue;
   }
 
   selectState(newValue) {
-    this.patient.address.state = newValue;
+    this.professional.address.state = newValue;
   }
 
-  searchPatientByCpf() {
-    if (!this.utilService.cpfIsValid(this.patient.document.value)) {
+  searchProfessionalByCpf() {
+    if (!this.utilService.cpfIsValid(this.professional.document.value)) {
       this.notification.showError("CPF Inválido, favor informar um CPF válido e sem pontos e/ou traços");
-      this.patient = new Patient();
+      this.professional = new Professional();
     } else {
       this.loading = true;
-      this.patientService.getByCpf(this.patient.document.value).then(resp => {
+      this.professionalService.getByCpf(this.professional.document.value).then(resp => {
         this.loading = false;
-        console.log(this.patient);
-        this.patient = resp;
+        console.log(this.professional);
+        this.professional = resp;
         if (!resp.address) {
-          this.patient.address = new Address();
+          this.professional.address = new Address();
         }
       }).catch(error => {
         this.loading = false;
-        var cpf = this.patient.document.value;
-        this.patient = new Patient();
-        this.patient.document.value = cpf;
+        var cpf = this.professional.document.value;
+        this.professional = new Professional();
+        this.professional.document.value = cpf;
       });
     }
   }
@@ -175,7 +174,7 @@ export class PatientEditComponent implements OnInit {
   enterKeyPress(event: any) {
     // Windows
     if (event.key === "Enter") {
-      this.searchPatientByCpf();
+      this.searchProfessionalByCpf();
     }
   }
 }

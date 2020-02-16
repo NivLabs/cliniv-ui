@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { NotificationsComponent } from 'app/core/notification/notifications.component';
-import { ErrorHandlerService } from 'app/core/error-handler.service';
-import { VisitService, VisitInfo, Visit } from './visit.service';
-import { PatientHistoryComponent } from './history/patient-history.component';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from 'app/core/confirm-dialog/confirm-dialog.component';
+import { ErrorHandlerService } from 'app/core/error-handler.service';
+import { NotificationsComponent } from 'app/core/notification/notifications.component';
+import { PatientHistoryComponent } from './history/patient-history.component';
 import { NewVisitComponent } from './newVisit/new-visit.component';
+import { Visit, VisitInfo, VisitService } from './visit.service';
 
 @Component({
   selector: 'app-visit',

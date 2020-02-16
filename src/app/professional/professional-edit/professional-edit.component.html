@@ -1,0 +1,151 @@
+<div class="card">
+  <div class="card-header card-header-danger">
+    <h4 class="card-title">Dados do paciente</h4>
+    <p class="card-category">Dados completos do paciente</p>
+  </div>
+  <div class="card-body">
+    <form #form="ngForm" autocomplete="off" (ngSubmit)="save()">
+      <div class="row">
+        <div class="col-md-4">
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Cadastro de Pessoa Física (CPF)" name="document" (blur)="searchPatientByCpf()"
+              [(ngModel)]="professional.document.value" (keypress)="enterKeyPress($event)" #document type="text" maxlength="11" [disabled]="professional.id"
+              required />
+          </mat-form-field>
+        </div>
+        <div class="col-md-4">
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Nome" name="firstName" [(ngModel)]="professional.firstName" #firstName="ngModel"
+              type="text" required />
+          </mat-form-field>
+        </div>
+        <div class="col-md-4">
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Sobrenome" name="lastName" [(ngModel)]="professional.lastName" #lastName="ngModel"
+              type="text" required />
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Nome completo da Mãe" name="motherName" [(ngModel)]="professional.motherName"
+              #motherName="ngModel" type="text" />
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Nome completo do Pai" name="fatherName" [(ngModel)]="professional.fatherName"
+              #fatherName type="text" />
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Telefone principal (Apenas números)" name="principalNumber"
+              [(ngModel)]="professional.principalNumber" #principalNumber type="text" />
+          </mat-form-field>
+        </div>
+        <div class="col-md-4">
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Data de nascimento" name="bornDate" [(ngModel)]="professional.bornDate" #bornDate
+              type="date" required />
+          </mat-form-field>
+        </div>
+        <div class="col-md-4">
+          <mat-form-field class="example-full-width">
+            <select matNativeControl placeholder="Gênero" name="gender" (change)="selectGender($event.target.value)"
+              [(ngModel)]="professional.gender" #gender required>
+              <option value="M">Masculino</option>
+              <option value="F">Feminino</option>
+            </select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Código Postal (CEP)" name="cep" (blur)="searchAddressByCEP()"
+              [(ngModel)]="professional.address.postalCode" size="8" maxlength="8" #cep type="text" />
+          </mat-form-field>
+        </div>
+        <div class="col-md-4">
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Rua" name="street" [(ngModel)]="professional.address.street" #street type="text" />
+          </mat-form-field>
+        </div>
+        <div class="col-md-2">
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Número" name="addressNumber" [(ngModel)]="professional.address.addressNumber"
+              #addressNumber type="text" />
+          </mat-form-field>
+        </div>
+        <div class="col-md-2">
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Complemento" name="complement" [(ngModel)]="professional.address.complement"
+              #complement type="text" />
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Bairro" name="neighborhood" [(ngModel)]="professional.address.neighborhood" #neighborhood
+              type="text" />
+          </mat-form-field>
+        </div>
+        <div class="col-md-4">
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Cidade" name="city" [(ngModel)]="professional.address.city" #city type="text" />
+          </mat-form-field>
+        </div>
+        <div class="col-md-4">
+          <mat-form-field class="example-full-width">
+            <select matNativeControl placeholder="Estado" name="state" (change)="selectState($event.target.value)"
+              [(ngModel)]="professional.address.state" #state required>
+              <option value="AC">Acre</option>
+              <option value="AL">Alagoas</option>
+              <option value="AP">Amapá</option>
+              <option value="AM">Amazonas</option>
+              <option value="BA">Bahia</option>
+              <option value="CE">Ceará</option>
+              <option value="DF">Distrito Federal</option>
+              <option value="ES">Espírito Santo</option>
+              <option value="GO">Goiás</option>
+              <option value="MA">Maranhão</option>
+              <option value="MT">Mato Grosso</option>
+              <option value="MS">Mato Grosso do Sul</option>
+              <option value="MG">Minas Gerais</option>
+              <option value="PA">Pará</option>
+              <option value="PB">Paraíba</option>
+              <option value="PR">Paraná</option>
+              <option value="PE">Pernambuco</option>
+              <option value="PI">Piauí</option>
+              <option value="RJ">Rio de Janeiro</option>
+              <option value="RN">Rio Grande do Norte</option>
+              <option value="RS">Rio Grande do Sul</option>
+              <option value="RO">Rondônia</option>
+              <option value="RR">Roraima</option>
+              <option value="SC">Santa Catarina</option>
+              <option value="SP">São Paulo</option>
+              <option value="SE">Sergipe</option>
+              <option value="TO">Tocantins</option>
+              <option value="EX">Estrangeiro</option>
+            </select>
+          </mat-form-field>
+        </div>
+      </div>
+      <button *ngIf="professional.id" mat-raised-button type="button" (click)="resetForm()"
+        class="btn btn-info pull-left">Novo paciente</button>
+      <button mat-raised-button type="button" (click)="onCancelClick()"
+        class="btn btn-danger pull-right">Fechar</button>
+      <button mat-raised-button type="submit" [disabled]="!form.valid"
+        class="btn btn-success pull-right">Salvar</button>
+      <div class="clearfix"></div>
+    </form>
+  </div>
+</div>
+<ngx-loading [show]="loading"></ngx-loading>

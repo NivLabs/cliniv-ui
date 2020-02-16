@@ -1,5 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
+import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { ErrorHandlerService } from 'app/core/error-handler.service';
+import { NotificationsComponent } from 'app/core/notification/notifications.component';
+import { Page } from 'app/core/util.service';
+import { PatientEditComponent } from 'app/patient/patient-edit/patient-edit.component';
+import { ProfessionalService } from './professional.service';
 
 @Component({
   selector: 'app-professional',
@@ -8,73 +13,34 @@ import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
 })
 export class ProfessionalComponent implements OnInit {
 
-  displayedColumns = ['id', 'name', 'progress', 'color', 'actions'];
-  dataSource: MatTableDataSource<UserData>;
 
-  ngOnInit(){}
+  public loading: boolean;
+  public responsibleNotFound: boolean;
+  responsibles: any;
+  page: Page;
 
-  @ViewChild(MatPaginator, null) paginator: MatPaginator;
-  @ViewChild(MatSort, null) sort: MatSort;
+  constructor(public dialog: MatDialog, private patientService: ProfessionalService, private errorHandler: ErrorHandlerService, private notification: NotificationsComponent) { }
 
-  constructor() {
-    // Create 100 users
-    const users: UserData[] = [];
-    for (let i = 1; i <= 100; i++) { users.push(createNewUser(i)); }
-
-    // Assign the data to the data source for the table to render
-    this.dataSource = new MatTableDataSource(users);
+  ngOnInit() {
+    this.loading = true;
+    this.patientService.getPageOfProfessionals(null).then(response => {
+      this.loading = false;
+      this.responsibles = response.content;
+      this.responsibleNotFound = this.responsibles.length === 0;
+    }).catch(error => {
+      this.responsibleNotFound = this.responsibles !== undefined ? this.responsibles.length === 0 : true;
+      this.loading = false;
+      this.errorHandler.handle(error);
+    });
   }
+  openDialog(id): void {
+    const dialogRef = this.dialog.open(PatientEditComponent, {
+      width: '80%',
+      data: { selectedPatient: id }
+    });
 
-  /**
-   * Set the paginator and sort after the view init since this component will
-   * be able to query its view for the initialized paginator and sort.
-   */
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    dialogRef.afterClosed().subscribe(result => {
+      this.ngOnInit();
+    });
   }
-
-  applyFilter(filterValue: string) {
-    filterValue = filterValue.trim(); // Remove whitespace
-    filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
-    this.dataSource.filter = filterValue;
-  }
-}
-
-/** Builds and returns a new User. */
-function createNewUser(id: number): UserData {
-  const name =
-      NAMES[Math.round(Math.random() * (NAMES.length - 1))] + ' ' +
-      NAMES[Math.round(Math.random() * (NAMES.length - 1))].charAt(0) + '.';
-
-  return {
-    id: id.toString(),
-    name: name,
-    progress: Math.round(Math.random() * 100).toString(),
-    color: COLORS[Math.round(Math.random() * (COLORS.length - 1))],
-    actions: {
-      edit: (Math.random() * (NAMES.length - 1)).toString(),
-      remove : (Math.random() * (NAMES.length - 1)).toString()
-    }
-  };
-}
-
-/** Constants used to fill up our data base. */
-const COLORS = ['maroon', 'red', 'orange', 'yellow', 'olive', 'green', 'purple',
-  'fuchsia', 'lime', 'teal', 'aqua', 'blue', 'navy', 'black', 'gray'];
-const NAMES = ['Maia', 'Asher', 'Olivia', 'Atticus', 'Amelia', 'Jack',
-  'Charlotte', 'Theodore', 'Isla', 'Oliver', 'Isabella', 'Jasper',
-  'Cora', 'Levi', 'Violet', 'Arthur', 'Mia', 'Thomas', 'Elizabeth'];
-
-export interface UserData {
-  id: string;
-  name: string;
-  progress: string;
-  color: string;
-  actions: Actions;
-}
-
-export interface Actions {
-  edit: string;
-  remove: string;
 }

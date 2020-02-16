@@ -4,6 +4,23 @@ import { environment } from "environments/environment";
 import { AppHttp } from "app/security/app-http";
 import { Specialization, SpecializationInfo } from "app/visit/visit.service";
 
+export class Pageable {
+    pageNumber: number;
+    pageSize: number;
+    paged: boolean;
+}
+
+export class Page {
+    content: any;
+    empty: boolean;
+    first: boolean;
+    number: number;
+    numberOfElements: number;
+    pageable: Pageable;
+    size: number;
+    totalElements: number;
+    totalPages: number;
+}
 
 export class EventType {
     id: number;
