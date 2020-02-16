@@ -20,7 +20,7 @@
                                 Selecione um tipo de entrada
                             </mat-option>
                             <mat-option *ngFor="let eventType of eventTypes" [value]="eventType.id">
-                                {{eventType.id + ' - ' + eventType.description}}
+                                {{eventType.description}}
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
