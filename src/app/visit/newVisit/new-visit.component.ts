@@ -34,6 +34,7 @@ export class NewVisitComponent implements OnInit {
             this.newVisit.patientId = this.dialogRef.componentInstance.data['patientId'];
             this.newVisit.entryCause = '';
             this.newVisit.responsibleId = null;
+            this.newVisit.eventTypeId = null;
         }
 
 
@@ -67,6 +68,15 @@ export class NewVisitComponent implements OnInit {
             });
         else
             this.responsibles = [];
+    }
+
+    selectEventType(newValue) {
+        console.log(newValue);
+        this.newVisit.eventTypeId = newValue;
+    }
+
+    selectResponsible(newValue) {
+        this.newVisit.responsibleId = newValue;
     }
 
 }  
