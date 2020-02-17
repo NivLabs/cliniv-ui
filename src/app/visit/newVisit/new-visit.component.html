@@ -8,20 +8,19 @@
             <div class="row">
                 <div class="col-md-2">
                     <mat-form-field class="example-full-width">
-                        <input matInput type="number" placeholder="Código do paciente" name="patientId"
-                            [(ngModel)]="newVisit.patientId" #patientId="ngModel" disabled required />
+                        <input matInput type="number" placeholder="Código do paciente" name="patientId" [(ngModel)]="newVisit.patientId" #patientId="ngModel" disabled required />
                     </mat-form-field>
                 </div>
                 <!-- Input autocomplete para tipo de Evento -->
                 <div class="col-md-3">
                     <mat-form-field>
                         <mat-label>Tipo de Entrada</mat-label>
-                        <mat-select [formControl]="eventTypeControl" required>
+                        <mat-select [formControl]="eventTypeControl" (selectionChange)="selectEventType($event.value)" required>
                             <mat-option>
                                 Selecione um tipo de entrada
                             </mat-option>
                             <mat-option *ngFor="let eventType of eventTypes" [value]="eventType.id">
-                                {{eventType.id + ' - ' + eventType.description}}
+                                {{eventType.description}}
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
@@ -30,15 +29,13 @@
             <div class="row">
                 <div class="col-md-4">
                     <mat-form-field class="example-full-width">
-                        <input matInput placeholder="Motivo do atendimento" name="entryCause"
-                            [(ngModel)]="newVisit.entryCause" #entryCause="ngModel" type="text" />
+                        <input matInput placeholder="Motivo do atendimento" name="entryCause" [(ngModel)]="newVisit.entryCause" #entryCause="ngModel" type="text" />
                     </mat-form-field>
                 </div>
                 <div class="col-md-4">
                     <mat-form-field>
                         <mat-label>Especialidade</mat-label>
-                        <mat-select [formControl]="specializationControl" (selectionChange)="loadResponsibles($event)"
-                            required>
+                        <mat-select [formControl]="specializationControl" (selectionChange)="loadResponsibles($event)" required>
                             <mat-option *ngIf="specializations && specializations.length > 0">
                                 Selecione uma especialidade
                             </mat-option>
@@ -46,7 +43,7 @@
                                 Não há especialidade cadastrada
                             </mat-option>
                             <mat-option *ngFor="let specialization of specializations" [value]="specialization.id">
-                                {{specialization.id + ' - ' + specialization.description}}
+                                {{specialization.name}}
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
@@ -54,20 +51,17 @@
                 <div class="col-md-4">
                     <mat-form-field>
                         <mat-label>Profissional</mat-label>
-                        <mat-select>
+                        <mat-select [formControl]="responsibleControl" (selectionChange)="selectResponsible($event.value)">
                             <mat-option>
                                 Selecione um profissional
                             </mat-option>
-                            <mat-option [formControl]="responsibleControl" *ngFor="let responsible of responsibles"
-                                [value]="responsible.id">
+                            <mat-option *ngFor="let responsible of responsibles" [value]="responsible.id">
                                 {{responsible.id + ' - ' + responsible.firstName + ' ' + responsible.lastName}}
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
                 </div>
-                <button mat-raised-button type="submit"
-                    [disabled]="eventTypeControl.hasError('required') || specializationControl.hasError('required')"
-                    class="btn btn-success pull-right" [mat-dialog-close]="newVisit">Iniciar Visita</button>
+                <button mat-raised-button type="submit" [disabled]="eventTypeControl.hasError('required') || specializationControl.hasError('required')" class="btn btn-success pull-right" [mat-dialog-close]="newVisit">Iniciar Visita</button>
             </div>
         </form>
     </div>

@@ -115,7 +115,7 @@ export class VisitComponent implements OnInit {
     this.loading = true;
     this.visitService.initializeVisit(newVisit).then(resp => {
       this.loading = false;
-      this.visit.patientId = newVisit.id;
+      this.visit.patientId = resp.patientId;
       this.searchActivedVisitByPatientId();
     }).catch(error => this.onServiceException(error));
   }

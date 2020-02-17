@@ -15,14 +15,15 @@
 
 .margin-color-active {
     border-left: 10px solid #00BCD4;
-    height: 170px;
+    height: 180px;
 }
 
 .link-card {
     cursor: pointer;
-    height: 170px;
+    height: 180px;
 }
-.link-card:hover{
+
+.link-card:hover {
     bottom: 3px;
     cursor: pointer;
 }
@@ -35,7 +36,7 @@
 li {
     list-style-type: none;
     text-transform: uppercase;
-    font-size: 12px;   
+    font-size: 12px;
 }
 
 ul {
