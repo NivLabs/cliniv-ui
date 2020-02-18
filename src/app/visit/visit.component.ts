@@ -6,6 +6,7 @@ import { NotificationsComponent } from 'app/core/notification/notifications.comp
 import { PatientHistoryComponent } from './history/patient-history.component';
 import { NewVisitComponent } from './newVisit/new-visit.component';
 import { Visit, VisitInfo, VisitService } from './visit.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-visit',
@@ -14,10 +15,11 @@ import { Visit, VisitInfo, VisitService } from './visit.service';
 })
 export class VisitComponent implements OnInit {
 
-  constructor(public confirmDialog: MatDialog, public dialog: MatDialog, private visitService: VisitService, private errorHandler: ErrorHandlerService, private notification: NotificationsComponent) { }
 
   visit: VisitInfo;
   public loading: boolean;
+
+  constructor(private route: ActivatedRoute, public confirmDialog: MatDialog, public dialog: MatDialog, private visitService: VisitService, private errorHandler: ErrorHandlerService, private notification: NotificationsComponent) { }
 
   ngOnInit() {
     this.visit = {
@@ -33,6 +35,13 @@ export class VisitComponent implements OnInit {
       allergies: [],
       evolutions: [],
       medicines: []
+    }
+
+    console.log(this.route.snapshot.paramMap);
+    var patientIdFromUrl = this.route.snapshot.paramMap.get('patientId');
+    if (patientIdFromUrl) {
+      this.visit.patientId = Number.parseInt(patientIdFromUrl);
+      this.searchActivedVisitByPatientId();
     }
   }
 

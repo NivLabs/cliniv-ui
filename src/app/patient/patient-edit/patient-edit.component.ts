@@ -7,6 +7,7 @@ import { AddressService } from 'app/core/address.service';
 import { UtilService } from 'app/core/util.service';
 import { pairs } from 'rxjs';
 import { ConfirmDialogComponent } from 'app/core/confirm-dialog/confirm-dialog.component';
+import { Router } from '@angular/router';
 
 export class Address {
   constructor() { }
@@ -53,7 +54,7 @@ export class PatientEditComponent implements OnInit {
   public patient: Patient;
   public loading: boolean;
 
-  constructor(public confirmDialog: MatDialog,
+  constructor(private router : Router,public confirmDialog: MatDialog,
     public dialogRef: MatDialogRef<PatientEditComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Patient, private patientService: PatientService, private addressService: AddressService, private notification: NotificationsComponent, private utilService: UtilService) {
     this.dialogRef.disableClose = true;
@@ -134,6 +135,11 @@ export class PatientEditComponent implements OnInit {
       this.loading = false;
       this.notification.showWarning("Não foi possível realizar a busca do CEP, verifique se o mesmo está correto e continue o cadastro normalmente.")
     });
+  }
+
+  gotToVisit() {
+      this.dialogRef.close();
+      this.router.navigate(['visit', { patientId: this.patient.id }]);
   }
 
   selectGender(newValue) {
