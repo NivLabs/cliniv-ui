@@ -49,20 +49,17 @@ export class PatientService {
 
     constructor(private http: AppHttp) {
         this.patientUrl = `${environment.apiUrl}/patient`;
-        this.token = "Bearer " + localStorage.getItem('token');
     }
 
     getById(id): Promise<Patient> {
-        var headers = new HttpHeaders()
-            .append('Authorization', this.token);
+        var headers = this.http.getHeadersDefault()
         if (id) {
             return this.http.get<Patient>(`${this.patientUrl}/${id}`, { headers }).toPromise();
         }
     }
 
     getPageOfPatients(filter): Promise<Page> {
-        var headers = new HttpHeaders()
-            .append('Authorization', this.token);
+        var headers = this.http.getHeadersDefault()
         if (!filter) {
             return this.http.get<Page>(this.patientUrl, { headers }).toPromise();
         }
@@ -70,16 +67,14 @@ export class PatientService {
 
 
     getByCpf(cpf: string): Promise<Patient> {
-        var headers = new HttpHeaders()
-            .append('Authorization', this.token);
+        var headers = this.http.getHeadersDefault()
         if (cpf) {
             return this.http.get<Patient>(`${this.patientUrl}/CPF/${cpf}`, { headers }).toPromise();
         }
     }
 
     create(patient: Patient): Promise<Patient> {
-        var headers = new HttpHeaders()
-            .append('Authorization', this.token)
+        var headers = this.http.getHeadersDefault()
             .append('Content-Type', "application/json");
         if (patient) {
             return this.http.post<Patient>(`${this.patientUrl}`, patient, { headers }).toPromise();
@@ -87,8 +82,7 @@ export class PatientService {
     }
 
     update(patient: Patient): Promise<Patient> {
-        var headers = new HttpHeaders()
-            .append('Authorization', this.token)
+        var headers = this.http.getHeadersDefault()
             .append('Content-Type', "application/json");
         if (patient) {
             return this.http.put<Patient>(`${this.patientUrl}/${patient.id}`, patient, { headers }).toPromise();

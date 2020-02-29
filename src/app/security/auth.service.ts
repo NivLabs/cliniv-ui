@@ -11,8 +11,7 @@ export class AuthService {
 
   resourceUrl: string;
   jwtPayload: any;
-  hasResponse: boolean = true;
-
+  
   constructor(
     private http: HttpClient,
     private jwtHelper: JwtHelperService,

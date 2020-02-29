@@ -45,24 +45,24 @@ export class Professional {
 @Injectable()
 export class ProfessionalService {
     baseUrl: string;
-    token: string;
+
+    getToken() {
+        return "Bearer " + localStorage.getItem('token');;
+    }
 
     constructor(private http: AppHttp) {
         this.baseUrl = `${environment.apiUrl}/responsible`;
-        this.token = "Bearer " + localStorage.getItem('token');
     }
 
     getById(id): Promise<Professional> {
-        var headers = new HttpHeaders()
-            .append('Authorization', this.token);
+        var headers = this.http.getHeadersDefault();
         if (id) {
             return this.http.get<Professional>(`${this.baseUrl}/${id}`, { headers }).toPromise();
         }
     }
 
     getPageOfProfessionals(filter): Promise<Page> {
-        var headers = new HttpHeaders()
-            .append('Authorization', this.token);
+        var headers = this.http.getHeadersDefault();
         if (!filter) {
             return this.http.get<Page>(this.baseUrl, { headers }).toPromise();
         }
@@ -70,16 +70,14 @@ export class ProfessionalService {
 
 
     getByCpf(cpf: string): Promise<Professional> {
-        var headers = new HttpHeaders()
-            .append('Authorization', this.token);
+        var headers = this.http.getHeadersDefault();
         if (cpf) {
             return this.http.get<Professional>(`${this.baseUrl}/CPF/${cpf}`, { headers }).toPromise();
         }
     }
 
     create(professional: Professional): Promise<Professional> {
-        var headers = new HttpHeaders()
-            .append('Authorization', this.token)
+        var headers = this.http.getHeadersDefault()
             .append('Content-Type', "application/json");
         if (professional) {
             return this.http.post<Professional>(`${this.baseUrl}`, professional, { headers }).toPromise();
@@ -87,8 +85,7 @@ export class ProfessionalService {
     }
 
     update(professional: Professional): Promise<Professional> {
-        var headers = new HttpHeaders()
-            .append('Authorization', this.token)
+        var headers = this.http.getHeadersDefault()
             .append('Content-Type', "application/json");
         if (professional) {
             return this.http.put<Professional>(`${this.baseUrl}/${professional.id}`, professional, { headers }).toPromise();

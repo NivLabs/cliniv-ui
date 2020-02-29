@@ -110,35 +110,28 @@ export class VisitService {
 
     constructor(private http: AppHttp) {
         this.resourceUrl = `${environment.apiUrl}/visit`;
-        this.token = "Bearer " + localStorage.getItem('token');
     }
 
     initializeVisit(newVisit: Visit) {
-        var headers = new HttpHeaders()
-            .append('Authorization', this.token);
-
+        var headers = this.http.getHeadersDefault();
         return this.http.post<VisitInfo>(`${this.resourceUrl}`, newVisit, { headers })
             .toPromise();
     }
 
     getActivedVisitByPatientId(patientId: number): Promise<VisitInfo> {
-        var headers = new HttpHeaders()
-            .append('Authorization', this.token);
+        var headers = this.http.getHeadersDefault();
         return this.http.get<VisitInfo>(`${this.resourceUrl}/actived/${patientId}/patient`, { headers })
             .toPromise();
     }
 
     getVisitById(visitId: number): Promise<VisitInfo> {
-        var headers = new HttpHeaders()
-            .append('Authorization', this.token);
-
+        var headers = this.http.getHeadersDefault();
         return this.http.get<VisitInfo>(`${this.resourceUrl}/${visitId}`, { headers })
             .toPromise();
     }
 
     getPatientHistory(patientId: number): Promise<Visit> {
-        var headers = new HttpHeaders()
-            .append('Authorization', this.token);
+        var headers = this.http.getHeadersDefault();
         return this.http.get<Visit>(`${this.resourceUrl}?patientId=${patientId}`, { headers })
             .toPromise();
     }
