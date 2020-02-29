@@ -37,7 +37,6 @@ export class VisitComponent implements OnInit {
       medicines: []
     }
 
-    console.log(this.route.snapshot.paramMap);
     var patientIdFromUrl = this.route.snapshot.paramMap.get('patientId');
     if (patientIdFromUrl) {
       this.visit.patientId = Number.parseInt(patientIdFromUrl);
