@@ -16,7 +16,7 @@ Funcionalidades da UI
 # Como densenvolver?
 Para contribuir com o projeto, existem alguns requisítos mínimos de configurações, são eles?
 - Node 10 + **(Obrigatório)**
-- Angular 8 (Community) **(Obrigatório)**
+- Angular 9 (Community) **(Obrigatório)**
 - Qualquer editor de texto *(Opcional)*
 
 ## Como rodar a UI?

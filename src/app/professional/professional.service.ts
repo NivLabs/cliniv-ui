@@ -57,7 +57,6 @@ export class ProfessionalService {
             .append('Authorization', this.token);
         if (id) {
             return this.http.get<Professional>(`${this.baseUrl}/${id}`, { headers }).toPromise();
-
         }
     }
 

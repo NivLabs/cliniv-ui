@@ -57,7 +57,6 @@ export class PatientService {
             .append('Authorization', this.token);
         if (id) {
             return this.http.get<Patient>(`${this.patientUrl}/${id}`, { headers }).toPromise();
-
         }
     }
 
