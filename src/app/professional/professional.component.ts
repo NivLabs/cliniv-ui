@@ -5,6 +5,7 @@ import { NotificationsComponent } from 'app/core/notification/notifications.comp
 import { Page } from 'app/core/util.service';
 import { PatientEditComponent } from 'app/patient/patient-edit/patient-edit.component';
 import { ProfessionalService } from './professional.service';
+import { ProfessionalEditComponent } from './professional-edit/professional-edit.component';
 
 @Component({
   selector: 'app-professional',
@@ -34,9 +35,9 @@ export class ProfessionalComponent implements OnInit {
     });
   }
   openDialog(id): void {
-    const dialogRef = this.dialog.open(PatientEditComponent, {
+    const dialogRef = this.dialog.open(ProfessionalEditComponent, {
       width: '80%',
-      data: { selectedPatient: id }
+      data: { selectedProfessional: id }
     });
 
     dialogRef.afterClosed().subscribe(result => {
