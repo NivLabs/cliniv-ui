@@ -88,6 +88,8 @@ export class ProfessionalEditComponent implements OnInit {
         var cpf = this.professional.document.value;
         this.professional = new Professional();
         this.professional.document.value = cpf;
+        if (error.status && error.status === 403)
+          this.onCancelClick();
         this.errorHandler.handle(error);
       });
     }
@@ -117,6 +119,8 @@ export class ProfessionalEditComponent implements OnInit {
         this.notification.showSucess("Profissional cadastrado com sucesso!");
       }).catch(error => {
         this.loading = false;
+        if (error.status && error.status === 403)
+          this.onCancelClick();
         this.errorHandler.handle(error);
       });
     }
@@ -163,6 +167,8 @@ export class ProfessionalEditComponent implements OnInit {
         var cpf = this.professional.document.value;
         this.professional = new Professional();
         this.professional.document.value = cpf;
+        if (error.status && error.status === 403)
+          this.onCancelClick();
         this.errorHandler.handle(error);
       });
     }
