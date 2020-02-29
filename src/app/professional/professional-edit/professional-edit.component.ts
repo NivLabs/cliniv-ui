@@ -53,7 +53,7 @@ export class ProfessionalEditComponent implements OnInit {
   public loading: boolean;
 
   constructor(public confirmDialog: MatDialog,
-    public dialogRef: MatDialogRef<ProfessionalEditComponent>,
+    public dialogRef: MatDialogRef<ProfessionalEditComponent>, public errorHandler: ErrorHandlerService,
     @Inject(MAT_DIALOG_DATA) public data: Professional, private professionalService: ProfessionalService, private addressService: AddressService, private notification: NotificationsComponent, private utilService: UtilService) {
     this.dialogRef.disableClose = true;
 
@@ -88,7 +88,7 @@ export class ProfessionalEditComponent implements OnInit {
         var cpf = this.professional.document.value;
         this.professional = new Professional();
         this.professional.document.value = cpf;
-        this.notification.showError("Não foi possível realizar a busca do profissional selecionado.")
+        this.errorHandler.handle(error);
       });
     }
   }
@@ -117,6 +117,7 @@ export class ProfessionalEditComponent implements OnInit {
         this.notification.showSucess("Profissional cadastrado com sucesso!");
       }).catch(error => {
         this.loading = false;
+        this.errorHandler.handle(error);
       });
     }
   }
@@ -144,26 +145,27 @@ export class ProfessionalEditComponent implements OnInit {
   }
 
   searchProfessionalByCpf() {
-      if (!this.utilService.cpfIsValid(this.professional.document.value)) {
+    if (!this.utilService.cpfIsValid(this.professional.document.value)) {
+      this.loading = false;
+      this.notification.showError("CPF Inválido, favor informar um CPF válido e sem pontos e/ou traços");
+      this.professional = new Professional();
+    } else {
+      this.loading = true;
+      this.professionalService.getByCpf(this.professional.document.value).then(resp => {
         this.loading = false;
-        this.notification.showError("CPF Inválido, favor informar um CPF válido e sem pontos e/ou traços");
+        console.log(this.professional);
+        this.professional = resp;
+        if (!resp.address) {
+          this.professional.address = new Address();
+        }
+      }).catch(error => {
+        this.loading = false;
+        var cpf = this.professional.document.value;
         this.professional = new Professional();
-      } else {
-        this.loading = true;
-        this.professionalService.getByCpf(this.professional.document.value).then(resp => {
-          this.loading = false;
-          console.log(this.professional);
-          this.professional = resp;
-          if (!resp.address) {
-            this.professional.address = new Address();
-          }
-        }).catch(error => {
-          this.loading = false;
-          var cpf = this.professional.document.value;
-          this.professional = new Professional();
-          this.professional.document.value = cpf;
-        });
-      }
+        this.professional.document.value = cpf;
+        this.errorHandler.handle(error);
+      });
+    }
   }
 
   /**

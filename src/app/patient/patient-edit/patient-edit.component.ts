@@ -54,8 +54,8 @@ export class PatientEditComponent implements OnInit {
   public patient: Patient;
   public loading: boolean;
 
-  constructor(private router : Router,public confirmDialog: MatDialog,
-    public dialogRef: MatDialogRef<PatientEditComponent>,
+  constructor(private router: Router, public confirmDialog: MatDialog,
+    public dialogRef: MatDialogRef<PatientEditComponent>, public errorHandler: ErrorHandlerService,
     @Inject(MAT_DIALOG_DATA) public data: Patient, private patientService: PatientService, private addressService: AddressService, private notification: NotificationsComponent, private utilService: UtilService) {
     this.dialogRef.disableClose = true;
 
@@ -90,7 +90,7 @@ export class PatientEditComponent implements OnInit {
         var cpf = this.patient.document.value;
         this.patient = new Patient();
         this.patient.document.value = cpf;
-        this.notification.showError("Não foi possível realizar a busca do paciente selecionado.")
+        this.errorHandler.handle(error);
       });
     }
   }
@@ -109,6 +109,7 @@ export class PatientEditComponent implements OnInit {
         this.notification.showSucess("Paciente alterado com sucesso!");
       }).catch(error => {
         this.loading = false;
+        this.errorHandler.handle(error);
       });
     } else {
       this.patientService.create(this.patient).then(resp => {
@@ -119,6 +120,7 @@ export class PatientEditComponent implements OnInit {
         this.notification.showSucess("Paciente cadastrado com sucesso!");
       }).catch(error => {
         this.loading = false;
+        this.errorHandler.handle(error);
       });
     }
   }
@@ -138,8 +140,8 @@ export class PatientEditComponent implements OnInit {
   }
 
   gotToVisit() {
-      this.dialogRef.close();
-      this.router.navigate(['visit', { patientId: this.patient.id }]);
+    this.dialogRef.close();
+    this.router.navigate(['visit', { patientId: this.patient.id }]);
   }
 
   selectGender(newValue) {
@@ -158,7 +160,6 @@ export class PatientEditComponent implements OnInit {
       this.loading = true;
       this.patientService.getByCpf(this.patient.document.value).then(resp => {
         this.loading = false;
-        console.log(this.patient);
         this.patient = resp;
         if (!resp.address) {
           this.patient.address = new Address();
@@ -168,6 +169,7 @@ export class PatientEditComponent implements OnInit {
         var cpf = this.patient.document.value;
         this.patient = new Patient();
         this.patient.document.value = cpf;
+        this.errorHandler.handle(error);
       });
     }
   }
