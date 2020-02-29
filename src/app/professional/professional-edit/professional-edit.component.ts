@@ -88,7 +88,7 @@ export class ProfessionalEditComponent implements OnInit {
         var cpf = this.professional.document.value;
         this.professional = new Professional();
         this.professional.document.value = cpf;
-        this.notification.showError("Não foi possível realizar a busca do paciente selecionado.")
+        this.notification.showError("Não foi possível realizar a busca do profissional selecionado.")
       });
     }
   }
@@ -104,7 +104,7 @@ export class ProfessionalEditComponent implements OnInit {
         if (!resp.address) {
           this.professional.address = new Address();
         }
-        this.notification.showSucess("Paciente alterado com sucesso!");
+        this.notification.showSucess("Profissional alterado com sucesso!");
       }).catch(error => {
         this.loading = false;
       });
@@ -114,7 +114,7 @@ export class ProfessionalEditComponent implements OnInit {
         if (!resp.address) {
           this.professional.address = new Address();
         }
-        this.notification.showSucess("Paciente cadastrado com sucesso!");
+        this.notification.showSucess("Profissional cadastrado com sucesso!");
       }).catch(error => {
         this.loading = false;
       });
