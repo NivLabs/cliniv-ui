@@ -145,27 +145,28 @@ export class ProfessionalEditComponent implements OnInit {
   }
 
   searchProfessionalByCpf() {
-    if (!this.utilService.cpfIsValid(this.professional.document.value)) {
-      this.loading = false;
-      this.notification.showError("CPF Inválido, favor informar um CPF válido e sem pontos e/ou traços");
-      this.professional = new Professional();
-    } else {
-      this.loading = true;
-      this.professionalService.getByCpf(this.professional.document.value).then(resp => {
+    if (this.professional.document.value)
+      if (!this.utilService.cpfIsValid(this.professional.document.value)) {
         this.loading = false;
-        console.log(this.professional);
-        this.professional = resp;
-        if (!resp.address) {
-          this.professional.address = new Address();
-        }
-      }).catch(error => {
-        this.loading = false;
-        var cpf = this.professional.document.value;
+        this.notification.showError("CPF Inválido, favor informar um CPF válido e sem pontos e/ou traços");
         this.professional = new Professional();
-        this.professional.document.value = cpf;
-        this.errorHandler.handle(error, this.dialogRef);
-      });
-    }
+      } else {
+        this.loading = true;
+        this.professionalService.getByCpf(this.professional.document.value).then(resp => {
+          this.loading = false;
+          console.log(this.professional);
+          this.professional = resp;
+          if (!resp.address) {
+            this.professional.address = new Address();
+          }
+        }).catch(error => {
+          this.loading = false;
+          var cpf = this.professional.document.value;
+          this.professional = new Professional();
+          this.professional.document.value = cpf;
+          this.errorHandler.handle(error, this.dialogRef);
+        });
+      }
   }
 
   /**

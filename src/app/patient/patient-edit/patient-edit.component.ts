@@ -152,25 +152,26 @@ export class PatientEditComponent implements OnInit {
   }
 
   searchPatientByCpf() {
-    if (!this.utilService.cpfIsValid(this.patient.document.value)) {
-      this.notification.showError("CPF Inválido, favor informar um CPF válido e sem pontos e/ou traços");
-      this.patient = new Patient();
-    } else {
-      this.loading = true;
-      this.patientService.getByCpf(this.patient.document.value).then(resp => {
-        this.loading = false;
-        this.patient = resp;
-        if (!resp.address) {
-          this.patient.address = new Address();
-        }
-      }).catch(error => {
-        this.loading = false;
-        var cpf = this.patient.document.value;
+    if (this.patient.document.value)
+      if (!this.utilService.cpfIsValid(this.patient.document.value)) {
+        this.notification.showError("CPF Inválido, favor informar um CPF válido e sem pontos e/ou traços");
         this.patient = new Patient();
-        this.patient.document.value = cpf;
-        this.errorHandler.handle(error, this.dialogRef);
-      });
-    }
+      } else {
+        this.loading = true;
+        this.patientService.getByCpf(this.patient.document.value).then(resp => {
+          this.loading = false;
+          this.patient = resp;
+          if (!resp.address) {
+            this.patient.address = new Address();
+          }
+        }).catch(error => {
+          this.loading = false;
+          var cpf = this.patient.document.value;
+          this.patient = new Patient();
+          this.patient.document.value = cpf;
+          this.errorHandler.handle(error, this.dialogRef);
+        });
+      }
   }
 
   /**
