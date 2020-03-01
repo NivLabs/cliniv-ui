@@ -32,32 +32,27 @@ export class EventType {
 @Injectable()
 export class UtilService {
 
-    token: string;
     private eventTypes: Array<EventType>;
 
     constructor(private http: AppHttp) {
-        this.token = "Bearer " + localStorage.getItem('token');
     }
 
     getEventTypes(): Promise<Array<EventType>> {
-        var headers = new HttpHeaders()
-            .append('Authorization', this.token);
+        var headers = this.http.getHeadersDefault();
 
         return this.http.get<Array<EventType>>(`${environment.apiUrl}/event-type`, { headers })
             .toPromise();
     }
 
     getSpecialization(): Promise<Array<Specialization>> {
-        var headers = new HttpHeaders()
-            .append('Authorization', this.token);
+        var headers = this.http.getHeadersDefault();
 
         return this.http.get<Array<Specialization>>(`${environment.apiUrl}/speciality`, { headers })
             .toPromise();
     }
 
     getSpecializationById(id: number): Promise<SpecializationInfo> {
-        var headers = new HttpHeaders()
-            .append('Authorization', this.token);
+        var headers = this.http.getHeadersDefault();
 
         return this.http.get<SpecializationInfo>(`${environment.apiUrl}/speciality/${id}`, { headers })
             .toPromise();
