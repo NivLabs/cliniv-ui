@@ -15,7 +15,7 @@ export class ErrorHandlerService {
     private auth: AuthService
   ) { }
 
-  handle(errorResponse: any) {
+  handle(errorResponse: any, dialogRefToClose: any) {
     let msg: string;
 
     if (typeof errorResponse === 'string') {
@@ -26,18 +26,24 @@ export class ErrorHandlerService {
 
       this.auth.removeAccessToken();
       this.router.navigate(['/login']);
+      if (dialogRefToClose) {
+        dialogRefToClose.close();
+      }
 
     } else if (errorResponse instanceof HttpErrorResponse
       && errorResponse.status >= 400 && errorResponse.status <= 499) {
 
       msg = 'Ocorreu um erro ao processar a sua solicitação';
 
-      if(errorResponse.status === 404 && errorResponse.error && errorResponse.error.message) {
+      if (errorResponse.status === 404 && errorResponse.error && errorResponse.error.message) {
         msg = errorResponse.error.message;
       }
 
       if (errorResponse.status === 401) {
         msg = 'Você não tem permissão para executar esta ação';
+        if (dialogRefToClose) {
+          dialogRefToClose.close();
+        }
       }
 
       if (errorResponse.status === 405 && errorResponse.error && errorResponse.error.message) {
@@ -48,6 +54,9 @@ export class ErrorHandlerService {
         msg = 'Sua sessão expirou!';
         this.auth.removeAccessToken();
         this.router.navigate(['/login']);
+        if (dialogRefToClose) {
+          dialogRefToClose.close();
+        }
       }
 
       try {

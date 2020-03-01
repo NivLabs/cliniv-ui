@@ -91,7 +91,7 @@ export class PatientEditComponent implements OnInit {
         this.patient.document.value = cpf;
         if (error.status && error.status === 403)
           this.onCancelClick();
-        this.errorHandler.handle(error);
+        this.errorHandler.handle(error, this.dialogRef);
       });
     }
   }
@@ -110,7 +110,9 @@ export class PatientEditComponent implements OnInit {
         this.notification.showSucess("Paciente alterado com sucesso!");
       }).catch(error => {
         this.loading = false;
-        this.errorHandler.handle(error);
+        if (error.status && error.status === 403)
+          this.onCancelClick();
+        this.errorHandler.handle(error, this.dialogRef);
       });
     } else {
       this.patientService.create(this.patient).then(resp => {
@@ -123,7 +125,7 @@ export class PatientEditComponent implements OnInit {
         this.loading = false;
         if (error.status && error.status === 403)
           this.onCancelClick();
-        this.errorHandler.handle(error);
+        this.errorHandler.handle(error, this.dialogRef);
       });
     }
   }
@@ -174,7 +176,7 @@ export class PatientEditComponent implements OnInit {
         this.patient.document.value = cpf;
         if (error.status && error.status === 403)
           this.onCancelClick();
-        this.errorHandler.handle(error);
+        this.errorHandler.handle(error, this.dialogRef);
       });
     }
   }

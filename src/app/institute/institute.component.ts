@@ -23,7 +23,7 @@ export class InstituteComponent implements OnInit {
       this.institute = resp;
     }).catch(error => {
       this.loading = false;
-      this.errorHandler.handle(error);
+      this.errorHandler.handle(error, null);
     });
   }
 }

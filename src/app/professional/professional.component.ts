@@ -31,7 +31,7 @@ export class ProfessionalComponent implements OnInit {
     }).catch(error => {
       this.responsibleNotFound = this.responsibles !== undefined ? this.responsibles.length === 0 : true;
       this.loading = false;
-      this.errorHandler.handle(error);
+      this.errorHandler.handle(error, null);
     });
   }
   openDialog(id): void {

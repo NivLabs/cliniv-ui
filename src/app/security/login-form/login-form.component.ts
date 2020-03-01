@@ -35,7 +35,7 @@ export class LoginFormComponent {
       })
       .catch(erro => {
         this.hasResponse = true;
-        this.errorHandler.handle(erro);
+        this.errorHandler.handle(erro, null);
       });
   }
 

@@ -90,7 +90,7 @@ export class ProfessionalEditComponent implements OnInit {
         this.professional.document.value = cpf;
         if (error.status && error.status === 403)
           this.onCancelClick();
-        this.errorHandler.handle(error);
+        this.errorHandler.handle(error, this.dialogRef);
       });
     }
   }
@@ -121,7 +121,7 @@ export class ProfessionalEditComponent implements OnInit {
         this.loading = false;
         if (error.status && error.status === 403)
           this.onCancelClick();
-        this.errorHandler.handle(error);
+        this.errorHandler.handle(error, this.dialogRef);
       });
     }
   }
@@ -169,7 +169,7 @@ export class ProfessionalEditComponent implements OnInit {
         this.professional.document.value = cpf;
         if (error.status && error.status === 403)
           this.onCancelClick();
-        this.errorHandler.handle(error);
+        this.errorHandler.handle(error, this.dialogRef);
       });
     }
   }
