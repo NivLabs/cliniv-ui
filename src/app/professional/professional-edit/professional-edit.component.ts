@@ -6,6 +6,7 @@ import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dial
 import { AddressService } from 'app/core/address.service';
 import { UtilService } from 'app/core/util.service';
 import { ConfirmDialogComponent } from 'app/core/confirm-dialog/confirm-dialog.component';
+import { FormControl } from '@angular/forms';
 
 export class Address {
   constructor() { }
@@ -51,6 +52,7 @@ export class ProfessionalEditComponent implements OnInit {
 
   public professional: Professional;
   public loading: boolean;
+  specializations: any;
 
   constructor(public confirmDialog: MatDialog,
     public dialogRef: MatDialogRef<ProfessionalEditComponent>, public errorHandler: ErrorHandlerService,
@@ -91,6 +93,8 @@ export class ProfessionalEditComponent implements OnInit {
         this.errorHandler.handle(error, this.dialogRef);
       });
     }
+
+    this.loadSpecializations();
   }
 
   onCancelClick(): void {
@@ -169,6 +173,14 @@ export class ProfessionalEditComponent implements OnInit {
       }
   }
 
+  loadSpecializations() {
+    this.specializations = [];
+    this.utilService.getSpecialization().then(specs => {
+      specs.forEach(spec => {
+        this.specializations.push(spec);
+      });
+    });
+  }
   /**
    * 
    * Executa um evento à partir da tecla enter
