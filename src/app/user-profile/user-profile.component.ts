@@ -31,7 +31,7 @@ export class UserProfileComponent implements OnInit {
       }
     }).catch(error => {
       this.loading = false;
-      this.errorHandler.handle(error);
+      this.errorHandler.handle(error, null);
     });
   }
 
@@ -46,7 +46,7 @@ export class UserProfileComponent implements OnInit {
       this.notification.showSucess("Alteração realizada com sucesso!");
     }).catch(error => {
       this.loading = false;
-      this.errorHandler.handle(error);
+      this.errorHandler.handle(error, null);
     });
   }
 

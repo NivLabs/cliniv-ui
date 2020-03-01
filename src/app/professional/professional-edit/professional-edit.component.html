@@ -58,9 +58,9 @@
                 <div class="col-md-4">
                     <mat-form-field class="example-full-width">
                         <select matNativeControl placeholder="Gênero" name="gender" (change)="selectGender($event.target.value)" [(ngModel)]="professional.gender" #gender required>
-              <option value="M">Masculino</option>
-              <option value="F">Feminino</option>
-            </select>
+                            <option value="M">Masculino</option>
+                            <option value="F">Feminino</option>
+                        </select>
                     </mat-form-field>
                 </div>
             </div>
@@ -100,36 +100,52 @@
                 <div class="col-md-4">
                     <mat-form-field class="example-full-width">
                         <select matNativeControl placeholder="Estado" name="state" (change)="selectState($event.target.value)" [(ngModel)]="professional.address.state" #state required>
-              <option value="AC">Acre</option>
-              <option value="AL">Alagoas</option>
-              <option value="AP">Amapá</option>
-              <option value="AM">Amazonas</option>
-              <option value="BA">Bahia</option>
-              <option value="CE">Ceará</option>
-              <option value="DF">Distrito Federal</option>
-              <option value="ES">Espírito Santo</option>
-              <option value="GO">Goiás</option>
-              <option value="MA">Maranhão</option>
-              <option value="MT">Mato Grosso</option>
-              <option value="MS">Mato Grosso do Sul</option>
-              <option value="MG">Minas Gerais</option>
-              <option value="PA">Pará</option>
-              <option value="PB">Paraíba</option>
-              <option value="PR">Paraná</option>
-              <option value="PE">Pernambuco</option>
-              <option value="PI">Piauí</option>
-              <option value="RJ">Rio de Janeiro</option>
-              <option value="RN">Rio Grande do Norte</option>
-              <option value="RS">Rio Grande do Sul</option>
-              <option value="RO">Rondônia</option>
-              <option value="RR">Roraima</option>
-              <option value="SC">Santa Catarina</option>
-              <option value="SP">São Paulo</option>
-              <option value="SE">Sergipe</option>
-              <option value="TO">Tocantins</option>
-              <option value="EX">Estrangeiro</option>
-            </select>
+                            <option value="AC">Acre</option>
+                            <option value="AL">Alagoas</option>
+                            <option value="AP">Amapá</option>
+                            <option value="AM">Amazonas</option>
+                            <option value="BA">Bahia</option>
+                            <option value="CE">Ceará</option>
+                            <option value="DF">Distrito Federal</option>
+                            <option value="ES">Espírito Santo</option>
+                            <option value="GO">Goiás</option>
+                            <option value="MA">Maranhão</option>
+                            <option value="MT">Mato Grosso</option>
+                            <option value="MS">Mato Grosso do Sul</option>
+                            <option value="MG">Minas Gerais</option>
+                            <option value="PA">Pará</option>
+                            <option value="PB">Paraíba</option>
+                            <option value="PR">Paraná</option>
+                            <option value="PE">Pernambuco</option>
+                            <option value="PI">Piauí</option>
+                            <option value="RJ">Rio de Janeiro</option>
+                            <option value="RN">Rio Grande do Norte</option>
+                            <option value="RS">Rio Grande do Sul</option>
+                            <option value="RO">Rondônia</option>
+                            <option value="RR">Roraima</option>
+                            <option value="SC">Santa Catarina</option>
+                            <option value="SP">São Paulo</option>
+                            <option value="SE">Sergipe</option>
+                            <option value="TO">Tocantins</option>
+                            <option value="EX">Estrangeiro</option>
+                        </select>
                     </mat-form-field>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-12">
+                    <h5 for="specializationTitle">Especializações</h5>
+                </div>
+                <mat-divider class="col-md-12"></mat-divider>
+                <small class="col-md-12">Selecione as especializações do profissional</small>
+                <br />
+                <div class="col-md-4" *ngFor="let specialization of specializations">
+                    <div class="example-full-width">
+                        <mat-checkbox matInput [value]="specialization.id">
+                            {{specialization.id + ' - ' + specialization.name}}
+                        </mat-checkbox>
+                    </div>
                 </div>
             </div>
             <button *ngIf="professional.id" mat-raised-button type="button" (click)="resetForm()" class="btn btn-info pull-left">Novo profissional</button>

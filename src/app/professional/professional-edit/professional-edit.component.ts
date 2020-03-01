@@ -6,6 +6,7 @@ import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dial
 import { AddressService } from 'app/core/address.service';
 import { UtilService } from 'app/core/util.service';
 import { ConfirmDialogComponent } from 'app/core/confirm-dialog/confirm-dialog.component';
+import { FormControl } from '@angular/forms';
 
 export class Address {
   constructor() { }
@@ -51,9 +52,10 @@ export class ProfessionalEditComponent implements OnInit {
 
   public professional: Professional;
   public loading: boolean;
+  specializations: any;
 
   constructor(public confirmDialog: MatDialog,
-    public dialogRef: MatDialogRef<ProfessionalEditComponent>,
+    public dialogRef: MatDialogRef<ProfessionalEditComponent>, public errorHandler: ErrorHandlerService,
     @Inject(MAT_DIALOG_DATA) public data: Professional, private professionalService: ProfessionalService, private addressService: AddressService, private notification: NotificationsComponent, private utilService: UtilService) {
     this.dialogRef.disableClose = true;
 
@@ -88,9 +90,11 @@ export class ProfessionalEditComponent implements OnInit {
         var cpf = this.professional.document.value;
         this.professional = new Professional();
         this.professional.document.value = cpf;
-        this.notification.showError("Não foi possível realizar a busca do profissional selecionado.")
+        this.errorHandler.handle(error, this.dialogRef);
       });
     }
+
+    this.loadSpecializations();
   }
 
   onCancelClick(): void {
@@ -117,6 +121,7 @@ export class ProfessionalEditComponent implements OnInit {
         this.notification.showSucess("Profissional cadastrado com sucesso!");
       }).catch(error => {
         this.loading = false;
+        this.errorHandler.handle(error, this.dialogRef);
       });
     }
   }
@@ -144,6 +149,7 @@ export class ProfessionalEditComponent implements OnInit {
   }
 
   searchProfessionalByCpf() {
+    if (this.professional.document.value)
       if (!this.utilService.cpfIsValid(this.professional.document.value)) {
         this.loading = false;
         this.notification.showError("CPF Inválido, favor informar um CPF válido e sem pontos e/ou traços");
@@ -162,10 +168,19 @@ export class ProfessionalEditComponent implements OnInit {
           var cpf = this.professional.document.value;
           this.professional = new Professional();
           this.professional.document.value = cpf;
+          this.errorHandler.handle(error, this.dialogRef);
         });
       }
   }
 
+  loadSpecializations() {
+    this.specializations = [];
+    this.utilService.getSpecialization().then(specs => {
+      specs.forEach(spec => {
+        this.specializations.push(spec);
+      });
+    });
+  }
   /**
    * 
    * Executa um evento à partir da tecla enter

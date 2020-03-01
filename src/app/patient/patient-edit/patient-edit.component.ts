@@ -5,7 +5,6 @@ import { PatientService } from '../patient.service';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { AddressService } from 'app/core/address.service';
 import { UtilService } from 'app/core/util.service';
-import { pairs } from 'rxjs';
 import { ConfirmDialogComponent } from 'app/core/confirm-dialog/confirm-dialog.component';
 import { Router } from '@angular/router';
 
@@ -54,8 +53,8 @@ export class PatientEditComponent implements OnInit {
   public patient: Patient;
   public loading: boolean;
 
-  constructor(private router : Router,public confirmDialog: MatDialog,
-    public dialogRef: MatDialogRef<PatientEditComponent>,
+  constructor(private router: Router, public confirmDialog: MatDialog,
+    public dialogRef: MatDialogRef<PatientEditComponent>, public errorHandler: ErrorHandlerService,
     @Inject(MAT_DIALOG_DATA) public data: Patient, private patientService: PatientService, private addressService: AddressService, private notification: NotificationsComponent, private utilService: UtilService) {
     this.dialogRef.disableClose = true;
 
@@ -90,7 +89,7 @@ export class PatientEditComponent implements OnInit {
         var cpf = this.patient.document.value;
         this.patient = new Patient();
         this.patient.document.value = cpf;
-        this.notification.showError("Não foi possível realizar a busca do paciente selecionado.")
+        this.errorHandler.handle(error, this.dialogRef);
       });
     }
   }
@@ -109,6 +108,7 @@ export class PatientEditComponent implements OnInit {
         this.notification.showSucess("Paciente alterado com sucesso!");
       }).catch(error => {
         this.loading = false;
+        this.errorHandler.handle(error, this.dialogRef);
       });
     } else {
       this.patientService.create(this.patient).then(resp => {
@@ -119,6 +119,7 @@ export class PatientEditComponent implements OnInit {
         this.notification.showSucess("Paciente cadastrado com sucesso!");
       }).catch(error => {
         this.loading = false;
+        this.errorHandler.handle(error, this.dialogRef);
       });
     }
   }
@@ -138,8 +139,8 @@ export class PatientEditComponent implements OnInit {
   }
 
   gotToVisit() {
-      this.dialogRef.close();
-      this.router.navigate(['visit', { patientId: this.patient.id }]);
+    this.dialogRef.close();
+    this.router.navigate(['visit', { patientId: this.patient.id }]);
   }
 
   selectGender(newValue) {
@@ -151,25 +152,26 @@ export class PatientEditComponent implements OnInit {
   }
 
   searchPatientByCpf() {
-    if (!this.utilService.cpfIsValid(this.patient.document.value)) {
-      this.notification.showError("CPF Inválido, favor informar um CPF válido e sem pontos e/ou traços");
-      this.patient = new Patient();
-    } else {
-      this.loading = true;
-      this.patientService.getByCpf(this.patient.document.value).then(resp => {
-        this.loading = false;
-        console.log(this.patient);
-        this.patient = resp;
-        if (!resp.address) {
-          this.patient.address = new Address();
-        }
-      }).catch(error => {
-        this.loading = false;
-        var cpf = this.patient.document.value;
+    if (this.patient.document.value)
+      if (!this.utilService.cpfIsValid(this.patient.document.value)) {
+        this.notification.showError("CPF Inválido, favor informar um CPF válido e sem pontos e/ou traços");
         this.patient = new Patient();
-        this.patient.document.value = cpf;
-      });
-    }
+      } else {
+        this.loading = true;
+        this.patientService.getByCpf(this.patient.document.value).then(resp => {
+          this.loading = false;
+          this.patient = resp;
+          if (!resp.address) {
+            this.patient.address = new Address();
+          }
+        }).catch(error => {
+          this.loading = false;
+          var cpf = this.patient.document.value;
+          this.patient = new Patient();
+          this.patient.document.value = cpf;
+          this.errorHandler.handle(error, this.dialogRef);
+        });
+      }
   }
 
   /**

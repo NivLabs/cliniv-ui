@@ -30,12 +30,13 @@ export class PatientComponent implements OnInit {
     }).catch(error => {
       this.patientNotFound = this.patients !== undefined ? this.patients.length === 0 : true;
       this.loading = false;
-      this.errorHandler.handle(error);
+      this.errorHandler.handle(error, null);
     });
   }
   openDialog(id): void {
     const dialogRef = this.dialog.open(PatientEditComponent, {
-      width: '80%',
+      width: '100%',
+      height: '100%',
       data: { selectedPatient: id }
     });
 

@@ -48,4 +48,10 @@ export class AppHttp extends HttpClient {
   private sendRequest<T>(fn: Function): Observable<T> {
     return fn();
   }
+
+  public getHeadersDefault() {
+    var headers = new HttpHeaders()
+    .append('Authorization', "Bearer " + localStorage.getItem('token'));
+     return headers;
+  }
 }

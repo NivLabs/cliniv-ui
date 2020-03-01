@@ -86,7 +86,7 @@ export class VisitComponent implements OnInit {
 
   onServiceException(error) {
     this.loading = false;
-    this.errorHandler.handle(error);
+    this.errorHandler.handle(error, this.dialog);
   }
 
   searchPatientHistory(): void {
