@@ -1,3 +1,18 @@
 .navbar {
     z-index: 999 !important;
 }
+
+@media (max-width: 991px) {
+    .sidebar::before,
+    .off-canvas-sidebar nav .navbar-collapse::before {
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        background-color: #fff;
+        display: block;
+        content: "";
+        z-index: 1;
+    }
+}
