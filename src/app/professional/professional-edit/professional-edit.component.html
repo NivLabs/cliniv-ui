@@ -140,7 +140,7 @@
                 <mat-divider class="col-md-12"></mat-divider>
                 <small class="col-md-12">Selecione as especializações do profissional</small>
                 <br />
-                <div class="col-md-4" *ngFor="let specialization of specializations">
+                <div class="col-sm-12 col-md-6 col-lg-4" *ngFor="let specialization of specializations">
                     <div class="example-full-width">
                         <mat-checkbox matInput [value]="specialization.id">
                             {{specialization.id + ' - ' + specialization.name}}
