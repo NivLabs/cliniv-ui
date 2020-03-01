@@ -21,6 +21,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSliderModule } from '@angular/material/slider';
@@ -54,6 +55,7 @@ import { NewVisitComponent } from '../../visit/newVisit/new-visit.component';
 import { VisitComponent } from '../../visit/visit.component';
 import { VisitService } from '../../visit/visit.service';
 import { AdminLayoutRoutes } from './admin-layout.routing';
+import { MatDividerModule } from '@angular/material/divider';
 //#endregion
 
 @NgModule({
@@ -66,6 +68,7 @@ import { AdminLayoutRoutes } from './admin-layout.routing';
     MatButtonModule,
     MatButtonToggleModule,
     MatCardModule,
+    MatCheckboxModule,
     MatPseudoCheckboxModule,
     MatChipsModule,
     MatStepperModule,
@@ -84,6 +87,7 @@ import { AdminLayoutRoutes } from './admin-layout.routing';
     MatRadioModule,
     MatRippleModule,
     MatSelectModule,
+    MatDividerModule,
     MatSidenavModule,
     MatSliderModule,
     MatSlideToggleModule,
