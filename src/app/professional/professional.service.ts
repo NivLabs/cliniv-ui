@@ -23,22 +23,31 @@ export class Document {
     type: string; // CPF, CNPJ, PASSAPORTE, RNE
     value: string; // Valor do documento
 }
+
 export class Professional {
-    id: number;
-    firstName: string;
-    lastName: string;
-    fatherName: string;
-    motherName: string;
-    identity: string;
-    dispatcher: string;
-    document?: Document = new Document('CPF');
-    address?: Address = new Address();
-    principalNumber: string;
-    secondaryNumber: string;
-    bornDate: Date;
-    observations: string;
-    gender: string;
-    email: string;
+  id: number;
+  firstName: string;
+  lastName: string;
+  fatherName: string;
+  motherName: string;
+  professionalRegister?: ProfessionalRegister = new ProfessionalRegister('CRM');
+  dispatcher: string;
+  document?: Document = new Document('CPF');
+  address?: Address = new Address();
+  principalNumber: string;
+  secondaryNumber: string;
+  bornDate: Date;
+  observations: string;
+  gender: string;
+  email: string;
+}
+
+export class ProfessionalRegister {
+  constructor(registerType) {
+    this.registerType = registerType;
+  }
+  registerType: string; // CRM, COREN, CRO, CRP
+  registerValue: string; // Valor do documento
 }
 
 
@@ -54,7 +63,7 @@ export class ProfessionalService {
         this.baseUrl = `${environment.apiUrl}/responsible`;
     }
 
-    getById(id): Promise<Professional> {
+    getById(id): Promise<Professional> {    
         var headers = this.http.getHeadersDefault();
         if (id) {
             return this.http.get<Professional>(`${this.baseUrl}/${id}`, { headers }).toPromise();
