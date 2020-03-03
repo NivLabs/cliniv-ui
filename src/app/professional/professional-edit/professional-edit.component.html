@@ -11,9 +11,14 @@
                         <input matInput placeholder="Matrícula do Profissional" name="id" [(ngModel)]="professional.id" #id="ngModel" disabled />
                     </mat-form-field>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <mat-form-field class="example-full-width">
-                        <input matInput placeholder="Registro Nacional do Profissional (CRM, CRO, CRP, COREN, etc...)" name="professionalRegister" [(ngModel)]="professional.professionalRegister" #professionalRegister="ngModel" disabled />
+                        <input matInput placeholder="Registro Prof." name="registerValue" [(ngModel)]="professional.professionalIdentity.registerValue" #registerValue="ngModel" />
+                    </mat-form-field>
+                </div>
+                <div class="col-md-2">
+                    <mat-form-field class="example-full-width">
+                        <input matInput placeholder="Tipo Reg. (CRM, COREN, etc...)" name="registerType" [(ngModel)]="professional.professionalIdentity.registerType" #registerType="ngModel" />
                     </mat-form-field>
                 </div>
             </div>
@@ -148,7 +153,7 @@
                 <div class="col-sm-12 col-md-6 col-lg-4" *ngFor="let specialization of specializations">
                     <div class="example-full-width">
                         <mat-checkbox matInput [value]="specialization.id">
-                            {{specialization.id + ' - ' + specialization.name}}
+                            {{specialization.name}}
                         </mat-checkbox>
                     </div>
                 </div>

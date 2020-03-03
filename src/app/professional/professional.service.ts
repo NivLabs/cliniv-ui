@@ -30,7 +30,7 @@ export class Professional {
   lastName: string;
   fatherName: string;
   motherName: string;
-  professionalRegister?: ProfessionalRegister = new ProfessionalRegister('CRM');
+  professionalIdentity?: ProfessionalIdentity = new ProfessionalIdentity('CRM');
   dispatcher: string;
   document?: Document = new Document('CPF');
   address?: Address = new Address();
@@ -42,7 +42,7 @@ export class Professional {
   email: string;
 }
 
-export class ProfessionalRegister {
+export class ProfessionalIdentity {
   constructor(registerType) {
     this.registerType = registerType;
   }
