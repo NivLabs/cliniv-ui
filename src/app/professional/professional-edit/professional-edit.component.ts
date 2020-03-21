@@ -1,48 +1,12 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { ErrorHandlerService } from 'app/core/error-handler.service';
 import { NotificationsComponent } from 'app/core/notification/notifications.component';
-import { ProfessionalService } from '../professional.service';
+import { ProfessionalService, Professional, Address } from '../professional.service';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { AddressService } from 'app/core/address.service';
 import { UtilService } from 'app/core/util.service';
 import { ConfirmDialogComponent } from 'app/core/confirm-dialog/confirm-dialog.component';
-import { FormControl } from '@angular/forms';
 
-export class Address {
-  constructor() { }
-  street: string = null;
-  city: string = null;
-  state: string = null;
-  postalCode: string = null;
-  addressNumber: string = null;
-  complement: string = null;
-  neighborhood: string = null;
-}
-
-export class Document {
-  constructor(type) {
-    this.type = type;
-  }
-  type: string; // CPF, CNPJ, PASSAPORTE, RNE
-  value: string; // Valor do documento
-}
-export class Professional {
-  id: number;
-  firstName: string;
-  lastName: string;
-  fatherName: string;
-  motherName: string;
-  identity: string;
-  dispatcher: string;
-  document?: Document = new Document('CPF');
-  address?: Address = new Address();
-  principalNumber: string;
-  secondaryNumber: string;
-  bornDate: Date;
-  observations: string;
-  gender: string;
-  email: string;
-}
 
 @Component({
   selector: 'app-professional-edit',
