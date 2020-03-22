@@ -40,6 +40,7 @@ export class Professional {
   observations: string;
   gender: string;
   email: string;
+  specializations: any;
 }
 
 export class ProfessionalIdentity {
@@ -54,10 +55,6 @@ export class ProfessionalIdentity {
 @Injectable()
 export class ProfessionalService {
     baseUrl: string;
-
-    getToken() {
-        return "Bearer " + localStorage.getItem('token');;
-    }
 
     constructor(private http: AppHttp) {
         this.baseUrl = `${environment.apiUrl}/responsible`;
