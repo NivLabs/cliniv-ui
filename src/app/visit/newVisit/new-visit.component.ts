@@ -20,7 +20,7 @@ export class NewVisitComponent implements OnInit {
 
 
     eventTypes: Array<EventType> = [];
-    specializations: Array<Specialization> = [];
+    specializationsData: Array<Specialization> = [];
     responsibles: Array<Responsible> = [];
 
     newVisit: NewVisit;
@@ -39,7 +39,7 @@ export class NewVisitComponent implements OnInit {
 
 
         this.loadEntryEventTypes();
-        this.loadSpecializations();
+        this.loadspecializationsData();
 
     }
 
@@ -52,10 +52,10 @@ export class NewVisitComponent implements OnInit {
         });
     }
 
-    loadSpecializations() {
+    loadspecializationsData() {
         this.utilService.getSpecialization().then(specs => {
             specs.forEach(spec => {
-                this.specializations.push(spec);
+                this.specializationsData.push(spec);
 
             });
         });

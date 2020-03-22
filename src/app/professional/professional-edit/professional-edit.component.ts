@@ -6,6 +6,7 @@ import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dial
 import { AddressService } from 'app/core/address.service';
 import { UtilService } from 'app/core/util.service';
 import { ConfirmDialogComponent } from 'app/core/confirm-dialog/confirm-dialog.component';
+import { FormGroup, FormControl, FormBuilder, FormArray } from '@angular/forms';
 
 
 @Component({
@@ -14,16 +15,38 @@ import { ConfirmDialogComponent } from 'app/core/confirm-dialog/confirm-dialog.c
 })
 export class ProfessionalEditComponent implements OnInit {
 
+  public form: FormGroup;
   public professional: Professional;
   public loading: boolean;
-  specializations: any;
+  specializationsData: any;
 
-  constructor(public confirmDialog: MatDialog,
+  constructor(public confirmDialog: MatDialog, public formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<ProfessionalEditComponent>, public errorHandler: ErrorHandlerService,
     @Inject(MAT_DIALOG_DATA) public data: Professional, private professionalService: ProfessionalService, private addressService: AddressService, private notification: NotificationsComponent, private utilService: UtilService) {
     this.dialogRef.disableClose = true;
 
     this.professional = new Professional();
+
+    this.form = this.formBuilder.group({
+      id: new FormControl(''),
+      registerValue: new FormControl(''),
+      registerType: new FormControl(''),
+      document: new FormControl(''),
+      firstName: new FormControl(''),
+      lastName: new FormControl(''),
+      motherName: new FormControl(''),
+      fatherName: new FormControl(''),
+      principalNumber: new FormControl(''),
+      bornDate: new FormControl(''),
+      gender: new FormControl(''),
+      cep: new FormControl(''),
+      street: new FormControl(''),
+      addressNumber: new FormControl(''),
+      complement: new FormControl(''),
+      neighborhood: new FormControl(''),
+      city: new FormControl(''),
+      state: new FormControl('')
+    })
 
   }
 
@@ -49,6 +72,7 @@ export class ProfessionalEditComponent implements OnInit {
         if (!resp.address) {
           this.professional.address = new Address();
         }
+        this.loadspecializationsData();
       }).catch(error => {
         this.loading = false;
         var cpf = this.professional.document.value;
@@ -57,8 +81,14 @@ export class ProfessionalEditComponent implements OnInit {
         this.errorHandler.handle(error, this.dialogRef);
       });
     }
+  }
 
-    this.loadSpecializations();
+  loadspecializationsData() {
+    this.specializationsData = [];
+    this.utilService.getSpecialization().then(specs => {
+      this.specializationsData = specs;
+      this.checkSpecializations();
+    });
   }
 
   onCancelClick(): void {
@@ -66,6 +96,12 @@ export class ProfessionalEditComponent implements OnInit {
   }
 
   save() {
+    this.professional.specializations = [];
+    document.getElementsByName('specializations').forEach(specInput => {
+      if (specInput['checked']) {
+        this.professional.specializations.push({ id: specInput['id'], name: specInput['value'] })
+      }
+    });
     if (this.professional.id) {
       this.professionalService.update(this.professional).then(resp => {
         this.professional = resp;
@@ -75,6 +111,7 @@ export class ProfessionalEditComponent implements OnInit {
         this.notification.showSucess("Profissional alterado com sucesso!");
       }).catch(error => {
         this.loading = false;
+        this.errorHandler.handle(error, this.dialogRef);
       });
     } else {
       this.professionalService.create(this.professional).then(resp => {
@@ -127,6 +164,7 @@ export class ProfessionalEditComponent implements OnInit {
           if (!resp.address) {
             this.professional.address = new Address();
           }
+          this.loadspecializationsData();
         }).catch(error => {
           this.loading = false;
           var cpf = this.professional.document.value;
@@ -137,14 +175,19 @@ export class ProfessionalEditComponent implements OnInit {
       }
   }
 
-  loadSpecializations() {
-    this.specializations = [];
-    this.utilService.getSpecialization().then(specs => {
-      specs.forEach(spec => {
-        this.specializations.push(spec);
+  checkSpecializations() {
+    this.professional.specializations.forEach(spec => {
+      console.log("Chegando especialização :: ", spec.id, " :: ", spec.name);
+      console.log("Listagem: ", Array.prototype.slice.call(document.getElementsByName('specializations')));
+      this.specializationsData.forEach(specInput => {
+        console.log("Comparando especialização com input :: ", spec.id, " :: ", specInput.id)
+        if (spec.id === specInput.id) {
+          specInput.checked = true;
+        }
       });
     });
   }
+
   /**
    * 
    * Executa um evento à partir da tecla enter

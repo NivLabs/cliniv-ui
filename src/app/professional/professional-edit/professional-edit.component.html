@@ -4,70 +4,70 @@
         <p class="card-category">Dados completos do profissional</p>
     </div>
     <div class="card-body">
-        <form #form="ngForm" autocomplete="off" (ngSubmit)="save()">
+        <form [formGroup]="form" autocomplete="off" (ngSubmit)="save()">
             <div class="row">
                 <div class="col-md-3">
                     <mat-form-field class="example-full-width">
-                        <input matInput placeholder="Matrícula do Profissional" name="id" [(ngModel)]="professional.id" #id="ngModel" disabled />
+                        <input matInput placeholder="Matrícula do Profissional" formControlName="id" [(ngModel)]="professional.id" #id disabled />
                     </mat-form-field>
                 </div>
                 <div class="col-md-4">
                     <mat-form-field class="example-full-width">
-                        <input matInput placeholder="Registro Prof." name="registerValue" [(ngModel)]="professional.professionalIdentity.registerValue" #registerValue="ngModel" />
+                        <input matInput placeholder="Registro Prof." formControlName="registerValue" [(ngModel)]="professional.professionalIdentity.registerValue" #registerValue />
                     </mat-form-field>
                 </div>
                 <div class="col-md-2">
                     <mat-form-field class="example-full-width">
-                        <input matInput placeholder="Tipo Reg. (CRM, COREN, etc...)" name="registerType" [(ngModel)]="professional.professionalIdentity.registerType" #registerType="ngModel" />
+                        <input matInput placeholder="Tipo Reg. (CRM, COREN, etc...)" formControlName="registerType" [(ngModel)]="professional.professionalIdentity.registerType" #registerType />
                     </mat-form-field>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-4">
                     <mat-form-field class="example-full-width">
-                        <input matInput placeholder="Cadastro de Pessoa Física (CPF)" name="document" (blur)="searchProfessionalByCpf()" [(ngModel)]="professional.document.value" (keypress)="enterKeyPress($event)" #document type="text" maxlength="11" [disabled]="professional.id"
+                        <input matInput placeholder="Cadastro de Pessoa Física (CPF)" formControlName="document" (blur)="searchProfessionalByCpf()" [(ngModel)]="professional.document.value" (keypress)="enterKeyPress($event)" #document type="text" maxlength="11" [disabled]="professional.id"
                             required />
                     </mat-form-field>
                 </div>
                 <div class="col-md-4">
                     <mat-form-field class="example-full-width">
-                        <input matInput placeholder="Nome" name="firstName" [(ngModel)]="professional.firstName" #firstName="ngModel" type="text" required />
+                        <input matInput placeholder="Nome" formControlName="firstName" [(ngModel)]="professional.firstName" #firstName type="text" required />
                     </mat-form-field>
                 </div>
                 <div class="col-md-4">
                     <mat-form-field class="example-full-width">
-                        <input matInput placeholder="Sobrenome" name="lastName" [(ngModel)]="professional.lastName" #lastName="ngModel" type="text" required />
+                        <input matInput placeholder="Sobrenome" formControlName="lastName" [(ngModel)]="professional.lastName" #lastName type="text" required />
                     </mat-form-field>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
                     <mat-form-field class="example-full-width">
-                        <input matInput placeholder="Nome completo da Mãe" name="motherName" [(ngModel)]="professional.motherName" #motherName="ngModel" type="text" />
+                        <input matInput placeholder="Nome completo da Mãe" formControlName="motherName" [(ngModel)]="professional.motherName" #motherName type="text" />
                     </mat-form-field>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
                     <mat-form-field class="example-full-width">
-                        <input matInput placeholder="Nome completo do Pai" name="fatherName" [(ngModel)]="professional.fatherName" #fatherName type="text" />
+                        <input matInput placeholder="Nome completo do Pai" formControlName="fatherName" [(ngModel)]="professional.fatherName" #fatherName type="text" />
                     </mat-form-field>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-4">
                     <mat-form-field class="example-full-width">
-                        <input matInput placeholder="Telefone principal (Apenas números)" name="principalNumber" [(ngModel)]="professional.principalNumber" #principalNumber type="text" />
+                        <input matInput placeholder="Telefone principal (Apenas números)" formControlName="principalNumber" [(ngModel)]="professional.principalNumber" #principalNumber type="text" />
                     </mat-form-field>
                 </div>
                 <div class="col-md-4">
                     <mat-form-field class="example-full-width">
-                        <input matInput placeholder="Data de nascimento" name="bornDate" [(ngModel)]="professional.bornDate" #bornDate type="date" required />
+                        <input matInput placeholder="Data de nascimento" formControlName="bornDate" [(ngModel)]="professional.bornDate" #bornDate type="date" required />
                     </mat-form-field>
                 </div>
                 <div class="col-md-4">
                     <mat-form-field class="example-full-width">
-                        <select matNativeControl placeholder="Gênero" name="gender" (change)="selectGender($event.target.value)" [(ngModel)]="professional.gender" #gender required>
+                        <select matNativeControl placeholder="Gênero" formControlName="gender" (change)="selectGender($event.target.value)" [(ngModel)]="professional.gender" #gender required>
                             <option value="M">Masculino</option>
                             <option value="F">Feminino</option>
                         </select>
@@ -77,39 +77,39 @@
             <div class="row">
                 <div class="col-md-4">
                     <mat-form-field class="example-full-width">
-                        <input matInput placeholder="Código Postal (CEP)" name="cep" (blur)="searchAddressByCEP()" [(ngModel)]="professional.address.postalCode" size="8" maxlength="8" #cep type="text" />
+                        <input matInput placeholder="Código Postal (CEP)" formControlName="cep" (blur)="searchAddressByCEP()" [(ngModel)]="professional.address.postalCode" size="8" maxlength="8" #cep type="text" />
                     </mat-form-field>
                 </div>
                 <div class="col-md-4">
                     <mat-form-field class="example-full-width">
-                        <input matInput placeholder="Rua" name="street" [(ngModel)]="professional.address.street" #street type="text" />
+                        <input matInput placeholder="Rua" formControlName="street" [(ngModel)]="professional.address.street" #street type="text" />
                     </mat-form-field>
                 </div>
                 <div class="col-md-2">
                     <mat-form-field class="example-full-width">
-                        <input matInput placeholder="Número" name="addressNumber" [(ngModel)]="professional.address.addressNumber" #addressNumber type="text" />
+                        <input matInput placeholder="Número" formControlName="addressNumber" [(ngModel)]="professional.address.addressNumber" #addressNumber type="text" />
                     </mat-form-field>
                 </div>
                 <div class="col-md-2">
                     <mat-form-field class="example-full-width">
-                        <input matInput placeholder="Complemento" name="complement" [(ngModel)]="professional.address.complement" #complement type="text" />
+                        <input matInput placeholder="Complemento" formControlName="complement" [(ngModel)]="professional.address.complement" #complement type="text" />
                     </mat-form-field>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-4">
                     <mat-form-field class="example-full-width">
-                        <input matInput placeholder="Bairro" name="neighborhood" [(ngModel)]="professional.address.neighborhood" #neighborhood type="text" />
+                        <input matInput placeholder="Bairro" formControlName="neighborhood" [(ngModel)]="professional.address.neighborhood" #neighborhood type="text" />
                     </mat-form-field>
                 </div>
                 <div class="col-md-4">
                     <mat-form-field class="example-full-width">
-                        <input matInput placeholder="Cidade" name="city" [(ngModel)]="professional.address.city" #city type="text" />
+                        <input matInput placeholder="Cidade" formControlName="city" [(ngModel)]="professional.address.city" #city type="text" />
                     </mat-form-field>
                 </div>
                 <div class="col-md-4">
                     <mat-form-field class="example-full-width">
-                        <select matNativeControl placeholder="Estado" name="state" (change)="selectState($event.target.value)" [(ngModel)]="professional.address.state" #state required>
+                        <select matNativeControl placeholder="Estado" formControlName="state" (change)="selectState($event.target.value)" [(ngModel)]="professional.address.state" #state required>
                             <option value="AC">Acre</option>
                             <option value="AL">Alagoas</option>
                             <option value="AP">Amapá</option>
@@ -150,11 +150,9 @@
                 <mat-divider class="col-md-12"></mat-divider>
                 <small class="col-md-12">Selecione as especializações do profissional</small>
                 <br />
-                <div class="col-sm-12 col-md-6 col-lg-4" *ngFor="let specialization of specializations">
-                    <div class="example-full-width">
-                        <mat-checkbox matInput [value]="specialization.id">
-                            {{specialization.name}}
-                        </mat-checkbox>
+                <div class="col-sm-12 col-md-6 col-lg-4" *ngFor="let specialitity of specializationsData">
+                    <div class="example-full-width"><input type="checkbox" class="mat-checkbox-input" name="specializations" checked="{{specialitity.checked}}" value="{{specialitity.name}}" id="{{specialitity.id}}">
+                        <label for="{{specialitity.id}}">{{specialitity.name}}</label>
                     </div>
                 </div>
             </div>
