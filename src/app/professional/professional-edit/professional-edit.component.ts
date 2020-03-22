@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { ErrorHandlerService } from 'app/core/error-handler.service';
 import { NotificationsComponent } from 'app/core/notification/notifications.component';
-import { ProfessionalService, Professional, Address } from '../professional.service';
+import { ProfessionalService, Professional, Address, ProfessionalIdentity } from '../professional.service';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { AddressService } from 'app/core/address.service';
 import { UtilService } from 'app/core/util.service';
@@ -163,6 +163,9 @@ export class ProfessionalEditComponent implements OnInit {
           this.professional = resp;
           if (!resp.address) {
             this.professional.address = new Address();
+          }
+          if (!resp.professionalIdentity) {
+            this.professional.professionalIdentity = new ProfessionalIdentity('CRM');
           }
           this.loadspecializationsData();
         }).catch(error => {
