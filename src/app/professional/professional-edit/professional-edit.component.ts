@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { ErrorHandlerService } from 'app/core/error-handler.service';
 import { NotificationsComponent } from 'app/core/notification/notifications.component';
-import { ProfessionalService, Professional, Address } from '../professional.service';
+import { ProfessionalService, Professional, Address, ProfessionalIdentity } from '../professional.service';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { AddressService } from 'app/core/address.service';
 import { UtilService } from 'app/core/util.service';
@@ -47,6 +47,7 @@ export class ProfessionalEditComponent implements OnInit {
       city: new FormControl(''),
       state: new FormControl('')
     })
+    this.form.controls.id.disable();
 
   }
 
@@ -58,6 +59,7 @@ export class ProfessionalEditComponent implements OnInit {
     confirmDialogRef.afterClosed().subscribe(result => {
       if (result !== undefined && result.isConfirmed) {
         this.professional = new Professional();
+        this.form.controls.document.enable();
       }
     });
   }
@@ -72,10 +74,14 @@ export class ProfessionalEditComponent implements OnInit {
         if (!resp.address) {
           this.professional.address = new Address();
         }
+        if (this.professional.document) {
+          this.form.controls.document.disable();
+        }
         this.loadspecializationsData();
       }).catch(error => {
         this.loading = false;
         var cpf = this.professional.document.value;
+        this.form.controls.document.enable();
         this.professional = new Professional();
         this.professional.document.value = cpf;
         this.errorHandler.handle(error, this.dialogRef);
@@ -159,15 +165,19 @@ export class ProfessionalEditComponent implements OnInit {
         this.loading = true;
         this.professionalService.getByCpf(this.professional.document.value).then(resp => {
           this.loading = false;
-          console.log(this.professional);
           this.professional = resp;
           if (!resp.address) {
             this.professional.address = new Address();
           }
+          if (!resp.professionalIdentity) {
+            this.professional.professionalIdentity = new ProfessionalIdentity('CRM');
+          }
+          this.form.controls.document.disable();
           this.loadspecializationsData();
         }).catch(error => {
           this.loading = false;
           var cpf = this.professional.document.value;
+          this.form.controls.document.enable();
           this.professional = new Professional();
           this.professional.document.value = cpf;
           this.errorHandler.handle(error, this.dialogRef);
@@ -178,9 +188,7 @@ export class ProfessionalEditComponent implements OnInit {
   checkSpecializations() {
     this.professional.specializations.forEach(spec => {
       console.log("Chegando especialização :: ", spec.id, " :: ", spec.name);
-      console.log("Listagem: ", Array.prototype.slice.call(document.getElementsByName('specializations')));
       this.specializationsData.forEach(specInput => {
-        console.log("Comparando especialização com input :: ", spec.id, " :: ", specInput.id)
         if (spec.id === specInput.id) {
           specInput.checked = true;
         }
