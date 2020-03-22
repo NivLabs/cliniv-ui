@@ -150,9 +150,19 @@
                 <mat-divider class="col-md-12"></mat-divider>
                 <small class="col-md-12">Selecione as especializações do profissional</small>
                 <br />
+
+                <mat-checkbox hidden></mat-checkbox>
                 <div class="col-sm-12 col-md-6 col-lg-4" *ngFor="let specialitity of specializationsData">
-                    <div class="example-full-width"><input type="checkbox" class="mat-checkbox-input" name="specializations" checked="{{specialitity.checked}}" value="{{specialitity.name}}" id="{{specialitity.id}}">
-                        <label for="{{specialitity.id}}">{{specialitity.name}}</label>
+                    <div class="example-full-width">
+                        <label class="mat-checkbox-layout" for="{{specialitity.id}}">
+                            <div class="mat-checkbox-inner-container">
+                                <input type="checkbox" class="mat-checkbox-input" name="specializations" checked="{{specialitity.checked}}" value="{{specialitity.name}}" id="{{specialitity.id}}">
+                                <div matripple="" class="mat-ripple mat-checkbox-ripple">
+                                    <div class="mat-ripple-element mat-checkbox-persistent-ripple"></div>
+                                </div>
+                            </div>
+                            <span class="mat-checkbox-label">{{specialitity.name}}</span>
+                        </label>
                     </div>
                 </div>
             </div>
