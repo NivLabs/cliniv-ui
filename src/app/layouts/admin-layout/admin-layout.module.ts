@@ -46,6 +46,7 @@ import { PatientComponent } from '../../patient/patient.component';
 import { PatientService } from '../../patient/patient.service';
 import { ProfessionalEditComponent } from '../../professional/professional-edit/professional-edit.component';
 import { ProfessionalComponent } from '../../professional/professional.component';
+import { SectorComponent } from '../../sector/sector.component';
 import { ProfessionalService } from '../../professional/professional.service';
 import { SecurityModule } from '../../security/security.module';
 import { UserProfileComponent } from '../../user-profile/user-profile.component';
@@ -111,7 +112,9 @@ import { MatDividerModule } from '@angular/material/divider';
 
     ProfessionalComponent,
     ProfessionalEditComponent,
-
+    
+    SectorComponent,
+    
     UserProfileComponent,
 
     VisitComponent,

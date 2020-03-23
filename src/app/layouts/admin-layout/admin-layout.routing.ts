@@ -6,12 +6,14 @@ import { VisitComponent } from '../../visit/visit.component';
 import { InstituteComponent } from '../../institute/institute.component';
 import { ProfessionalComponent } from '../../professional/professional.component';
 import { PatientComponent } from 'app/patient/patient.component';
+import { SectorComponent } from 'app/sector/sector.component';
 
 export const AdminLayoutRoutes: Routes = [
-    { path: 'dashboard',      component: DashboardComponent },
-    { path: 'patient',          component: PatientComponent },
-    { path: 'visit',     component: VisitComponent },
-    { path: 'professional',          component: ProfessionalComponent },
-    { path: 'user-profile',   component: UserProfileComponent },
-    { path: 'institute',     component: InstituteComponent }
+    { path: 'dashboard', component: DashboardComponent },
+    { path: 'patient', component: PatientComponent },
+    { path: 'visit', component: VisitComponent },
+    { path: 'professional', component: ProfessionalComponent },
+    { path: 'sector', component: SectorComponent },
+    { path: 'user-profile', component: UserProfileComponent },
+    { path: 'institute', component: InstituteComponent }
 ];
