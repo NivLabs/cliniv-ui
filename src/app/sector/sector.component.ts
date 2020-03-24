@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ErrorHandler } from '@angular/core';
+import { ErrorHandlerService } from 'app/core/error-handler.service';
+import { SectorService } from './sector.service';
 
 @Component({
   selector: 'app-sector',
@@ -7,13 +9,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SectorComponent implements OnInit {
 
-  sectorNotFound = true;
-  loading = false;
+  public loading: boolean;
+  public sectorNotFound: boolean;
   sectors = [];
 
-  constructor() { }
+  constructor(private errorHandler: ErrorHandlerService, private sectorService: SectorService) { }
 
   ngOnInit(): void {
+    this.loading = true;
+    this.sectorService.getPageOfSectors(null).then(response => {
+      this.loading = false;
+      this.sectors = response;
+      this.sectorNotFound = this.sectors.length === 0;
+    }).catch(error => {
+      this.sectorNotFound = this.sectorNotFound !== undefined ? this.sectors.length === 0 : true;
+      this.loading = false;
+      this.errorHandler.handle(error, null);
+    });
   }
 
   openDialog() {

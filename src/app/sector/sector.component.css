@@ -1,10 +1,10 @@
-.responsible-name {
+.sector-name {
     color: #00BCD4;
     font-weight: 400;
     font-size: 14px;
 }
 
-.responsible-info {
+.sector-info {
     color: rgb(20, 59, 65);
     font-weight: 400;
 }
@@ -22,4 +22,24 @@ li {
 
 ul {
     padding: 0;
+}
+
+.card-header-default {
+    background: linear-gradient(60deg, #696d69, #4d524d);
+}
+
+.margin-color-active {
+    border-left: 10px solid #00BCD4;
+    height: 90px;
+}
+
+.link-card {
+    margin-bottom: 10px;
+    cursor: pointer;
+    height: 90px;
+}
+
+.link-card:hover {
+    bottom: 3px;
+    cursor: pointer;
 }
