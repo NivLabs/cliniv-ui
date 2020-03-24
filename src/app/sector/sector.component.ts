@@ -28,7 +28,7 @@ export class SectorComponent implements OnInit {
     });
   }
 
-  openDialog() {
+  openDialog(id) {
 
   }
 }
