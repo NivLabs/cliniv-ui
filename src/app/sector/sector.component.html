@@ -11,12 +11,12 @@
                             <div class="row">
                                 <div class="col-md-2">
                                     <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="Identificador do setor" name="id" />
+                                        <input matInput placeholder="Identificador do setor" name="id" formControlName="id" [(ngModel)]="sector.id" #id />
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-3">
                                     <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="Nome do setor" name="name" />
+                                        <input matInput placeholder="Descrição do setor" name="description" formControlName="description" [(ngModel)]="sector.description" #description />
                                     </mat-form-field>
                                 </div>
                                 <button mat-raised-button type="submit" class="btn btn-danger pull-right">Filtrar</button>

@@ -1,0 +1,27 @@
+<div class="card">
+    <div class="card-header card-header-danger">
+        <h4 class="card-title">Dados do setor</h4>
+        <p class="card-category">Dados completos do setor</p>
+    </div>
+    <div class="card-body">
+        <form [formGroup]="form" autocomplete="off" (ngSubmit)="save()">
+            <div class="row">
+                <div class="col-md-3">
+                    <mat-form-field class="example-full-width">
+                        <input matInput placeholder="Código do Setor" formControlName="id" [(ngModel)]="sector.id" #id disabled />
+                    </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                    <mat-form-field class="example-full-width">
+                        <input matInput placeholder="Descrição" formControlName="description" [(ngModel)]="sector.description" #description />
+                    </mat-form-field>
+                </div>
+            </div>
+            <button *ngIf="sector.id" mat-raised-button type="button" (click)="resetForm()" class="btn btn-info pull-left">Novo setor</button>
+            <button mat-raised-button type="button" (click)="onCancelClick()" class="btn btn-danger pull-right">Fechar</button>
+            <button mat-raised-button type="submit" [disabled]="!form.valid" class="btn btn-success pull-right">Salvar</button>
+            <div class="clearfix"></div>
+        </form>
+    </div>
+</div>
+<ngx-loading [show]="loading"></ngx-loading>
