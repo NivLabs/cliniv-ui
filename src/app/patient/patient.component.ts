@@ -4,8 +4,7 @@ import { ErrorHandlerService } from 'app/core/error-handler.service';
 import { NotificationsComponent } from 'app/core/notification/notifications.component';
 import { MatDialog } from '@angular/material/dialog';
 import { PatientEditComponent } from './patient-edit/patient-edit.component';
-import { Page } from 'app/core/util.service';
-
+import { Page } from 'app/model/Util';
 @Component({
   selector: 'app-patient',
   templateUrl: './patient.component.html',

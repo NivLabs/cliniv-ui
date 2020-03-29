@@ -5,8 +5,10 @@ import { ErrorHandlerService } from 'app/core/error-handler.service';
 import { NotificationsComponent } from 'app/core/notification/notifications.component';
 import { PatientHistoryComponent } from './history/patient-history.component';
 import { NewVisitComponent } from './newVisit/new-visit.component';
-import { Visit, VisitInfo, VisitService } from './visit.service';
+import { VisitService } from './visit.service';
 import { ActivatedRoute } from '@angular/router';
+import { VisitInfo, NewVisit } from 'app/model/Visit';
+import { Document } from 'app/model/Document';
 
 @Component({
   selector: 'app-visit',
@@ -25,7 +27,7 @@ export class VisitComponent implements OnInit {
     this.visit = {
       patientId: null,
       id: null,
-      document: { type: 'CPF', value: null },
+      document: new Document('CPF'),
       firstName: null,
       lastName: null,
       principalNumber: null,
@@ -119,7 +121,7 @@ export class VisitComponent implements OnInit {
     });
   }
 
-  createNewVisit(newVisit: Visit) {
+  createNewVisit(newVisit: NewVisit) {
     this.loading = true;
     this.visitService.initializeVisit(newVisit).then(resp => {
       this.loading = false;

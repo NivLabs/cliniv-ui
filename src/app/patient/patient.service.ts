@@ -3,44 +3,8 @@ import { Injectable } from '@angular/core';
 
 import { AppHttp } from '../security/app-http';
 import { environment } from '../../environments/environment';
-import { Page } from 'app/core/util.service';
-
-export class Address {
-    constructor() { }
-    street: string = null;
-    city: string = null;
-    state: string = null;
-    postalCode: string = null;
-    addressNumber: string = null;
-    complement: string = null;
-    neighborhood: string = null;
-}
-
-export class Document {
-    constructor(type) {
-        this.type = type;
-    }
-    type: string; // CPF, CNPJ, PASSAPORTE, RNE
-    value: string; // Valor do documento
-}
-export class Patient {
-    id: number;
-    firstName: string;
-    lastName: string;
-    fatherName: string;
-    motherName: string;
-    identity: string;
-    dispatcher: string;
-    document?: Document = new Document('CPF');
-    address?: Address = new Address();
-    principalNumber: string;
-    secondaryNumber: string;
-    bornDate: Date;
-    observations: string;
-    gender: string;
-    email: string;
-}
-
+import { Patient } from 'app/model/Patient';
+import { Page } from 'app/model/Util';
 
 @Injectable()
 export class PatientService {

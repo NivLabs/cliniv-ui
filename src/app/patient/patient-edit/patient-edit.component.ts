@@ -7,42 +7,9 @@ import { AddressService } from 'app/core/address.service';
 import { UtilService } from 'app/core/util.service';
 import { ConfirmDialogComponent } from 'app/core/confirm-dialog/confirm-dialog.component';
 import { Router } from '@angular/router';
+import { Patient } from 'app/model/Patient';
+import { Address } from 'app/model/Address';
 
-export class Address {
-  constructor() { }
-  street: string = null;
-  city: string = null;
-  state: string = null;
-  postalCode: string = null;
-  addressNumber: string = null;
-  complement: string = null;
-  neighborhood: string = null;
-}
-
-export class Document {
-  constructor(type) {
-    this.type = type;
-  }
-  type: string; // CPF, CNPJ, PASSAPORTE, RNE
-  value: string; // Valor do documento
-}
-export class Patient {
-  id: number;
-  firstName: string;
-  lastName: string;
-  fatherName: string;
-  motherName: string;
-  identity: string;
-  dispatcher: string;
-  document?: Document = new Document('CPF');
-  address?: Address = new Address();
-  principalNumber: string;
-  secondaryNumber: string;
-  bornDate: Date;
-  observations: string;
-  gender: string;
-  email: string;
-}
 
 @Component({
   selector: 'app-patient-edit',

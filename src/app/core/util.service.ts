@@ -1,33 +1,8 @@
 import { Injectable } from "@angular/core";
-import { HttpHeaders } from "@angular/common/http";
 import { environment } from "environments/environment";
 import { AppHttp } from "app/security/app-http";
-import { Specialization, SpecializationInfo } from "app/visit/visit.service";
-
-export class Pageable {
-    pageNumber: number;
-    pageSize: number;
-    paged: boolean;
-}
-
-export class Page {
-    content: any;
-    empty: boolean;
-    first: boolean;
-    number: number;
-    numberOfElements: number;
-    pageable: Pageable;
-    size: number;
-    totalElements: number;
-    totalPages: number;
-}
-
-export class EventType {
-    id: number;
-    superEventType: EventType;
-    name: string;
-    description: string;
-}
+import { Specialization, SpecializationInfo } from "app/model/Specialization";
+import { EventType } from "app/model/EventType";
 
 @Injectable()
 export class UtilService {

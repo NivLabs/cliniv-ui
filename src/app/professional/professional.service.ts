@@ -3,54 +3,8 @@ import { Injectable } from '@angular/core';
 
 import { AppHttp } from '../security/app-http';
 import { environment } from '../../environments/environment';
-import { Page } from 'app/core/util.service';
-
-export class Address {
-    constructor() { }
-    street: string = null;
-    city: string = null;
-    state: string = null;
-    postalCode: string = null;
-    addressNumber: string = null;
-    complement: string = null;
-    neighborhood: string = null;
-}
-
-export class Document {
-    constructor(type) {
-        this.type = type;
-    }
-    type: string; // CPF, CNPJ, PASSAPORTE, RNE
-    value: string; // Valor do documento
-}
-
-export class Professional {
-  id: number;
-  firstName: string;
-  lastName: string;
-  fatherName: string;
-  motherName: string;
-  professionalIdentity?: ProfessionalIdentity = new ProfessionalIdentity('CRM');
-  dispatcher: string;
-  document?: Document = new Document('CPF');
-  address?: Address = new Address();
-  principalNumber: string;
-  secondaryNumber: string;
-  bornDate: Date;
-  observations: string;
-  gender: string;
-  email: string;
-  specializations: any;
-}
-
-export class ProfessionalIdentity {
-  constructor(registerType) {
-    this.registerType = registerType;
-  }
-  registerType: string; // CRM, COREN, CRO, CRP
-  registerValue: string; // Valor do documento
-}
-
+import { Professional } from 'app/model/Professional';
+import { Page } from 'app/model/Util';
 
 @Injectable()
 export class ProfessionalService {
@@ -60,7 +14,7 @@ export class ProfessionalService {
         this.baseUrl = `${environment.apiUrl}/responsible`;
     }
 
-    getById(id): Promise<Professional> {    
+    getById(id): Promise<Professional> {
         var headers = this.http.getHeadersDefault();
         if (id) {
             return this.http.get<Professional>(`${this.baseUrl}/${id}`, { headers }).toPromise();
