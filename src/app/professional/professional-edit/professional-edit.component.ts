@@ -1,12 +1,15 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { ErrorHandlerService } from 'app/core/error-handler.service';
 import { NotificationsComponent } from 'app/core/notification/notifications.component';
-import { ProfessionalService, Professional, Address, ProfessionalIdentity } from '../professional.service';
+import { ProfessionalService } from '../professional.service';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { AddressService } from 'app/core/address.service';
 import { UtilService } from 'app/core/util.service';
 import { ConfirmDialogComponent } from 'app/core/confirm-dialog/confirm-dialog.component';
 import { FormGroup, FormControl, FormBuilder, FormArray } from '@angular/forms';
+import { Professional } from 'app/model/Professional';
+import { Address } from 'app/model/Address';
+import { ProfessionalIdentity } from 'app/model/ProfessionalIdentity';
 
 
 @Component({
@@ -187,7 +190,7 @@ export class ProfessionalEditComponent implements OnInit {
 
   checkSpecializations() {
     this.professional.specializations.forEach(spec => {
-      console.log("Chegando especialização :: ", spec.id, " :: ", spec.name);
+      console.log("Checando especialização :: ", spec.id, " :: ", spec.name);
       this.specializationsData.forEach(specInput => {
         if (spec.id === specInput.id) {
           specInput.checked = true;

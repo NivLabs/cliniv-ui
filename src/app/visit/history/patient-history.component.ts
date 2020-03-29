@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
-import { Visit } from '../visit.service';
+import { PatientHistory } from 'app/model/Visit';
 @Component({
     selector: 'app-patient-history',
     templateUrl: './patient-history.component.html'
@@ -9,10 +9,10 @@ import { Visit } from '../visit.service';
 export class PatientHistoryComponent implements OnInit {
 
     displayedColumns = ['id', 'entryDatetime', 'entryCause', 'isFinished', 'actions'];
-    dataSource: MatTableDataSource<Visit>;
+    dataSource: MatTableDataSource<PatientHistory>;
 
     constructor(public dialogRef: MatDialogRef<PatientHistoryComponent>,
-        @Inject(MAT_DIALOG_DATA) public data: Array<Visit>) { }
+        @Inject(MAT_DIALOG_DATA) public data: Array<PatientHistory>) { }
 
     ngOnInit(): void {
         if (this.dialogRef.componentInstance.data['patientHistory'] !== null) {

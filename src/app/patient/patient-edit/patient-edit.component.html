@@ -7,55 +7,55 @@
         <form #form="ngForm" autocomplete="off" (ngSubmit)="save()">
             <div class="row">
                 <div class="col-md-3">
-                    <mat-form-field class="example-full-width">
+                    <mat-form-field>
                         <input matInput placeholder="Matrícula do Paciente" name="id" [(ngModel)]="patient.id" #id="ngModel" disabled />
                     </mat-form-field>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-4">
-                    <mat-form-field class="example-full-width">
+                    <mat-form-field>
                         <input matInput placeholder="Cadastro de Pessoa Física (CPF)" name="document" (blur)="searchPatientByCpf()" [(ngModel)]="patient.document.value" (keypress)="enterKeyPress($event)" #document type="text" maxlength="11" [disabled]="patient.id" required />
                     </mat-form-field>
                 </div>
                 <div class="col-md-4">
-                    <mat-form-field class="example-full-width">
+                    <mat-form-field>
                         <input matInput placeholder="Nome" name="firstName" [(ngModel)]="patient.firstName" #firstName="ngModel" type="text" required />
                     </mat-form-field>
                 </div>
                 <div class="col-md-4">
-                    <mat-form-field class="example-full-width">
+                    <mat-form-field>
                         <input matInput placeholder="Sobrenome" name="lastName" [(ngModel)]="patient.lastName" #lastName="ngModel" type="text" required />
                     </mat-form-field>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <mat-form-field class="example-full-width">
+                    <mat-form-field>
                         <input matInput placeholder="Nome completo da Mãe" name="motherName" [(ngModel)]="patient.motherName" #motherName="ngModel" type="text" />
                     </mat-form-field>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <mat-form-field class="example-full-width">
+                    <mat-form-field>
                         <input matInput placeholder="Nome completo do Pai" name="fatherName" [(ngModel)]="patient.fatherName" #fatherName type="text" />
                     </mat-form-field>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-4">
-                    <mat-form-field class="example-full-width">
+                    <mat-form-field>
                         <input matInput placeholder="Telefone principal (Apenas números)" name="principalNumber" [(ngModel)]="patient.principalNumber" #principalNumber type="text" />
                     </mat-form-field>
                 </div>
                 <div class="col-md-4">
-                    <mat-form-field class="example-full-width">
+                    <mat-form-field>
                         <input matInput placeholder="Data de nascimento" name="bornDate" [(ngModel)]="patient.bornDate" #bornDate type="date" required />
                     </mat-form-field>
                 </div>
                 <div class="col-md-4">
-                    <mat-form-field class="example-full-width">
+                    <mat-form-field>
                         <select matNativeControl placeholder="Gênero" name="gender" (change)="selectGender($event.target.value)" [(ngModel)]="patient.gender" #gender required>
               <option value="M">Masculino</option>
               <option value="F">Feminino</option>
@@ -65,39 +65,39 @@
             </div>
             <div class="row">
                 <div class="col-md-4">
-                    <mat-form-field class="example-full-width">
+                    <mat-form-field>
                         <input matInput placeholder="Código Postal (CEP)" name="cep" (blur)="searchAddressByCEP()" [(ngModel)]="patient.address.postalCode" size="8" maxlength="8" #cep type="text" />
                     </mat-form-field>
                 </div>
                 <div class="col-md-4">
-                    <mat-form-field class="example-full-width">
+                    <mat-form-field>
                         <input matInput placeholder="Rua" name="street" [(ngModel)]="patient.address.street" #street type="text" />
                     </mat-form-field>
                 </div>
                 <div class="col-md-2">
-                    <mat-form-field class="example-full-width">
+                    <mat-form-field>
                         <input matInput placeholder="Número" name="addressNumber" [(ngModel)]="patient.address.addressNumber" #addressNumber type="text" />
                     </mat-form-field>
                 </div>
                 <div class="col-md-2">
-                    <mat-form-field class="example-full-width">
+                    <mat-form-field>
                         <input matInput placeholder="Complemento" name="complement" [(ngModel)]="patient.address.complement" #complement type="text" />
                     </mat-form-field>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-4">
-                    <mat-form-field class="example-full-width">
+                    <mat-form-field>
                         <input matInput placeholder="Bairro" name="neighborhood" [(ngModel)]="patient.address.neighborhood" #neighborhood type="text" />
                     </mat-form-field>
                 </div>
                 <div class="col-md-4">
-                    <mat-form-field class="example-full-width">
+                    <mat-form-field>
                         <input matInput placeholder="Cidade" name="city" [(ngModel)]="patient.address.city" #city type="text" />
                     </mat-form-field>
                 </div>
                 <div class="col-md-4">
-                    <mat-form-field class="example-full-width">
+                    <mat-form-field>
                         <select matNativeControl placeholder="Estado" name="state" (change)="selectState($event.target.value)" [(ngModel)]="patient.address.state" #state required>
               <option value="AC">Acre</option>
               <option value="AL">Alagoas</option>

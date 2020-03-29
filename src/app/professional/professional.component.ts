@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ErrorHandlerService } from 'app/core/error-handler.service';
 import { NotificationsComponent } from 'app/core/notification/notifications.component';
-import { Page, UtilService } from 'app/core/util.service';
-import { PatientEditComponent } from 'app/patient/patient-edit/patient-edit.component';
+import { UtilService } from 'app/core/util.service';
 import { ProfessionalService } from './professional.service';
 import { ProfessionalEditComponent } from './professional-edit/professional-edit.component';
+import { Page } from 'app/model/Util';
 
 @Component({
   selector: 'app-professional',

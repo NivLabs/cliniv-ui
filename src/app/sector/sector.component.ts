@@ -1,6 +1,8 @@
 import { Component, OnInit, ErrorHandler } from '@angular/core';
 import { ErrorHandlerService } from 'app/core/error-handler.service';
 import { SectorService } from './sector.service';
+import { SectorEditComponent } from './sector-edit/sector-edit.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-sector',
@@ -13,7 +15,7 @@ export class SectorComponent implements OnInit {
   public sectorNotFound: boolean;
   sectors = [];
 
-  constructor(private errorHandler: ErrorHandlerService, private sectorService: SectorService) { }
+  constructor(public dialog: MatDialog, private errorHandler: ErrorHandlerService, private sectorService: SectorService) { }
 
   ngOnInit(): void {
     this.loading = true;
@@ -28,7 +30,15 @@ export class SectorComponent implements OnInit {
     });
   }
 
-  openDialog(id) {
 
+  openDialog(id): void {
+    const dialogRef = this.dialog.open(SectorEditComponent, {
+      width: '75%',
+      data: { sectorId: id }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.ngOnInit();
+    });
   }
 }

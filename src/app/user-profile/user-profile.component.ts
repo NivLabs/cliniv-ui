@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { UserProfileService, UserInfo, Document, Address } from './user-profile.service';
+import { UserProfileService } from './user-profile.service';
 import { ErrorHandlerService } from 'app/core/error-handler.service';
 import { NotificationsComponent } from 'app/core/notification/notifications.component';
 import { FormGroup } from '@angular/forms';
 import { AddressService, AddressFromAPI } from 'app/core/address.service';
+import { UserInfo } from 'app/model/User';
+import { Document } from 'app/model/Document';
+import { Address } from 'app/model/Address';
 
 
 @Component({

@@ -1,61 +1,59 @@
 <div class="main-content">
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="card">
-          <div class="card-header card-header-danger">
-            <h4 class="card-title">Filtros</h4>
-          </div>
-          <div class="card-body">
-            <form #form="ngForm" autocomplete="off">
-              <div class="row">
-                <div class="col-md-2">
-                  <mat-form-field class="example-full-width">
-                    <input matInput placeholder="Matrícula do paciente" name="id" />
-                  </mat-form-field>
-                </div>
-                <div class="col-md-2">
-                  <mat-form-field class="example-full-width">
-                    <input matInput placeholder="Código da visita" name="patient.visit" />
-                  </mat-form-field>
-                </div>
-                <div class="col-md-3">
-                  <mat-form-field class="example-full-width">
-                    <input matInput placeholder="CPF do paciente" name="cpf" />
-                  </mat-form-field>
-                </div>
-                <button mat-raised-button type="submit" class="btn btn-danger pull-right">Filtrar</button>
-                <button mat-raised-button type="button" (click)="openDialog(null)" class="btn btn-info pull-right">Novo
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title">Filtros</h4>
+                    </div>
+                    <div class="card-body">
+                        <form #form="ngForm" autocomplete="off">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <mat-form-field>
+                                        <input matInput placeholder="Matrícula do paciente" name="id" />
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-2">
+                                    <mat-form-field>
+                                        <input matInput placeholder="Código da visita" name="patient.visit" />
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-3">
+                                    <mat-form-field>
+                                        <input matInput placeholder="CPF do paciente" name="cpf" />
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <button mat-raised-button type="submit" class="btn btn-danger pull-right">Filtrar</button>
+                            <button mat-raised-button type="button" (click)="openDialog(null)" class="btn btn-info pull-right">Novo
                   Paciente</button>
-                <div class="clearfix"></div>
-              </div>
-            </form>
-          </div>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="center" *ngIf="!loading && patientNotFound">
-        <h1>Nenhum paciente encontrado...</h1>
-      </div>
-      <div *ngFor="let patient of patients" class="col-12 col-sm-6 col-md-4 col-lg-3">
-        <div class="card link-card" (click)="openDialog(patient.id)">
-          <div class="card-body margin-color-active">
-            <ul>
-              <li class="patient-name"> {{patient.firstName + ' ' + patient.lastName}}</li>
-              <li><span class="fa fa-user patient-info"> Matrícula:</span> {{patient.id}}</li>
-              <li><span class="fa fa-calendar patient-info"> Nascimento:</span> {{patient.bornDate}}</li>
-              <li><span class="fa fa-venus-mars patient-info"> Gênero:</span>
-                {{ patient.gender === 'M' ? 'Masculino' : 'Feminino'}}
-              </li>
-              <li><span class="fa fa-id-card patient-info"> Documento:</span> {{patient.cpf}}</li>
-              <li><span class="fa fa-phone patient-info"> Tel:</span>
-                {{patient.principalNumber ? patient.principalNumber : 'Não informado'}}</li>
-            </ul>
-          </div>
+        <div class="row">
+            <div class="center" *ngIf="!loading && patientNotFound">
+                <h1>Nenhum paciente encontrado...</h1>
+            </div>
+            <div *ngFor="let patient of patients" class="col-12 col-sm-6 col-md-4 col-lg-3">
+                <div class="card link-card" (click)="openDialog(patient.id)">
+                    <div class="card-body margin-color-active">
+                        <ul>
+                            <li class="patient-name"> {{patient.firstName + ' ' + patient.lastName}}</li>
+                            <li><span class="fa fa-user patient-info"> Matrícula:</span> {{patient.id}}</li>
+                            <li><span class="fa fa-calendar patient-info"> Nascimento:</span> {{patient.bornDate}}</li>
+                            <li><span class="fa fa-venus-mars patient-info"> Gênero:</span> {{ patient.gender === 'M' ? 'Masculino' : 'Feminino'}}
+                            </li>
+                            <li><span class="fa fa-id-card patient-info"> Documento:</span> {{patient.cpf}}</li>
+                            <li><span class="fa fa-phone patient-info"> Tel:</span> {{patient.principalNumber ? patient.principalNumber : 'Não informado'}}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </div>
 <ngx-loading [show]="loading"></ngx-loading>

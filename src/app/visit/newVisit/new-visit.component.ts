@@ -2,8 +2,12 @@ import { Component, Inject, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { NotificationsComponent } from 'app/core/notification/notifications.component';
-import { EventType, UtilService } from 'app/core/util.service';
-import { Responsible, Specialization, Visit, VisitService, NewVisit } from '../visit.service';
+import { UtilService } from 'app/core/util.service';
+import { VisitService } from '../visit.service';
+import { Specialization } from 'app/model/Specialization';
+import { Professional } from 'app/model/Professional';
+import { NewVisit } from 'app/model/Visit';
+import { EventType } from 'app/model/EventType';
 
 
 @Component({
@@ -21,7 +25,7 @@ export class NewVisitComponent implements OnInit {
 
     eventTypes: Array<EventType> = [];
     specializationsData: Array<Specialization> = [];
-    responsibles: Array<Responsible> = [];
+    responsibles: Array<Professional> = [];
 
     newVisit: NewVisit;
 

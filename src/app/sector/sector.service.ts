@@ -1,7 +1,6 @@
 import { Injectable } from "@angular/core";
 import { environment } from "environments/environment";
 import { AppHttp } from "app/security/app-http";
-import { Page } from "app/core/util.service";
 import { Sector } from 'app/model/Sector'
 
 @Injectable()

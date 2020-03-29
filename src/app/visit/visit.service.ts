@@ -3,103 +3,8 @@ import { Injectable } from '@angular/core';
 
 import { environment } from '../../environments/environment';
 import { AppHttp } from '../security/app-http';
-import { Document } from 'app/patient/patient.service';
+import { PatientHistory, VisitInfo, NewVisit } from 'app/model/Visit';
 
-/**
- * Representa informações básicas da visita
- */
-export class Visit {
-    id: number;
-    entryDatetime: Date;
-    entryCause: string;
-    isFinished: boolean;
-}
-
-export class NewVisit {
-    patientId: number;
-    eventTypeId: number;
-    responsibleId: number;
-    entryCause: string;
-
-}
-
-/**
- * Representa informações detalhadas da visita
- */
-export class VisitInfo {
-    id: number;
-    patientId: number;
-    document: Document;
-    firstName: string;
-    lastName: string;
-    principalNumber: string;
-    bornDate: Date;
-    gender: string;
-    allergies: Array<string>;
-    events: Array<VisitEvent>;
-    evolutions: Array<Evolution>;
-    medicines: Array<Medicine>;
-}
-
-/**
- * Representa um profissional
- */
-export class Responsible {
-    id: number;
-    firstName: string;
-    lastName: string;
-    professionalIdentity: string;
-}
-
-export class SpecializationInfo {
-    id: number;
-    description: string;
-    responsibles: Array<Responsible>;
-}
-
-/**
- * Representa uma especialidade
- */
-export class Specialization {
-    id: number;
-    name: string;
-    description: string;
-}
-
-/**
- * Representa o tipo de entrada (Filho de VisitType)
- */
-export class EntryType {
-    id: number;
-    name: string;
-    description: string;
-}
-
-/**
- * Representa um item da evolução
- */
-export class Evolution {
-    id: number;
-    datetime: Date;
-}
-
-export class Medicine {
-    id: number;
-    datetime: Date;
-    description: string;
-    amount: string;
-    prescriptionOfficer: string;
-    responsibleForTheAdministration: string;
-}
-/**
- * Representa o evento da visita
- */
-export class VisitEvent {
-    id: number;
-    datetime: Date;
-    description: string;
-    documentId: number;
-}
 
 
 @Injectable()
@@ -112,7 +17,7 @@ export class VisitService {
         this.resourceUrl = `${environment.apiUrl}/visit`;
     }
 
-    initializeVisit(newVisit: Visit) {
+    initializeVisit(newVisit: NewVisit) {
         var headers = this.http.getHeadersDefault();
         return this.http.post<VisitInfo>(`${this.resourceUrl}`, newVisit, { headers })
             .toPromise();
@@ -130,9 +35,9 @@ export class VisitService {
             .toPromise();
     }
 
-    getPatientHistory(patientId: number): Promise<Visit> {
+    getPatientHistory(patientId: number): Promise<PatientHistory> {
         var headers = this.http.getHeadersDefault();
-        return this.http.get<Visit>(`${this.resourceUrl}?patientId=${patientId}`, { headers })
+        return this.http.get<PatientHistory>(`${this.resourceUrl}?patientId=${patientId}`, { headers })
             .toPromise();
     }
 }
