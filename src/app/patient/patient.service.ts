@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 
 import { AppHttp } from '../security/app-http';
 import { environment } from '../../environments/environment';
-import { Patient } from 'app/model/Patient';
+import { Patient, PatientInfo } from 'app/model/Patient';
 import { Page } from 'app/model/Util';
 
 @Injectable()
@@ -14,10 +14,10 @@ export class PatientService {
         this.baseUrl = `${environment.apiUrl}/patient`;
     }
 
-    getById(id): Promise<Patient> {
+    getById(id): Promise<PatientInfo> {
         var headers = this.http.getHeadersDefault()
         if (id) {
-            return this.http.get<Patient>(`${this.baseUrl}/${id}`, { headers }).toPromise();
+            return this.http.get<PatientInfo>(`${this.baseUrl}/${id}`, { headers }).toPromise();
         }
     }
 
@@ -29,26 +29,26 @@ export class PatientService {
     }
 
 
-    getByCpf(cpf: string): Promise<Patient> {
+    getByCpf(cpf: string): Promise<PatientInfo> {
         var headers = this.http.getHeadersDefault()
         if (cpf) {
-            return this.http.get<Patient>(`${this.baseUrl}/CPF/${cpf}`, { headers }).toPromise();
+            return this.http.get<PatientInfo>(`${this.baseUrl}/CPF/${cpf}`, { headers }).toPromise();
         }
     }
 
-    create(patient: Patient): Promise<Patient> {
+    create(patient: PatientInfo): Promise<PatientInfo> {
         var headers = this.http.getHeadersDefault()
             .append('Content-Type', "application/json");
         if (patient) {
-            return this.http.post<Patient>(`${this.baseUrl}`, patient, { headers }).toPromise();
+            return this.http.post<PatientInfo>(`${this.baseUrl}`, patient, { headers }).toPromise();
         }
     }
 
-    update(patient: Patient): Promise<Patient> {
+    update(patient: PatientInfo): Promise<PatientInfo> {
         var headers = this.http.getHeadersDefault()
             .append('Content-Type', "application/json");
         if (patient) {
-            return this.http.put<Patient>(`${this.baseUrl}/${patient.id}`, patient, { headers }).toPromise();
+            return this.http.put<PatientInfo>(`${this.baseUrl}/${patient.id}`, patient, { headers }).toPromise();
         }
     }
 }

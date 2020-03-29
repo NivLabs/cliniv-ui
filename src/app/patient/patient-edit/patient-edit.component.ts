@@ -7,7 +7,7 @@ import { AddressService } from 'app/core/address.service';
 import { UtilService } from 'app/core/util.service';
 import { ConfirmDialogComponent } from 'app/core/confirm-dialog/confirm-dialog.component';
 import { Router } from '@angular/router';
-import { Patient } from 'app/model/Patient';
+import { Patient, PatientInfo } from 'app/model/Patient';
 import { Address } from 'app/model/Address';
 
 
@@ -17,15 +17,15 @@ import { Address } from 'app/model/Address';
 })
 export class PatientEditComponent implements OnInit {
 
-  public patient: Patient;
+  public patient: PatientInfo;
   public loading: boolean;
 
   constructor(private router: Router, public confirmDialog: MatDialog,
     public dialogRef: MatDialogRef<PatientEditComponent>, public errorHandler: ErrorHandlerService,
-    @Inject(MAT_DIALOG_DATA) public data: Patient, private patientService: PatientService, private addressService: AddressService, private notification: NotificationsComponent, private utilService: UtilService) {
+    @Inject(MAT_DIALOG_DATA) public data: PatientInfo, private patientService: PatientService, private addressService: AddressService, private notification: NotificationsComponent, private utilService: UtilService) {
     this.dialogRef.disableClose = true;
 
-    this.patient = new Patient();
+    this.patient = new PatientInfo();
 
   }
 
@@ -36,7 +36,7 @@ export class PatientEditComponent implements OnInit {
 
     confirmDialogRef.afterClosed().subscribe(result => {
       if (result !== undefined && result.isConfirmed) {
-        this.patient = new Patient();
+        this.patient = new PatientInfo();
       }
     });
   }
@@ -54,7 +54,7 @@ export class PatientEditComponent implements OnInit {
       }).catch(error => {
         this.loading = false;
         var cpf = this.patient.document.value;
-        this.patient = new Patient();
+        this.patient = new PatientInfo();
         this.patient.document.value = cpf;
         this.errorHandler.handle(error, this.dialogRef);
       });
@@ -122,7 +122,7 @@ export class PatientEditComponent implements OnInit {
     if (this.patient.document.value)
       if (!this.utilService.cpfIsValid(this.patient.document.value)) {
         this.notification.showError("CPF Inválido, favor informar um CPF válido e sem pontos e/ou traços");
-        this.patient = new Patient();
+        this.patient = new PatientInfo();
       } else {
         this.loading = true;
         this.patientService.getByCpf(this.patient.document.value).then(resp => {
@@ -134,7 +134,7 @@ export class PatientEditComponent implements OnInit {
         }).catch(error => {
           this.loading = false;
           var cpf = this.patient.document.value;
-          this.patient = new Patient();
+          this.patient = new PatientInfo();
           this.patient.document.value = cpf;
           this.errorHandler.handle(error, this.dialogRef);
         });

@@ -2,9 +2,9 @@ import { Document } from "./Document";
 import { Address } from "./Address";
 
 /**
- * Classe que representa um paciente
+ * Representa as informações detalhadas do paciente
  */
-export class Patient {
+export class PatientInfo {
     id: number;
     firstName: string;
     lastName: string;
@@ -20,4 +20,17 @@ export class Patient {
     observations: string;
     gender: string;
     email: string;
+}
+
+/**
+ * Representa as informações resumidas do paciente
+ */
+export class Patient {
+    id: number;
+    firtName: string;
+    lastName: string;
+    bornDate: Date;
+    gender: string;
+    cpf: string;
+    principalNumber: string;
 }
