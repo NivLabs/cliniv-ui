@@ -21,7 +21,7 @@ export class VisitInfo {
 }
 
 /**
- * Representa o evento da visita
+ * Representa o evento do Atendimento
  */
 export class VisitEvent {
     id: number;
@@ -31,7 +31,7 @@ export class VisitEvent {
 }
 
 /**
- * Representa o objeto de criação de visita
+ * Representa o objeto de criação de Atendimento
  */
 export class NewVisit {
     patientId: number;
@@ -41,7 +41,7 @@ export class NewVisit {
 }
 
 /**
- * Classe que representa o histórico de visitas do Paciente
+ * Classe que representa o histórico de atendimentos do Paciente
  */
 export class PatientHistory {
     id: number;
