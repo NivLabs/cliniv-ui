@@ -5,12 +5,21 @@ O FT - Gestão de Prontuário - UI (FTGP-UI) é uma UI RestClient OpenSource cri
 
 Atualmente encontra-se na versão 1.0.0 em desenvolvimento - [FTGP-UI](https://gestao-prontuario-ui.herokuapp.com/)
 
-Funcionalidades da UI
-- Cadastro de Pacientes
-- Cadastro de Responsáveis (Enfermeiro, Médico, Técnico, etc)
-- Cadastro de Eventos (Consultas, exames, prescrições, etc)
+# Funcionalidades da UI
+## Prontuário
+![image](https://user-images.githubusercontent.com/7918549/77863016-9e996280-71f5-11ea-8db0-62cc02d4d420.png)
+## Cadastro de Pacientes
+### Listagem
+![image](https://user-images.githubusercontent.com/7918549/77863001-8b869280-71f5-11ea-9179-378e1624f8fa.png)
+### Formulário
+![image](https://user-images.githubusercontent.com/7918549/77863168-a3124b00-71f6-11ea-8db2-d2f77ed54c2a.png)
+## Cadastro de Responsáveis (Enfermeiro, Médico, Técnico, etc)
+### Formulário
+![image](https://user-images.githubusercontent.com/7918549/77863033-c25ca880-71f5-11ea-8aa5-41306706b0a8.png)
+## Histórico de atendimento em forma de timeline
+![image](https://user-images.githubusercontent.com/7918549/77863211-09976900-71f7-11ea-9c8f-8b159b781999.png)
+## Outros
 - Armazenamento de documentos (Resultado de exames, radiografia, tomografia, etc)
-- Histórico de atendimento em forma de timeline
 - Anamnese
 
 # Como densenvolver?
