@@ -7,7 +7,7 @@ import { AddressService } from 'app/core/address.service';
 import { UtilService } from 'app/core/util.service';
 import { ConfirmDialogComponent } from 'app/core/confirm-dialog/confirm-dialog.component';
 import { Router } from '@angular/router';
-import { Patient, PatientInfo } from 'app/model/Patient';
+import { PatientInfo } from 'app/model/Patient';
 import { Address } from 'app/model/Address';
 
 
