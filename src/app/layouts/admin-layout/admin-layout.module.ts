@@ -106,7 +106,14 @@ const matModules = [
     ReactiveFormsModule,
     SecurityModule
   ],
-  exports: [...matModules],
+  exports: [
+    CommonModule,
+    FormsModule,
+    matModules,
+    NgxLoadingModule,
+    ReactiveFormsModule,
+    SecurityModule
+  ],
   declarations: [
     DashboardComponent,
 
