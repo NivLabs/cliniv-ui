@@ -3,7 +3,7 @@ import { NotificationsComponent } from 'app/core/notification/notifications.comp
 import { ErrorHandlerService } from 'app/core/error-handler.service';
 import { SectorService } from '../sector.service';
 import { UtilService } from 'app/core/util.service';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { Sector } from 'app/model/Sector';
 
@@ -14,21 +14,18 @@ import { Sector } from 'app/model/Sector';
 })
 export class SectorEditComponent implements OnInit {
 
-
-  public form: FormGroup;
   public loading = false;
   public sector: Sector;
 
-  constructor(public dialog: MatDialog, public formBuilder: FormBuilder, private utilService: UtilService, private patientService: SectorService, private errorHandler: ErrorHandlerService, private notification: NotificationsComponent) {
+  constructor(public dialog: MatDialog, public dialogRef: MatDialogRef<SectorEditComponent>, public formBuilder: FormBuilder, private utilService: UtilService, private patientService: SectorService, private errorHandler: ErrorHandlerService, private notification: NotificationsComponent) {
     this.sector = new Sector(null, null);
-
-    this.form = this.formBuilder.group({
-      id: new FormControl(''),
-      description: new FormControl('')
-    });
   }
 
   ngOnInit(): void {
+  }
+
+  onCancelClick(): void {
+    this.dialogRef.close();
   }
 
 }

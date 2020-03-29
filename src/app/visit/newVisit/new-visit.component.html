@@ -7,7 +7,7 @@
         <form #form="ngForm" autocomplete="off">
             <div class="row">
                 <div class="col-md-2">
-                    <mat-form-field class="example-full-width">
+                    <mat-form-field>
                         <input matInput type="number" placeholder="Código do paciente" name="patientId" [(ngModel)]="newVisit.patientId" #patientId="ngModel" disabled required />
                     </mat-form-field>
                 </div>
@@ -28,7 +28,7 @@
             </div>
             <div class="row">
                 <div class="col-md-4">
-                    <mat-form-field class="example-full-width">
+                    <mat-form-field>
                         <input matInput placeholder="Motivo do atendimento" name="entryCause" [(ngModel)]="newVisit.entryCause" #entryCause="ngModel" type="text" />
                     </mat-form-field>
                 </div>

@@ -187,7 +187,7 @@ export class ProfessionalEditComponent implements OnInit {
 
   checkSpecializations() {
     this.professional.specializations.forEach(spec => {
-      console.log("Chegando especialização :: ", spec.id, " :: ", spec.name);
+      console.log("Checando especialização :: ", spec.id, " :: ", spec.name);
       this.specializationsData.forEach(specInput => {
         if (spec.id === specInput.id) {
           specInput.checked = true;

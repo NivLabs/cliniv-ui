@@ -4,16 +4,16 @@
         <p class="card-category">Dados completos do setor</p>
     </div>
     <div class="card-body">
-        <form [formGroup]="form" autocomplete="off" (ngSubmit)="save()">
+        <form #form="ngForm" autocomplete="off" (ngSubmit)="save()">
             <div class="row">
                 <div class="col-md-3">
-                    <mat-form-field class="example-full-width">
-                        <input matInput placeholder="Código do Setor" formControlName="id" [(ngModel)]="sector.id" #id disabled />
+                    <mat-form-field>
+                        <input matInput placeholder="Código do Setor" name="id" [(ngModel)]="sector.id" #id disabled />
                     </mat-form-field>
                 </div>
                 <div class="col-md-4">
-                    <mat-form-field class="example-full-width">
-                        <input matInput placeholder="Descrição" formControlName="description" [(ngModel)]="sector.description" #description />
+                    <mat-form-field>
+                        <input matInput placeholder="Descrição" name="description" [(ngModel)]="sector.description" #description />
                     </mat-form-field>
                 </div>
             </div>

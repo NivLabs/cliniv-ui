@@ -7,22 +7,24 @@
                         <h4 class="card-title">Filtros</h4>
                     </div>
                     <div class="card-body">
-                        <form #form="ngForm" autocomplete="off">
+                        <form autocomplete="off">
                             <div class="row">
                                 <div class="col-md-2">
-                                    <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="Identificador do setor" name="id" formControlName="id" [(ngModel)]="sector.id" #id />
+                                    <mat-form-field>
+                                        <input matInput placeholder="Identificador do setor" name="id" type="text" />
                                     </mat-form-field>
                                 </div>
-                                <div class="col-md-3">
-                                    <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="Descrição do setor" name="description" formControlName="description" [(ngModel)]="sector.description" #description />
-                                    </mat-form-field>
-                                </div>
-                                <button mat-raised-button type="submit" class="btn btn-danger pull-right">Filtrar</button>
-                                <button mat-raised-button type="button" (click)="openDialog(null)" class="btn btn-info pull-right">Novo Setor</button>
-                                <div class="clearfix"></div>
                             </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <mat-form-field>
+                                        <input matInput placeholder="Descrição do setor" name="description" type="text" />
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <button mat-raised-button type="submit" class="btn btn-danger pull-right">Filtrar</button>
+                            <button mat-raised-button type="button" (click)="openDialog(null)" class="btn btn-info pull-right">Novo Setor</button>
+                            <div class="clearfix"></div>
                         </form>
                     </div>
                 </div>
@@ -36,8 +38,8 @@
                 <div class="card link-card" (click)="openDialog(sector.id)">
                     <div class="card-body margin-color-active">
                         <ul>
-                            <li><span class="fa fa-map sector-info"> Identificador:</span> {{sector.id}}</li>
-                            <li><span class="fa fa-card sector-info"> Descrição:</span> {{sector.description}}</li>
+                            <li><span class="fa fa-key sector-info"> Identificador:</span> {{sector.id}}</li>
+                            <li><span class="fa fa-map sector-info"> {{sector.description}}</span></li>
                         </ul>
                     </div>
                 </div>
