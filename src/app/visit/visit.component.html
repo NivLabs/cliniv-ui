@@ -4,8 +4,8 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header card-header-danger">
-                        <h4 class="card-title">Visita</h4>
-                        <p class="card-category">Informe uma matrícula de paciente ou um código de visita...</p>
+                        <h4 class="card-title">Atendimento</h4>
+                        <p class="card-category">Informe uma matrícula de paciente ou um código de atendimento...</p>
                     </div>
                     <div class="card-body">
                         <form #form="ngForm" autocomplete="off">
@@ -23,7 +23,7 @@
                             <div class="row">
                                 <div class="col-md-3">
                                     <mat-form-field>
-                                        <input matInput type="number" placeholder="Código da visita" name="id" [(ngModel)]="visit.id" #id="ngModel" (keypress)="enterKeyPress($event)" [disabled]="visit.patientId" />
+                                        <input matInput type="number" placeholder="Código do atendimento" name="id" [(ngModel)]="visit.id" #id="ngModel" (keypress)="enterKeyPress($event)" [disabled]="visit.patientId" />
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-3">

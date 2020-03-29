@@ -1,7 +1,7 @@
 <div class="card">
     <div class="card-header card-header-danger">
-        <h4 class="card-title">Histórico de visitas do paciente</h4>
-        <p class="card-category">Visitas encontradas...</p>
+        <h4 class="card-title">Histórico de atendimentos do paciente</h4>
+        <p class="card-category">Atendimentos encontrados...</p>
     </div>
     <div class="card-body">
         <mat-table [dataSource]="dataSource" matSort>
@@ -27,15 +27,15 @@
             <ng-container matColumnDef="isFinished">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>Situação</mat-header-cell>
                 <mat-cell *matCellDef="let row" [style.color]="row.isFinished ? '#ED4E4A' : '#5EB462'">
-                    <h5>{{showStatus(row.isFinished)}}</h5></mat-cell>
+                    <h5>{{showStatus(row.isFinished)}}</h5>
+                </mat-cell>
             </ng-container>
 
             <!-- Color Column -->
             <ng-container matColumnDef="actions">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>Selecionar</mat-header-cell>
                 <mat-cell *matCellDef="let row" style="text-align: center; display: block;">
-                    <button mat-raised-button (click)="ngOnInit()" class="btn btn-info"
-                    [mat-dialog-close]="row"><i class="fa fa-eye"></i></button>
+                    <button mat-raised-button (click)="ngOnInit()" class="btn btn-info" [mat-dialog-close]="row"><i class="fa fa-eye"></i></button>
 
                 </mat-cell>
             </ng-container>

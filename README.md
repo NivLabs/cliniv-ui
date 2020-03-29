@@ -10,7 +10,7 @@ Funcionalidades da UI
 - Cadastro de Responsáveis (Enfermeiro, Médico, Técnico, etc)
 - Cadastro de Eventos (Consultas, exames, prescrições, etc)
 - Armazenamento de documentos (Resultado de exames, radiografia, tomografia, etc)
-- Histórico de visita em forma de timeline
+- Histórico de atendimento em forma de timeline
 - Anamnese
 
 # Como densenvolver?
