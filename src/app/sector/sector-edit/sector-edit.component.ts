@@ -9,8 +9,7 @@ import { Sector } from 'app/model/Sector';
 
 @Component({
   selector: 'app-sector-edit',
-  templateUrl: './sector-edit.component.html',
-  styleUrls: ['./sector-edit.component.css']
+  templateUrl: './sector-edit.component.html'
 })
 export class SectorEditComponent implements OnInit {
 
@@ -28,4 +27,11 @@ export class SectorEditComponent implements OnInit {
     this.dialogRef.close();
   }
 
+  save() {
+
+  }
+
+  resetForm() {
+
+  }
 }
