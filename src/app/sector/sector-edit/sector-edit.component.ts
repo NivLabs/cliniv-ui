@@ -3,9 +3,9 @@ import { NotificationsComponent } from 'app/core/notification/notifications.comp
 import { ErrorHandlerService } from 'app/core/error-handler.service';
 import { SectorService } from '../sector.service';
 import { UtilService } from 'app/core/util.service';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import { Sector } from 'app/model/Sector';
+import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-sector-edit',
@@ -21,6 +21,13 @@ export class SectorEditComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (this.dialogRef.componentInstance.data !== null) {
+
+      this.sector = new Sector(this.dialogRef.componentInstance.data['id'], this.dialogRef.componentInstance.data['descriion'];)
+      console.log(this.dialogRef);
+      console.log(this.dialogRef.componentInstance);
+
+    }
   }
 
   onCancelClick(): void {
