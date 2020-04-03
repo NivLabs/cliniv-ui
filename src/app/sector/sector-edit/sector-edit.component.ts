@@ -36,7 +36,7 @@ export class SectorEditComponent implements OnInit {
   }
 
   resetForm() {
-    const confirmDialogRef = this.confirmDialog.open(ConfirmDialogComponent', {
+    const confirmDialogRef = this.confirmDialog.open(ConfirmDialogComponent, {
       data: { title: 'Confirmação', message: 'Você confirma a limpeza do formulário?' }
     });
 
