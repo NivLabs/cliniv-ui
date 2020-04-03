@@ -39,7 +39,7 @@ export class ProfessionalComponent implements OnInit {
   openDialog(id): void {
     const dialogRef = this.dialog.open(ProfessionalEditComponent, {
       width: '100%',
-      height: '100%',
+      height: '80%',
       data: { selectedProfessional: id }
     });
 
