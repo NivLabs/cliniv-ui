@@ -19,7 +19,7 @@ export class SectorComponent implements OnInit {
 
   ngOnInit(): void {
     this.loading = true;
-    this.sectorService.getPageOfSectors(null).then(response => {
+    this.sectorService.getListOfSectors(null).then(response => {
       this.loading = false;
       this.sectors = response;
       this.sectorNotFound = this.sectors.length === 0;

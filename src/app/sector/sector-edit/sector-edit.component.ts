@@ -17,7 +17,7 @@ export class SectorEditComponent implements OnInit {
   public loading = false;
   public sector: Sector;
 
-  constructor(public confirmDialog: MatDialog, public dialog: MatDialog, public dialogRef: MatDialogRef<SectorEditComponent>, @Inject(MAT_DIALOG_DATA) public data: Sector, public formBuilder: FormBuilder, private utilService: UtilService, private patientService: SectorService, private errorHandler: ErrorHandlerService, private notification: NotificationsComponent) {
+  constructor(public sectorService: SectorService, public confirmDialog: MatDialog, public dialog: MatDialog, public dialogRef: MatDialogRef<SectorEditComponent>, @Inject(MAT_DIALOG_DATA) public data: Sector, public formBuilder: FormBuilder, private utilService: UtilService, private patientService: SectorService, private errorHandler: ErrorHandlerService, private notification: NotificationsComponent) {
     this.sector = new Sector(null, null);
   }
 
@@ -32,7 +32,23 @@ export class SectorEditComponent implements OnInit {
   }
 
   save() {
-
+    if (this.sector.id) {
+      this.sectorService.update(this.sector).then(resp => {
+        this.sector = resp;
+        this.notification.showSucess("Setor alterado com sucesso!");
+      }).catch(error => {
+        this.loading = false;
+        this.errorHandler.handle(error, this.dialogRef);
+      });
+    } else {
+      this.sectorService.create(this.sector).then(resp => {
+        this.sector = resp;
+        this.notification.showSucess("Setor cadastrado com sucesso!");
+      }).catch(error => {
+        this.loading = false;
+        this.errorHandler.handle(error, this.dialogRef);
+      });
+    }
   }
 
   resetForm() {
