@@ -15,7 +15,7 @@ export const ROUTES: RouteInfo[] = [
   { path: '/visit', title: 'Prontuário', icon: 'content_paste', class: '' },
   { path: '/professional', title: 'Profissionais', icon: 'bubble_chart', class: '' },
   { path: '/sector', title: 'Setores', icon: 'location_on', class: '' },
-  { path: '/notifications', title: 'Administrativo', icon: 'settings', class: '' },
+  { path: '/admin', title: 'Administrativo', icon: 'settings', class: '' },
   { path: '/user-profile', title: 'Perfil', icon: 'person', class: '' },
   { path: '/institute', title: 'Institucional', icon: 'house', class: '' }
 ];
