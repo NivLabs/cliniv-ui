@@ -10,7 +10,7 @@ export class AdminComponent implements OnInit {
   public loading: boolean;
   public userNotFound: boolean;
   users = [];
-  
+
   constructor() { }
 
   ngOnInit(): void {
