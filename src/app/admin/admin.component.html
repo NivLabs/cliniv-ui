@@ -11,18 +11,18 @@
                             <div class="row">
                                 <div class="col-md-2">
                                     <mat-form-field>
-                                        <input matInput placeholder="Matrícula do responsável" name="id" />
+                                        <input matInput placeholder="Matrícula do usuário" name="id" />
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-3">
                                     <mat-form-field>
-                                        <input matInput placeholder="CPF do responsável" name="cpf" />
+                                        <input matInput placeholder="Nome de usuário" name="userName" />
                                     </mat-form-field>
                                 </div>
                             </div>
                             <button mat-raised-button type="submit" class="btn btn-danger pull-right">Filtrar</button>
                             <button mat-raised-button type="button" (click)="openDialog(null)" class="btn btn-info pull-right">Novo
-                    Profissional</button>
+                    Usuário</button>
                             <div class="clearfix"></div>
                         </form>
                     </div>
@@ -30,19 +30,17 @@
             </div>
         </div>
         <div class="row">
-            <div class="center" *ngIf="!loading && responsibleNotFound">
-                <h1>Nenhum profissional encontrado...</h1>
+            <div class="center" *ngIf="!loading && userNotFound">
+                <h1>Nenhum usuário encontrado...</h1>
             </div>
-            <div *ngFor="let responsible of responsibles" class="col-12 col-sm-6 col-md-4 col-lg-3">
+            <div *ngFor="let user of users" class="col-12 col-sm-6 col-md-4 col-lg-3">
                 <div class="card link-card" (click)="openDialog(responsible.id)">
                     <div class="card-body margin-color-active">
                         <ul>
-                            <li class="responsible-name"> {{responsible.firstName + ' ' + responsible.lastName}}</li>
-                            <li><span class="fa fa-user responsible-info"> Matrícula:</span> {{responsible.id}}</li>
-                            <li><span class="fa fa-calendar responsible-info"> Nascimento:</span> {{responsible.bornDate}}</li>
-                            <li><span class="fa fa-venus-mars responsible-info"> Gênero:</span> {{ responsible.gender === 'M' ? 'Masculino' : 'Feminino'}}</li>
-                            <li><span class="fa fa-id-card responsible-info"> Documento:</span> {{responsible.cpf}}</li>
-                            <li><span class="fa fa-phone responsible-info"> Tel:</span> {{responsible.principalNumber ? responsible.principalNumber : 'Não informado'}}</li>
+                            <li class="user-name"> {{user.username}}</li>
+                            <li><span class="fa fa-key useuserr-info"> Matrícula:</span> {{user.id}}</li>
+                            <li><span class="fa fa-user user-info"> Nome:</span> {{user.person.firstName + ' ' + user.person.lastName}}</li>
+                            <li><span class="fa fa-id-card responsible-info"> Documento:</span> {{user.person.cpf}}</li>
                         </ul>
                     </div>
                 </div>

@@ -33,7 +33,7 @@ export class SectorComponent implements OnInit {
   openDialog(sector): void {
     console.log(sector)
     const dialogRef = this.dialog.open(SectorEditComponent, {
-      width: '75%',
+      width: '70%',
       data: sector
     });
 
