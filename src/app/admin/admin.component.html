@@ -33,14 +33,15 @@
             <div class="center" *ngIf="!loading && userNotFound">
                 <h1>Nenhum usuário encontrado...</h1>
             </div>
-            <div *ngFor="let user of users" class="col-12 col-sm-6 col-md-4 col-lg-3">
-                <div class="card link-card" (click)="openDialog(responsible.id)">
+            <div *ngFor="let user of page.content" class="col-12 col-sm-6 col-md-4 col-lg-3">
+                <div class="card link-card" (click)="openDialog(user.id)">
                     <div class="card-body margin-color-active">
                         <ul>
-                            <li class="user-name"> {{user.username}}</li>
-                            <li><span class="fa fa-key useuserr-info"> Matrícula:</span> {{user.id}}</li>
-                            <li><span class="fa fa-user user-info"> Nome:</span> {{user.person.firstName + ' ' + user.person.lastName}}</li>
-                            <li><span class="fa fa-id-card responsible-info"> Documento:</span> {{user.person.cpf}}</li>
+                            <li class="user-name"> {{user.firstName + ' ' + user.lastName}}</li>
+                            <li><span class="fa fa-key user-info"> Matrícula:</span> {{user.id}}</li>
+                            <li><span class="fa fa-user user-info"> Usuário:</span> {{user.userName}}</li>
+                            <li><span class="fa fa-id-card user-info"> Documento:</span> {{user.cpf}}</li>
+                            <li><span class="fa fa-phone user-info"> Telefone:</span> {{user.principalNumber}}</li>
                         </ul>
                     </div>
                 </div>
