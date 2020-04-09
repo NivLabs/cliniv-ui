@@ -49,6 +49,7 @@ import { ProfessionalComponent } from '../../professional/professional.component
 import { SectorComponent } from '../../sector/sector.component';
 import { SectorService } from '../../sector/sector.service';
 import { ProfessionalService } from '../../professional/professional.service';
+import { AdminService } from '../../admin/admin.service';
 import { SecurityModule } from '../../security/security.module';
 import { UserProfileComponent } from '../../user-profile/user-profile.component';
 import { UserProfileService } from '../../user-profile/user-profile.service';
@@ -145,6 +146,7 @@ const matModules = [
     UserProfileService,
     PatientService,
     ProfessionalService,
+    AdminService,
     SectorService,
     VisitService,
     InstituteService
