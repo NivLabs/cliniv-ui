@@ -33,7 +33,7 @@
             <div class="center" *ngIf="!loading && userNotFound">
                 <h1>Nenhum usuário encontrado...</h1>
             </div>
-            <div *ngFor="let user of page.content" class="col-12 col-sm-6 col-md-4 col-lg-3">
+            <div *ngFor="let user of loadedUsers" class="col-12 col-sm-6 col-md-4 col-lg-3">
                 <div class="card link-card" (click)="openDialog(user.id)">
                     <div class="card-body margin-color-active">
                         <ul>
@@ -45,6 +45,9 @@
                         </ul>
                     </div>
                 </div>
+            </div>
+            <div class="center" *ngIf="!loading && !page.last">
+                <button mat-raised-button type="button" (click)="loadNextPage()" class="btn btn-danger">Carregar mais...</button>
             </div>
         </div>
     </div>
