@@ -20,11 +20,26 @@ export class AdminService {
         }
     }
 
-    getPage(filter): Promise<Page> {
+    getPage(filter, pageSettings): Promise<Page> {
         var headers = this.http.getHeadersDefault();
-        if (!filter) {
-            return this.http.get<Page>(this.baseUrl, { headers }).toPromise();
+        var queryString = ""
+        if (filter) {
+            let params = new URLSearchParams();
+            for (let key in filter) {
+                params.set(key, filter[key])
+            }
+            queryString = queryString + params.toString();
         }
+        if (pageSettings) {
+            let params = new URLSearchParams();
+            for (let key in pageSettings) {
+                params.set(key, pageSettings[key])
+            }
+            queryString = queryString + params.toString();
+
+        }
+        return this.http.get<Page>(`${this.baseUrl}?${queryString}`, { headers }).toPromise();
+
     }
 
 

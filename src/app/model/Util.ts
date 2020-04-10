@@ -5,6 +5,7 @@ export class Page {
     content: [];
     empty: boolean;
     first: boolean;
+    last: boolean;
     number: number;
     numberOfElements: number;
     pageable: Pageable;
@@ -17,7 +18,6 @@ export class Page {
  * Filtro de paginação
  */
 export class Pageable {
-    pageNumber: number;
-    pageSize: number;
-    paged: boolean;
+    page: number = 0;
+    size: number = 20;
 }
