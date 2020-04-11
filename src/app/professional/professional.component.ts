@@ -17,22 +17,22 @@ export class ProfessionalComponent implements OnInit {
 
 
   public loading: boolean;
-  public responsibleNotFound: boolean;
-  responsibles: any;
+  public dataNotFound: boolean;
+  datas: any;
   page: Page;
   pageSettings: Pageable;
   filters: ProfessionalFilters;
 
-  constructor(public dialog: MatDialog, private utilService: UtilService, private professionalService: ProfessionalService, private errorHandler: ErrorHandlerService, private notification: NotificationsComponent) { }
+  constructor(public dialog: MatDialog, private utilService: UtilService, private principalService: ProfessionalService, private errorHandler: ErrorHandlerService, private notification: NotificationsComponent) { }
 
   ngOnInit() {
     this.loading = true;
-    this.professionalService.getPage(this.filters, this.pageSettings).then(response => {
+    this.principalService.getPage(this.filters, this.pageSettings).then(response => {
       this.loading = false;
-      this.responsibles = response.content;
-      this.responsibleNotFound = this.responsibles.length === 0;
+      this.datas = response.content;
+      this.dataNotFound = this.datas.length === 0;
     }).catch(error => {
-      this.responsibleNotFound = this.responsibles !== undefined ? this.responsibles.length === 0 : true;
+      this.dataNotFound = this.datas !== undefined ? this.datas.length === 0 : true;
       this.loading = false;
       this.errorHandler.handle(error, null);
     });
@@ -45,10 +45,10 @@ export class ProfessionalComponent implements OnInit {
     if (this.page && !this.page.last) {
       this.loading = true;
       this.pageSettings.page = this.pageSettings.page + 1;
-      this.professionalService.getPage(this.filters, this.pageSettings).then(response => {
+      this.principalService.getPage(this.filters, this.pageSettings).then(response => {
         this.loading = false;
         response.content.forEach(newItem => {
-          this.responsibles.push(newItem);
+          this.datas.push(newItem);
         })
         this.page = response;
       }).catch(error => {
@@ -58,6 +58,10 @@ export class ProfessionalComponent implements OnInit {
     }
   }
 
+  /**
+   * 
+   * @param id Identificador do Profissional
+   */
   openDialog(id): void {
     const dialogRef = this.dialog.open(ProfessionalEditComponent, {
       width: '100%',

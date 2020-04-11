@@ -4,8 +4,8 @@ import { ErrorHandlerService } from 'app/core/error-handler.service';
 import { NotificationsComponent } from 'app/core/notification/notifications.component';
 import { MatDialog } from '@angular/material/dialog';
 import { PatientEditComponent } from './patient-edit/patient-edit.component';
-import { Page } from 'app/model/Util';
-import { Patient } from 'app/model/Patient';
+import { Page, Pageable } from 'app/model/Util';
+import { PatientFilters } from '../model/Patient'
 @Component({
   selector: 'app-patient',
   templateUrl: './patient.component.html',
@@ -14,25 +14,52 @@ import { Patient } from 'app/model/Patient';
 export class PatientComponent implements OnInit {
 
   public loading: boolean;
-  public patientNotFound: boolean;
-  patients: Array<Patient>;
+  public dataNotFound: boolean;
+  datas: [];
   page: Page;
+  pageSettings: Pageable;
+  filters: PatientFilters;
 
-  constructor(public dialog: MatDialog, private patientService: PatientService, private errorHandler: ErrorHandlerService, private notification: NotificationsComponent) { }
+  constructor(public dialog: MatDialog, private principalService: PatientService, private errorHandler: ErrorHandlerService, private notification: NotificationsComponent) { }
 
   ngOnInit() {
     this.loading = true;
-    this.patientService.getPageOfPatients(null).then(response => {
+    this.principalService.getPage(this.filters, this.pageSettings).then(response => {
       this.loading = false;
-      this.patients = response.content;
-      this.patientNotFound = this.patients.length === 0;
-      console.log(this.patientNotFound);
+      this.datas = response.content;
+      this.dataNotFound = this.datas.length === 0;
+      console.log(this.dataNotFound);
     }).catch(error => {
-      this.patientNotFound = this.patients !== undefined ? this.patients.length === 0 : true;
+      this.dataNotFound = this.datas !== undefined ? this.datas.length === 0 : true;
       this.loading = false;
       this.errorHandler.handle(error, null);
     });
   }
+
+  /**
+   * Realiza a paginação dos componentes
+   */
+  loadNextPage() {
+    if (this.page && !this.page.last) {
+      this.loading = true;
+      this.pageSettings.page = this.pageSettings.page + 1;
+      this.principalService.getPage(this.filters, this.pageSettings).then(response => {
+        this.loading = false;
+        response.content.forEach(newItem => {
+          this.datas.push(newItem);
+        })
+        this.page = response;
+      }).catch(error => {
+        this.loading = false;
+        this.errorHandler.handle(error, null);
+      })
+    }
+  }
+
+  /**
+   * 
+   * @param id Identificador do paciente
+   */
   openDialog(id): void {
     const dialogRef = this.dialog.open(PatientEditComponent, {
       width: '100%',

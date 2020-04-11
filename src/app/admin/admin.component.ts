@@ -13,24 +13,24 @@ import { UserFilters } from 'app/model/User';
 export class AdminComponent implements OnInit {
 
   public loading: boolean;
-  public userNotFound: boolean;
-  loadedUsers: []
+  public dataNotFound: boolean;
+  datas: []
   page: Page;
   pageSettings: Pageable;
   filters: UserFilters;
 
-  constructor(private userService: AdminService, private errorHandler: ErrorHandlerService, private notification: NotificationsComponent) { }
+  constructor(private principalService: AdminService, private errorHandler: ErrorHandlerService, private notification: NotificationsComponent) { }
 
   ngOnInit(): void {
     this.pageSettings = new Pageable();
     this.loading = true;
-    this.userService.getPage(this.filters, this.pageSettings).then(response => {
+    this.principalService.getPage(this.filters, this.pageSettings).then(response => {
       this.loading = false;
-      this.loadedUsers = response.content;
+      this.datas = response.content;
       this.page = response;
-      this.userNotFound = this.loadedUsers.length === 0;
+      this.dataNotFound = this.datas.length === 0;
     }).catch(error => {
-      this.userNotFound = this.page.content !== undefined ? this.page.content.length === 0 : true;
+      this.dataNotFound = this.page.content !== undefined ? this.page.content.length === 0 : true;
       this.loading = false;
       this.errorHandler.handle(error, null);
     });
@@ -43,14 +43,13 @@ export class AdminComponent implements OnInit {
     if (this.page && !this.page.last) {
       this.loading = true;
       this.pageSettings.page = this.pageSettings.page + 1;
-      this.userService.getPage(this.filters, this.pageSettings).then(response => {
+      this.principalService.getPage(this.filters, this.pageSettings).then(response => {
         this.loading = false;
         response.content.forEach(newItem => {
-          this.loadedUsers.push(newItem);
+          this.datas.push(newItem);
         })
         this.page = response;
       }).catch(error => {
-        this.userNotFound = this.page.content !== undefined ? this.page.content.length === 0 : true;
         this.loading = false;
         this.errorHandler.handle(error, null);
       })

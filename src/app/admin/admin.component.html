@@ -30,10 +30,10 @@
             </div>
         </div>
         <div class="row">
-            <div class="center" *ngIf="!loading && userNotFound">
+            <div class="center" *ngIf="!loading && dataNotFound">
                 <h1>Nenhum usuário encontrado...</h1>
             </div>
-            <div *ngFor="let user of loadedUsers" class="col-12 col-sm-6 col-md-4 col-lg-3">
+            <div *ngFor="let user of datas" class="col-12 col-sm-6 col-md-4 col-lg-3">
                 <div class="card link-card" (click)="openDialog(user.id)">
                     <div class="card-body margin-color-active">
                         <ul>

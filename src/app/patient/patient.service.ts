@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 
 import { AppHttp } from '../security/app-http';
 import { environment } from '../../environments/environment';
-import { Patient, PatientInfo } from 'app/model/Patient';
+import { PatientInfo, PatientFilters } from 'app/model/Patient';
 import { Page, Pageable } from 'app/model/Util';
 
 @Injectable()
@@ -21,7 +21,7 @@ export class PatientService {
         }
     }
 
-    getPage(filter, pageSettings: Pageable): Promise<Page> {
+    getPage(filter: PatientFilters, pageSettings: Pageable): Promise<Page> {
         var headers = this.http.getHeadersDefault();
         var queryString = ""
         if (filter) {
