@@ -24,6 +24,7 @@ export class PatientComponent implements OnInit {
 
   ngOnInit() {
     this.loading = true;
+    this.filters = new PatientFilters();
     this.principalService.getPage(this.filters, this.pageSettings).then(response => {
       this.loading = false;
       this.datas = response.content;
@@ -53,6 +54,23 @@ export class PatientComponent implements OnInit {
         this.loading = false;
         this.errorHandler.handle(error, null);
       })
+    }
+  }
+
+  applyFilter() {
+    if (this.filters) {
+      this.loading = true;
+      this.pageSettings = new Pageable();
+      this.principalService.getPage(this.filters, this.pageSettings).then(response => {
+        this.loading = false;
+        this.datas = response.content;
+        this.dataNotFound = this.datas.length === 0;
+        console.log(this.dataNotFound);
+      }).catch(error => {
+        this.dataNotFound = this.datas !== undefined ? this.datas.length === 0 : true;
+        this.loading = false;
+        this.errorHandler.handle(error, null);
+      }); 
     }
   }
 

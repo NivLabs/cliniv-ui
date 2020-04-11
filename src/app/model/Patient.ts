@@ -23,6 +23,7 @@ export class PatientInfo {
 }
 
 export class PatientFilters {
+    id: number;
     firtName: string;
     lastName: string;
     cpf: string;
