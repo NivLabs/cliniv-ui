@@ -21,3 +21,14 @@ export class UserInfo {
     gender: string;
     email: string;
 }
+
+/**
+ * Filtros de pesquisa paginada para recuros usuários
+ */
+export class UserFilters {
+    userName: string;
+    cpf: string;
+    firstName: string;
+    lastName: string;
+    gender: string;;
+}

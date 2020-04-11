@@ -22,15 +22,8 @@ export class PatientInfo {
     email: string;
 }
 
-/**
- * Representa as informações resumidas do paciente
- */
-export class Patient {
-    id: number;
+export class PatientFilters {
     firtName: string;
     lastName: string;
-    bornDate: Date;
-    gender: string;
     cpf: string;
-    principalNumber: string;
 }
