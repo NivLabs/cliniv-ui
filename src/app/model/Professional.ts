@@ -23,3 +23,13 @@ export class Professional {
     email: string;
     specializations: any;
 }
+
+/**
+ * Filtro de pesquisa de profissionais 
+ */
+export class ProfessionalFilters {
+    professionalIdentity: string;
+    cpf: string;
+    firstName: string;
+    lastName: string;
+}
