@@ -24,7 +24,7 @@ export class PatientInfo {
 
 export class PatientFilters {
     id: number;
-    firtName: string;
+    firstName: string;
     lastName: string;
     cpf: string;
 }
