@@ -3,6 +3,7 @@ import { ErrorHandlerService } from 'app/core/error-handler.service';
 import { NotificationsComponent } from 'app/core/notification/notifications.component';
 import { AdminService } from './admin.service';
 import { Page, Pageable } from 'app/model/Util';
+import { UserFilters } from 'app/model/User';
 
 @Component({
   selector: 'app-admin',
@@ -16,7 +17,7 @@ export class AdminComponent implements OnInit {
   loadedUsers: []
   page: Page;
   pageSettings: Pageable;
-  filters: any;
+  filters: UserFilters;
 
   constructor(private userService: AdminService, private errorHandler: ErrorHandlerService, private notification: NotificationsComponent) { }
 
@@ -27,7 +28,7 @@ export class AdminComponent implements OnInit {
       this.loading = false;
       this.loadedUsers = response.content;
       this.page = response;
-      this.userNotFound = this.page.content.length === 0;
+      this.userNotFound = this.loadedUsers.length === 0;
     }).catch(error => {
       this.userNotFound = this.page.content !== undefined ? this.page.content.length === 0 : true;
       this.loading = false;

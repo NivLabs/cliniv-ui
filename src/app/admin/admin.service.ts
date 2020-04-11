@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { AppHttp } from '../security/app-http';
 import { environment } from '../../environments/environment';
 import { UserInfo } from 'app/model/User';
-import { Page } from 'app/model/Util';
+import { Page, Pageable } from 'app/model/Util';
 
 @Injectable()
 export class AdminService {
@@ -20,7 +20,7 @@ export class AdminService {
         }
     }
 
-    getPage(filter, pageSettings): Promise<Page> {
+    getPage(filter, pageSettings: Pageable): Promise<Page> {
         var headers = this.http.getHeadersDefault();
         var queryString = ""
         if (filter) {
@@ -39,7 +39,6 @@ export class AdminService {
 
         }
         return this.http.get<Page>(`${this.baseUrl}?${queryString}`, { headers }).toPromise();
-
     }
 
 

@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { AppHttp } from '../security/app-http';
 import { environment } from '../../environments/environment';
 import { Patient, PatientInfo } from 'app/model/Patient';
-import { Page } from 'app/model/Util';
+import { Page, Pageable } from 'app/model/Util';
 
 @Injectable()
 export class PatientService {
@@ -21,13 +21,26 @@ export class PatientService {
         }
     }
 
-    getPageOfPatients(filter): Promise<Page> {
-        var headers = this.http.getHeadersDefault()
-        if (!filter) {
-            return this.http.get<Page>(this.baseUrl, { headers }).toPromise();
+    getPage(filter, pageSettings: Pageable): Promise<Page> {
+        var headers = this.http.getHeadersDefault();
+        var queryString = ""
+        if (filter) {
+            let params = new URLSearchParams();
+            for (let key in filter) {
+                params.set(key, filter[key])
+            }
+            queryString = queryString + params.toString();
         }
-    }
+        if (pageSettings) {
+            let params = new URLSearchParams();
+            for (let key in pageSettings) {
+                params.set(key, pageSettings[key])
+            }
+            queryString = queryString + params.toString();
 
+        }
+        return this.http.get<Page>(`${this.baseUrl}?${queryString}`, { headers }).toPromise();
+    }
 
     getByCpf(cpf: string): Promise<PatientInfo> {
         var headers = this.http.getHeadersDefault()
