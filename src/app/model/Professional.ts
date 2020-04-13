@@ -28,6 +28,7 @@ export class Professional {
  * Filtro de pesquisa de profissionais 
  */
 export class ProfessionalFilters {
+    id: number;
     professionalIdentity: string;
     cpf: string;
     firstName: string;
