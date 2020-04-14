@@ -11,22 +11,22 @@
                             <div class="row">
                                 <div class="col-md-2">
                                     <mat-form-field>
-                                        <input matInput placeholder="Matrícula do profissional" name="id" [(ngModel)]="filters.id" #id type="number" />
+                                        <input matInput placeholder="Matrícula do profissional" name="id" [(ngModel)]="filters.id" #id type="number" (keypress)="enterKeyPress($event)" />
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-2">
                                     <mat-form-field>
-                                        <input matInput placeholder="Nome do profissional" name="firstName" [(ngModel)]="filters.firstName" #firstName type="text" />
+                                        <input matInput placeholder="Nome do profissional" name="firstName" [(ngModel)]="filters.firstName" #firstName type="text" (keypress)="enterKeyPress($event)" />
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-3">
                                     <mat-form-field>
-                                        <input matInput placeholder="Sobrenome do profissional" name="lastName" [(ngModel)]="filters.lastName" #lastName type="text"/>
+                                        <input matInput placeholder="Sobrenome do profissional" name="lastName" [(ngModel)]="filters.lastName" #lastName type="text" (keypress)="enterKeyPress($event)"/>
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-3">
                                     <mat-form-field>
-                                        <input matInput placeholder="CPF do profissional" name="cpf" [(ngModel)]="filters.cpf" #cpf type="text"/>
+                                        <input matInput placeholder="CPF do profissional" name="cpf" [(ngModel)]="filters.cpf" #cpf type="text" (keypress)="enterKeyPress($event)"/>
                                     </mat-form-field>
                                 </div>
                             </div>
