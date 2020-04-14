@@ -80,6 +80,19 @@ export class ProfessionalComponent implements OnInit {
   }
 
   /**
+  * 
+  * Executa um evento à partir da tecla enter
+  * 
+  * @param event Evento de tecla
+  */
+  enterKeyPress(event: any) {
+    if (event.key === "Enter") {
+      this.applyFilter();
+    }
+  }
+
+
+  /**
    * 
    * @param id Identificador do Profissional
    */
