@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { PatientEditComponent } from './patient-edit/patient-edit.component';
 import { Page, Pageable } from 'app/model/Util';
 import { PatientFilters } from '../model/Patient'
+
 @Component({
   selector: 'app-patient',
   templateUrl: './patient.component.html',
