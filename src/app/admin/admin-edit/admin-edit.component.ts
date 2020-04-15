@@ -121,7 +121,7 @@ export class AdminEditComponent implements OnInit {
   }
 
   findByCpf() {
-    if (this.dataToForm.document.value)
+    if (!this.dataToForm.id && this.dataToForm.document.value)
       if (!this.utilService.cpfIsValid(this.dataToForm.document.value)) {
         this.notification.showError("CPF Inválido, favor informar um CPF válido e sem pontos e/ou traços");
         this.dataToForm = new UserInfo();
