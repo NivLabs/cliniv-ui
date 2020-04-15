@@ -4,6 +4,8 @@ import { NotificationsComponent } from 'app/core/notification/notifications.comp
 import { AdminService } from './admin.service';
 import { Page, Pageable } from 'app/model/Util';
 import { UserFilters } from 'app/model/User';
+import { AdminEditComponent } from './admin-edit/admin-edit.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-admin',
@@ -19,7 +21,7 @@ export class AdminComponent implements OnInit {
   pageSettings: Pageable;
   filters: UserFilters;
 
-  constructor(private principalService: AdminService, private errorHandler: ErrorHandlerService, private notification: NotificationsComponent) { }
+  constructor(public dialog: MatDialog, private principalService: AdminService, private errorHandler: ErrorHandlerService, private notification: NotificationsComponent) { }
 
   ngOnInit(): void {
     this.pageSettings = new Pageable();
@@ -61,5 +63,15 @@ export class AdminComponent implements OnInit {
    * @param id Identificador do usuário
    */
   openDialog(id) {
+    const dialogRef = this.dialog.open(AdminEditComponent, {
+      width: '100%',
+      height: '68%',
+      data: { selectedId: id }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.ngOnInit();
+    });
   }
+
 }

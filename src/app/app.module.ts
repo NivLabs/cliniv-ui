@@ -17,6 +17,7 @@ import { SecurityRoutingModule } from './security/security-routing.module';
 import { AdminLayoutModule } from './layouts/admin-layout/admin-layout.module';
 import { SectorEditComponent } from './sector/sector-edit/sector-edit.component';
 import { AdminComponent } from './admin/admin.component';
+import { AdminEditComponent } from './admin/admin-edit/admin-edit.component';
 
 @NgModule({
   imports: [
@@ -37,7 +38,8 @@ import { AdminComponent } from './admin/admin.component';
     AppComponent,
     AdminLayoutComponent,
     SectorEditComponent,
-    AdminComponent
+    AdminComponent,
+    AdminEditComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
