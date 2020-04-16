@@ -19,6 +19,7 @@ export class AdminEditComponent implements OnInit {
 
   public dataToForm: UserInfo;
   public loading: boolean;
+  public roles: Array<any>;
 
   constructor(public confirmDialog: MatDialog,
     public dialogRef: MatDialogRef<AdminEditComponent>, public errorHandler: ErrorHandlerService,
@@ -51,6 +52,7 @@ export class AdminEditComponent implements OnInit {
         if (!resp.address) {
           this.dataToForm.address = new Address();
         }
+        this.checkRoles();
       }).catch(error => {
         this.loading = false;
         var cpf = this.dataToForm.document.value;
@@ -66,6 +68,13 @@ export class AdminEditComponent implements OnInit {
   }
 
   save() {
+    this.dataToForm.roles = [];
+    document.getElementsByName('roles').forEach(checkbox => {
+      if (checkbox['checked']) {
+        this.dataToForm.roles.push({ 'id': checkbox['id'], 'description': checkbox['value'] })
+      }
+    });
+
     if (this.dataToForm.id) {
       this.adminService.update(this.dataToForm).then(resp => {
         this.dataToForm = resp;
@@ -120,6 +129,9 @@ export class AdminEditComponent implements OnInit {
     }
   }
 
+  /**
+   * TODO: Implementar pesquisa do lado da API
+   */
   findByCpf() {
     if (!this.dataToForm.id && this.dataToForm.document.value)
       if (!this.utilService.cpfIsValid(this.dataToForm.document.value)) {
@@ -133,6 +145,7 @@ export class AdminEditComponent implements OnInit {
           if (!resp.address) {
             this.dataToForm.address = new Address();
           }
+          this.checkRoles()
         }).catch(error => {
           this.loading = false;
           var cpf = this.dataToForm.document.value;
@@ -141,6 +154,30 @@ export class AdminEditComponent implements OnInit {
           this.errorHandler.handle(error, this.dialogRef);
         });
       }
+  }
+
+  /**
+   * Checa os papéis de acesso do usuário
+   */
+  checkRoles() {
+    this.roles = [
+      { id: 1, description: 'ROLE_ADMIN', name: 'Administrador', checked: false },
+      { id: 2, description: 'ROLE_COMUM', name: 'Geral', checked: false },
+      { id: 3, description: 'ROLE_ENFERMEIRO', name: 'Enfermeiro', checked: false },
+      { id: 4, description: 'ROLE_MEDICO', name: 'Médico', checked: false },
+      { id: 5, description: 'ROLE_RECEPCAO', name: 'Recepção', checked: false },
+      { id: 6, description: 'ROLE_TECNICO', name: 'Técnico', checked: false },
+    ];
+    if (this.dataToForm) {
+      this.dataToForm.roles.forEach(role => {
+        console.log("Checando papeis de acesso :: ", role['id'], " :: ", role['description']);
+        this.roles.forEach(roleInput => {
+          if (role['id'] === roleInput.id) {
+            roleInput.checked = true;
+          }
+        });
+      });
+    }
   }
 
   /**

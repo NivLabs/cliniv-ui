@@ -63,6 +63,29 @@
                     </mat-form-field>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h5 for="specializationTitle">Papéis</h5>
+                </div>
+                <mat-divider class="col-md-12"></mat-divider>
+                <small class="col-md-12">Selecione os papeis de acesso do profissional</small>
+                <br />
+
+                <mat-checkbox hidden></mat-checkbox>
+                <div class="col-sm-12 col-md-6 col-lg-4" *ngFor="let role of roles">
+                    <div>
+                        <label class="mat-checkbox-layout" for="{{role.id}}">
+                            <div class="mat-checkbox-inner-container">
+                                <input type="checkbox" class="mat-checkbox-input" name="roles" [checked]="role.checked" value="{{role.description}}" id="{{role.id}}">
+                                <div matripple="" class="mat-ripple mat-checkbox-ripple">
+                                    <div class="mat-ripple-element mat-checkbox-persistent-ripple"></div>
+                                </div>
+                            </div>
+                            <span class="mat-checkbox-label">{{role.name}}</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
             <button *ngIf="dataToForm.id" mat-raised-button type="button" (click)="resetForm()" class="btn btn-info pull-left">Novo usuário</button>
             <button mat-raised-button type="button" (click)="onCancelClick()" class="btn btn-danger pull-right">Fechar</button>
             <button mat-raised-button type="submit" [disabled]="!form.valid" class="btn btn-success pull-right">Salvar</button>

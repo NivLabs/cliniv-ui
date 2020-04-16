@@ -20,6 +20,7 @@ export class UserInfo {
     observations: string;
     gender: string;
     email: string;
+    roles: Array<any>;
 }
 
 /**
