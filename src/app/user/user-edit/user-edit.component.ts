@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { AdminService } from '../admin.service';
+import { UserService } from '../user.service';
 import { ErrorHandlerService } from 'app/core/error-handler.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { UserInfo } from 'app/model/User';
@@ -10,11 +10,11 @@ import { ConfirmDialogComponent } from 'app/core/confirm-dialog/confirm-dialog.c
 import { Address } from 'app/model/Address';
 
 @Component({
-  selector: 'app-admin-edit',
-  templateUrl: './admin-edit.component.html',
-  styleUrls: ['./admin-edit.component.css']
+  selector: 'app-user-edit',
+  templateUrl: './user-edit.component.html',
+  styleUrls: ['./user-edit.component.css']
 })
-export class AdminEditComponent implements OnInit {
+export class UserEditComponent implements OnInit {
 
 
   public dataToForm: UserInfo;
@@ -22,8 +22,8 @@ export class AdminEditComponent implements OnInit {
   public roles: Array<any>;
 
   constructor(public confirmDialog: MatDialog,
-    public dialogRef: MatDialogRef<AdminEditComponent>, public errorHandler: ErrorHandlerService,
-    @Inject(MAT_DIALOG_DATA) public data: UserInfo, private adminService: AdminService, private addressService: AddressService, private notification: NotificationsComponent, private utilService: UtilService) {
+    public dialogRef: MatDialogRef<UserEditComponent>, public errorHandler: ErrorHandlerService,
+    @Inject(MAT_DIALOG_DATA) public data: UserInfo, private userService: UserService, private addressService: AddressService, private notification: NotificationsComponent, private utilService: UtilService) {
     this.dialogRef.disableClose = true;
 
     this.dataToForm = new UserInfo();
@@ -46,7 +46,7 @@ export class AdminEditComponent implements OnInit {
     if (this.dialogRef.componentInstance.data['selectedId'] !== null) {
       this.loading = true;
       var selectedId = this.dialogRef.componentInstance.data['selectedId'];
-      this.adminService.getById(selectedId).then(resp => {
+      this.userService.getById(selectedId).then(resp => {
         this.loading = false;
         this.dataToForm = resp;
         if (!resp.address) {
@@ -76,7 +76,7 @@ export class AdminEditComponent implements OnInit {
     });
 
     if (this.dataToForm.id) {
-      this.adminService.update(this.dataToForm).then(resp => {
+      this.userService.update(this.dataToForm).then(resp => {
         this.dataToForm = resp;
         if (!resp.address) {
           this.dataToForm.address = new Address();
@@ -87,7 +87,7 @@ export class AdminEditComponent implements OnInit {
         this.errorHandler.handle(error, this.dialogRef);
       });
     } else {
-      this.adminService.create(this.dataToForm).then(resp => {
+      this.userService.create(this.dataToForm).then(resp => {
         this.dataToForm = resp;
         if (!resp.address) {
           this.dataToForm.address = new Address();
@@ -139,7 +139,7 @@ export class AdminEditComponent implements OnInit {
         this.dataToForm = new UserInfo();
       } else {
         this.loading = true;
-        this.adminService.getByCpf(this.dataToForm.document.value).then(resp => {
+        this.userService.getByCpf(this.dataToForm.document.value).then(resp => {
           this.loading = false;
           this.dataToForm = resp;
           if (!resp.address) {

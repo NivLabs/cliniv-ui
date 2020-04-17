@@ -20,6 +20,7 @@ export class PatientInfo {
     observations: string;
     gender: string;
     email: string;
+    avatar: string;
 }
 
 export class PatientFilters {

@@ -49,7 +49,7 @@ import { ProfessionalComponent } from '../../professional/professional.component
 import { SectorComponent } from '../../sector/sector.component';
 import { SectorService } from '../../sector/sector.service';
 import { ProfessionalService } from '../../professional/professional.service';
-import { AdminService } from '../../admin/admin.service';
+import { UserService } from '../../user/user.service';
 import { SecurityModule } from '../../security/security.module';
 import { UserProfileComponent } from '../../user-profile/user-profile.component';
 import { UserProfileService } from '../../user-profile/user-profile.service';
@@ -59,6 +59,9 @@ import { VisitComponent } from '../../visit/visit.component';
 import { VisitService } from '../../visit/visit.service';
 import { AdminLayoutRoutes } from './admin-layout.routing';
 import { MatDividerModule } from '@angular/material/divider';
+import { CameraComponent } from 'app/core/camera/camera.component';
+import { CameraDialogComponent } from 'app/component/camera/dialog/camera-dialog.component';
+import {WebcamModule} from 'ngx-webcam';
 //#endregion
 
 const matModules = [
@@ -105,7 +108,8 @@ const matModules = [
     matModules,
     NgxLoadingModule,
     ReactiveFormsModule,
-    SecurityModule
+    SecurityModule,
+    WebcamModule
   ],
   exports: [
     CommonModule,
@@ -134,19 +138,23 @@ const matModules = [
 
     InstituteComponent,
     NotificationsComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+
+    CameraComponent,
+    CameraDialogComponent,
   ],
   entryComponents: [
     PatientEditComponent,
     PatientHistoryComponent,
     NewVisitComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    CameraDialogComponent,
   ],
   providers: [
     UserProfileService,
     PatientService,
     ProfessionalService,
-    AdminService,
+    UserService,
     SectorService,
     VisitService,
     InstituteService
