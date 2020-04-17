@@ -17,6 +17,10 @@ export class CameraDialogComponent implements OnInit {
     console.log(this.webCamImage);
   }
 
+  sendImage() {
+
+  }
+
   handleImage(webCamImage: WebcamImage) {
     this.webCamImage = webCamImage;
   }
