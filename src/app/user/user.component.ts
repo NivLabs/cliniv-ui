@@ -1,18 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { ErrorHandlerService } from 'app/core/error-handler.service';
 import { NotificationsComponent } from 'app/core/notification/notifications.component';
-import { AdminService } from './admin.service';
+import { UserService } from './user.service';
 import { Page, Pageable } from 'app/model/Util';
 import { UserFilters } from 'app/model/User';
-import { AdminEditComponent } from './admin-edit/admin-edit.component';
+import { UserEditComponent } from './user-edit/user-edit.component';
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-admin',
-  templateUrl: './admin.component.html',
-  styleUrls: ['./admin.component.css']
+  selector: 'app-user',
+  templateUrl: './user.component.html',
+  styleUrls: ['./user.component.css']
 })
-export class AdminComponent implements OnInit {
+export class UserComponent implements OnInit {
 
   public loading: boolean;
   public dataNotFound: boolean;
@@ -21,7 +21,7 @@ export class AdminComponent implements OnInit {
   pageSettings: Pageable;
   filters: UserFilters;
 
-  constructor(public dialog: MatDialog, private principalService: AdminService, private errorHandler: ErrorHandlerService, private notification: NotificationsComponent) { }
+  constructor(public dialog: MatDialog, private principalService: UserService, private errorHandler: ErrorHandlerService, private notification: NotificationsComponent) { }
 
   ngOnInit(): void {
     this.pageSettings = new Pageable();
@@ -63,7 +63,7 @@ export class AdminComponent implements OnInit {
    * @param id Identificador do usuário
    */
   openDialog(id) {
-    const dialogRef = this.dialog.open(AdminEditComponent, {
+    const dialogRef = this.dialog.open(UserEditComponent, {
       width: '100%',
       height: '68%',
       data: { selectedId: id }

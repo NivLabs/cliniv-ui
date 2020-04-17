@@ -16,8 +16,8 @@ import { SecurityModule } from './security/security.module';
 import { SecurityRoutingModule } from './security/security-routing.module';
 import { AdminLayoutModule } from './layouts/admin-layout/admin-layout.module';
 import { SectorEditComponent } from './sector/sector-edit/sector-edit.component';
-import { AdminComponent } from './admin/admin.component';
-import { AdminEditComponent } from './admin/admin-edit/admin-edit.component';
+import { UserComponent } from './user/user.component';
+import { UserEditComponent } from './user/user-edit/user-edit.component';
 
 @NgModule({
   imports: [
@@ -38,8 +38,8 @@ import { AdminEditComponent } from './admin/admin-edit/admin-edit.component';
     AppComponent,
     AdminLayoutComponent,
     SectorEditComponent,
-    AdminComponent,
-    AdminEditComponent
+    UserComponent,
+    UserEditComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

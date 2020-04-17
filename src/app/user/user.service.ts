@@ -6,7 +6,7 @@ import { UserInfo } from 'app/model/User';
 import { Page, Pageable } from 'app/model/Util';
 
 @Injectable()
-export class AdminService {
+export class UserService {
     baseUrl: string;
 
     constructor(private http: AppHttp) {
