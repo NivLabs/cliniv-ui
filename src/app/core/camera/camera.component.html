@@ -4,7 +4,7 @@
 </webcam>
 <br />
 <button mat-raised-button type="button" *ngIf="!webCamImage" (click)="triggerSnapshot()"
-    class="btn btn-warning pull-right">Tirar foto</button>
+    class="btn btn-warning btn-block">Tirar foto</button>
 <h4 *ngIf="errors.length > 0">Mensagens:</h4>
 <ul *ngFor="let error of errors">
     <li>{{error | json}}</li>

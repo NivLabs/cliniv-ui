@@ -11,7 +11,7 @@
                     <div *ngIf="webCamImage">
                         <img [height]="338" [width]="450" [src]="webCamImage.imageAsDataUrl" />
                         <button mat-raised-button type="button" *ngIf="webCamImage" (click)="cleanImage()"
-                            class="snapshot btn btn-warning">Tirar
+                            class="snapshot btn btn-warning btn-block">Tirar
                             outra foto</button>
                     </div>
                 </div>
