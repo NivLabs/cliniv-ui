@@ -9,6 +9,8 @@ import { ConfirmDialogComponent } from 'app/core/confirm-dialog/confirm-dialog.c
 import { Router } from '@angular/router';
 import { PatientInfo } from 'app/model/Patient';
 import { Address } from 'app/model/Address';
+import { WebcamImage } from 'ngx-webcam';
+import { CameraDialogComponent } from 'app/component/camera/dialog/camera-dialog.component';
 
 
 @Component({
@@ -27,6 +29,20 @@ export class PatientEditComponent implements OnInit {
 
     this.dataToForm = new PatientInfo();
 
+  }
+
+
+  openWebCam() {
+    const dialogRef = this.confirmDialog.open(CameraDialogComponent, {
+      width: '460px',
+      height: '6850px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result !== undefined && result.isConfirmed) {
+        this.dataToForm.avatar = result.webCamImage.imageAsBase64;
+      }
+    });
   }
 
   resetForm() {

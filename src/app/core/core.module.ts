@@ -6,7 +6,6 @@ import { ErrorHandlerService } from './error-handler.service';
 import { AddressService } from './address.service';
 import { UtilService } from './util.service';
 import { NotificationsComponent } from './notification/notifications.component'
-import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component'
 
 export function tokenGetter() {
   return localStorage.getItem('token');

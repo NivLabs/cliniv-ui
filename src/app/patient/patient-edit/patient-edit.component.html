@@ -1,7 +1,8 @@
 <div class="card card-profile">
     <div class="card-avatar">
         <a href="javascript:void(0)">
-            <img class="img" src="{{dataToForm.profilePhoto ? dataToForm.profilePhoto : './assets/img/upload.png'}}" />
+            <img class="img" (click)="openWebCam()"
+                src="{{dataToForm.profilePhoto ? dataToForm.profilePhoto : './assets/img/upload.png'}}" />
         </a>
     </div>
     <div class="card-header card-header-danger">
@@ -13,133 +14,157 @@
             <div class="row">
                 <div class="col-md-3">
                     <mat-form-field>
-                        <input matInput placeholder="Matrícula do Paciente" name="id" [(ngModel)]="dataToForm.id" #id="ngModel" disabled />
+                        <input matInput placeholder="Matrícula do Paciente" name="id" [(ngModel)]="dataToForm.id"
+                            #id="ngModel" disabled />
                     </mat-form-field>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-4">
                     <mat-form-field>
-                        <input matInput placeholder="Cadastro de Pessoa Física (CPF)" name="document" (blur)="searchPatientByCpf()" [(ngModel)]="dataToForm.document.value" (keypress)="enterKeyPress($event)" #document type="text" maxlength="11" [disabled]="dataToForm.id" required />
+                        <input matInput placeholder="Cadastro de Pessoa Física (CPF)" name="document"
+                            (blur)="searchPatientByCpf()" [(ngModel)]="dataToForm.document.value"
+                            (keypress)="enterKeyPress($event)" #document type="text" maxlength="11"
+                            [disabled]="dataToForm.id" required />
                     </mat-form-field>
                 </div>
                 <div class="col-md-4">
                     <mat-form-field>
-                        <input matInput placeholder="Nome" name="firstName" [(ngModel)]="dataToForm.firstName" #firstName="ngModel" type="text" required />
+                        <input matInput placeholder="Nome" name="firstName" [(ngModel)]="dataToForm.firstName"
+                            #firstName="ngModel" type="text" required />
                     </mat-form-field>
                 </div>
                 <div class="col-md-4">
                     <mat-form-field>
-                        <input matInput placeholder="Sobrenome" name="lastName" [(ngModel)]="dataToForm.lastName" #lastName="ngModel" type="text" required />
+                        <input matInput placeholder="Sobrenome" name="lastName" [(ngModel)]="dataToForm.lastName"
+                            #lastName="ngModel" type="text" required />
                     </mat-form-field>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
                     <mat-form-field>
-                        <input matInput placeholder="Nome completo da Mãe" name="motherName" [(ngModel)]="dataToForm.motherName" #motherName="ngModel" type="text" />
+                        <input matInput placeholder="Nome completo da Mãe" name="motherName"
+                            [(ngModel)]="dataToForm.motherName" #motherName="ngModel" type="text" />
                     </mat-form-field>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
                     <mat-form-field>
-                        <input matInput placeholder="Nome completo do Pai" name="fatherName" [(ngModel)]="dataToForm.fatherName" #fatherName type="text" />
+                        <input matInput placeholder="Nome completo do Pai" name="fatherName"
+                            [(ngModel)]="dataToForm.fatherName" #fatherName type="text" />
                     </mat-form-field>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-4">
                     <mat-form-field>
-                        <input matInput placeholder="Telefone principal (Apenas números)" name="principalNumber" [(ngModel)]="dataToForm.principalNumber" #principalNumber type="text" />
+                        <input matInput placeholder="Telefone principal (Apenas números)" name="principalNumber"
+                            [(ngModel)]="dataToForm.principalNumber" #principalNumber type="text" />
                     </mat-form-field>
                 </div>
                 <div class="col-md-4">
                     <mat-form-field>
-                        <input matInput placeholder="Data de nascimento" name="bornDate" [(ngModel)]="dataToForm.bornDate" #bornDate type="date" required />
+                        <input matInput placeholder="Data de nascimento" name="bornDate"
+                            [(ngModel)]="dataToForm.bornDate" #bornDate type="date" required />
                     </mat-form-field>
                 </div>
                 <div class="col-md-4">
                     <mat-form-field>
-                        <select matNativeControl placeholder="Gênero" name="gender" (change)="selectGender($event.target.value)" [(ngModel)]="dataToForm.gender" #gender required>
-              <option value="M">Masculino</option>
-              <option value="F">Feminino</option>
-            </select>
+                        <select matNativeControl placeholder="Gênero" name="gender"
+                            (change)="selectGender($event.target.value)" [(ngModel)]="dataToForm.gender" #gender
+                            required>
+                            <option value="M">Masculino</option>
+                            <option value="F">Feminino</option>
+                        </select>
                     </mat-form-field>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-4">
                     <mat-form-field>
-                        <input matInput placeholder="Código Postal (CEP)" name="cep" (blur)="searchAddressByCEP()" [(ngModel)]="dataToForm.address.postalCode" size="8" maxlength="8" #cep type="text" />
+                        <input matInput placeholder="Código Postal (CEP)" name="cep" (blur)="searchAddressByCEP()"
+                            [(ngModel)]="dataToForm.address.postalCode" size="8" maxlength="8" #cep type="text" />
                     </mat-form-field>
                 </div>
                 <div class="col-md-4">
                     <mat-form-field>
-                        <input matInput placeholder="Rua" name="street" [(ngModel)]="dataToForm.address.street" #street type="text" />
+                        <input matInput placeholder="Rua" name="street" [(ngModel)]="dataToForm.address.street" #street
+                            type="text" />
                     </mat-form-field>
                 </div>
                 <div class="col-md-2">
                     <mat-form-field>
-                        <input matInput placeholder="Número" name="addressNumber" [(ngModel)]="dataToForm.address.addressNumber" #addressNumber type="text" />
+                        <input matInput placeholder="Número" name="addressNumber"
+                            [(ngModel)]="dataToForm.address.addressNumber" #addressNumber type="text" />
                     </mat-form-field>
                 </div>
                 <div class="col-md-2">
                     <mat-form-field>
-                        <input matInput placeholder="Complemento" name="complement" [(ngModel)]="dataToForm.address.complement" #complement type="text" />
+                        <input matInput placeholder="Complemento" name="complement"
+                            [(ngModel)]="dataToForm.address.complement" #complement type="text" />
                     </mat-form-field>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-4">
                     <mat-form-field>
-                        <input matInput placeholder="Bairro" name="neighborhood" [(ngModel)]="dataToForm.address.neighborhood" #neighborhood type="text" />
+                        <input matInput placeholder="Bairro" name="neighborhood"
+                            [(ngModel)]="dataToForm.address.neighborhood" #neighborhood type="text" />
                     </mat-form-field>
                 </div>
                 <div class="col-md-4">
                     <mat-form-field>
-                        <input matInput placeholder="Cidade" name="city" [(ngModel)]="dataToForm.address.city" #city type="text" />
+                        <input matInput placeholder="Cidade" name="city" [(ngModel)]="dataToForm.address.city" #city
+                            type="text" />
                     </mat-form-field>
                 </div>
                 <div class="col-md-4">
                     <mat-form-field>
-                        <select matNativeControl placeholder="Estado" name="state" (change)="selectState($event.target.value)" [(ngModel)]="dataToForm.address.state" #state required>
-              <option value="AC">Acre</option>
-              <option value="AL">Alagoas</option>
-              <option value="AP">Amapá</option>
-              <option value="AM">Amazonas</option>
-              <option value="BA">Bahia</option>
-              <option value="CE">Ceará</option>
-              <option value="DF">Distrito Federal</option>
-              <option value="ES">Espírito Santo</option>
-              <option value="GO">Goiás</option>
-              <option value="MA">Maranhão</option>
-              <option value="MT">Mato Grosso</option>
-              <option value="MS">Mato Grosso do Sul</option>
-              <option value="MG">Minas Gerais</option>
-              <option value="PA">Pará</option>
-              <option value="PB">Paraíba</option>
-              <option value="PR">Paraná</option>
-              <option value="PE">Pernambuco</option>
-              <option value="PI">Piauí</option>
-              <option value="RJ">Rio de Janeiro</option>
-              <option value="RN">Rio Grande do Norte</option>
-              <option value="RS">Rio Grande do Sul</option>
-              <option value="RO">Rondônia</option>
-              <option value="RR">Roraima</option>
-              <option value="SC">Santa Catarina</option>
-              <option value="SP">São Paulo</option>
-              <option value="SE">Sergipe</option>
-              <option value="TO">Tocantins</option>
-              <option value="EX">Estrangeiro</option>
-            </select>
+                        <select matNativeControl placeholder="Estado" name="state"
+                            (change)="selectState($event.target.value)" [(ngModel)]="dataToForm.address.state" #state
+                            required>
+                            <option value="AC">Acre</option>
+                            <option value="AL">Alagoas</option>
+                            <option value="AP">Amapá</option>
+                            <option value="AM">Amazonas</option>
+                            <option value="BA">Bahia</option>
+                            <option value="CE">Ceará</option>
+                            <option value="DF">Distrito Federal</option>
+                            <option value="ES">Espírito Santo</option>
+                            <option value="GO">Goiás</option>
+                            <option value="MA">Maranhão</option>
+                            <option value="MT">Mato Grosso</option>
+                            <option value="MS">Mato Grosso do Sul</option>
+                            <option value="MG">Minas Gerais</option>
+                            <option value="PA">Pará</option>
+                            <option value="PB">Paraíba</option>
+                            <option value="PR">Paraná</option>
+                            <option value="PE">Pernambuco</option>
+                            <option value="PI">Piauí</option>
+                            <option value="RJ">Rio de Janeiro</option>
+                            <option value="RN">Rio Grande do Norte</option>
+                            <option value="RS">Rio Grande do Sul</option>
+                            <option value="RO">Rondônia</option>
+                            <option value="RR">Roraima</option>
+                            <option value="SC">Santa Catarina</option>
+                            <option value="SP">São Paulo</option>
+                            <option value="SE">Sergipe</option>
+                            <option value="TO">Tocantins</option>
+                            <option value="EX">Estrangeiro</option>
+                        </select>
                     </mat-form-field>
                 </div>
             </div>
-            <button *ngIf="dataToForm.id" mat-raised-button type="button" (click)="resetForm()" class="btn btn-info pull-left">Novo paciente</button>
-            <button *ngIf="dataToForm.id" mat-raised-button type="button" (click)="gotToVisit(dataToForm.id)" class="btn btn-warning pull-left">Ir para Atendimentos</button>
-            <button mat-raised-button type="button" (click)="onCancelClick()" class="btn btn-danger pull-right">Fechar</button>
-            <button mat-raised-button type="submit" [disabled]="!form.valid" class="btn btn-success pull-right">Salvar</button>
+            <button *ngIf="dataToForm.id" mat-raised-button type="button" (click)="resetForm()"
+                class="btn btn-info pull-left">Novo paciente</button>
+            <button *ngIf="dataToForm.id" mat-raised-button type="button" (click)="gotToVisit(dataToForm.id)"
+                class="btn btn-warning pull-left">Ir para Atendimentos</button>
+            <button mat-raised-button type="button" (click)="onCancelClick()"
+                class="btn btn-danger pull-right">Fechar</button>
+            <button mat-raised-button type="submit" [disabled]="!form.valid"
+                class="btn btn-success pull-right">Salvar</button>
             <div class="clearfix"></div>
         </form>
     </div>

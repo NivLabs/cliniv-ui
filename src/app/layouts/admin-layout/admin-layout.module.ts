@@ -59,6 +59,9 @@ import { VisitComponent } from '../../visit/visit.component';
 import { VisitService } from '../../visit/visit.service';
 import { AdminLayoutRoutes } from './admin-layout.routing';
 import { MatDividerModule } from '@angular/material/divider';
+import { CameraComponent } from 'app/core/camera/camera.component';
+import { CameraDialogComponent } from 'app/component/camera/dialog/camera-dialog.component';
+import {WebcamModule} from 'ngx-webcam';
 //#endregion
 
 const matModules = [
@@ -105,7 +108,8 @@ const matModules = [
     matModules,
     NgxLoadingModule,
     ReactiveFormsModule,
-    SecurityModule
+    SecurityModule,
+    WebcamModule
   ],
   exports: [
     CommonModule,
@@ -134,13 +138,17 @@ const matModules = [
 
     InstituteComponent,
     NotificationsComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+
+    CameraComponent,
+    CameraDialogComponent,
   ],
   entryComponents: [
     PatientEditComponent,
     PatientHistoryComponent,
     NewVisitComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    CameraDialogComponent,
   ],
   providers: [
     UserProfileService,

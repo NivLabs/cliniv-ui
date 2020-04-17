@@ -1,0 +1,17 @@
+.snapshot {
+    text-align: center;
+}
+
+.snapshot.img {
+    max-width: 800px;
+    max-height: 800px;
+}
+
+ul.links {
+    padding-bottom: 20px;
+}
+
+.webcam-wrapper video {
+    height: 100%;
+    width: 100%;
+}

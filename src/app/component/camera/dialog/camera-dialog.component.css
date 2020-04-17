@@ -1,0 +1,8 @@
+video, img {
+    height: 100% !important;
+    width: 100% !important;
+}
+
+.snapshot {
+    text-align: center;
+}
