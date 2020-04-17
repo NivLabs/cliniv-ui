@@ -21,6 +21,7 @@ export class Professional {
     observations: string;
     gender: string;
     email: string;
+    profilePhoto: string;
     specializations: any;
 }
 
