@@ -35,7 +35,7 @@ export class PatientEditComponent implements OnInit {
   openWebCam() {
     const dialogRef = this.confirmDialog.open(CameraDialogComponent, {
       width: '600px',
-      height: '600px'
+      height: '649px',
     });
 
     dialogRef.afterClosed().subscribe(result => {

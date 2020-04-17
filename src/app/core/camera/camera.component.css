@@ -12,6 +12,5 @@ ul.links {
 }
 
 .webcam-wrapper video {
-    height: 100%;
-    width: 100%;
+    width: 100% !important;
 }
