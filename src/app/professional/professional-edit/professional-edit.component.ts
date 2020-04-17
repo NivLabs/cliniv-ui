@@ -19,7 +19,7 @@ import { ProfessionalIdentity } from 'app/model/ProfessionalIdentity';
 export class ProfessionalEditComponent implements OnInit {
 
   public form: FormGroup;
-  public professional: Professional;
+  public dataToForm: Professional;
   public loading: boolean;
   specializationsData: any;
 
@@ -28,7 +28,7 @@ export class ProfessionalEditComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: Professional, private professionalService: ProfessionalService, private addressService: AddressService, private notification: NotificationsComponent, private utilService: UtilService) {
     this.dialogRef.disableClose = true;
 
-    this.professional = new Professional();
+    this.dataToForm = new Professional();
 
     this.form = this.formBuilder.group({
       id: new FormControl(''),
@@ -61,7 +61,7 @@ export class ProfessionalEditComponent implements OnInit {
 
     confirmDialogRef.afterClosed().subscribe(result => {
       if (result !== undefined && result.isConfirmed) {
-        this.professional = new Professional();
+        this.dataToForm = new Professional();
         this.form.controls.document.enable();
       }
     });
@@ -73,20 +73,20 @@ export class ProfessionalEditComponent implements OnInit {
       var selectedProfessionalId = this.dialogRef.componentInstance.data['selectedProfessional'];
       this.professionalService.getById(selectedProfessionalId).then(resp => {
         this.loading = false;
-        this.professional = resp;
+        this.dataToForm = resp;
         if (!resp.address) {
-          this.professional.address = new Address();
+          this.dataToForm.address = new Address();
         }
-        if (this.professional.document) {
+        if (this.dataToForm.document) {
           this.form.controls.document.disable();
         }
         this.loadspecializationsData();
       }).catch(error => {
         this.loading = false;
-        var cpf = this.professional.document.value;
+        var cpf = this.dataToForm.document.value;
         this.form.controls.document.enable();
-        this.professional = new Professional();
-        this.professional.document.value = cpf;
+        this.dataToForm = new Professional();
+        this.dataToForm.document.value = cpf;
         this.errorHandler.handle(error, this.dialogRef);
       });
     }
@@ -105,17 +105,17 @@ export class ProfessionalEditComponent implements OnInit {
   }
 
   save() {
-    this.professional.specializations = [];
+    this.dataToForm.specializations = [];
     document.getElementsByName('specializations').forEach(specInput => {
       if (specInput['checked']) {
-        this.professional.specializations.push({ id: specInput['id'], name: specInput['value'] })
+        this.dataToForm.specializations.push({ id: specInput['id'], name: specInput['value'] })
       }
     });
-    if (this.professional.id) {
-      this.professionalService.update(this.professional).then(resp => {
-        this.professional = resp;
+    if (this.dataToForm.id) {
+      this.professionalService.update(this.dataToForm).then(resp => {
+        this.dataToForm = resp;
         if (!resp.address) {
-          this.professional.address = new Address();
+          this.dataToForm.address = new Address();
         }
         this.notification.showSucess("Profissional alterado com sucesso!");
       }).catch(error => {
@@ -123,10 +123,10 @@ export class ProfessionalEditComponent implements OnInit {
         this.errorHandler.handle(error, this.dialogRef);
       });
     } else {
-      this.professionalService.create(this.professional).then(resp => {
-        this.professional = resp;
+      this.professionalService.create(this.dataToForm).then(resp => {
+        this.dataToForm = resp;
         if (!resp.address) {
-          this.professional.address = new Address();
+          this.dataToForm.address = new Address();
         }
         this.notification.showSucess("Profissional cadastrado com sucesso!");
       }).catch(error => {
@@ -138,12 +138,12 @@ export class ProfessionalEditComponent implements OnInit {
 
   searchAddressByCEP() {
     this.loading = true;
-    this.addressService.getAddressByCep(this.professional.address.postalCode).then(address => {
+    this.addressService.getAddressByCep(this.dataToForm.address.postalCode).then(address => {
       this.loading = false;
-      this.professional.address.city = address.localidade;
-      this.professional.address.neighborhood = address.bairro;
-      this.professional.address.state = address.uf;
-      this.professional.address.street = address.logradouro;
+      this.dataToForm.address.city = address.localidade;
+      this.dataToForm.address.neighborhood = address.bairro;
+      this.dataToForm.address.state = address.uf;
+      this.dataToForm.address.street = address.logradouro;
     }).catch(error => {
       this.loading = false;
       this.notification.showWarning("Não foi possível realizar a busca do CEP, verifique se o mesmo está correto e continue o cadastro normalmente.")
@@ -151,45 +151,45 @@ export class ProfessionalEditComponent implements OnInit {
   }
 
   selectGender(newValue) {
-    this.professional.gender = newValue;
+    this.dataToForm.gender = newValue;
   }
 
   selectState(newValue) {
-    this.professional.address.state = newValue;
+    this.dataToForm.address.state = newValue;
   }
 
   searchProfessionalByCpf() {
-    if (this.professional.document.value)
-      if (!this.utilService.cpfIsValid(this.professional.document.value)) {
+    if (this.dataToForm.document.value)
+      if (!this.utilService.cpfIsValid(this.dataToForm.document.value)) {
         this.loading = false;
         this.notification.showError("CPF Inválido, favor informar um CPF válido e sem pontos e/ou traços");
-        this.professional = new Professional();
+        this.dataToForm = new Professional();
       } else {
         this.loading = true;
-        this.professionalService.getByCpf(this.professional.document.value).then(resp => {
+        this.professionalService.getByCpf(this.dataToForm.document.value).then(resp => {
           this.loading = false;
-          this.professional = resp;
+          this.dataToForm = resp;
           if (!resp.address) {
-            this.professional.address = new Address();
+            this.dataToForm.address = new Address();
           }
           if (!resp.professionalIdentity) {
-            this.professional.professionalIdentity = new ProfessionalIdentity('CRM');
+            this.dataToForm.professionalIdentity = new ProfessionalIdentity('CRM');
           }
           this.form.controls.document.disable();
           this.loadspecializationsData();
         }).catch(error => {
           this.loading = false;
-          var cpf = this.professional.document.value;
+          var cpf = this.dataToForm.document.value;
           this.form.controls.document.enable();
-          this.professional = new Professional();
-          this.professional.document.value = cpf;
+          this.dataToForm = new Professional();
+          this.dataToForm.document.value = cpf;
           this.errorHandler.handle(error, this.dialogRef);
         });
       }
   }
 
   checkSpecializations() {
-    this.professional.specializations.forEach(spec => {
+    this.dataToForm.specializations.forEach(spec => {
       console.log("Checando especialização :: ", spec.id, " :: ", spec.name);
       this.specializationsData.forEach(specInput => {
         if (spec.id === specInput.id) {

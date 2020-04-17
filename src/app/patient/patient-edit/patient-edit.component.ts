@@ -17,7 +17,7 @@ import { Address } from 'app/model/Address';
 })
 export class PatientEditComponent implements OnInit {
 
-  public patient: PatientInfo;
+  public dataToForm: PatientInfo;
   public loading: boolean;
 
   constructor(private router: Router, public confirmDialog: MatDialog,
@@ -25,7 +25,7 @@ export class PatientEditComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: PatientInfo, private patientService: PatientService, private addressService: AddressService, private notification: NotificationsComponent, private utilService: UtilService) {
     this.dialogRef.disableClose = true;
 
-    this.patient = new PatientInfo();
+    this.dataToForm = new PatientInfo();
 
   }
 
@@ -36,7 +36,7 @@ export class PatientEditComponent implements OnInit {
 
     confirmDialogRef.afterClosed().subscribe(result => {
       if (result !== undefined && result.isConfirmed) {
-        this.patient = new PatientInfo();
+        this.dataToForm = new PatientInfo();
       }
     });
   }
@@ -47,15 +47,15 @@ export class PatientEditComponent implements OnInit {
       var selectedPatientId = this.dialogRef.componentInstance.data['selectedPatient'];
       this.patientService.getById(selectedPatientId).then(resp => {
         this.loading = false;
-        this.patient = resp;
+        this.dataToForm = resp;
         if (!resp.address) {
-          this.patient.address = new Address();
+          this.dataToForm.address = new Address();
         }
       }).catch(error => {
         this.loading = false;
-        var cpf = this.patient.document.value;
-        this.patient = new PatientInfo();
-        this.patient.document.value = cpf;
+        var cpf = this.dataToForm.document.value;
+        this.dataToForm = new PatientInfo();
+        this.dataToForm.document.value = cpf;
         this.errorHandler.handle(error, this.dialogRef);
       });
     }
@@ -66,11 +66,11 @@ export class PatientEditComponent implements OnInit {
   }
 
   save() {
-    if (this.patient.id) {
-      this.patientService.update(this.patient).then(resp => {
-        this.patient = resp;
+    if (this.dataToForm.id) {
+      this.patientService.update(this.dataToForm).then(resp => {
+        this.dataToForm = resp;
         if (!resp.address) {
-          this.patient.address = new Address();
+          this.dataToForm.address = new Address();
         }
         this.notification.showSucess("Paciente alterado com sucesso!");
       }).catch(error => {
@@ -78,10 +78,10 @@ export class PatientEditComponent implements OnInit {
         this.errorHandler.handle(error, this.dialogRef);
       });
     } else {
-      this.patientService.create(this.patient).then(resp => {
-        this.patient = resp;
+      this.patientService.create(this.dataToForm).then(resp => {
+        this.dataToForm = resp;
         if (!resp.address) {
-          this.patient.address = new Address();
+          this.dataToForm.address = new Address();
         }
         this.notification.showSucess("Paciente cadastrado com sucesso!");
       }).catch(error => {
@@ -93,12 +93,12 @@ export class PatientEditComponent implements OnInit {
 
   searchAddressByCEP() {
     this.loading = true;
-    this.addressService.getAddressByCep(this.patient.address.postalCode).then(address => {
+    this.addressService.getAddressByCep(this.dataToForm.address.postalCode).then(address => {
       this.loading = false;
-      this.patient.address.city = address.localidade;
-      this.patient.address.neighborhood = address.bairro;
-      this.patient.address.state = address.uf;
-      this.patient.address.street = address.logradouro;
+      this.dataToForm.address.city = address.localidade;
+      this.dataToForm.address.neighborhood = address.bairro;
+      this.dataToForm.address.state = address.uf;
+      this.dataToForm.address.street = address.logradouro;
     }).catch(error => {
       this.loading = false;
       this.notification.showWarning("Não foi possível realizar a busca do CEP, verifique se o mesmo está correto e continue o cadastro normalmente.")
@@ -107,35 +107,35 @@ export class PatientEditComponent implements OnInit {
 
   gotToVisit() {
     this.dialogRef.close();
-    this.router.navigate(['visit', { patientId: this.patient.id }]);
+    this.router.navigate(['visit', { patientId: this.dataToForm.id }]);
   }
 
   selectGender(newValue) {
-    this.patient.gender = newValue;
+    this.dataToForm.gender = newValue;
   }
 
   selectState(newValue) {
-    this.patient.address.state = newValue;
+    this.dataToForm.address.state = newValue;
   }
 
   searchPatientByCpf() {
-    if (this.patient.document.value)
-      if (!this.utilService.cpfIsValid(this.patient.document.value)) {
+    if (this.dataToForm.document.value)
+      if (!this.utilService.cpfIsValid(this.dataToForm.document.value)) {
         this.notification.showError("CPF Inválido, favor informar um CPF válido e sem pontos e/ou traços");
-        this.patient = new PatientInfo();
+        this.dataToForm = new PatientInfo();
       } else {
         this.loading = true;
-        this.patientService.getByCpf(this.patient.document.value).then(resp => {
+        this.patientService.getByCpf(this.dataToForm.document.value).then(resp => {
           this.loading = false;
-          this.patient = resp;
+          this.dataToForm = resp;
           if (!resp.address) {
-            this.patient.address = new Address();
+            this.dataToForm.address = new Address();
           }
         }).catch(error => {
           this.loading = false;
-          var cpf = this.patient.document.value;
-          this.patient = new PatientInfo();
-          this.patient.document.value = cpf;
+          var cpf = this.dataToForm.document.value;
+          this.dataToForm = new PatientInfo();
+          this.dataToForm.document.value = cpf;
           this.errorHandler.handle(error, this.dialogRef);
         });
       }
