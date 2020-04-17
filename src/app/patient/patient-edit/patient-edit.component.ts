@@ -40,7 +40,7 @@ export class PatientEditComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result !== undefined && result.isConfirmed) {
-        this.dataToForm.avatar = result.webCamImage.imageAsBase64;
+        this.dataToForm.profilePhoto = result.webCamImage.imageAsBase64;
       }
     });
   }
