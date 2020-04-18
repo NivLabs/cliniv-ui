@@ -35,7 +35,7 @@ export class ErrorHandlerService {
 
       msg = 'Ocorreu um erro ao processar a sua solicitação';
 
-      if (errorResponse.status === 404 && errorResponse.error && errorResponse.error.message) {
+      if (errorResponse.error && errorResponse.error.message) {
         msg = errorResponse.error.message;
       }
 
@@ -66,7 +66,7 @@ export class ErrorHandlerService {
 
     } else {
       msg = 'Erro ao processar serviço remoto. Tente novamente.';
-      if (errorResponse instanceof StandardError) {
+      if (errorResponse.message) {
         msg = errorResponse.message;
       }
       console.error('Ocorreu um erro', errorResponse);
@@ -75,14 +75,4 @@ export class ErrorHandlerService {
     this.notification.showError(msg);
   }
 
-}
-
-class StandardError {
-  constructor() { }
-  timestamp: number
-  status: number
-  error: string
-  validations: []
-  message: string
-  path: string
 }
