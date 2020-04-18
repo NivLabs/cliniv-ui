@@ -14,11 +14,6 @@ export class CameraDialogComponent implements OnInit {
   constructor(public dialogRef: MatDialogRef<CameraDialogComponent>) { }
 
   ngOnInit(): void {
-    console.log(this.webCamImage);
-  }
-
-  sendImage() {
-
   }
 
   handleImage(webCamImage: WebcamImage) {

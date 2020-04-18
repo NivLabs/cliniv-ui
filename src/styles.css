@@ -3,8 +3,7 @@
 }
 
 @media (max-width: 991px) {
-    .sidebar::before,
-    .off-canvas-sidebar nav .navbar-collapse::before {
+    .sidebar::before, .off-canvas-sidebar nav .navbar-collapse::before {
         top: 0;
         left: 0;
         height: 100%;
@@ -15,4 +14,8 @@
         content: "";
         z-index: 1;
     }
+}
+
+.card-avatar {
+    border: solid #e63d39;
 }

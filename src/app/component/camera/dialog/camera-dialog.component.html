@@ -20,7 +20,7 @@
         <div class="card-footer">
             <button mat-raised-button type="button" (click)="onCancelClick()"
                 class="btn btn-danger pull-right">Fechar</button>
-            <button mat-raised-button type="button" (click)="sendImage()"
-                class="btn btn-success pull-right">Confirmar</button>
+            <button mat-raised-button type="button" class="btn btn-success pull-right"
+                [mat-dialog-close]="webCamImage">Confirmar</button>
         </div>
     </div>

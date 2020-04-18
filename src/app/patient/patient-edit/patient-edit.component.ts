@@ -38,9 +38,9 @@ export class PatientEditComponent implements OnInit {
       height: '649px',
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result !== undefined && result.isConfirmed) {
-        this.dataToForm.profilePhoto = result.webCamImage.imageAsBase64;
+    dialogRef.afterClosed().subscribe(webCamImage => {
+      if (webCamImage !== undefined) {
+        this.dataToForm.profilePhoto = webCamImage.imageAsDataUrl;
       }
     });
   }
