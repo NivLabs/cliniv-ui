@@ -49,7 +49,6 @@ export class ErrorHandlerService {
       if (errorResponse.status === 405 && errorResponse.error && errorResponse.error.message) {
         msg = errorResponse.error.message;
       }
-
       if (errorResponse.status === 403) {
         msg = 'Sua sessão expirou!';
         this.auth.removeAccessToken();
@@ -67,10 +66,23 @@ export class ErrorHandlerService {
 
     } else {
       msg = 'Erro ao processar serviço remoto. Tente novamente.';
+      if (errorResponse instanceof StandardError) {
+        msg = errorResponse.message;
+      }
       console.error('Ocorreu um erro', errorResponse);
     }
 
     this.notification.showError(msg);
   }
 
+}
+
+class StandardError {
+  constructor() { }
+  timestamp: number
+  status: number
+  error: string
+  validations: []
+  message: string
+  path: string
 }
