@@ -58,21 +58,31 @@ export class ErrorHandlerService {
         }
       }
 
+      var hasShow = false;
+      if (errorResponse.status === 400 && (errorResponse.error && !errorResponse.error.validations)) {
+        errorResponse.error.validations.forEach(validationError => {
+          this.notification.showError(validationError.message);
+          hasShow = true;
+        });
+      }
+
       try {
         msg = errorResponse.error[0].mensagemUsuario;
       } catch (e) { }
 
       console.error('Ocorreu um erro', errorResponse);
-
+      if (!hasShow) {
+        this.notification.showError(msg);
+      }
     } else {
       msg = 'Erro ao processar serviço remoto. Tente novamente.';
       if (errorResponse.message) {
         msg = errorResponse.message;
       }
       console.error('Ocorreu um erro', errorResponse);
+      this.notification.showError(msg);
     }
 
-    this.notification.showError(msg);
   }
 
 }

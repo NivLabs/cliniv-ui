@@ -38,11 +38,20 @@ export class UserEditComponent implements OnInit {
     confirmDialogRef.afterClosed().subscribe(result => {
       if (result !== undefined && result.isConfirmed) {
         this.dataToForm = new UserInfo();
+        this.roles = [
+          { id: 1, description: 'ROLE_ADMIN', name: 'Administrador', checked: false },
+          { id: 2, description: 'ROLE_COMUM', name: 'Geral', checked: false },
+          { id: 3, description: 'ROLE_ENFERMEIRO', name: 'Enfermeiro', checked: false },
+          { id: 4, description: 'ROLE_MEDICO', name: 'Médico', checked: false },
+          { id: 5, description: 'ROLE_RECEPCAO', name: 'Recepção', checked: false },
+          { id: 6, description: 'ROLE_TECNICO', name: 'Técnico', checked: false },
+        ];
       }
     });
   }
 
   ngOnInit() {
+    this.checkRoles()
     if (this.dialogRef.componentInstance.data['selectedId'] !== null) {
       this.loading = true;
       var selectedId = this.dialogRef.componentInstance.data['selectedId'];
@@ -168,7 +177,7 @@ export class UserEditComponent implements OnInit {
       { id: 5, description: 'ROLE_RECEPCAO', name: 'Recepção', checked: false },
       { id: 6, description: 'ROLE_TECNICO', name: 'Técnico', checked: false },
     ];
-    if (this.dataToForm) {
+    if (this.dataToForm && this.dataToForm.roles) {
       this.dataToForm.roles.forEach(role => {
         console.log("Checando papeis de acesso :: ", role['id'], " :: ", role['description']);
         this.roles.forEach(roleInput => {
