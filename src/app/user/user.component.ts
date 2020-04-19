@@ -24,6 +24,7 @@ export class UserComponent implements OnInit {
   constructor(public dialog: MatDialog, private principalService: UserService, private errorHandler: ErrorHandlerService, private notification: NotificationsComponent) { }
 
   ngOnInit(): void {
+    this.filters = new UserFilters();
     this.pageSettings = new Pageable();
     this.loading = true;
     this.principalService.getPage(this.filters, this.pageSettings).then(response => {
@@ -32,7 +33,7 @@ export class UserComponent implements OnInit {
       this.page = response;
       this.dataNotFound = this.datas.length === 0;
     }).catch(error => {
-      this.dataNotFound = this.page.content !== undefined ? this.page.content.length === 0 : true;
+      this.dataNotFound = this.datas ? this.datas.length === 0 : true;
       this.loading = false;
       this.errorHandler.handle(error, null);
     });
@@ -58,6 +59,35 @@ export class UserComponent implements OnInit {
     }
   }
 
+  applyFilter() {
+    if (this.filters) {
+      this.loading = true;
+      this.pageSettings = new Pageable();
+      this.principalService.getPage(this.filters, this.pageSettings).then(response => {
+        this.loading = false;
+        this.datas = response.content;
+        this.dataNotFound = this.datas.length === 0;
+        console.log(this.dataNotFound);
+      }).catch(error => {
+        this.errorHandler.handle(error, null);
+        this.dataNotFound = this.datas ? this.datas.length === 0 : true;
+        this.loading = false;
+      });
+    }
+  }
+
+  /**
+  * 
+  * Executa um evento à partir da tecla enter
+  * 
+  * @param event Evento de tecla
+  */
+  enterKeyPress(event: any) {
+    if (event.key === "Enter") {
+      this.applyFilter();
+    }
+  }
+
   /**
    * 
    * @param id Identificador do usuário
@@ -73,5 +103,4 @@ export class UserComponent implements OnInit {
       this.ngOnInit();
     });
   }
-
 }
