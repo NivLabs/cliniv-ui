@@ -9,20 +9,41 @@
                     <div class="card-body">
                         <form #form="ngForm" autocomplete="off">
                             <div class="row">
-                                <div class="col-md-2">
+                                <div class="col-md-3">
                                     <mat-form-field>
-                                        <input matInput placeholder="Matrícula do usuário" name="id" />
+                                        <input matInput placeholder="Nome de usuário" name="userName"
+                                            [(ngModel)]="filters.userName" #userName type="text"
+                                            (keypress)="enterKeyPress($event)" />
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-3">
                                     <mat-form-field>
-                                        <input matInput placeholder="Nome de usuário" name="userName" />
+                                        <input matInput placeholder="CPF do usuário" name="cpf"
+                                            [(ngModel)]="filters.cpf" #cpf type="text"
+                                            (keypress)="enterKeyPress($event)" />
                                     </mat-form-field>
                                 </div>
+                                <div class="col-md-3">
+                                    <mat-form-field>
+                                        <input matInput placeholder="Nome" name="firstName"
+                                            [(ngModel)]="filters.firstName" #firstName type="text"
+                                            (keypress)="enterKeyPress($event)" />
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-3">
+                                    <mat-form-field>
+                                        <input matInput placeholder="Sobrenome" name="lastName"
+                                            [(ngModel)]="filters.lastName" #lastName type="text"
+                                            (keypress)="enterKeyPress($event)" />
+                                    </mat-form-field>
+                                </div>
+
                             </div>
-                            <button mat-raised-button type="submit" class="btn btn-danger pull-right">Filtrar</button>
-                            <button mat-raised-button type="button" (click)="openDialog(null)" class="btn btn-info pull-right">Novo
-                    Usuário</button>
+                            <button mat-raised-button type="submit" (click)="applyFilter()"
+                                class="btn btn-danger pull-right">Filtrar</button>
+                            <button mat-raised-button type="button" (click)="openDialog(null)"
+                                class="btn btn-info pull-right">Novo
+                                Usuário</button>
                             <div class="clearfix"></div>
                         </form>
                     </div>
@@ -47,7 +68,8 @@
                 </div>
             </div>
             <div class="center" *ngIf="!loading && !page.last">
-                <button mat-raised-button type="button" (click)="loadNextPage()" class="btn btn-danger">Carregar mais...</button>
+                <button mat-raised-button type="button" (click)="loadNextPage()" class="btn btn-danger">Carregar
+                    mais...</button>
             </div>
         </div>
     </div>
