@@ -11,16 +11,18 @@
                     <div *ngIf="webCamImage">
                         <img [height]="338" [width]="450" [src]="webCamImage.imageAsDataUrl" />
                         <button mat-raised-button type="button" *ngIf="webCamImage" (click)="cleanImage()"
-                            class="snapshot btn btn-warning btn-block">Tirar
+                            class=" col-12 snapshot btn btn-warning btn-block">Tirar
                             outra foto</button>
                     </div>
                 </div>
             </div>
         </div>
         <div class="card-footer">
-            <button mat-raised-button type="button" (click)="onCancelClick()"
-                class="btn btn-danger pull-right">Fechar</button>
-            <button mat-raised-button type="button" class="btn btn-success pull-right"
-                [mat-dialog-close]="webCamImage">Confirmar</button>
+            <div class="col-12">
+                <button mat-raised-button type="button" class="col-12 btn btn-success pull-right"
+                    [mat-dialog-close]="webCamImage">Confirmar</button>
+                <button mat-raised-button type="button" (click)="onCancelClick()"
+                    class="col-12 btn btn-danger pull-right">Fechar</button>
+            </div>
         </div>
     </div>

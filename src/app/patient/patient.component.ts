@@ -71,16 +71,16 @@ export class PatientComponent implements OnInit {
         this.dataNotFound = this.datas ? this.datas.length === 0 : true;
         this.loading = false;
         this.errorHandler.handle(error, null);
-      }); 
+      });
     }
   }
 
-   /**
-   * 
-   * Executa um evento à partir da tecla enter
-   * 
-   * @param event Evento de tecla
-   */
+  /**
+  * 
+  * Executa um evento à partir da tecla enter
+  * 
+  * @param event Evento de tecla
+  */
   enterKeyPress(event: any) {
     if (event.key === "Enter") {
       this.applyFilter();
@@ -94,8 +94,9 @@ export class PatientComponent implements OnInit {
   openDialog(id): void {
     const dialogRef = this.dialog.open(PatientEditComponent, {
       width: '100%',
-      height: '68%',
-      data: { selectedPatient: id }
+      height: 'auto',
+      data: { selectedPatient: id },
+
     });
 
     dialogRef.afterClosed().subscribe(result => {

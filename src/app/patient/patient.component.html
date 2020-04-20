@@ -30,8 +30,8 @@
                                     </mat-form-field>
                                 </div>
                             </div>
-                            <button mat-raised-button type="button" (click)="applyFilter()" class="btn btn-danger pull-right">Filtrar</button>
-                            <button mat-raised-button type="button" (click)="openDialog(null)" class="btn btn-info pull-right">Novo
+                            <button mat-raised-button type="button" (click)="applyFilter()" class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-danger pull-right">Filtrar</button>
+                            <button mat-raised-button type="button" (click)="openDialog(null)" class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-info pull-right">Novo
                   Paciente</button>
                             <div class="clearfix"></div>
                         </form>
@@ -43,7 +43,7 @@
             <div class="center" *ngIf="!loading && dataNotFound">
                 <h1>Nenhum paciente encontrado...</h1>
             </div>
-            <div *ngFor="let patient of datas" class="col-12 col-sm-6 col-md-4 col-lg-4">
+            <div *ngFor="let patient of datas" class="col-12 col-sm-12 col-md-4 col-lg-4">
                 <div class="card link-card" (click)="openDialog(patient.id)">
                     <div class="card-body margin-color-active">
                         <ul>

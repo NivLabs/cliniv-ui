@@ -75,8 +75,8 @@ export class UserEditComponent implements OnInit {
 
   openWebCam() {
     const dialogRef = this.confirmDialog.open(CameraDialogComponent, {
-      width: '600px',
-      height: '649px',
+      width: '500px',
+      height: '548px',
     });
 
     dialogRef.afterClosed().subscribe(webCamImage => {

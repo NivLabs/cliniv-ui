@@ -181,7 +181,8 @@
                 <br />
 
                 <mat-checkbox hidden></mat-checkbox>
-                <div class="col-sm-12 col-md-6 col-lg-4" style="text-align: left;" *ngFor="let specialitity of specializationsData">
+                <div class="col-sm-12 col-md-6 col-lg-4" style="text-align: left;"
+                    *ngFor="let specialitity of specializationsData">
                     <div>
                         <label class="mat-checkbox-layout" for="{{specialitity.id}}">
                             <div class="mat-checkbox-inner-container">
@@ -199,11 +200,11 @@
             </div>
 
             <button *ngIf="dataToForm.id" mat-raised-button type="button" (click)="resetForm()"
-                class="btn btn-info pull-left">Novo profissional</button>
-            <button mat-raised-button type="button" (click)="onCancelClick()"
-                class="btn btn-danger pull-right">Fechar</button>
+                class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-info pull-left">Novo profissional</button>
             <button mat-raised-button type="submit" [disabled]="!form.valid"
-                class="btn btn-success pull-right">Salvar</button>
+                class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-success pull-right">Salvar</button>
+            <button mat-raised-button type="button" (click)="onCancelClick()"
+                class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-danger pull-right">Fechar</button>
             <div class="clearfix"></div>
         </form>
     </div>
