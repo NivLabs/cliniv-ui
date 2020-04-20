@@ -3,10 +3,12 @@ import { UserProfileService } from './user-profile.service';
 import { ErrorHandlerService } from 'app/core/error-handler.service';
 import { NotificationsComponent } from 'app/core/notification/notifications.component';
 import { FormGroup } from '@angular/forms';
-import { AddressService, AddressFromAPI } from 'app/core/address.service';
+import { AddressService } from 'app/core/address.service';
 import { UserInfo } from 'app/model/User';
 import { Document } from 'app/model/Document';
 import { Address } from 'app/model/Address';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { CameraDialogComponent } from 'app/component/camera/dialog/camera-dialog.component';
 
 
 @Component({
@@ -20,7 +22,7 @@ export class UserProfileComponent implements OnInit {
   public loading: boolean;
   userInfo: UserInfo = new UserInfo;
 
-  constructor(private profileService: UserProfileService, private addressService: AddressService, private errorHandler: ErrorHandlerService, private notification: NotificationsComponent) {
+  constructor(public confirmDialog: MatDialog, private profileService: UserProfileService, private addressService: AddressService, private errorHandler: ErrorHandlerService, private notification: NotificationsComponent) {
     this.userInfo = new UserInfo();
     this.loading = true;
     this.profileService.getMe().then(resp => {
@@ -39,6 +41,19 @@ export class UserProfileComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  openWebCam() {
+    const dialogRef = this.confirmDialog.open(CameraDialogComponent, {
+      width: '600px',
+      height: '649px',
+    });
+
+    dialogRef.afterClosed().subscribe(webCamImage => {
+      if (webCamImage !== undefined) {
+        this.userInfo.profilePhoto = webCamImage.imageAsDataUrl;
+      }
+    });
   }
 
   save() {

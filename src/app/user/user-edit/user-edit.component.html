@@ -1,4 +1,10 @@
-<div class="card">
+<div class="card card-profile">
+    <div class="card-avatar">
+        <a href="javascript:void(0)">
+            <img class="img" (click)="openWebCam()"
+                src="{{dataToForm.profilePhoto ? dataToForm.profilePhoto : './assets/img/upload.png'}}" />
+        </a>
+    </div>
     <div class="card-header card-header-danger">
         <h4 class="card-title">Dados do usuário</h4>
         <p class="card-category">Dados completos do usuário</p>
@@ -96,7 +102,7 @@
                 <br />
 
                 <mat-checkbox hidden></mat-checkbox>
-                <div class="col-sm-12 col-md-6 col-lg-4" *ngFor="let role of roles">
+                <div class="col-sm-12 col-md-6 col-lg-4" style="text-align: left;" *ngFor="let role of roles">
                     <div>
                         <label class="mat-checkbox-layout" for="{{role.id}}">
                             <div class="mat-checkbox-inner-container">
@@ -111,6 +117,7 @@
                     </div>
                 </div>
             </div>
+
             <button *ngIf="dataToForm.id" mat-raised-button type="button" (click)="resetForm()"
                 class="btn btn-info pull-left">Novo usuário</button>
             <button mat-raised-button type="button" (click)="onCancelClick()"

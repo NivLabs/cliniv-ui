@@ -10,6 +10,7 @@ import { FormGroup, FormControl, FormBuilder, FormArray } from '@angular/forms';
 import { Professional } from 'app/model/Professional';
 import { Address } from 'app/model/Address';
 import { ProfessionalIdentity } from 'app/model/ProfessionalIdentity';
+import { CameraDialogComponent } from 'app/component/camera/dialog/camera-dialog.component';
 
 
 @Component({
@@ -52,6 +53,19 @@ export class ProfessionalEditComponent implements OnInit {
     })
     this.form.controls.id.disable();
 
+  }
+
+  openWebCam() {
+    const dialogRef = this.confirmDialog.open(CameraDialogComponent, {
+      width: '600px',
+      height: '649px',
+    });
+
+    dialogRef.afterClosed().subscribe(webCamImage => {
+      if (webCamImage !== undefined) {
+        this.dataToForm.profilePhoto = webCamImage.imageAsDataUrl;
+      }
+    });
   }
 
   resetForm() {
