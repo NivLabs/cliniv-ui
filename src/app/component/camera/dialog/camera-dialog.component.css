@@ -1,3 +1,8 @@
 .snapshot {
     text-align: center;
 }
+
+.video-pic {
+    width: 100% !important;
+    max-width: 700px !important;
+}

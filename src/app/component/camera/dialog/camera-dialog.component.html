@@ -9,7 +9,7 @@
                 <div class="col-md-12">
                     <app-camera (pictureTaken)="handleImage($event)" *ngIf="!webCamImage"></app-camera>
                     <div *ngIf="webCamImage">
-                        <img [height]="338" [width]="450" [src]="webCamImage.imageAsDataUrl" />
+                        <img class="video-pic" [src]="webCamImage.imageAsDataUrl" />
                         <button mat-raised-button type="button" *ngIf="webCamImage" (click)="cleanImage()"
                             class=" col-12 snapshot btn btn-warning btn-block">Tirar
                             outra foto</button>
