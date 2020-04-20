@@ -1,7 +1,8 @@
 <div class="card card-profile">
     <div class="card-avatar">
         <a href="javascript:void(0)">
-            <img class="img" src="{{dataToForm.profilePhoto ? dataToForm.profilePhoto : './assets/img/upload.png'}}" />
+            <img class="img" (click)="openWebCam()"
+                src="{{dataToForm.profilePhoto ? dataToForm.profilePhoto : './assets/img/upload.png'}}" />
         </a>
     </div>
     <div class="card-header card-header-danger">
@@ -13,66 +14,80 @@
             <div class="row">
                 <div class="col-md-3">
                     <mat-form-field>
-                        <input matInput placeholder="Matrícula do Profissional" formControlName="id" [(ngModel)]="dataToForm.id" #id disabled />
+                        <input matInput placeholder="Matrícula do Profissional" formControlName="id"
+                            [(ngModel)]="dataToForm.id" #id disabled />
                     </mat-form-field>
                 </div>
                 <div class="col-md-4">
                     <mat-form-field>
-                        <input matInput placeholder="Registro Prof." formControlName="registerValue" [(ngModel)]="dataToForm.professionalIdentity.registerValue" #registerValue />
+                        <input matInput placeholder="Registro Prof." formControlName="registerValue"
+                            [(ngModel)]="dataToForm.professionalIdentity.registerValue" #registerValue />
                     </mat-form-field>
                 </div>
                 <div class="col-md-2">
                     <mat-form-field>
-                        <input matInput placeholder="Tipo Reg. (CRM, COREN, etc...)" formControlName="registerType" [(ngModel)]="dataToForm.professionalIdentity.registerType" #registerType />
+                        <input matInput placeholder="Tipo Reg. (CRM, COREN, etc...)" formControlName="registerType"
+                            [(ngModel)]="dataToForm.professionalIdentity.registerType" #registerType />
                     </mat-form-field>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-4">
                     <mat-form-field>
-                        <input matInput placeholder="Cadastro de Pessoa Física (CPF)" formControlName="document" (blur)="searchProfessionalByCpf()" [(ngModel)]="dataToForm.document.value" (keypress)="enterKeyPress($event)" #document type="text" maxlength="11" [disabled]="dataToForm.id"
-                            required />
+                        <input matInput placeholder="Cadastro de Pessoa Física (CPF)" formControlName="document"
+                            (blur)="searchProfessionalByCpf()" [(ngModel)]="dataToForm.document.value"
+                            (keypress)="enterKeyPress($event)" #document type="text" maxlength="11"
+                            [disabled]="dataToForm.id" required />
                     </mat-form-field>
                 </div>
                 <div class="col-md-4">
                     <mat-form-field>
-                        <input matInput placeholder="Nome" formControlName="firstName" [(ngModel)]="dataToForm.firstName" #firstName type="text" required />
+                        <input matInput placeholder="Nome" formControlName="firstName"
+                            [(ngModel)]="dataToForm.firstName" #firstName type="text" required />
                     </mat-form-field>
                 </div>
                 <div class="col-md-4">
                     <mat-form-field>
-                        <input matInput placeholder="Sobrenome" formControlName="lastName" [(ngModel)]="dataToForm.lastName" #lastName type="text" required />
+                        <input matInput placeholder="Sobrenome" formControlName="lastName"
+                            [(ngModel)]="dataToForm.lastName" #lastName type="text" required />
                     </mat-form-field>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
                     <mat-form-field>
-                        <input matInput placeholder="Nome completo da Mãe" formControlName="motherName" [(ngModel)]="dataToForm.motherName" #motherName type="text" />
+                        <input matInput placeholder="Nome completo da Mãe" formControlName="motherName"
+                            [(ngModel)]="dataToForm.motherName" #motherName type="text" />
                     </mat-form-field>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
                     <mat-form-field>
-                        <input matInput placeholder="Nome completo do Pai" formControlName="fatherName" [(ngModel)]="dataToForm.fatherName" #fatherName type="text" />
+                        <input matInput placeholder="Nome completo do Pai" formControlName="fatherName"
+                            [(ngModel)]="dataToForm.fatherName" #fatherName type="text" />
                     </mat-form-field>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-4">
                     <mat-form-field>
-                        <input matInput placeholder="Telefone principal (Apenas números)" formControlName="principalNumber" [(ngModel)]="dataToForm.principalNumber" #principalNumber type="text" />
+                        <input matInput placeholder="Telefone principal (Apenas números)"
+                            formControlName="principalNumber" [(ngModel)]="dataToForm.principalNumber" #principalNumber
+                            type="text" />
                     </mat-form-field>
                 </div>
                 <div class="col-md-4">
                     <mat-form-field>
-                        <input matInput placeholder="Data de nascimento" formControlName="bornDate" [(ngModel)]="dataToForm.bornDate" #bornDate type="date" required />
+                        <input matInput placeholder="Data de nascimento" formControlName="bornDate"
+                            [(ngModel)]="dataToForm.bornDate" #bornDate type="date" required />
                     </mat-form-field>
                 </div>
                 <div class="col-md-4">
                     <mat-form-field>
-                        <select matNativeControl placeholder="Gênero" formControlName="gender" (change)="selectGender($event.target.value)" [(ngModel)]="dataToForm.gender" #gender required>
+                        <select matNativeControl placeholder="Gênero" formControlName="gender"
+                            (change)="selectGender($event.target.value)" [(ngModel)]="dataToForm.gender" #gender
+                            required>
                             <option value="M">Masculino</option>
                             <option value="F">Feminino</option>
                         </select>
@@ -82,39 +97,48 @@
             <div class="row">
                 <div class="col-md-4">
                     <mat-form-field>
-                        <input matInput placeholder="Código Postal (CEP)" formControlName="cep" (blur)="searchAddressByCEP()" [(ngModel)]="dataToForm.address.postalCode" size="8" maxlength="8" #cep type="text" />
+                        <input matInput placeholder="Código Postal (CEP)" formControlName="cep"
+                            (blur)="searchAddressByCEP()" [(ngModel)]="dataToForm.address.postalCode" size="8"
+                            maxlength="8" #cep type="text" />
                     </mat-form-field>
                 </div>
                 <div class="col-md-4">
                     <mat-form-field>
-                        <input matInput placeholder="Rua" formControlName="street" [(ngModel)]="dataToForm.address.street" #street type="text" />
+                        <input matInput placeholder="Rua" formControlName="street"
+                            [(ngModel)]="dataToForm.address.street" #street type="text" />
                     </mat-form-field>
                 </div>
                 <div class="col-md-2">
                     <mat-form-field>
-                        <input matInput placeholder="Número" formControlName="addressNumber" [(ngModel)]="dataToForm.address.addressNumber" #addressNumber type="text" />
+                        <input matInput placeholder="Número" formControlName="addressNumber"
+                            [(ngModel)]="dataToForm.address.addressNumber" #addressNumber type="text" />
                     </mat-form-field>
                 </div>
                 <div class="col-md-2">
                     <mat-form-field>
-                        <input matInput placeholder="Complemento" formControlName="complement" [(ngModel)]="dataToForm.address.complement" #complement type="text" />
+                        <input matInput placeholder="Complemento" formControlName="complement"
+                            [(ngModel)]="dataToForm.address.complement" #complement type="text" />
                     </mat-form-field>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-4">
                     <mat-form-field>
-                        <input matInput placeholder="Bairro" formControlName="neighborhood" [(ngModel)]="dataToForm.address.neighborhood" #neighborhood type="text" />
+                        <input matInput placeholder="Bairro" formControlName="neighborhood"
+                            [(ngModel)]="dataToForm.address.neighborhood" #neighborhood type="text" />
                     </mat-form-field>
                 </div>
                 <div class="col-md-4">
                     <mat-form-field>
-                        <input matInput placeholder="Cidade" formControlName="city" [(ngModel)]="dataToForm.address.city" #city type="text" />
+                        <input matInput placeholder="Cidade" formControlName="city"
+                            [(ngModel)]="dataToForm.address.city" #city type="text" />
                     </mat-form-field>
                 </div>
                 <div class="col-md-4">
                     <mat-form-field>
-                        <select matNativeControl placeholder="Estado" formControlName="state" (change)="selectState($event.target.value)" [(ngModel)]="dataToForm.address.state" #state required>
+                        <select matNativeControl placeholder="Estado" formControlName="state"
+                            (change)="selectState($event.target.value)" [(ngModel)]="dataToForm.address.state" #state
+                            required>
                             <option value="AC">Acre</option>
                             <option value="AL">Alagoas</option>
                             <option value="AP">Amapá</option>
@@ -157,11 +181,14 @@
                 <br />
 
                 <mat-checkbox hidden></mat-checkbox>
-                <div class="col-sm-12 col-md-6 col-lg-4" *ngFor="let specialitity of specializationsData">
+                <div class="col-sm-12 col-md-6 col-lg-4" style="text-align: left;"
+                    *ngFor="let specialitity of specializationsData">
                     <div>
                         <label class="mat-checkbox-layout" for="{{specialitity.id}}">
                             <div class="mat-checkbox-inner-container">
-                                <input type="checkbox" class="mat-checkbox-input" name="specializations" checked="{{specialitity.checked}}" value="{{specialitity.name}}" id="{{specialitity.id}}">
+                                <input type="checkbox" class="mat-checkbox-input" name="specializations"
+                                    checked="{{specialitity.checked}}" value="{{specialitity.name}}"
+                                    id="{{specialitity.id}}">
                                 <div matripple="" class="mat-ripple mat-checkbox-ripple">
                                     <div class="mat-ripple-element mat-checkbox-persistent-ripple"></div>
                                 </div>
@@ -171,9 +198,13 @@
                     </div>
                 </div>
             </div>
-            <button *ngIf="dataToForm.id" mat-raised-button type="button" (click)="resetForm()" class="btn btn-info pull-left">Novo profissional</button>
-            <button mat-raised-button type="button" (click)="onCancelClick()" class="btn btn-danger pull-right">Fechar</button>
-            <button mat-raised-button type="submit" [disabled]="!form.valid" class="btn btn-success pull-right">Salvar</button>
+
+            <button *ngIf="dataToForm.id" mat-raised-button type="button" (click)="resetForm()"
+                class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-info pull-left">Novo profissional</button>
+            <button mat-raised-button type="submit" [disabled]="!form.valid"
+                class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-success pull-right">Salvar</button>
+            <button mat-raised-button type="button" (click)="onCancelClick()"
+                class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-danger pull-right">Fechar</button>
             <div class="clearfix"></div>
         </form>
     </div>

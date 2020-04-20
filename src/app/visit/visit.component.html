@@ -8,61 +8,88 @@
                         <p class="card-category">Informe uma matrícula de paciente ou um código de atendimento...</p>
                     </div>
                     <div class="card-body">
-                        <form #form="ngForm" autocomplete="off">
-                            <button mat-raised-button class="btn btn-success pull-right" *ngIf="visit.document.value">Realizar Alta</button>
-                            <button mat-raised-button class="btn btn-warning pull-right" *ngIf="visit.document.value" (click)="searchPatientHistory()">Histórico do
-                                paciente</button>
-                            <button mat-raised-button (click)="ngOnInit()" class="btn btn-danger pull-right" *ngIf="visit.document.value">Nova Consulta</button>
-                            <button mat-raised-button class="btn btn-info pull-right" *ngIf="visit.document.value">Consultar anamnese</button>
-                            <button mat-raised-button class="btn btn-info pull-right" *ngIf="visit.document.value">Usar
+                        <div class="float-rigth">
+
+                            <button mat-raised-button class="btn btn-info" *ngIf="visit.document.value">Consultar
+                                anamnese</button>
+
+                            <button mat-raised-button class="btn btn-info" *ngIf="visit.document.value">Usar
                                 medicamento</button>
-                            <button mat-raised-button class="btn btn-info pull-right" *ngIf="visit.document.value">Prescrição</button>
-                            <button mat-raised-button class="btn btn-info pull-right" *ngIf="visit.document.value">Adicionar Evolução</button>
-                            <div class="clearfix"></div>
-                            <hr />
+
+                            <button mat-raised-button class="btn btn-info"
+                                *ngIf="visit.document.value">Prescrição</button>
+
+                            <button mat-raised-button class="btn btn-info" *ngIf="visit.document.value">Adicionar
+                                Evolução</button>
+
+                            <button mat-raised-button class="btn btn-warning" *ngIf="visit.document.value"
+                                (click)="searchPatientHistory()">Histórico do
+                                paciente</button>
+
+                            <button mat-raised-button (click)="ngOnInit()" class="btn btn-danger"
+                                *ngIf="visit.document.value">Nova Consulta</button>
+
+                            <button mat-raised-button class="btn btn-success" *ngIf="visit.document.value">Realizar
+                                Alta</button>
+
+                        </div>
+                        <hr />
+                        <form #form="ngForm" autocomplete="off">
                             <div class="row">
                                 <div class="col-md-3">
                                     <mat-form-field>
-                                        <input matInput type="number" placeholder="Código do atendimento" name="id" [(ngModel)]="visit.id" #id="ngModel" (keypress)="enterKeyPress($event)" [disabled]="visit.patientId" />
+                                        <input matInput type="number" placeholder="Código do atendimento" name="id"
+                                            [(ngModel)]="visit.id" #id="ngModel" (keypress)="enterKeyPress($event)"
+                                            [disabled]="visit.patientId" />
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-3">
                                     <mat-form-field>
-                                        <input matInput type="number" placeholder="Código do paciente" name="patientId" [(ngModel)]="visit.patientId" #patientId="ngModel" (keypress)="enterKeyPress($event)" [disabled]="visit.id" />
+                                        <input matInput type="number" placeholder="Código do paciente" name="patientId"
+                                            [(ngModel)]="visit.patientId" #patientId="ngModel"
+                                            (keypress)="enterKeyPress($event)" [disabled]="visit.id" />
                                     </mat-form-field>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-4">
                                     <mat-form-field>
-                                        <input [disabled]="true" matInput placeholder="Cadastro de Pessoa Física (CPF)" name="document" [(ngModel)]="visit.document.value" #document type="text" maxlength="11" />
+                                        <input [disabled]="true" matInput placeholder="Cadastro de Pessoa Física (CPF)"
+                                            name="document" [(ngModel)]="visit.document.value" #document type="text"
+                                            maxlength="11" />
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-4">
                                     <mat-form-field>
-                                        <input [disabled]="true" matInput placeholder="Nome" name="firstName" [(ngModel)]="visit.firstName" #firstName="ngModel" type="text" />
+                                        <input [disabled]="true" matInput placeholder="Nome" name="firstName"
+                                            [(ngModel)]="visit.firstName" #firstName="ngModel" type="text" />
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-4">
                                     <mat-form-field>
-                                        <input [disabled]="true" matInput placeholder="Sobrenome" name="lastName" [(ngModel)]="visit.lastName" #lastName="ngModel" type="text" />
+                                        <input [disabled]="true" matInput placeholder="Sobrenome" name="lastName"
+                                            [(ngModel)]="visit.lastName" #lastName="ngModel" type="text" />
                                     </mat-form-field>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-4">
                                     <mat-form-field>
-                                        <input [disabled]="true" matInput placeholder="Telefone principal (Apenas números)" name="principalNumber" [(ngModel)]="visit.principalNumber" #principalNumber type="text" />
+                                        <input [disabled]="true" matInput
+                                            placeholder="Telefone principal (Apenas números)" name="principalNumber"
+                                            [(ngModel)]="visit.principalNumber" #principalNumber type="text" />
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-4">
                                     <mat-form-field>
-                                        <input [disabled]="true" matInput placeholder="Data de nascimento" name="bornDate" [(ngModel)]="visit.bornDate" #bornDate type="date" />
+                                        <input [disabled]="true" matInput placeholder="Data de nascimento"
+                                            name="bornDate" [(ngModel)]="visit.bornDate" #bornDate type="date" />
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-4">
                                     <mat-form-field>
-                                        <select [disabled]="true" matNativeControl placeholder="Gênero" name="gender" [(ngModel)]="visit.gender" #gender required>
+                                        <select [disabled]="true" matNativeControl placeholder="Gênero" name="gender"
+                                            [(ngModel)]="visit.gender" #gender required>
                                             <option value="M">Masculino</option>
                                             <option value="F">Feminino</option>
                                         </select>

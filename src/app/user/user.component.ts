@@ -95,7 +95,7 @@ export class UserComponent implements OnInit {
   openDialog(id) {
     const dialogRef = this.dialog.open(UserEditComponent, {
       width: '100%',
-      height: '68%',
+      height: 'auto',
       data: { selectedId: id }
     });
 

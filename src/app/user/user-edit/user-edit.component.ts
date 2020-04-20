@@ -8,6 +8,7 @@ import { NotificationsComponent } from 'app/core/notification/notifications.comp
 import { UtilService } from 'app/core/util.service';
 import { ConfirmDialogComponent } from 'app/core/confirm-dialog/confirm-dialog.component';
 import { Address } from 'app/model/Address';
+import { CameraDialogComponent } from 'app/component/camera/dialog/camera-dialog.component';
 
 @Component({
   selector: 'app-user-edit',
@@ -70,6 +71,19 @@ export class UserEditComponent implements OnInit {
         this.errorHandler.handle(error, this.dialogRef);
       });
     }
+  }
+
+  openWebCam() {
+    const dialogRef = this.confirmDialog.open(CameraDialogComponent, {
+      width: '500px',
+      height: '548px',
+    });
+
+    dialogRef.afterClosed().subscribe(webCamImage => {
+      if (webCamImage !== undefined) {
+        this.dataToForm.profilePhoto = webCamImage.imageAsDataUrl;
+      }
+    });
   }
 
   onCancelClick(): void {

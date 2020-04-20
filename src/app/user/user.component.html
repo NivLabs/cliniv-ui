@@ -39,10 +39,10 @@
                                 </div>
 
                             </div>
-                            <button mat-raised-button type="submit" (click)="applyFilter()"
-                                class="btn btn-danger pull-right">Filtrar</button>
+                            <button mat-raised-buttontype="submit" (click)="applyFilter()"
+                                class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-danger pull-right">Filtrar</button>
                             <button mat-raised-button type="button" (click)="openDialog(null)"
-                                class="btn btn-info pull-right">Novo
+                                class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-info pull-right">Novo
                                 Usuário</button>
                             <div class="clearfix"></div>
                         </form>
@@ -54,7 +54,7 @@
             <div class="center" *ngIf="!loading && dataNotFound">
                 <h1>Nenhum usuário encontrado...</h1>
             </div>
-            <div *ngFor="let user of datas" class="col-12 col-sm-6 col-md-4 col-lg-3">
+            <div *ngFor="let user of datas" class="col-12 col-sm-12 col-md-4 col-lg-4">
                 <div class="card link-card" (click)="openDialog(user.id)">
                     <div class="card-body margin-color-active">
                         <ul>
@@ -68,7 +68,7 @@
                 </div>
             </div>
             <div class="center" *ngIf="!loading && !page.last">
-                <button mat-raised-button type="button" (click)="loadNextPage()" class="btn btn-danger">Carregar
+                <button mat-raised-button type="button" (click)="loadNextPage()" class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-danger">Carregar
                     mais...</button>
             </div>
         </div>

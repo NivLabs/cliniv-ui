@@ -5,7 +5,8 @@
                 <div class="card card-profile">
                     <div class="card-avatar">
                         <a href="javascript:void(0)">
-                            <img class="img" src="{{userInfo.profilePhoto ? userInfo.profilePhoto : './assets/img/upload.png'}}" />
+                            <img class="img" (click)="openWebCam()"
+                                src="{{userInfo.profilePhoto ? userInfo.profilePhoto : './assets/img/upload.png'}}" />
                         </a>
                     </div>
                     <div class="card-header card-header-danger">
@@ -17,142 +18,167 @@
                             <div class="row">
                                 <div class="col-md-3">
                                     <mat-form-field>
-                                        <input matInput placeholder="Identificador do usuário" name="id" [(ngModel)]="userInfo.id" #id="ngModel" disabled />
+                                        <input matInput placeholder="Identificador do usuário" name="id"
+                                            [(ngModel)]="userInfo.id" #id="ngModel" disabled />
                                     </mat-form-field>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
                                     <mat-form-field>
-                                        <input matInput placeholder="Nome" name="firstName" [(ngModel)]="userInfo.firstName" #firstName="ngModel" type="text" required />
+                                        <input matInput placeholder="Nome" name="firstName"
+                                            [(ngModel)]="userInfo.firstName" #firstName="ngModel" type="text"
+                                            required />
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-6">
                                     <mat-form-field>
-                                        <input matInput placeholder="Sobrenome" name="lastName" [(ngModel)]="userInfo.lastName" #lastName="ngModel" type="text" required />
+                                        <input matInput placeholder="Sobrenome" name="lastName"
+                                            [(ngModel)]="userInfo.lastName" #lastName="ngModel" type="text" required />
                                     </mat-form-field>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
                                     <mat-form-field>
-                                        <input matInput placeholder="Nome completo da Mãe" name="motherName" [(ngModel)]="userInfo.motherName" #motherName="ngModel" type="text" />
+                                        <input matInput placeholder="Nome completo da Mãe" name="motherName"
+                                            [(ngModel)]="userInfo.motherName" #motherName="ngModel" type="text" />
                                     </mat-form-field>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
                                     <mat-form-field>
-                                        <input matInput placeholder="Nome completo do Pai" name="fatherName" [(ngModel)]="userInfo.fatherName" #fatherName type="text" />
+                                        <input matInput placeholder="Nome completo do Pai" name="fatherName"
+                                            [(ngModel)]="userInfo.fatherName" #fatherName type="text" />
                                     </mat-form-field>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-4">
                                     <mat-form-field>
-                                        <input matInput placeholder="Email" name="email" [(ngModel)]="userInfo.email" #email type="email" required />
+                                        <input matInput placeholder="Email" name="email" [(ngModel)]="userInfo.email"
+                                            #email type="email" required />
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-4">
                                     <mat-form-field>
-                                        <input matInput placeholder="Cadastro de Pessoa Física (CPF)" name="document" [(ngModel)]="userInfo.document.value" #document type="text" required />
+                                        <input matInput placeholder="Cadastro de Pessoa Física (CPF)" name="document"
+                                            [(ngModel)]="userInfo.document.value" #document type="text" required />
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-2">
                                     <mat-form-field>
-                                        <input matInput placeholder="Data de nascimento" name="bornDate" [(ngModel)]="userInfo.bornDate" #bornDate type="date" required />
+                                        <input matInput placeholder="Data de nascimento" name="bornDate"
+                                            [(ngModel)]="userInfo.bornDate" #bornDate type="date" required />
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-2">
                                     <mat-form-field>
-                                        <select matNativeControl placeholder="Gênero" name="gender" (change)="selectGender($event.target.value)" [(ngModel)]="userInfo.gender" #gender required>
-                      <option value="M">Masculino</option>
-                      <option value="F">Feminino</option>
-                    </select>
+                                        <select matNativeControl placeholder="Gênero" name="gender"
+                                            (change)="selectGender($event.target.value)" [(ngModel)]="userInfo.gender"
+                                            #gender required>
+                                            <option value="M">Masculino</option>
+                                            <option value="F">Feminino</option>
+                                        </select>
                                     </mat-form-field>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-4">
                                     <mat-form-field>
-                                        <input matInput placeholder="Código Postal (CEP)" name="cep" (blur)="searchAddressByCEP()" [(ngModel)]="userInfo.address.postalCode" size="8" maxlength="8" #cep type="text" />
+                                        <input matInput placeholder="Código Postal (CEP)" name="cep"
+                                            (blur)="searchAddressByCEP()" [(ngModel)]="userInfo.address.postalCode"
+                                            size="8" maxlength="8" #cep type="text" />
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-4">
                                     <mat-form-field>
-                                        <input matInput placeholder="Rua" name="street" [(ngModel)]="userInfo.address.street" #street type="text" />
+                                        <input matInput placeholder="Rua" name="street"
+                                            [(ngModel)]="userInfo.address.street" #street type="text" />
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-2">
                                     <mat-form-field>
-                                        <input matInput placeholder="Número" name="addressNumber" [(ngModel)]="userInfo.address.addressNumber" #addressNumber type="text" />
+                                        <input matInput placeholder="Número" name="addressNumber"
+                                            [(ngModel)]="userInfo.address.addressNumber" #addressNumber type="text" />
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-2">
                                     <mat-form-field>
-                                        <input matInput placeholder="Complemento" name="complement" [(ngModel)]="userInfo.address.complement" #complement type="text" />
+                                        <input matInput placeholder="Complemento" name="complement"
+                                            [(ngModel)]="userInfo.address.complement" #complement type="text" />
                                     </mat-form-field>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-4">
                                     <mat-form-field>
-                                        <input matInput placeholder="Bairro" name="neighborhood" [(ngModel)]="userInfo.address.neighborhood" #neighborhood type="text" />
+                                        <input matInput placeholder="Bairro" name="neighborhood"
+                                            [(ngModel)]="userInfo.address.neighborhood" #neighborhood type="text" />
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-4">
                                     <mat-form-field>
-                                        <input matInput placeholder="Cidade" name="city" [(ngModel)]="userInfo.address.city" #city type="text" />
+                                        <input matInput placeholder="Cidade" name="city"
+                                            [(ngModel)]="userInfo.address.city" #city type="text" />
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-4">
                                     <mat-form-field>
-                                        <select matNativeControl placeholder="Estado" name="state" (change)="selectState($event.target.value)" [(ngModel)]="userInfo.address.state" #state required>
-                      <option value="AC">Acre</option>
-                      <option value="AL">Alagoas</option>
-                      <option value="AP">Amapá</option>
-                      <option value="AM">Amazonas</option>
-                      <option value="BA">Bahia</option>
-                      <option value="CE">Ceará</option>
-                      <option value="DF">Distrito Federal</option>
-                      <option value="ES">Espírito Santo</option>
-                      <option value="GO">Goiás</option>
-                      <option value="MA">Maranhão</option>
-                      <option value="MT">Mato Grosso</option>
-                      <option value="MS">Mato Grosso do Sul</option>
-                      <option value="MG">Minas Gerais</option>
-                      <option value="PA">Pará</option>
-                      <option value="PB">Paraíba</option>
-                      <option value="PR">Paraná</option>
-                      <option value="PE">Pernambuco</option>
-                      <option value="PI">Piauí</option>
-                      <option value="RJ">Rio de Janeiro</option>
-                      <option value="RN">Rio Grande do Norte</option>
-                      <option value="RS">Rio Grande do Sul</option>
-                      <option value="RO">Rondônia</option>
-                      <option value="RR">Roraima</option>
-                      <option value="SC">Santa Catarina</option>
-                      <option value="SP">São Paulo</option>
-                      <option value="SE">Sergipe</option>
-                      <option value="TO">Tocantins</option>
-                      <option value="EX">Estrangeiro</option>
-                    </select>
+                                        <select matNativeControl placeholder="Estado" name="state"
+                                            (change)="selectState($event.target.value)"
+                                            [(ngModel)]="userInfo.address.state" #state required>
+                                            <option value="AC">Acre</option>
+                                            <option value="AL">Alagoas</option>
+                                            <option value="AP">Amapá</option>
+                                            <option value="AM">Amazonas</option>
+                                            <option value="BA">Bahia</option>
+                                            <option value="CE">Ceará</option>
+                                            <option value="DF">Distrito Federal</option>
+                                            <option value="ES">Espírito Santo</option>
+                                            <option value="GO">Goiás</option>
+                                            <option value="MA">Maranhão</option>
+                                            <option value="MT">Mato Grosso</option>
+                                            <option value="MS">Mato Grosso do Sul</option>
+                                            <option value="MG">Minas Gerais</option>
+                                            <option value="PA">Pará</option>
+                                            <option value="PB">Paraíba</option>
+                                            <option value="PR">Paraná</option>
+                                            <option value="PE">Pernambuco</option>
+                                            <option value="PI">Piauí</option>
+                                            <option value="RJ">Rio de Janeiro</option>
+                                            <option value="RN">Rio Grande do Norte</option>
+                                            <option value="RS">Rio Grande do Sul</option>
+                                            <option value="RO">Rondônia</option>
+                                            <option value="RR">Roraima</option>
+                                            <option value="SC">Santa Catarina</option>
+                                            <option value="SP">São Paulo</option>
+                                            <option value="SE">Sergipe</option>
+                                            <option value="TO">Tocantins</option>
+                                            <option value="EX">Estrangeiro</option>
+                                        </select>
                                     </mat-form-field>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
                                     <mat-form-field>
-                                        <input matInput placeholder="Telefone principal (Apenas números)" name="principalNumber" [(ngModel)]="userInfo.principalNumber" #principalNumber type="text" />
+                                        <input matInput placeholder="Telefone principal (Apenas números)"
+                                            name="principalNumber" [(ngModel)]="userInfo.principalNumber"
+                                            #principalNumber type="text" />
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-6">
                                     <mat-form-field>
-                                        <input matInput placeholder="Telefone secundário (Apenas números)" name="secondaryNumber" [(ngModel)]="userInfo.secondaryNumber" #secondaryNumber type="text" />
+                                        <input matInput placeholder="Telefone secundário (Apenas números)"
+                                            name="secondaryNumber" [(ngModel)]="userInfo.secondaryNumber"
+                                            #secondaryNumber type="text" />
                                     </mat-form-field>
                                 </div>
                             </div>
-                            <button mat-raised-button type="submit" [disabled]="!form.valid" class="btn btn-danger pull-right">Salvar</button>
+                            <button mat-raised-button type="submit" [disabled]="!form.valid"
+                                class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-danger pull-right">Salvar</button>
                             <div class="clearfix"></div>
                         </form>
                     </div>
