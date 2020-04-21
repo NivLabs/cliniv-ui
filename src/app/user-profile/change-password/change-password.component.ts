@@ -12,7 +12,6 @@ import { NotificationsComponent } from 'app/core/notification/notifications.comp
 })
 export class ChangePasswordComponent implements OnInit {
 
-
   dataToForm: UpdatePassword;
 
   constructor(public dialogRef: MatDialogRef<ChangePasswordComponent>, private service: UserProfileService, public errorHandler: ErrorHandlerService, private notification: NotificationsComponent) { }
@@ -33,7 +32,6 @@ export class ChangePasswordComponent implements OnInit {
   }
 
   onError(error) {
-    console.log(this)
     this.errorHandler.handle(error, this.dialogRef);
   }
 
@@ -47,6 +45,5 @@ export class ChangePasswordComponent implements OnInit {
       this.onChangePassword();
     }
   }
-
 
 }
