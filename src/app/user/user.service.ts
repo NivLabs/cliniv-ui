@@ -64,4 +64,12 @@ export class UserService {
             return this.http.put<UserInfo>(`${this.baseUrl}/${user.id}`, user, { headers }).toPromise();
         }
     }
+
+    resertPassword(id: number): Promise<void> {
+        var headers = this.http.getHeadersDefault()
+            .append('Content-Type', "application/json");
+        if (id) {
+            return this.http.put<void>(`${this.baseUrl}/${id}/reset-password`, {}, { headers }).toPromise();
+        }
+    }
 }

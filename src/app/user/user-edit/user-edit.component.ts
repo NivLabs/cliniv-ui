@@ -99,22 +99,26 @@ export class UserEditComponent implements OnInit {
     });
 
     if (this.dataToForm.id) {
+      this.loading = true;
       this.userService.update(this.dataToForm).then(resp => {
         this.dataToForm = resp;
         if (!resp.address) {
           this.dataToForm.address = new Address();
         }
+        this.loading = false;
         this.notification.showSucess("Paciente alterado com sucesso!");
       }).catch(error => {
         this.loading = false;
         this.errorHandler.handle(error, this.dialogRef);
       });
     } else {
+      this.loading = true;
       this.userService.create(this.dataToForm).then(resp => {
         this.dataToForm = resp;
         if (!resp.address) {
           this.dataToForm.address = new Address();
         }
+        this.loading = false;
         this.notification.showSucess("Paciente cadastrado com sucesso!");
       }).catch(error => {
         this.loading = false;
@@ -177,6 +181,15 @@ export class UserEditComponent implements OnInit {
           this.errorHandler.handle(error, this.dialogRef);
         });
       }
+  }
+
+  resetPassword() {
+    this.userService.resertPassword(this.dataToForm.id).then(() => {
+      this.notification.showSucess("Senha alterada com sucesso!");
+    }).catch(error => {
+      this.loading = false;
+      this.errorHandler.handle(error, this.dialogRef);
+    })
   }
 
   /**
