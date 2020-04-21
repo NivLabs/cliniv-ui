@@ -6,10 +6,12 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatCardModule } from '@angular/material/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatNativeDateModule, MatPseudoCheckboxModule, MatRippleModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatDividerModule } from '@angular/material/divider';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
@@ -21,7 +23,6 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
-import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSliderModule } from '@angular/material/slider';
@@ -33,7 +34,10 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterModule } from '@angular/router';
+import { CameraDialogComponent } from 'app/component/camera/dialog/camera-dialog.component';
+import { CameraComponent } from 'app/core/camera/camera.component';
 import { NgxLoadingModule } from 'ngx-loading';
+import { WebcamModule } from 'ngx-webcam';
 //#endregion
 //#region Componentes da aplicação
 import { ConfirmDialogComponent } from '../../core/confirm-dialog/confirm-dialog.component';
@@ -46,22 +50,22 @@ import { PatientComponent } from '../../patient/patient.component';
 import { PatientService } from '../../patient/patient.service';
 import { ProfessionalEditComponent } from '../../professional/professional-edit/professional-edit.component';
 import { ProfessionalComponent } from '../../professional/professional.component';
+import { ProfessionalService } from '../../professional/professional.service';
+import { SectorEditComponent } from '../../sector/sector-edit/sector-edit.component';
 import { SectorComponent } from '../../sector/sector.component';
 import { SectorService } from '../../sector/sector.service';
-import { ProfessionalService } from '../../professional/professional.service';
-import { UserService } from '../../user/user.service';
 import { SecurityModule } from '../../security/security.module';
+import { ChangePasswordComponent } from '../../user-profile/change-password/change-password.component';
 import { UserProfileComponent } from '../../user-profile/user-profile.component';
 import { UserProfileService } from '../../user-profile/user-profile.service';
+import { UserEditComponent } from '../../user/user-edit/user-edit.component';
+import { UserComponent } from '../../user/user.component';
+import { UserService } from '../../user/user.service';
 import { PatientHistoryComponent } from '../../visit/history/patient-history.component';
 import { NewVisitComponent } from '../../visit/newVisit/new-visit.component';
 import { VisitComponent } from '../../visit/visit.component';
 import { VisitService } from '../../visit/visit.service';
 import { AdminLayoutRoutes } from './admin-layout.routing';
-import { MatDividerModule } from '@angular/material/divider';
-import { CameraComponent } from 'app/core/camera/camera.component';
-import { CameraDialogComponent } from 'app/component/camera/dialog/camera-dialog.component';
-import {WebcamModule} from 'ngx-webcam';
 //#endregion
 
 const matModules = [
@@ -129,8 +133,13 @@ const matModules = [
     ProfessionalEditComponent,
 
     SectorComponent,
+    SectorEditComponent,
 
     UserProfileComponent,
+    ChangePasswordComponent,
+
+    UserComponent,
+    UserEditComponent,
 
     VisitComponent,
     PatientHistoryComponent,
@@ -146,7 +155,9 @@ const matModules = [
   entryComponents: [
     PatientEditComponent,
     PatientHistoryComponent,
+    ChangePasswordComponent,
     NewVisitComponent,
+    UserEditComponent,
     ConfirmDialogComponent,
     CameraDialogComponent,
   ],

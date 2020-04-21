@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { AppHttp } from '../security/app-http';
 import { UserInfo } from 'app/model/User';
+import { UpdatePassword } from 'app/model/UpdatePassword';
 
 @Injectable()
 export class UserProfileService {
@@ -30,5 +31,13 @@ export class UserProfileService {
     var validUserInfo = new UserInfo();
     validUserInfo = JSON.parse(JSON.stringify(userInfo));
     return validUserInfo;
+  }
+
+  changePassword(updatePasswordRequest: UpdatePassword) {
+    if (updatePasswordRequest) {
+      var headers = this.http.getHeadersDefault()
+        .append('Content-Type', "application/json");
+      return this.http.put<UserInfo>(`${environment.apiUrl}/auth/password`, updatePasswordRequest, { headers }).toPromise();
+    }
   }
 }
