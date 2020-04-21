@@ -20,7 +20,7 @@ export class ErrorHandlerService {
 
     if (typeof errorResponse === 'string') {
       msg = errorResponse;
-
+      this.notification.showError(msg);
     } else if (errorResponse instanceof NotAuthenticatedError) {
       msg = 'Sua sessão expirou!';
 
@@ -59,11 +59,13 @@ export class ErrorHandlerService {
       }
 
       var hasShow = false;
-      if (errorResponse.status === 400 && (errorResponse.error && !errorResponse.error.validations)) {
+      if (errorResponse.status === 400 && (errorResponse.error && errorResponse.error.validations)) {
         errorResponse.error.validations.forEach(validationError => {
           this.notification.showError(validationError.message);
           hasShow = true;
         });
+      } else if (errorResponse.status === 400 && (errorResponse.error && !errorResponse.error.validations)) {
+        this.notification.showError(errorResponse.error.message)
       }
 
       try {

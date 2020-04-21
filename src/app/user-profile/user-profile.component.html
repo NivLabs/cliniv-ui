@@ -179,6 +179,10 @@
                             </div>
                             <button mat-raised-button type="submit" [disabled]="!form.valid"
                                 class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-danger pull-right">Salvar</button>
+
+                            <button mat-raised-button type="button" (click)="openChangePasswordDialog()"
+                                class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-success pull-right">Trocar
+                                senha</button>
                             <div class="clearfix"></div>
                         </form>
                     </div>

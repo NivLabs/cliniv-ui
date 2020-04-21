@@ -9,6 +9,7 @@ import { Document } from 'app/model/Document';
 import { Address } from 'app/model/Address';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { CameraDialogComponent } from 'app/component/camera/dialog/camera-dialog.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 
 @Component({
@@ -52,6 +53,19 @@ export class UserProfileComponent implements OnInit {
     dialogRef.afterClosed().subscribe(webCamImage => {
       if (webCamImage !== undefined) {
         this.userInfo.profilePhoto = webCamImage.imageAsDataUrl;
+      }
+    });
+  }
+
+  openChangePasswordDialog() {
+    const dialogRef = this.confirmDialog.open(ChangePasswordComponent, {
+      width: '500px',
+      height: '500px',
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result !== undefined) {
+        
       }
     });
   }
