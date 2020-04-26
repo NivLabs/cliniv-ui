@@ -25,6 +25,7 @@ export class PatientComponent implements OnInit {
 
   ngOnInit() {
     this.loading = true;
+    this.page = new Page();
     this.filters = new PatientFilters();
     this.principalService.getPage(this.filters, this.pageSettings).then(response => {
       this.loading = false;

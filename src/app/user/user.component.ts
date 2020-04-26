@@ -24,9 +24,10 @@ export class UserComponent implements OnInit {
   constructor(public dialog: MatDialog, private principalService: UserService, private errorHandler: ErrorHandlerService, private notification: NotificationsComponent) { }
 
   ngOnInit(): void {
+    this.loading = true;
+    this.page = new Page();
     this.filters = new UserFilters();
     this.pageSettings = new Pageable();
-    this.loading = true;
     this.principalService.getPage(this.filters, this.pageSettings).then(response => {
       this.loading = false;
       this.datas = response.content;
