@@ -3,15 +3,15 @@
  */
 export class Page {
     content: [];
-    empty: boolean;
-    first: boolean;
-    last: boolean;
+    empty: boolean = true;
+    first: boolean = true;
+    last: boolean = true;
     number: number;
     numberOfElements: number;
     pageable: Pageable;
-    size: number;
-    totalElements: number;
-    totalPages: number;
+    size: number = 0;
+    totalElements: number = 0;
+    totalPages: number = 0;
 }
 
 /**
