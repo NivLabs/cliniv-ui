@@ -14,3 +14,24 @@
     padding-right: 0px !important;
     cursor: pointer;
 }
+
+.logo {
+    margin: 0;
+    display: block;
+    position: relative;
+    z-index: 4;
+}
+
+.logo-img {
+    width: 100%;
+    display: block;
+    max-height: 80px;
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+.logo-img img {
+    width: 100%;
+    position: unset;
+    top: 0px;
+}
