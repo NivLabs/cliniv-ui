@@ -1,18 +1,12 @@
-.logoff-button {
-    color: white !important;
-    cursor: pointer;
-}
-
 .logoff-layout {
-    background-color: #00bcd4 !important;
-    margin-left: 15px;
-    margin-right: 10px;
-    cursor: pointer;
+    bottom: 0px;
+    position: fixed;
+    width: 260px;
 }
-
-.logoff-button-text {
-    padding-right: 0px !important;
-    cursor: pointer;
+.logoff-layout .btn {
+    border-radius: 0px;
+    margin-right: 0x;
+    margin-left: 0px;
 }
 
 .logo {
