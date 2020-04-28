@@ -21,11 +21,12 @@ Atualmente encontra-se na versão 1.0.0 em desenvolvimento - [FTGP-UI](https://g
 
 ---
 
-<img alt="FTGP Logo" src="./readme/Tela 7.jpeg" height="400px" width="200px" />
-<img alt="FTGP Logo" src="./readme/Tela 3.jpeg" height="400px" width="200px" />
-<img alt="FTGP Logo" src="./readme/Tela 4.jpeg" height="400px" width="200px" />
-<img alt="FTGP Logo" src="./readme/Tela 5.jpeg" height="400px" width="200px" />
-<img alt="FTGP Logo" src="./readme/Tela 2.jpeg" height="400px" width="200px" />
+<p align="center">
+  <img alt="FTGP Logo" src="./readme/Tela 7.jpeg" height="400px" width="200px" />
+  <img alt="FTGP Logo" src="./readme/Tela 3.jpeg" height="400px" width="200px" />
+  <img alt="FTGP Logo" src="./readme/Tela 4.jpeg" height="400px" width="200px" />
+  <img alt="FTGP Logo" src="./readme/Tela 2.jpeg" height="400px" width="200px" />
+</p>
 
 ---
 
