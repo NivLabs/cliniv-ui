@@ -49,7 +49,7 @@ Por ser um projeto Angular 8, não se faz necessário o uso de nenhum servidor e
 
 ### Passo 1
 
-- 🍴 Fork este respositório!
+- 🍴 Realize um Fork deste respositório!
 
 ### Passo 2
 
