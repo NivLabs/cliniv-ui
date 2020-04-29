@@ -46,12 +46,42 @@ Por ser um projeto Angular 8, não se faz necessário o uso de nenhum servidor e
 
 
 ## Como contribuir
-Caso queira contribuir, basta realizar um fork do repositório, fazer a implementação desejada, **criar uma issue de push** e realizar pull request para a **master**.
+
+### Passo 1
+
+- 🍴 Fork este respositório!
+
+### Passo 2
+
+- 👯 Clone este repositório na sua máquina local usando `https://github.com/viniciosarodrigues/gestao-de-prontuario-ui.git`
+
+### Passo 3
+
+- 🎋 Crie sua branch de funcionalidade usando `git checkout -b minha-funcionalidade`
+
+### Passo 4
+
+- ✅ Realize o commit de suas alterações usando `git commit -m 'feat: Minha nova funcionalidade'`;
+
+### Passo 5
+
+- 📌 Realize o push para a branch usando `git push origin minha-funcionalidade`;
+
+### Passo 6
+
+- 🔃 Crie um novo pull request
+
+Depois que seu Pull Request é aceito e o merge é realizado, você pode deletar a sua branch de funcionalidade.
 
 ---
 
 ## Contato
-Qualquer dúvida ou sugestão, favor enviar para o e-mai *viniciosarodrigues@gmail.com* ou enviar mensagem privada pelo próprio GitGub.
+
+> Você pode me encontrar por aqui...
+
+- Linkedin :: [Lucas Montano](https://www.linkedin.com/in/lucasmontano/)
+- Instagram :: [@viniarodrigues](https://www.instagram.com/viniarodrigues/)
+- Hangouts/Gmail :: [viniciosarodrigues@gmail.com](viniciosarodrigues@gmail.com)
 
 ---
 
