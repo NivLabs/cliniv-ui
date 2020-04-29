@@ -11,7 +11,7 @@ O FT - Gestão de Prontuário - UI (FTGP-UI) é uma UI RestClient OpenSource cri
 
 <p align="center">
     <a href="https://github.com/viniciosarodrigues/">
-        <img alt="Made by Vinícios Rodrigues" src="https://img.shields.io/badge/made%20by-Vin%C3%ADcios%20Rodriuges-brightgreen" />
+        <img alt="Made by Vinícios Rodrigues" src="https://img.shields.io/badge/made%20by-Vin%C3%ADcios%20Rodrigues-brightgreen" />
     </a>
     <img alt="Last Commit" src="https://img.shields.io/github/last-commit/viniciosarodrigues/gestao-de-prontuario-ui" />
     <img alt="Contributors" src="https://img.shields.io/github/contributors/viniciosarodrigues/gestao-de-prontuario-ui" />
