@@ -79,7 +79,7 @@ Depois que seu Pull Request é aceito e o merge é realizado, você pode deletar
 
 > Você pode me encontrar por aqui...
 
-- Linkedin :: [Lucas Montano](https://www.linkedin.com/in/lucasmontano/)
+- Linkedin :: [Vinícios Rodrigues](https://www.linkedin.com/in/viniciosrodrigues/)
 - Instagram :: [@viniarodrigues](https://www.instagram.com/viniarodrigues/)
 - Hangouts/Gmail :: [viniciosarodrigues@gmail.com](viniciosarodrigues@gmail.com)
 
