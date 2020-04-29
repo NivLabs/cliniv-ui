@@ -32,12 +32,15 @@ Atualmente encontra-se na versão 1.0.0 em desenvolvimento - [FTGP-UI](https://g
 ---
 
 ## Índice
+
 <ul>
-  <li><a href="#minimo-para-rodar">Mínimo para rodar</a></li>
-  <li><a href="#como-rodar-a-aplicacao">Como rodar a aplicação?</a></li>
-  <li><a href="#contato">Como desenvolver?</a></li>
+  <li><a href="#mínimo-para-rodar">Mínimo para rodar</a></li>
+  <li><a href="#como-rodar-a-aplicação">Como rodar a aplicação?</a></li>
+  <li><a href="#como-contribuir">Como contribuir?</a></li>
+  <li><a href="#contato">Contato</a></li>
   <li><a href="#-license">License</a></li>
 </ul>
+
 ---
 
 ## Mínimo para rodar
