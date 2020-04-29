@@ -31,7 +31,16 @@ Atualmente encontra-se na versão 1.0.0 em desenvolvimento - [FTGP-UI](https://g
 
 ---
 
-## Como densenvolver?
+## Índice
+<ul>
+  <li><a href="#minimo-para-rodar">Mínimo para rodar</a></li>
+  <li><a href="#como-rodar-a-aplicacao">Como rodar a aplicação?</a></li>
+  <li><a href="#contato">Como desenvolver?</a></li>
+  <li><a href="#-license">License</a></li>
+</ul>
+---
+
+## Mínimo para rodar
 Para contribuir com o projeto, existem alguns requisítos mínimos de configurações, são eles?
 - Node 10 + **(Obrigatório)**
 - Angular 9 (Community) **(Obrigatório)**
@@ -39,8 +48,19 @@ Para contribuir com o projeto, existem alguns requisítos mínimos de configura�
 
 ---
 
-## Como rodar a UI?
-Por ser um projeto Angular 8, não se faz necessário o uso de nenhum servidor externo, pois o framework já disponibiliza um Node Server embarcado, desta forma basta usar o comando **ng serve** -> **ng serve -port 9090** para rodar em porta específica.
+## Como rodar a aplicação?
+
+### Passo 1
+
+- 👯 Clone este repositório na sua máquina local usando `https://github.com/viniciosarodrigues/gestao-de-prontuario-ui.git`
+
+### Passo 2
+
+- 📌 Instale as dependências do projeto usando o comando `npm i`
+
+### Passo 2
+
+- 🔃 Rode a aplicação usando o comando `ng serve` e acesse a porta padrão 4200. Caso queira rodar em outra porta, adicione o argumento `-port PORTA_DESEJADA`, ex: `ng serve -port 8080`
 
 ---
 
