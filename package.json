@@ -47,7 +47,7 @@
         "font-awesome": "^4.7.0",
         "googleapis": "40.0.0",
         "hammerjs": "2.0.8",
-        "jquery": "3.4.1",
+        "jquery": "3.5.0",
         "moment": "2.24.0",
         "ngx-loading": "^8.0.0",
         "ngx-webcam": "^0.3.0",
