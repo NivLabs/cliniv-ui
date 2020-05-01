@@ -18,14 +18,20 @@
                             #id="ngModel" disabled />
                     </mat-form-field>
                 </div>
+                <div class="col-md-3">
+                    <mat-form-field>
+                        <input matInput placeholder="Código SUS" name="susNumber"
+                            (keypress)="enterKeyPress($event, 'searchSUS')" [(ngModel)]="dataToForm.susNumber"
+                            #susNumber="ngModel" />
+                    </mat-form-field>
+                </div>
             </div>
             <div class="row">
                 <div class="col-md-4">
                     <mat-form-field>
                         <input matInput placeholder="Cadastro de Pessoa Física (CPF)" name="document"
-                            (blur)="searchPatientByCpf()" [(ngModel)]="dataToForm.document.value"
-                            (keypress)="enterKeyPress($event)" #document type="text" maxlength="11"
-                            [disabled]="dataToForm.id" required />
+                            [(ngModel)]="dataToForm.document.value" (keypress)="enterKeyPress($event, 'searchCPF')"
+                            #document type="text" maxlength="11" />
                     </mat-form-field>
                 </div>
                 <div class="col-md-4">
@@ -161,7 +167,7 @@
                 class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-info pull-left">Novo paciente</button>
             <button *ngIf="dataToForm.id" mat-raised-button type="button" (click)="gotToVisit(dataToForm.id)"
                 class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-warning pull-left">Ir para Atendimentos</button>
-            <button mat-raised-button type="submit" [disabled]="!form.valid"
+            <button mat-raised-button type="submit" [disabled]="!form.valid || !cpfIsValid()"
                 class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-success pull-right">Salvar</button>
             <button mat-raised-button type="button" (click)="onCancelClick()"
                 class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-danger pull-right">Fechar</button>

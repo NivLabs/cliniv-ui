@@ -16,15 +16,20 @@
                                 </div>
                                 <div class="col-md-2">
                                     <mat-form-field>
+                                        <input matInput placeholder="Cartão SUS" name="susNumber" [(ngModel)]="filters.susNumber" #susNumber type="text" (keypress)="enterKeyPress($event)" />
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-2">
+                                    <mat-form-field>
                                         <input matInput placeholder="Nome do paciente" name="firstName" [(ngModel)]="filters.firstName" #firstName type="text" (keypress)="enterKeyPress($event)" />
                                     </mat-form-field>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-2">
                                     <mat-form-field>
                                         <input matInput placeholder="Sobrenome do paciente" name="lastName" [(ngModel)]="filters.lastName" #lastName type="text" (keypress)="enterKeyPress($event)" />
                                     </mat-form-field>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-2">
                                     <mat-form-field>
                                         <input matInput placeholder="CPF do paciente" name="cpf" [(ngModel)]="filters.cpf" #cpf type="text" (keypress)="enterKeyPress($event)" />
                                     </mat-form-field>
@@ -49,10 +54,11 @@
                         <ul>
                             <li class="patient-name"> {{patient.firstName + ' ' + patient.lastName}}</li>
                             <li><span class="fa fa-user patient-info"> Matrícula:</span> {{patient.id}}</li>
-                            <li><span class="fa fa-calendar patient-info"> Nascimento:</span> {{patient.bornDate}}</li>
-                            <li><span class="fa fa-venus-mars patient-info"> Gênero:</span> {{ patient.gender === 'M' ? 'Masculino' : 'Feminino'}}
+                            <li *ngIf="patient.susNumber"><span class="fa fa-lock patient-info"> SUS:</span> {{patient.susNumber}}</li>
+                            <li *ngIf="patient.bornDate"><span class="fa fa-calendar patient-info"> Nascimento:</span> {{patient.bornDate}}</li>
+                            <li *ngIf="patient.gender"><span class="fa fa-venus-mars patient-info"> Gênero:</span> {{ patient.gender === 'M' ? 'Masculino' : 'Feminino'}}
                             </li>
-                            <li><span class="fa fa-id-card patient-info"> Documento:</span> {{patient.cpf}}</li>
+                            <li *ngIf="patient.cpf"><span class="fa fa-id-card patient-info"> Documento:</span> {{patient.cpf}}</li>
                             <li><span class="fa fa-phone patient-info"> Tel:</span> {{patient.principalNumber ? patient.principalNumber : 'Não informado'}}</li>
                         </ul>
                     </div>

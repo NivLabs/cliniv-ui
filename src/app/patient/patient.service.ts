@@ -42,10 +42,10 @@ export class PatientService {
         return this.http.get<Page>(`${this.baseUrl}?${queryString}`, { headers }).toPromise();
     }
 
-    getByCpf(cpf: string): Promise<PatientInfo> {
+    getByDocument(documentType: string, documentValue: string): Promise<PatientInfo> {
         var headers = this.http.getHeadersDefault()
-        if (cpf) {
-            return this.http.get<PatientInfo>(`${this.baseUrl}/CPF/${cpf}`, { headers }).toPromise();
+        if (documentType && documentValue) {
+            return this.http.get<PatientInfo>(`${this.baseUrl}/${documentType}/${documentValue}`, { headers }).toPromise();
         }
     }
 
