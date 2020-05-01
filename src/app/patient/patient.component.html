@@ -11,33 +11,56 @@
                             <div class="row">
                                 <div class="col-md-2">
                                     <mat-form-field>
-                                        <input matInput placeholder="Matrícula do paciente" name="id" [(ngModel)]="filters.id" #id type="number" (keypress)="enterKeyPress($event)" />
+                                        <select matNativeControl placeholder="Tipo Paciente" name="type"
+                                            (change)="selectPatientType($event.target.value)"
+                                            [(ngModel)]="filters.type" #type>
+                                            <option value="">Ambos</option>
+                                            <option value="IDENTIFIED">Identificado</option>
+                                            <option value="NOT_IDENTIFIED">Não identificado</option>
+                                        </select>
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-2">
                                     <mat-form-field>
-                                        <input matInput placeholder="Cartão SUS" name="susNumber" [(ngModel)]="filters.susNumber" #susNumber type="text" (keypress)="enterKeyPress($event)" />
+                                        <input matInput placeholder="Matrícula do paciente" name="id"
+                                            [(ngModel)]="filters.id" #id type="number"
+                                            (keypress)="enterKeyPress($event)" />
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-2">
                                     <mat-form-field>
-                                        <input matInput placeholder="Nome do paciente" name="firstName" [(ngModel)]="filters.firstName" #firstName type="text" (keypress)="enterKeyPress($event)" />
+                                        <input matInput placeholder="Cartão SUS" name="susNumber"
+                                            [(ngModel)]="filters.susNumber" #susNumber type="text"
+                                            (keypress)="enterKeyPress($event)" />
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-2">
                                     <mat-form-field>
-                                        <input matInput placeholder="Sobrenome do paciente" name="lastName" [(ngModel)]="filters.lastName" #lastName type="text" (keypress)="enterKeyPress($event)" />
+                                        <input matInput placeholder="Nome do paciente" name="firstName"
+                                            [(ngModel)]="filters.firstName" #firstName type="text"
+                                            (keypress)="enterKeyPress($event)" />
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-2">
                                     <mat-form-field>
-                                        <input matInput placeholder="CPF do paciente" name="cpf" [(ngModel)]="filters.cpf" #cpf type="text" (keypress)="enterKeyPress($event)" />
+                                        <input matInput placeholder="Sobrenome do paciente" name="lastName"
+                                            [(ngModel)]="filters.lastName" #lastName type="text"
+                                            (keypress)="enterKeyPress($event)" />
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-2">
+                                    <mat-form-field>
+                                        <input matInput placeholder="CPF do paciente" name="cpf"
+                                            [(ngModel)]="filters.cpf" #cpf type="text"
+                                            (keypress)="enterKeyPress($event)" />
                                     </mat-form-field>
                                 </div>
                             </div>
-                            <button mat-raised-button type="button" (click)="applyFilter()" class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-danger pull-right">Filtrar</button>
-                            <button mat-raised-button type="button" (click)="openDialog(null)" class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-info pull-right">Novo
-                  Paciente</button>
+                            <button mat-raised-button type="button" (click)="applyFilter()"
+                                class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-danger pull-right">Filtrar</button>
+                            <button mat-raised-button type="button" (click)="openDialog(null)"
+                                class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-info pull-right">Novo
+                                Paciente</button>
                             <div class="clearfix"></div>
                         </form>
                     </div>
@@ -54,12 +77,17 @@
                         <ul>
                             <li class="patient-name"> {{patient.firstName + ' ' + patient.lastName}}</li>
                             <li><span class="fa fa-user patient-info"> Matrícula:</span> {{patient.id}}</li>
-                            <li *ngIf="patient.susNumber"><span class="fa fa-lock patient-info"> SUS:</span> {{patient.susNumber}}</li>
-                            <li *ngIf="patient.bornDate"><span class="fa fa-calendar patient-info"> Nascimento:</span> {{patient.bornDate}}</li>
-                            <li *ngIf="patient.gender"><span class="fa fa-venus-mars patient-info"> Gênero:</span> {{ patient.gender === 'M' ? 'Masculino' : 'Feminino'}}
+                            <li *ngIf="patient.susNumber"><span class="fa fa-lock patient-info"> SUS:</span>
+                                {{patient.susNumber}}</li>
+                            <li *ngIf="patient.bornDate"><span class="fa fa-calendar patient-info"> Nascimento:</span>
+                                {{patient.bornDate}}</li>
+                            <li *ngIf="patient.gender"><span class="fa fa-venus-mars patient-info"> Gênero:</span>
+                                {{ patient.gender === 'M' ? 'Masculino' : 'Feminino'}}
                             </li>
-                            <li *ngIf="patient.cpf"><span class="fa fa-id-card patient-info"> Documento:</span> {{patient.cpf}}</li>
-                            <li><span class="fa fa-phone patient-info"> Tel:</span> {{patient.principalNumber ? patient.principalNumber : 'Não informado'}}</li>
+                            <li *ngIf="patient.cpf"><span class="fa fa-id-card patient-info"> Documento:</span>
+                                {{patient.cpf}}</li>
+                            <li><span class="fa fa-phone patient-info"> Tel:</span>
+                                {{patient.principalNumber ? patient.principalNumber : 'Não informado'}}</li>
                         </ul>
                     </div>
                 </div>

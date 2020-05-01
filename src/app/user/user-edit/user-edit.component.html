@@ -7,7 +7,7 @@
     </div>
     <div class="card-header card-header-info">
         <h4 class="card-title">Dados do usuário</h4>
-        <p class="card-category">Dados completos do usuário</p>
+        <p class="card-category">Dados completos do usuário {{dataToForm.id ? 'criado em ' + (dataToForm.createdAt | date: 'dd/MM/yyyy') : ''}}</p>
     </div>
     <div class="card-body">
         <form #form="ngForm" autocomplete="off" (ngSubmit)="save()">
