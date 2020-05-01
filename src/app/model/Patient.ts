@@ -6,6 +6,7 @@ import { Person } from "./Person";
  * Representa as informações detalhadas do paciente
  */
 export class PatientInfo extends Person {
+    susNumber: string;
 }
 
 export class PatientFilters {
@@ -13,4 +14,5 @@ export class PatientFilters {
     firstName: string;
     lastName: string;
     cpf: string;
+    susNumber: string;
 }
