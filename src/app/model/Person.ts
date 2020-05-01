@@ -18,5 +18,6 @@ export class Person {
     bornDate: Date;
     observations: string;
     gender: string;
+    createdAt: Date;
     profilePhoto: string;
 }

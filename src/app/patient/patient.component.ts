@@ -88,6 +88,11 @@ export class PatientComponent implements OnInit {
     }
   }
 
+
+  selectPatientType(newValue) {
+    this.filters.type = newValue;
+  }
+
   /**
    * 
    * @param id Identificador do paciente
