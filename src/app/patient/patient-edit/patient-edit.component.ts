@@ -140,6 +140,10 @@ export class PatientEditComponent implements OnInit {
     this.dataToForm.address.state = newValue;
   }
 
+  selectPatientType(newValue) {
+    this.dataToForm.type = newValue;
+  }
+
   cpfIsValid() {
     if (this.dataToForm.document) {
       if (this.dataToForm.document.value === "" || this.dataToForm.document.value === undefined)

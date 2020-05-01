@@ -18,7 +18,7 @@ export class SectorEditComponent implements OnInit {
   public sector: Sector;
 
   constructor(public sectorService: SectorService, public confirmDialog: MatDialog, public dialog: MatDialog, public dialogRef: MatDialogRef<SectorEditComponent>, @Inject(MAT_DIALOG_DATA) public data: Sector, public formBuilder: FormBuilder, private utilService: UtilService, private patientService: SectorService, private errorHandler: ErrorHandlerService, private notification: NotificationsComponent) {
-    this.sector = new Sector(null, null);
+    this.sector = new Sector(null, null, null);
   }
 
   ngOnInit(): void {
@@ -58,7 +58,7 @@ export class SectorEditComponent implements OnInit {
 
     confirmDialogRef.afterClosed().subscribe(result => {
       if (result !== undefined && result.isConfirmed) {
-        this.sector = new Sector(null, null);
+        this.sector = new Sector(null, null, null);
       }
     });
   }

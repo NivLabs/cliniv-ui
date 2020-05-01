@@ -7,6 +7,8 @@ import { Person } from "./Person";
  */
 export class PatientInfo extends Person {
     susNumber: string;
+    type: string;
+    annotations: string;
 }
 
 export class PatientFilters {
@@ -15,4 +17,5 @@ export class PatientFilters {
     lastName: string;
     cpf: string;
     susNumber: string;
+    type: string;
 }
