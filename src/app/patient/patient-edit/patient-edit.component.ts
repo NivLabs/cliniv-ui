@@ -11,6 +11,7 @@ import { PatientInfo } from 'app/model/Patient';
 import { Address } from 'app/model/Address';
 import { WebcamImage } from 'ngx-webcam';
 import { CameraDialogComponent } from 'app/component/camera/dialog/camera-dialog.component';
+import { Document } from 'app/model/Document';
 
 
 @Component({
@@ -21,6 +22,7 @@ export class PatientEditComponent implements OnInit {
 
   public dataToForm: PatientInfo;
   public loading: boolean;
+  public isNewCpf = false;
 
   constructor(private router: Router, public confirmDialog: MatDialog,
     public dialogRef: MatDialogRef<PatientEditComponent>, public errorHandler: ErrorHandlerService,
@@ -66,6 +68,10 @@ export class PatientEditComponent implements OnInit {
         this.dataToForm = resp;
         if (!resp.address) {
           this.dataToForm.address = new Address();
+        }
+        if (!resp.document) {
+          this.isNewCpf = true;
+          this.dataToForm.document = new Document('CPF');
         }
       }).catch(error => {
         this.loading = false;
@@ -134,27 +140,50 @@ export class PatientEditComponent implements OnInit {
     this.dataToForm.address.state = newValue;
   }
 
+  cpfIsValid() {
+    if (this.dataToForm.document) {
+      if (this.dataToForm.document.value === "" || this.dataToForm.document.value === undefined)
+        return true
+      return this.utilService.cpfIsValid(this.dataToForm.document.value);
+    }
+    return false
+  }
+
   searchPatientByCpf() {
-    if (this.dataToForm.document.value)
-      if (!this.utilService.cpfIsValid(this.dataToForm.document.value)) {
-        this.notification.showError("CPF Inválido, favor informar um CPF válido e sem pontos e/ou traços");
-        this.dataToForm = new PatientInfo();
-      } else {
-        this.loading = true;
-        this.patientService.getByCpf(this.dataToForm.document.value).then(resp => {
-          this.loading = false;
-          this.dataToForm = resp;
-          if (!resp.address) {
-            this.dataToForm.address = new Address();
-          }
-        }).catch(error => {
-          this.loading = false;
-          var cpf = this.dataToForm.document.value;
-          this.dataToForm = new PatientInfo();
-          this.dataToForm.document.value = cpf;
-          this.errorHandler.handle(error, this.dialogRef);
-        });
-      }
+    if (!this.cpfIsValid()) {
+      this.notification.showWarning("CPF Inválido, favor informar um CPF válido e sem pontos e/ou traços");
+      this.dataToForm.document = new Document("CPF");
+    } else {
+      this.loading = true;
+      this.patientService.getByDocument('CPF', this.dataToForm.document.value).then(resp => {
+        this.loading = false;
+        this.dataToForm = resp;
+        if (!resp.address) {
+          this.dataToForm.address = new Address();
+        }
+      }).catch(error => {
+        this.loading = false;
+        this.dataToForm.document = new Document('CPF');
+        this.errorHandler.handle(error, this.dialogRef);
+      });
+    }
+  }
+
+  searchPatientBySusNumber() {
+    if (this.dataToForm.susNumber) {
+      this.loading = true;
+      this.patientService.getByDocument('SUS', this.dataToForm.susNumber).then(resp => {
+        this.loading = false;
+        this.dataToForm = resp;
+        if (!resp.address) {
+          this.dataToForm.address = new Address();
+        }
+      }).catch(error => {
+        this.loading = false;
+        this.dataToForm.susNumber = "";
+        this.errorHandler.handle(error, this.dialogRef);
+      });
+    }
   }
 
   /**
@@ -163,10 +192,14 @@ export class PatientEditComponent implements OnInit {
    * 
    * @param event Evento de tecla
    */
-  enterKeyPress(event: any) {
+  enterKeyPress(event: any, handler: string) {
     // Windows
     if (event.key === "Enter") {
-      this.searchPatientByCpf();
+      event.preventDefault();
+      if (handler === "searchCPF")
+        this.searchPatientByCpf();
+      if (handler === "searchSUS")
+        this.searchPatientBySusNumber();
     }
   }
 }
