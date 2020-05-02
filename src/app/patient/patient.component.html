@@ -12,8 +12,8 @@
                                 <div class="col-md-2">
                                     <mat-form-field>
                                         <select matNativeControl placeholder="Tipo Paciente" name="type"
-                                            (change)="selectPatientType($event.target.value)"
-                                            [(ngModel)]="filters.type" #type>
+                                            (change)="selectPatientType($event.target.value)" [(ngModel)]="filters.type"
+                                            #type>
                                             <option value="">Ambos</option>
                                             <option value="IDENTIFIED">Identificado</option>
                                             <option value="NOT_IDENTIFIED">Não identificado</option>
@@ -73,9 +73,13 @@
             </div>
             <div *ngFor="let patient of datas" class="col-12 col-sm-12 col-md-4 col-lg-4">
                 <div class="card link-card" (click)="openDialog(patient.id)">
-                    <div class="card-body margin-color-active">
+                    <div class="card-body margin-color-active"
+                        [ngClass]="{'margin-color-danger' : patient.type === 'NOT_IDENTIFIED'}">
                         <ul>
-                            <li class="patient-name"> {{patient.firstName + ' ' + patient.lastName}}</li>
+                            <li class="patient-name"
+                                [ngClass]="{'name-not-identified' : patient.type === 'NOT_IDENTIFIED'}">
+                                {{patient.firstName + ' ' + patient.lastName + (patient.type === 'NOT_IDENTIFIED' ? ' [Não Identificado]' : '')}}
+                            </li>
                             <li><span class="fa fa-user patient-info"> Matrícula:</span> {{patient.id}}</li>
                             <li *ngIf="patient.susNumber"><span class="fa fa-lock patient-info"> SUS:</span>
                                 {{patient.susNumber}}</li>

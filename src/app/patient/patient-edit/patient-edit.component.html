@@ -13,16 +13,6 @@
     <div class="card-body">
         <form #form="ngForm" autocomplete="off" (ngSubmit)="save()">
             <div class="row">
-                <div *ngIf="!dataToForm.id" class="col-md-2">
-                    <mat-form-field>
-                        <select matNativeControl placeholder="Tipo Paciente" name="type"
-                            (change)="selectPatientType($event.target.value)" [(ngModel)]="dataToForm.type" #type
-                            required>
-                            <option value="IDENTIFIED">Identificado</option>
-                            <option value="NOT_IDENTIFIED">Não identificado</option>
-                        </select>
-                    </mat-form-field>
-                </div>
                 <div *ngIf="dataToForm.id" class="col-md-3">
                     <mat-form-field>
                         <input matInput placeholder="Matrícula do Paciente" name="id" [(ngModel)]="dataToForm.id"
@@ -54,7 +44,7 @@
                 <div class="col-md-4">
                     <mat-form-field>
                         <input matInput placeholder="Sobrenome" name="lastName" [(ngModel)]="dataToForm.lastName"
-                            #lastName="ngModel" type="text" required />
+                            #lastName="ngModel" type="text" />
                     </mat-form-field>
                 </div>
             </div>
@@ -84,7 +74,7 @@
                 <div class="col-md-4">
                     <mat-form-field>
                         <input matInput placeholder="Data de nascimento" name="bornDate"
-                            [(ngModel)]="dataToForm.bornDate" #bornDate type="date" required />
+                            [(ngModel)]="dataToForm.bornDate" #bornDate type="date" />
                     </mat-form-field>
                 </div>
                 <div class="col-md-2">

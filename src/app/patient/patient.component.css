@@ -4,6 +4,12 @@
     font-size: 14px;
 }
 
+.name-not-identified {
+    color: #F44336 !important;
+    font-weight: 400;
+    font-size: 14px;
+}
+
 .patient-info {
     color: rgb(20, 59, 65);
     font-weight: 400;
@@ -15,6 +21,11 @@
 
 .margin-color-active {
     border-left: 10px solid #00BCD4;
+    height: 180px;
+}
+
+.margin-color-danger {
+    border-left: 10px solid #F44336 !important;
     height: 180px;
 }
 

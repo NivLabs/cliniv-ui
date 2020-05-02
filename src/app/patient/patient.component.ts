@@ -91,6 +91,7 @@ export class PatientComponent implements OnInit {
 
   selectPatientType(newValue) {
     this.filters.type = newValue;
+    this.applyFilter();
   }
 
   /**
