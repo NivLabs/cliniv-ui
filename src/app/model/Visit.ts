@@ -9,6 +9,7 @@ export class VisitInfo {
     id: number;
     patientId: number;
     document: Document;
+    susNumber: string;
     firstName: string;
     lastName: string;
     principalNumber: string;

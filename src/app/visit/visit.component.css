@@ -34,3 +34,7 @@
   padding: 1px;
   height: 50px;
 }
+
+.patient-not-identified {
+  color: rgb(244, 67, 54) !important;
+}
