@@ -6,7 +6,7 @@ import { NotificationsComponent } from 'app/core/notification/notifications.comp
 import { PatientHistoryComponent } from './history/patient-history.component';
 import { NewVisitComponent } from './newVisit/new-visit.component';
 import { VisitService } from './visit.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { VisitInfo, NewVisit } from 'app/model/Visit';
 import { Document } from 'app/model/Document';
 
@@ -21,9 +21,10 @@ export class VisitComponent implements OnInit {
   visit: VisitInfo;
   public loading: boolean;
 
-  constructor(private route: ActivatedRoute, public confirmDialog: MatDialog, public dialog: MatDialog, private visitService: VisitService, private errorHandler: ErrorHandlerService, private notification: NotificationsComponent) { }
+  constructor(private router: Router, private route: ActivatedRoute, public confirmDialog: MatDialog, public dialog: MatDialog, private visitService: VisitService, private errorHandler: ErrorHandlerService, private notification: NotificationsComponent) { }
 
   ngOnInit() {
+    this.router.navigate(['visit']);
     this.visit = {
       patientId: null,
       id: null,
@@ -31,6 +32,7 @@ export class VisitComponent implements OnInit {
       firstName: null,
       lastName: null,
       principalNumber: null,
+      susNumber: null,
       bornDate: null,
       gender: null,
       events: [],
@@ -58,7 +60,7 @@ export class VisitComponent implements OnInit {
               .then(result => this.openHistoryDialog(result))
               .catch(error => {
                 const confirmDialogRef = this.confirmDialog.open(ConfirmDialogComponent, {
-                  data: { title: 'Confirmação', message: 'Não há atendimento ativa nem histórico para o paciente informado, deseja iniciar um novo atendimento?' }
+                  data: { title: 'Confirmação', message: 'Não há atendimento ativo nem histórico para o paciente informado, deseja iniciar um novo atendimento?' }
                 });
                 confirmDialogRef.afterClosed().subscribe(result => {
                   if (result)
@@ -95,6 +97,10 @@ export class VisitComponent implements OnInit {
     this.visitService.getPatientHistory(this.visit.patientId).
       then(result => this.openHistoryDialog(result))
       .catch(error => this.onServiceException(error))
+  }
+
+  identifyPatient() {
+
   }
 
   enterKeyPress(event: any) {

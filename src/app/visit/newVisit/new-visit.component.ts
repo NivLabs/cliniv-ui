@@ -66,16 +66,17 @@ export class NewVisitComponent implements OnInit {
     }
 
     loadResponsibles(event: any) {
-        if (event.value && event.value instanceof Number)
-            this.utilService.getSpecializationById(event.value).then(response => {
+        var especId = event.value;
+        if (especId) {
+            this.utilService.getSpecializationById(especId).then(response => {
                 this.responsibles = response.responsibles;
+            }).catch(e => {
+                this.responsibles = [];
             });
-        else
-            this.responsibles = [];
+        }
     }
 
     selectEventType(newValue) {
-        console.log(newValue);
         this.newVisit.eventTypeId = newValue;
     }
 
