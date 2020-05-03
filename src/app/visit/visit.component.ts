@@ -58,7 +58,7 @@ export class VisitComponent implements OnInit {
               .then(result => this.openHistoryDialog(result))
               .catch(error => {
                 const confirmDialogRef = this.confirmDialog.open(ConfirmDialogComponent, {
-                  data: { title: 'Confirmação', message: 'Não há atendimento ativa nem histórico para o paciente informado, deseja iniciar um novo atendimento?' }
+                  data: { title: 'Confirmação', message: 'Não há atendimento ativo nem histórico para o paciente informado, deseja iniciar um novo atendimento?' }
                 });
                 confirmDialogRef.afterClosed().subscribe(result => {
                   if (result)
