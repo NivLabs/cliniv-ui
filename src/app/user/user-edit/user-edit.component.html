@@ -7,7 +7,8 @@
     </div>
     <div class="card-header card-header-info">
         <h4 class="card-title">Dados do usuário</h4>
-        <p class="card-category">Dados completos do usuário {{dataToForm.id ? 'criado em ' + (dataToForm.createdAt | date: 'dd/MM/yyyy') : ''}}</p>
+        <p class="card-category">Dados completos do usuário
+            {{dataToForm.id ? 'criado em ' + (dataToForm.createdAt | date: 'dd/MM/yyyy') : ''}}</p>
     </div>
     <div class="card-body">
         <form #form="ngForm" autocomplete="off" (ngSubmit)="save()">
@@ -102,17 +103,19 @@
                 <br />
 
                 <mat-checkbox hidden></mat-checkbox>
-                <div class="col-sm-12 col-md-6 col-lg-4" style="text-align: left;" *ngFor="let role of roles">
+                <div *ngFor="let role of roles" class="col-sm-12 col-md-6 col-lg-6 underline-class"
+                    [ngClass]="{'col-md-12' : role.id === 1, 'col-lg-12' : role.id === 1}"
+                    style="text-align: left;">
                     <div>
                         <label class="mat-checkbox-layout" for="{{role.id}}">
                             <div class="mat-checkbox-inner-container">
                                 <input type="checkbox" class="mat-checkbox-input" name="roles" [checked]="role.checked"
-                                    value="{{role.description}}" id="{{role.id}}">
+                                    value="{{role.name}}" id="{{role.id}}">
                                 <div matripple="" class="mat-ripple mat-checkbox-ripple">
                                     <div class="mat-ripple-element mat-checkbox-persistent-ripple"></div>
                                 </div>
                             </div>
-                            <span class="mat-checkbox-label">{{role.name}}</span>
+                            <span class="mat-checkbox-label">{{role.description}}</span>
                         </label>
                     </div>
                 </div>
@@ -120,8 +123,8 @@
 
             <button *ngIf="dataToForm.id" mat-raised-button type="button" (click)="resetForm()"
                 class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-info pull-left">Novo usuário</button>
-                <button *ngIf="dataToForm.id" mat-raised-button type="button" (click)="resetPassword()"
-                    class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-warning pull-left">Resetar senha</button>
+            <button *ngIf="dataToForm.id" mat-raised-button type="button" (click)="resetPassword()"
+                class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-warning pull-left">Resetar senha</button>
             <button mat-raised-button type="submit" [disabled]="!form.valid"
                 class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-success pull-right">Salvar</button>
             <button mat-raised-button type="button" (click)="onCancelClick()"
