@@ -40,12 +40,23 @@ export class UserEditComponent implements OnInit {
       if (result !== undefined && result.isConfirmed) {
         this.dataToForm = new UserInfo();
         this.roles = [
-          { id: 1, description: 'ROLE_ADMIN', name: 'Administrador', checked: false },
-          { id: 2, description: 'ROLE_COMUM', name: 'Geral', checked: false },
-          { id: 3, description: 'ROLE_ENFERMEIRO', name: 'Enfermeiro', checked: false },
-          { id: 4, description: 'ROLE_MEDICO', name: 'Médico', checked: false },
-          { id: 5, description: 'ROLE_RECEPCAO', name: 'Recepção', checked: false },
-          { id: 6, description: 'ROLE_TECNICO', name: 'Técnico', checked: false },
+          { id: 1, name: 'ROLE_ADMIN', description: 'Administrador', checked: false },
+
+          { id: 2, name: 'ROLE_ATENDIMENTO_LEITURA', description: 'Permissão de leitura em prontuário', checked: false },
+          { id: 3, name: 'ROLE_ATENDIMENTO_ESCRITA', description: 'Permissão de escrita em prontuário', checked: false },
+
+          { id: 4, name: 'ROLE_PACIENTE_LEITURA', description: 'Permissão de leitura em paciente', checked: false },
+          { id: 5, name: 'ROLE_PACIENTE_ESCRITA', description: 'Permissão de escrita em paciente', checked: false },
+
+          { id: 7, name: 'ROLE_PROFISSIONAL_LEITURA', description: 'Permissão de leitura em profissional', checked: false },
+          { id: 8, name: 'ROLE_PROFISSIONAL_ESCRITA', description: 'Permissão de escrita em profissional', checked: false },
+
+          { id: 9, name: 'ROLE_EVENTO_LEITURA', description: 'Permissão de leitura em evento', checked: false },
+          { id: 10, name: 'ROLE_EVENTO_ESCRITA', description: 'Permissão de escrita em evento', checked: false },
+
+          { id: 11, name: 'ROLE_SETOR_LEITURA', description: 'Permissão de leitura em setor', checked: false },
+          { id: 12, name: 'ROLE_SETOR_ESCRITA', description: 'Permissão de escrita em setor', checked: false }
+
         ];
       }
     });
@@ -197,12 +208,22 @@ export class UserEditComponent implements OnInit {
    */
   checkRoles() {
     this.roles = [
-      { id: 1, description: 'ROLE_ADMIN', name: 'Administrador', checked: false },
-      { id: 2, description: 'ROLE_COMUM', name: 'Geral', checked: false },
-      { id: 3, description: 'ROLE_ENFERMEIRO', name: 'Enfermeiro', checked: false },
-      { id: 4, description: 'ROLE_MEDICO', name: 'Médico', checked: false },
-      { id: 5, description: 'ROLE_RECEPCAO', name: 'Recepção', checked: false },
-      { id: 6, description: 'ROLE_TECNICO', name: 'Técnico', checked: false },
+      { id: 1, name: 'ROLE_ADMIN', description: 'Administrador', checked: false },
+
+      { id: 2, name: 'ROLE_ATENDIMENTO_LEITURA', description: 'Permissão de leitura em prontuário', checked: false },
+      { id: 3, name: 'ROLE_ATENDIMENTO_ESCRITA', description: 'Permissão de escrita em prontuário', checked: false },
+
+      { id: 4, name: 'ROLE_PACIENTE_LEITURA', description: 'Permissão de leitura em paciente', checked: false },
+      { id: 5, name: 'ROLE_PACIENTE_ESCRITA', description: 'Permissão de escrita em paciente', checked: false },
+
+      { id: 7, name: 'ROLE_PROFISSIONAL_LEITURA', description: 'Permissão de leitura em profissional', checked: false },
+      { id: 8, name: 'ROLE_PROFISSIONAL_ESCRITA', description: 'Permissão de escrita em profissional', checked: false },
+
+      { id: 9, name: 'ROLE_EVENTO_LEITURA', description: 'Permissão de leitura em evento', checked: false },
+      { id: 10, name: 'ROLE_EVENTO_ESCRITA', description: 'Permissão de escrita em evento', checked: false },
+
+      { id: 11, name: 'ROLE_SETOR_LEITURA', description: 'Permissão de leitura em setor', checked: false },
+      { id: 12, name: 'ROLE_SETOR_ESCRITA', description: 'Permissão de escrita em setor', checked: false }
     ];
     if (this.dataToForm && this.dataToForm.roles) {
       this.dataToForm.roles.forEach(role => {
