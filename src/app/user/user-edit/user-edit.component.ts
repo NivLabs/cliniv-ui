@@ -9,6 +9,7 @@ import { UtilService } from 'app/core/util.service';
 import { ConfirmDialogComponent } from 'app/core/confirm-dialog/confirm-dialog.component';
 import { Address } from 'app/model/Address';
 import { CameraDialogComponent } from 'app/component/camera/dialog/camera-dialog.component';
+import { Document } from 'app/model/Document';
 
 @Component({
   selector: 'app-user-edit',
@@ -167,14 +168,23 @@ export class UserEditComponent implements OnInit {
     }
   }
 
+  cpfIsValid() {
+    if (this.dataToForm.document) {
+      if (this.dataToForm.document.value === "" || this.dataToForm.document.value === undefined)
+        return true
+      return this.utilService.cpfIsValid(this.dataToForm.document.value);
+    }
+    return false
+  }
+
   /**
    * TODO: Implementar pesquisa do lado da API
    */
   findByCpf() {
     if (!this.dataToForm.id && this.dataToForm.document.value)
-      if (!this.utilService.cpfIsValid(this.dataToForm.document.value)) {
+      if (!this.cpfIsValid()) {
         this.notification.showError("CPF Inválido, favor informar um CPF válido e sem pontos e/ou traços");
-        this.dataToForm = new UserInfo();
+        this.dataToForm.document = new Document("CPF");
       } else {
         this.loading = true;
         this.userService.getByCpf(this.dataToForm.document.value).then(resp => {
@@ -186,9 +196,7 @@ export class UserEditComponent implements OnInit {
           this.checkRoles()
         }).catch(error => {
           this.loading = false;
-          var cpf = this.dataToForm.document.value;
-          this.dataToForm = new UserInfo();
-          this.dataToForm.document.value = cpf;
+          this.dataToForm.document = new Document('CPF');
           this.errorHandler.handle(error, this.dialogRef);
         });
       }

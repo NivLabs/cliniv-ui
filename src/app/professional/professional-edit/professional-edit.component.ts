@@ -11,6 +11,7 @@ import { Professional } from 'app/model/Professional';
 import { Address } from 'app/model/Address';
 import { ProfessionalIdentity } from 'app/model/ProfessionalIdentity';
 import { CameraDialogComponent } from 'app/component/camera/dialog/camera-dialog.component';
+import { Document } from 'app/model/Document';
 
 
 @Component({
@@ -172,34 +173,38 @@ export class ProfessionalEditComponent implements OnInit {
     this.dataToForm.address.state = newValue;
   }
 
+  cpfIsValid() {
+    if (this.dataToForm.document) {
+      if (this.dataToForm.document.value === "" || this.dataToForm.document.value === undefined)
+        return true
+      return this.utilService.cpfIsValid(this.dataToForm.document.value);
+    }
+    return false
+  }
+
   searchProfessionalByCpf() {
-    if (this.dataToForm.document.value)
-      if (!this.utilService.cpfIsValid(this.dataToForm.document.value)) {
+    if (!this.cpfIsValid()) {
+      this.notification.showWarning("CPF Inválido, favor informar um CPF válido e sem pontos e/ou traços");
+      this.dataToForm.document = new Document("CPF");
+    } else {
+      this.loading = true;
+      this.professionalService.getByCpf(this.dataToForm.document.value).then(resp => {
         this.loading = false;
-        this.notification.showError("CPF Inválido, favor informar um CPF válido e sem pontos e/ou traços");
-        this.dataToForm = new Professional();
-      } else {
-        this.loading = true;
-        this.professionalService.getByCpf(this.dataToForm.document.value).then(resp => {
-          this.loading = false;
-          this.dataToForm = resp;
-          if (!resp.address) {
-            this.dataToForm.address = new Address();
-          }
-          if (!resp.professionalIdentity) {
-            this.dataToForm.professionalIdentity = new ProfessionalIdentity('CRM');
-          }
-          this.form.controls.document.disable();
-          this.loadspecializationsData();
-        }).catch(error => {
-          this.loading = false;
-          var cpf = this.dataToForm.document.value;
-          this.form.controls.document.enable();
-          this.dataToForm = new Professional();
-          this.dataToForm.document.value = cpf;
-          this.errorHandler.handle(error, this.dialogRef);
-        });
-      }
+        this.dataToForm = resp;
+        if (!resp.address) {
+          this.dataToForm.address = new Address();
+        }
+        if (!resp.professionalIdentity) {
+          this.dataToForm.professionalIdentity = new ProfessionalIdentity('CRM');
+        }
+        this.form.controls.document.disable();
+        this.loadspecializationsData();
+      }).catch(error => {
+        this.loading = false;
+        this.dataToForm.document = new Document('CPF');
+        this.errorHandler.handle(error, this.dialogRef);
+      });
+    }
   }
 
   checkSpecializations() {
