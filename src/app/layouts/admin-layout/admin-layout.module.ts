@@ -36,6 +36,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterModule } from '@angular/router';
 import { CameraDialogComponent } from 'app/component/camera/dialog/camera-dialog.component';
 import { CameraComponent } from 'app/core/camera/camera.component';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { NgxLoadingModule } from 'ngx-loading';
 import { WebcamModule } from 'ngx-webcam';
 //#endregion
@@ -110,6 +111,7 @@ const matModules = [
     RouterModule.forChild(AdminLayoutRoutes),
     FormsModule,
     matModules,
+    InfiniteScrollModule,
     NgxLoadingModule,
     ReactiveFormsModule,
     SecurityModule,
@@ -119,6 +121,7 @@ const matModules = [
     CommonModule,
     FormsModule,
     matModules,
+    InfiniteScrollModule,
     NgxLoadingModule,
     ReactiveFormsModule,
     SecurityModule
