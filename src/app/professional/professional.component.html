@@ -11,49 +11,67 @@
                             <div class="row">
                                 <div class="col-md-2">
                                     <mat-form-field>
-                                        <input matInput placeholder="Matrícula do profissional" name="id" [(ngModel)]="filters.id" #id type="number" (keypress)="enterKeyPress($event)" />
+                                        <input matInput placeholder="Matrícula do profissional" name="id"
+                                            [(ngModel)]="filters.id" #id type="number"
+                                            (keypress)="enterKeyPress($event)" />
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-2">
                                     <mat-form-field>
-                                        <input matInput placeholder="Nome do profissional" name="firstName" [(ngModel)]="filters.firstName" #firstName type="text" (keypress)="enterKeyPress($event)" />
+                                        <input matInput placeholder="Nome do profissional" name="firstName"
+                                            [(ngModel)]="filters.firstName" #firstName type="text"
+                                            (keypress)="enterKeyPress($event)" />
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-3">
                                     <mat-form-field>
-                                        <input matInput placeholder="Sobrenome do profissional" name="lastName" [(ngModel)]="filters.lastName" #lastName type="text" (keypress)="enterKeyPress($event)"/>
+                                        <input matInput placeholder="Sobrenome do profissional" name="lastName"
+                                            [(ngModel)]="filters.lastName" #lastName type="text"
+                                            (keypress)="enterKeyPress($event)" />
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-3">
                                     <mat-form-field>
-                                        <input matInput placeholder="CPF do profissional" name="cpf" [(ngModel)]="filters.cpf" #cpf type="text" (keypress)="enterKeyPress($event)"/>
+                                        <input matInput placeholder="CPF do profissional" name="cpf"
+                                            [(ngModel)]="filters.cpf" #cpf type="text"
+                                            (keypress)="enterKeyPress($event)" />
                                     </mat-form-field>
                                 </div>
                             </div>
-                            <button mat-raised-button type="button" (click)="applyFilter()" class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-danger pull-right">Filtrar</button>
-                            <button mat-raised-button type="button" (click)="openDialog(null)" class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-info pull-right">Novo
-                    Profissional</button>
+                            <button mat-raised-button type="button" (click)="applyFilter()"
+                                class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-danger pull-right">Filtrar</button>
+                            <button mat-raised-button type="button" (click)="openDialog(null)"
+                                class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-info pull-right">Novo
+                                Profissional</button>
                             <div class="clearfix"></div>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="center" *ngIf="!loading && dataNotFound">
-                <h1>Nenhum profissional encontrado...</h1>
-            </div>
-            <div *ngFor="let responsible of datas" class="col-12 col-sm-12 col-md-4 col-lg-4">
-                <div class="card link-card" (click)="openDialog(responsible.id)">
-                    <div class="card-body margin-color-active">
-                        <ul>
-                            <li class="responsible-name"> {{responsible.firstName + ' ' + responsible.lastName}}</li>
-                            <li><span class="fa fa-user responsible-info"> Matrícula:</span> {{responsible.id}}</li>
-                            <li><span class="fa fa-calendar responsible-info"> Nascimento:</span> {{responsible.bornDate}}</li>
-                            <li><span class="fa fa-venus-mars responsible-info"> Gênero:</span> {{ responsible.gender === 'M' ? 'Masculino' : 'Feminino'}}</li>
-                            <li><span class="fa fa-id-card responsible-info"> Documento:</span> {{responsible.cpf}}</li>
-                            <li><span class="fa fa-phone responsible-info"> Tel:</span> {{responsible.principalNumber ? responsible.principalNumber : 'Não informado'}}</li>
-                        </ul>
+        <div class="search-results" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50"
+            (scrolled)="loadNextPage()">
+            <div class="row">
+                <div class="center" *ngIf="!loading && dataNotFound">
+                    <h1>Nenhum profissional encontrado...</h1>
+                </div>
+                <div *ngFor="let responsible of datas" class="col-12 col-sm-12 col-md-4 col-lg-4">
+                    <div class="card link-card" (click)="openDialog(responsible.id)">
+                        <div class="card-body margin-color-active">
+                            <ul>
+                                <li class="responsible-name"> {{responsible.firstName + ' ' + responsible.lastName}}
+                                </li>
+                                <li><span class="fa fa-user responsible-info"> Matrícula:</span> {{responsible.id}}</li>
+                                <li><span class="fa fa-calendar responsible-info"> Nascimento:</span>
+                                    {{responsible.bornDate}}</li>
+                                <li><span class="fa fa-venus-mars responsible-info"> Gênero:</span>
+                                    {{ responsible.gender === 'M' ? 'Masculino' : 'Feminino'}}</li>
+                                <li><span class="fa fa-id-card responsible-info"> Documento:</span> {{responsible.cpf}}
+                                </li>
+                                <li><span class="fa fa-phone responsible-info"> Tel:</span>
+                                    {{responsible.principalNumber ? responsible.principalNumber : 'Não informado'}}</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>

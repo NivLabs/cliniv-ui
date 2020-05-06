@@ -27,9 +27,11 @@ export class PatientComponent implements OnInit {
     this.loading = true;
     this.page = new Page();
     this.filters = new PatientFilters();
+    this.pageSettings = new Pageable();
     this.principalService.getPage(this.filters, this.pageSettings).then(response => {
       this.loading = false;
       this.datas = response.content;
+      this.page = response;
       this.dataNotFound = this.datas.length === 0;
       console.log(this.dataNotFound);
     }).catch(error => {
