@@ -29,9 +29,11 @@ export class ProfessionalComponent implements OnInit {
     this.loading = true;
     this.page = new Page();
     this.filters = new ProfessionalFilters();
+    this.pageSettings = new Pageable();
     this.principalService.getPage(this.filters, this.pageSettings).then(response => {
       this.loading = false;
       this.datas = response.content;
+      this.page = response;
       this.dataNotFound = this.datas.length === 0;
     }).catch(error => {
       this.dataNotFound = this.datas !== undefined ? this.datas.length === 0 : true;

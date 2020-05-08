@@ -50,26 +50,25 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="center" *ngIf="!loading && dataNotFound">
-                <h1>Nenhum usuário encontrado...</h1>
-            </div>
-            <div *ngFor="let user of datas" class="col-12 col-sm-12 col-md-4 col-lg-4">
-                <div class="card link-card" (click)="openDialog(user.id)">
-                    <div class="card-body margin-color-active">
-                        <ul>
-                            <li class="user-name"> {{user.firstName + ' ' + user.lastName}}</li>
-                            <li><span class="fa fa-key user-info"> Matrícula:</span> {{user.id}}</li>
-                            <li><span class="fa fa-user user-info"> Usuário:</span> {{user.userName}}</li>
-                            <li><span class="fa fa-id-card user-info"> Documento:</span> {{user.cpf}}</li>
-                            <li><span class="fa fa-phone user-info"> Telefone:</span> {{user.principalNumber}}</li>
-                        </ul>
+        <div class="search-results" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50"
+            (scrolled)="loadNextPage()">
+            <div class="row">
+                <div class="center" *ngIf="!loading && dataNotFound">
+                    <h1>Nenhum usuário encontrado...</h1>
+                </div>
+                <div *ngFor="let user of datas" class="col-12 col-sm-12 col-md-4 col-lg-4">
+                    <div class="card link-card" (click)="openDialog(user.id)">
+                        <div class="card-body margin-color-active">
+                            <ul>
+                                <li class="user-name"> {{user.firstName + ' ' + user.lastName}}</li>
+                                <li><span class="fa fa-key user-info"> Matrícula:</span> {{user.id}}</li>
+                                <li><span class="fa fa-user user-info"> Usuário:</span> {{user.userName}}</li>
+                                <li><span class="fa fa-id-card user-info"> Documento:</span> {{user.cpf}}</li>
+                                <li><span class="fa fa-phone user-info"> Telefone:</span> {{user.principalNumber}}</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="center" *ngIf="!loading && !page.last">
-                <button mat-raised-button type="button" (click)="loadNextPage()" class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-danger">Carregar
-                    mais...</button>
             </div>
         </div>
     </div>

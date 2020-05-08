@@ -7,7 +7,8 @@
     </div>
     <div class="card-header card-header-info">
         <h4 class="card-title">Dados do profissional</h4>
-        <p class="card-category">Dados completos do profissional {{dataToForm.id ? 'criado em ' + (dataToForm.createdAt | date: 'dd/MM/yyyy') : ''}}</p>
+        <p class="card-category">Dados completos do profissional
+            {{dataToForm.id ? 'criado em ' + (dataToForm.createdAt | date: 'dd/MM/yyyy') : ''}}</p>
     </div>
     <div class="card-body">
         <form [formGroup]="form" autocomplete="off" (ngSubmit)="save()">
@@ -35,9 +36,8 @@
                 <div class="col-md-4">
                     <mat-form-field>
                         <input matInput placeholder="Cadastro de Pessoa Física (CPF)" formControlName="document"
-                            (blur)="searchProfessionalByCpf()" [(ngModel)]="dataToForm.document.value"
-                            (keypress)="enterKeyPress($event)" #document type="text" maxlength="11"
-                            [disabled]="dataToForm.id" required />
+                            (keypress)="enterKeyPress($event)" [(ngModel)]="dataToForm.document.value" #document
+                            type="text" maxlength="11" [disabled]="dataToForm.id" required />
                     </mat-form-field>
                 </div>
                 <div class="col-md-4">

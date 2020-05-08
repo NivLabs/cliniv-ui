@@ -30,9 +30,8 @@
                 <div class="col-md-4">
                     <mat-form-field>
                         <input matInput placeholder="Cadastro de Pessoa Física (CPF)" name="document"
-                            (blur)="searchBy('CPF')" [(ngModel)]="dataToForm.document.value"
-                            (keypress)="enterKeyPress($event)" #document type="text" maxlength="11"
-                            [disabled]="dataToForm.id" required />
+                            [(ngModel)]="dataToForm.document.value" (keypress)="enterKeyPress($event)" #document
+                            type="text" maxlength="11" [disabled]="dataToForm.id" required />
                     </mat-form-field>
                 </div>
                 <div class="col-md-4">
@@ -104,8 +103,7 @@
 
                 <mat-checkbox hidden></mat-checkbox>
                 <div *ngFor="let role of roles" class="col-sm-12 col-md-6 col-lg-6 underline-class"
-                    [ngClass]="{'col-md-12' : role.id === 1, 'col-lg-12' : role.id === 1}"
-                    style="text-align: left;">
+                    [ngClass]="{'col-md-12' : role.id === 1, 'col-lg-12' : role.id === 1}" style="text-align: left;">
                     <div>
                         <label class="mat-checkbox-layout" for="{{role.id}}">
                             <div class="mat-checkbox-inner-container">
