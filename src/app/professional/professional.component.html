@@ -34,7 +34,7 @@
                                     <mat-form-field>
                                         <input matInput placeholder="CPF do profissional" name="cpf"
                                             [(ngModel)]="filters.cpf" #cpf type="text"
-                                            (keypress)="enterKeyPress($event)" />
+                                            (keypress)="enterKeyPress($event)" mask="000.000.000-00" />
                                     </mat-form-field>
                                 </div>
                             </div>
@@ -66,10 +66,10 @@
                                     {{responsible.bornDate}}</li>
                                 <li><span class="fa fa-venus-mars responsible-info"> Gênero:</span>
                                     {{ responsible.gender === 'M' ? 'Masculino' : 'Feminino'}}</li>
-                                <li><span class="fa fa-id-card responsible-info"> Documento:</span> {{responsible.cpf}}
+                                <li><span class="fa fa-id-card responsible-info"> CPF:</span> {{responsible.cpf | mask: '000.000.000-00'}}
                                 </li>
                                 <li><span class="fa fa-phone responsible-info"> Tel:</span>
-                                    {{responsible.principalNumber ? responsible.principalNumber : 'Não informado'}}</li>
+                                    {{responsible.principalNumber ? (responsible.principalNumber | mask: responsible.principalNumber.length <= 10 ? '(00) 0000-00009' : '(00) 00000-0000') : ('Não informado')}}</li>
                             </ul>
                         </div>
                     </div>

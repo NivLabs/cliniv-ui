@@ -91,10 +91,12 @@
                                 <li *ngIf="patient.gender"><span class="fa fa-venus-mars patient-info"> Gênero:</span>
                                     {{ patient.gender === 'M' ? 'Masculino' : 'Feminino'}}
                                 </li>
-                                <li *ngIf="patient.cpf"><span class="fa fa-id-card patient-info"> Documento:</span>
-                                    {{patient.cpf}}</li>
-                                <li><span class="fa fa-phone patient-info"> Tel:</span>
-                                    {{patient.principalNumber ? patient.principalNumber : 'Não informado'}}</li>
+                                <li *ngIf="patient.cpf"><span class="fa fa-id-card patient-info"> CPF:</span>
+                                    {{patient.cpf | mask:'000.000.000-00'}}</li>
+                                <li>
+                                    <span class="fa fa-phone patient-info"> Tel:</span>                                    
+                                    {{patient.principalNumber ? (patient.principalNumber | mask: patient.principalNumber.length <= 10 ? '(00) 0000-00009' : '(00) 00000-0000') : ('Não informado')}}
+                                </li>
                             </ul>
                         </div>
                     </div>

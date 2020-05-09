@@ -20,7 +20,7 @@
                                     <mat-form-field>
                                         <input matInput placeholder="CPF do usuário" name="cpf"
                                             [(ngModel)]="filters.cpf" #cpf type="text"
-                                            (keypress)="enterKeyPress($event)" />
+                                            (keypress)="enterKeyPress($event)" mask="000.000.000-00"/>
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-3">
@@ -63,8 +63,8 @@
                                 <li class="user-name"> {{user.firstName + ' ' + user.lastName}}</li>
                                 <li><span class="fa fa-key user-info"> Matrícula:</span> {{user.id}}</li>
                                 <li><span class="fa fa-user user-info"> Usuário:</span> {{user.userName}}</li>
-                                <li><span class="fa fa-id-card user-info"> Documento:</span> {{user.cpf}}</li>
-                                <li><span class="fa fa-phone user-info"> Telefone:</span> {{user.principalNumber}}</li>
+                                <li><span class="fa fa-id-card user-info"> CPF:</span> {{user.cpf | mask: '000.000.000-00'}}</li>
+                                <li><span class="fa fa-phone user-info"> Telefone:</span> {{user.principalNumber ? (user.principalNumber | mask: user.principalNumber.length <= 10 ? '(00) 0000-00009' : '(00) 00000-0000') : ('Não informado')}}</li>
                             </ul>
                         </div>
                     </div>

@@ -39,6 +39,7 @@ import { CameraComponent } from 'app/core/camera/camera.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { NgxLoadingModule } from 'ngx-loading';
 import { WebcamModule } from 'ngx-webcam';
+import { NgxMaskModule, IConfig } from 'ngx-mask';
 //#endregion
 //#region Componentes da aplicação
 import { ConfirmDialogComponent } from '../../core/confirm-dialog/confirm-dialog.component';
@@ -105,6 +106,10 @@ const matModules = [
   MatTooltipModule
 ]
 
+const maskConfig: Partial<IConfig> = {
+  validation: true,
+};
+
 @NgModule({
   imports: [
     CommonModule,
@@ -115,7 +120,8 @@ const matModules = [
     NgxLoadingModule,
     ReactiveFormsModule,
     SecurityModule,
-    WebcamModule
+    WebcamModule,
+    NgxMaskModule.forRoot(maskConfig)
   ],
   exports: [
     CommonModule,
