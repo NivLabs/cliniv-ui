@@ -10,22 +10,21 @@
                     <div class="card-body">
                         <div class="float-rigth">
 
-                            <button mat-raised-button class="btn btn-info" *ngIf="visit.id && visit.patientId">Consultar
-                                anamnese</button>
+                            <button mat-raised-button class="btn btn-info"
+                                *ngIf="visit.id && visit.patientId">Anamnese</button>
 
-                            <button mat-raised-button class="btn btn-info" *ngIf="visit.id && visit.patientId">Usar
-                                medicamento</button>
+                            <button mat-raised-button class="btn btn-info"
+                                *ngIf="visit.id && visit.patientId">Medicamento</button>
 
                             <button mat-raised-button class="btn btn-info"
                                 *ngIf="visit.id && visit.patientId">Prescrição</button>
 
-                            <button mat-raised-button class="btn btn-info" *ngIf="visit.id && visit.patientId">Adicionar
-                                Evolução</button>
+                            <button mat-raised-button class="btn btn-info"
+                                *ngIf="visit.id && visit.patientId">Evolução</button>
 
                             <button mat-raised-button class="btn btn-warning"
                                 *ngIf="visit.id && visit.patientId && (visit.susNumber || (visit.document && visit.document.value))"
-                                (click)="searchPatientHistory()">Histórico do
-                                paciente</button>
+                                (click)="searchPatientHistory()">Histórico</button>
 
                             <button mat-raised-button class="btn btn-warning"
                                 *ngIf="visit.id && visit.patientId && ((!visit.susNumber && !visit.document) || (!visit.susNumber && visit.document && !visit.document.value))"

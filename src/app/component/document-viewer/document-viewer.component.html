@@ -1,0 +1,12 @@
+<div class="card document-viewer">
+    <div class="card-header card-header-info">
+        <h4 class="card-title">Documento digital</h4>
+        <p class="card-category">{{document.name}}</p>
+    </div>
+    <div class="card-body">
+        <div class="card-body document-content">
+            <iframe *ngIf="document.type === 'PDF'" [src]="'data:application/pdf;base64,' + document.base64"
+                class="pdf-viewer"></iframe>
+        </div>
+    </div>
+</div>

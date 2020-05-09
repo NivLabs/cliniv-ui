@@ -34,7 +34,6 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterModule } from '@angular/router';
-import { CameraDialogComponent } from 'app/component/camera/dialog/camera-dialog.component';
 import { CameraComponent } from 'app/core/camera/camera.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { NgxLoadingModule } from 'ngx-loading';
@@ -66,7 +65,10 @@ import { UserService } from '../../user/user.service';
 import { PatientHistoryComponent } from '../../visit/history/patient-history.component';
 import { NewVisitComponent } from '../../visit/newVisit/new-visit.component';
 import { VisitComponent } from '../../visit/visit.component';
-import { VisitService } from '../../visit/visit.service';
+import { VisitService } from '../../visit/visit.service'
+  ; import { CameraDialogComponent } from 'app/component/camera/dialog/camera-dialog.component';
+import { DocumentViewerComponent } from 'app/component/document-viewer/document-viewer.component';
+
 import { AdminLayoutRoutes } from './admin-layout.routing';
 //#endregion
 
@@ -160,6 +162,7 @@ const maskConfig: Partial<IConfig> = {
 
     CameraComponent,
     CameraDialogComponent,
+    DocumentViewerComponent
   ],
   entryComponents: [
     PatientEditComponent,
@@ -169,6 +172,7 @@ const maskConfig: Partial<IConfig> = {
     UserEditComponent,
     ConfirmDialogComponent,
     CameraDialogComponent,
+    DocumentViewerComponent
   ],
   providers: [
     UserProfileService,
