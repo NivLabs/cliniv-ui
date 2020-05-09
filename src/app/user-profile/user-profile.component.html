@@ -64,7 +64,7 @@
                                 <div class="col-md-4">
                                     <mat-form-field>
                                         <input matInput placeholder="Cadastro de Pessoa Física (CPF)" name="document"
-                                            [(ngModel)]="userInfo.document.value" #document type="text" required />
+                                            [(ngModel)]="userInfo.document.value" #document type="text" mask="000.000.000-00" required />
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-2">
@@ -89,7 +89,7 @@
                                     <mat-form-field>
                                         <input matInput placeholder="Código Postal (CEP)" name="cep"
                                             (blur)="searchAddressByCEP()" [(ngModel)]="userInfo.address.postalCode"
-                                            size="8" maxlength="8" #cep type="text" />
+                                            maxlength="10" #cep type="text" mask="00.000-000" />
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-4">
@@ -166,14 +166,14 @@
                                     <mat-form-field>
                                         <input matInput placeholder="Telefone principal (Apenas números)"
                                             name="principalNumber" [(ngModel)]="userInfo.principalNumber"
-                                            #principalNumber type="text" />
+                                            #principalNumber type="text" mask="(00) 0000-00000"/>
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-6">
                                     <mat-form-field>
                                         <input matInput placeholder="Telefone secundário (Apenas números)"
                                             name="secondaryNumber" [(ngModel)]="userInfo.secondaryNumber"
-                                            #secondaryNumber type="text" />
+                                            #secondaryNumber type="text" mask="(00) 0000-00000"/>
                                     </mat-form-field>
                                 </div>
                             </div>

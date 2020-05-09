@@ -34,11 +34,11 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterModule } from '@angular/router';
-import { CameraDialogComponent } from 'app/component/camera/dialog/camera-dialog.component';
 import { CameraComponent } from 'app/core/camera/camera.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { NgxLoadingModule } from 'ngx-loading';
 import { WebcamModule } from 'ngx-webcam';
+import { NgxMaskModule, IConfig } from 'ngx-mask';
 //#endregion
 //#region Componentes da aplicação
 import { ConfirmDialogComponent } from '../../core/confirm-dialog/confirm-dialog.component';
@@ -65,7 +65,10 @@ import { UserService } from '../../user/user.service';
 import { PatientHistoryComponent } from '../../visit/history/patient-history.component';
 import { NewVisitComponent } from '../../visit/newVisit/new-visit.component';
 import { VisitComponent } from '../../visit/visit.component';
-import { VisitService } from '../../visit/visit.service';
+import { VisitService } from '../../visit/visit.service'
+  ; import { CameraDialogComponent } from 'app/component/camera/dialog/camera-dialog.component';
+import { DocumentViewerComponent } from 'app/component/document-viewer/document-viewer.component';
+
 import { AdminLayoutRoutes } from './admin-layout.routing';
 //#endregion
 
@@ -105,6 +108,10 @@ const matModules = [
   MatTooltipModule
 ]
 
+const maskConfig: Partial<IConfig> = {
+  validation: true,
+};
+
 @NgModule({
   imports: [
     CommonModule,
@@ -115,7 +122,8 @@ const matModules = [
     NgxLoadingModule,
     ReactiveFormsModule,
     SecurityModule,
-    WebcamModule
+    WebcamModule,
+    NgxMaskModule.forRoot(maskConfig)
   ],
   exports: [
     CommonModule,
@@ -154,6 +162,7 @@ const matModules = [
 
     CameraComponent,
     CameraDialogComponent,
+    DocumentViewerComponent
   ],
   entryComponents: [
     PatientEditComponent,
@@ -163,6 +172,7 @@ const matModules = [
     UserEditComponent,
     ConfirmDialogComponent,
     CameraDialogComponent,
+    DocumentViewerComponent
   ],
   providers: [
     UserProfileService,

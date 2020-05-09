@@ -24,6 +24,10 @@ export class UserProfileComponent implements OnInit {
   userInfo: UserInfo = new UserInfo;
 
   constructor(public confirmDialog: MatDialog, private profileService: UserProfileService, private addressService: AddressService, private errorHandler: ErrorHandlerService, private notification: NotificationsComponent) {
+        
+  }
+
+  ngOnInit() {
     this.userInfo = new UserInfo();
     this.loading = true;
     this.profileService.getMe().then(resp => {
@@ -34,14 +38,11 @@ export class UserProfileComponent implements OnInit {
       }
       if (!this.userInfo.address) {
         this.userInfo.address = new Address();
-      }
+      }     
     }).catch(error => {
       this.loading = false;
       this.errorHandler.handle(error, null);
     });
-  }
-
-  ngOnInit() {
   }
 
   openWebCam() {
@@ -95,10 +96,13 @@ export class UserProfileComponent implements OnInit {
       this.notification.showWarning("Não foi possível realizar a busca do CEP, verifique se o mesmo está correto e continue o cadastro normalmente.")
     });
   }
+
   selectState(newValue) {
     this.userInfo.address.state = newValue;
   }
+
   selectGender(newValue) {
     this.userInfo.gender = newValue;
   }
+
 }
