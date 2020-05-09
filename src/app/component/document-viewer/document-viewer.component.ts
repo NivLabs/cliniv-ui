@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DigitalDocument } from 'app/model/DigitalDocument';
 
 @Component({
   selector: 'app-document-viewer',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DocumentViewerComponent implements OnInit {
 
+  document: DigitalDocument;
+
   constructor() { }
 
   ngOnInit(): void {
+    this.document = new DigitalDocument();
   }
 
 }
