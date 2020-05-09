@@ -52,7 +52,7 @@
                                     <mat-form-field>
                                         <input matInput placeholder="CPF do paciente" name="cpf"
                                             [(ngModel)]="filters.cpf" #cpf type="text"
-                                            (keypress)="enterKeyPress($event)" />
+                                            (keypress)="enterKeyPress($event)" mask="000.000.000-00"/>
                                     </mat-form-field>
                                 </div>
                             </div>

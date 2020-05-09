@@ -10,7 +10,8 @@
                     <div class="row">
                         <div class="col-md-3">
                             <mat-form-field>
-                                <input matInput placeholder="CNPJ" name="cnpj" [(ngModel)]="institute.cnpj" #cnpj="ngModel" disabled />
+                                <input matInput placeholder="CNPJ" name="cnpj" [(ngModel)]="institute.cnpj" #cnpj="ngModel" disabled
+                                mask="00.000.000/0000-00" />
                             </mat-form-field>
                         </div>
                         <div class="col-md-3">
@@ -39,7 +40,8 @@
                     <div class="row">
                         <div class="col-md-4">
                             <mat-form-field>
-                                <input matInput placeholder="Código Postal (CEP)" name="cep" [(ngModel)]="institute.postalCode" size="8" maxlength="8" #cep type="text" disabled />
+                                <input matInput placeholder="Código Postal (CEP)" name="cep" [(ngModel)]="institute.postalCode" size="10" maxlength="10" #cep type="text" disabled 
+                                mask="00.000-000"/>
                             </mat-form-field>
                         </div>
                         <div class="col-md-4">

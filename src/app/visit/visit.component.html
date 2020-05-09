@@ -97,7 +97,7 @@
                                         <input [disabled]="true" matInput
                                             placeholder="Telefone principal (Apenas números)" name="principalNumber"
                                             [ngClass]="{'patient-not-identified' : visit.id && visit.patientId && ((!visit.susNumber && !visit.document) || (!visit.susNumber && visit.document && !visit.document.value))}"
-                                            [(ngModel)]="visit.principalNumber" #principalNumber type="text" mask="{{visit.principalNumber.length <= 10 ? '(00) 0000-00009' : '(00) 00000-0000'}}" />
+                                            [(ngModel)]="visit.principalNumber" #principalNumber type="text" mask="{{visit.principalNumber && visit.principalNumber.length <= 10 ? '(00) 0000-00009' : '(00) 00000-0000'}}" />
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-4">

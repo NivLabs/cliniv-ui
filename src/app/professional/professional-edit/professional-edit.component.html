@@ -37,7 +37,7 @@
                     <mat-form-field>
                         <input matInput placeholder="Cadastro de Pessoa Física (CPF)" formControlName="document"
                             (keypress)="enterKeyPress($event)" [(ngModel)]="dataToForm.document.value" #document
-                            type="text" maxlength="11" [disabled]="dataToForm.id" required />
+                            type="text" maxlength="14" [disabled]="dataToForm.id" required  mask="000.000.000-00"/>
                     </mat-form-field>
                 </div>
                 <div class="col-md-4">
@@ -74,7 +74,7 @@
                     <mat-form-field>
                         <input matInput placeholder="Telefone principal (Apenas números)"
                             formControlName="principalNumber" [(ngModel)]="dataToForm.principalNumber" #principalNumber
-                            type="text" />
+                            type="text"  mask="{{dataToForm.principalNumber && dataToForm.principalNumber.length <= 10 ? '(00) 0000-00009' : '(00) 00000-0000'}}" />
                     </mat-form-field>
                 </div>
                 <div class="col-md-4">
@@ -99,7 +99,7 @@
                     <mat-form-field>
                         <input matInput placeholder="Código Postal (CEP)" formControlName="cep"
                             (blur)="searchAddressByCEP()" [(ngModel)]="dataToForm.address.postalCode" size="8"
-                            maxlength="8" #cep type="text" />
+                            maxlength="10" #cep type="text"  mask="00.000-000" />
                     </mat-form-field>
                 </div>
                 <div class="col-md-4">

@@ -166,14 +166,14 @@
                                     <mat-form-field>
                                         <input matInput placeholder="Telefone principal (Apenas números)"
                                             name="principalNumber" [(ngModel)]="userInfo.principalNumber"
-                                            #principalNumber type="text" mask="{{userInfo.principalNumber.length <= 10 ? '(00) 0000-00009' : '(00) 00000-0000'}}"/>
+                                            #principalNumber type="text" mask="(00) 0000-00000"/>
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-6">
                                     <mat-form-field>
                                         <input matInput placeholder="Telefone secundário (Apenas números)"
                                             name="secondaryNumber" [(ngModel)]="userInfo.secondaryNumber"
-                                            #secondaryNumber type="text" mask="{{userInfo.secondaryNumber.length <= 10 ? '(00) 0000-00009' : '(00) 00000-0000'}}"/>
+                                            #secondaryNumber type="text" mask="(00) 0000-00000"/>
                                     </mat-form-field>
                                 </div>
                             </div>
