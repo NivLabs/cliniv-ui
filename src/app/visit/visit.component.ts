@@ -9,6 +9,7 @@ import { VisitService } from './visit.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { VisitInfo, NewVisit } from 'app/model/Visit';
 import { Document } from 'app/model/Document';
+import { DocumentViewerComponent } from 'app/component/document-viewer/document-viewer.component';
 
 @Component({
   selector: 'app-visit',
@@ -135,6 +136,7 @@ export class VisitComponent implements OnInit {
       this.searchActivedVisitByPatientId();
     }).catch(error => this.onServiceException(error));
   }
+
   openHistoryDialog(patientHistory) {
     const dialogPatitenHistory = this.dialog.open(PatientHistoryComponent, {
       width: '90%',
@@ -146,6 +148,20 @@ export class VisitComponent implements OnInit {
         this.visit.id = result.id;
         this.searchVisitById();
       }
+    });
+  }
+
+  /**
+   * 
+   * @param id Identificador do documento
+   */
+  openDocumentViewerDialog(id): void {
+    const dialogDocumentViewer = this.dialog.open(DocumentViewerComponent, {
+      width: '100%',
+      height: 'auto',
+      data: { selectedDigitalDocumentId: id }
+    });
+    dialogDocumentViewer.afterClosed().subscribe(result => {
     });
   }
 }
