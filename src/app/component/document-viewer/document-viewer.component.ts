@@ -26,9 +26,11 @@ export class DocumentViewerComponent implements OnInit {
   ngOnInit(): void {
     this.loading = true;
     var selectedDigitalDocumentId = this.dialogDocumentViewer.componentInstance.data['selectedDigitalDocumentId'];
-    var visitId = this.dialogDocumentViewer.componentInstance.data['visitId'];
     this.utilService.getDigitalDocumentById(selectedDigitalDocumentId).then(resp => {
       this.document = resp;
+      setTimeout(() => {
+        this.loading = false;
+      }, 2000); 
     }).catch(error => {
       this.loading = false;
       this.document = new DigitalDocument();
@@ -42,7 +44,6 @@ export class DocumentViewerComponent implements OnInit {
   }
 
   cleanUrl(base64) {
-    this.loading = false;
     return this.sanitizer.bypassSecurityTrustResourceUrl('data:application/pdf;base64,' + base64);
   }
 
