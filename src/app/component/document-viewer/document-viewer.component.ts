@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
 export class DocumentViewerComponent implements OnInit {
 
   public document: DigitalDocument;
-  public loading: boolean;  
+  public loading: boolean;
 
   constructor(private utilService: UtilService, public dialogDocumentViewer: MatDialogRef<DocumentViewerComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DigitalDocument, public errorHandler: ErrorHandlerService, private sanitizer: DomSanitizer,
@@ -26,6 +26,7 @@ export class DocumentViewerComponent implements OnInit {
   ngOnInit(): void {
     this.loading = true;
     var selectedDigitalDocumentId = this.dialogDocumentViewer.componentInstance.data['selectedDigitalDocumentId'];
+    var visitId = this.dialogDocumentViewer.componentInstance.data['visitId'];
     this.utilService.getDigitalDocumentById(selectedDigitalDocumentId).then(resp => {
       this.document = resp;
     }).catch(error => {
@@ -37,11 +38,10 @@ export class DocumentViewerComponent implements OnInit {
   }
 
   onCancelClick(): void {
-    this.router.navigate(['visit', { patientId: this.document.visitId }]);
     this.dialogDocumentViewer.close();
   }
 
-  cleanUrl(base64){
+  cleanUrl(base64) {
     this.loading = false;
     return this.sanitizer.bypassSecurityTrustResourceUrl('data:application/pdf;base64,' + base64);
   }

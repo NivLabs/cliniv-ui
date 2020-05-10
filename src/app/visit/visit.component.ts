@@ -159,14 +159,9 @@ export class VisitComponent implements OnInit {
     const dialogDocumentViewer = this.dialog.open(DocumentViewerComponent, {
       width: '100%',
       height: 'auto',
-      data: { selectedDigitalDocumentId: id },
-
+      data: { selectedDigitalDocumentId: id }
     });
-
     dialogDocumentViewer.afterClosed().subscribe(result => {
-      this.ngOnInit();
     });
-
   }
-
 }
