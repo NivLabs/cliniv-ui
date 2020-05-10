@@ -1,5 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { DigitalDocument } from 'app/model/DigitalDocument';
+import { UtilService } from 'app/core/util.service';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ErrorHandlerService } from 'app/core/error-handler.service';
+import { DomSanitizer } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-document-viewer',
@@ -8,12 +13,37 @@ import { DigitalDocument } from 'app/model/DigitalDocument';
 })
 export class DocumentViewerComponent implements OnInit {
 
-  document: DigitalDocument;
+  public document: DigitalDocument;
+  public loading: boolean;  
 
-  constructor() { }
+  constructor(private utilService: UtilService, public dialogDocumentViewer: MatDialogRef<DocumentViewerComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: DigitalDocument, public errorHandler: ErrorHandlerService, private sanitizer: DomSanitizer,
+    private router: Router) {
+    this.dialogDocumentViewer.disableClose = true;
+    this.document = new DigitalDocument();
+  }
 
   ngOnInit(): void {
-    this.document = new DigitalDocument();
+    this.loading = true;
+    var selectedDigitalDocumentId = this.dialogDocumentViewer.componentInstance.data['selectedDigitalDocumentId'];
+    this.utilService.getDigitalDocumentById(selectedDigitalDocumentId).then(resp => {
+      this.document = resp;
+    }).catch(error => {
+      this.loading = false;
+      this.document = new DigitalDocument();
+      this.errorHandler.handle(error, this.dialogDocumentViewer);
+    });
+
+  }
+
+  onCancelClick(): void {
+    this.router.navigate(['visit', { patientId: this.document.visitId }]);
+    this.dialogDocumentViewer.close();
+  }
+
+  cleanUrl(base64){
+    this.loading = false;
+    return this.sanitizer.bypassSecurityTrustResourceUrl('data:application/pdf;base64,' + base64);
   }
 
 }

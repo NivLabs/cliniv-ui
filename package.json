@@ -30,7 +30,7 @@
     "@angular/forms": "^9.1.4",
     "@angular/material": "^9.0.0",
     "@angular/material-moment-adapter": "^9.0.0",
-    "@angular/platform-browser": "^9.1.4",
+    "@angular/platform-browser": "^9.1.6",
     "@angular/platform-browser-dynamic": "^9.1.4",
     "@angular/platform-server": "9.1.4",
     "@angular/router": "^9.1.4",

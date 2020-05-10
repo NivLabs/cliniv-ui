@@ -3,6 +3,7 @@ import { environment } from "environments/environment";
 import { AppHttp } from "app/security/app-http";
 import { Specialization, SpecializationInfo } from "app/model/Specialization";
 import { EventType } from "app/model/EventType";
+import { DigitalDocument } from "app/model/DigitalDocument";
 
 @Injectable()
 export class UtilService {
@@ -54,5 +55,12 @@ export class UtilService {
         if ((mod == 10) || (mod == 11)) mod = 0;
         if (mod != parseInt(strCPF.substring(10, 11))) return false;
         return true;
+    }
+
+    getDigitalDocumentById(id: number): Promise<DigitalDocument> {
+        var headers = this.http.getHeadersDefault();
+
+        return this.http.get<DigitalDocument>(`${environment.apiUrl}/digital-document/${id}`, { headers })
+            .toPromise();
     }
 }

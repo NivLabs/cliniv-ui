@@ -11,4 +11,5 @@ export class DigitalDocument {
     base64: string;
     name: string;
     createdAt: Date;
+    visitId: number;
 }
