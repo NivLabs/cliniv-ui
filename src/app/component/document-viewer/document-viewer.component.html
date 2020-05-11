@@ -1,11 +1,56 @@
 <div class="card document-viewer">
-    <div class="card-header card-header-info">
+    <div class="card-header card-header-info" style="margin-top: 10px;">
         <h4 class="card-title">Documento digital</h4>
         <p class="card-category">{{document.name}}</p>
     </div>
-    <div class="card-body">
-        <iframe *ngIf="document.type === 'PDF'" [src]="cleanUrl(document.base64)" class="document-pdf col-12"></iframe>
-        <div class="clearfix"></div>
+    <div class="card-body scroll">
+        <!-- <iframe *ngIf="document.type === 'PDF' && document.base64" [src]="cleanUrl(document.base64)" class="document-pdf col-12"></iframe> -->
+        <!--  <pdf-viewer class="document-pdf col-12" [src]="'data:application/pdf;base64,' + document.base64" [render-text]="true" [autoresize]="true"
+            style="display: block;"></pdf-viewer>
+        <div class="clearfix"></div> -->
+        <div class="toolbar d-flex">
+            <span class="my-icon" [inlineSVG]="'/assets/icon/baseline-rotate_left-24px.svg'" (click)="rotate(-90)"
+                title="Rotate Left"></span>
+            <span class="my-icon" [inlineSVG]="'/assets/icon/baseline-rotate_right-24px.svg'" (click)="rotate(90)"
+                title="Rotate Right"></span>
+            <span class="my-icon" [inlineSVG]="'/assets/icon/baseline-zoom_in-24px.svg'" (click)="incrementZoom(0.1)"
+                title="Zoom In"></span>
+            <span class="my-icon" [inlineSVG]="'/assets/icon/baseline-zoom_out-24px.svg'" (click)="incrementZoom(-0.1)"
+                title="Zoom Out"></span>
+            <label class="my-icon ml-auto" [inlineSVG]="'/assets/icon/baseline-search-24px.svg'" for="searchbox"
+                title="Busca.."></label>
+            <input #queryInp type="text" id="searchbox" name="searchbox" class="searchbox mr-5" placeholder="Busca..."
+                [value]="pdfQuery" (input)="searchQueryChanged($event.target.value)"
+                (keyup.enter)="searchQueryChanged(queryInp.value)" />
+        </div>
+        <div class="pdf-body col-12">
+            <div *ngIf="isOutlineShown" class="outline">
+                <ul *ngFor="let item of outline" class="outline-list">
+                    <li>
+                        <a (click)="navigateTo(item.dest)"> {{ item.title }} </a>
+
+                        <ul *ngFor="let child of item.items">
+                            <li>
+                                <a (click)="navigateTo(child.dest)"> {{ child.title }} </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div *ngIf="!isLoaded && !error && progressData" id="progress">
+                <div class="bg">
+                    <div class="bar" [style.width]="(progressData.loaded / progressData.total) * 100 + '%'"></div>
+                </div>
+                <span>{{ getInt((progressData.loaded / progressData.total) * 100) }}%</span>
+            </div>
+
+            <pdf-viewer class="document-pdf col-12" [src]="document.base64" [rotation]="rotation"
+                [original-size]="true" [fit-to-page]="true"
+                (after-load-complete)="afterLoadComplete($event)" [zoom]="zoom" [stick-to-page]="true"
+                [render-text]="true" [external-link-target]="'blank'" [autoresize]="true"
+                (on-progress)="onProgress($event)" (page-rendered)="pageRendered($event)" id="print-section">
+            </pdf-viewer>
+        </div>
     </div>
     <div class="card-footer  justify">
         <button mat-raised-button type="button" (click)="onCancelClick()"
