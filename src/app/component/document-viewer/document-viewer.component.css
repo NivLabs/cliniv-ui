@@ -25,3 +25,10 @@
 .justify{
     justify-content: center !important;
 }
+
+.scroll{
+    overflow: hidden;
+    display: flex;
+    position: relative;
+    width: 100%;
+}

@@ -39,6 +39,8 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { NgxLoadingModule } from 'ngx-loading';
 import { WebcamModule } from 'ngx-webcam';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { InlineSVGModule } from 'ng-inline-svg';
 //#endregion
 //#region Componentes da aplicação
 import { ConfirmDialogComponent } from '../../core/confirm-dialog/confirm-dialog.component';
@@ -65,8 +67,8 @@ import { UserService } from '../../user/user.service';
 import { PatientHistoryComponent } from '../../visit/history/patient-history.component';
 import { NewVisitComponent } from '../../visit/newVisit/new-visit.component';
 import { VisitComponent } from '../../visit/visit.component';
-import { VisitService } from '../../visit/visit.service'
-  ; import { CameraDialogComponent } from 'app/component/camera/dialog/camera-dialog.component';
+import { VisitService } from '../../visit/visit.service'; 
+import { CameraDialogComponent } from 'app/component/camera/dialog/camera-dialog.component';
 import { DocumentViewerComponent } from 'app/component/document-viewer/document-viewer.component';
 
 import { AdminLayoutRoutes } from './admin-layout.routing';
@@ -123,7 +125,9 @@ const maskConfig: Partial<IConfig> = {
     ReactiveFormsModule,
     SecurityModule,
     WebcamModule,
-    NgxMaskModule.forRoot(maskConfig)
+    NgxMaskModule.forRoot(maskConfig),
+    PdfViewerModule,
+    InlineSVGModule.forRoot()
   ],
   exports: [
     CommonModule,
