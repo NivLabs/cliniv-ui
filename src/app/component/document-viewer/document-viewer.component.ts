@@ -26,7 +26,7 @@ export class DocumentViewerComponent implements OnInit {
   public outline: any[];
   public pdfQuery = '';
   public isOutlineShown = false;
-  @ViewChild(PdfViewerComponent) private pdfComponent: PdfViewerComponent;    
+  @ViewChild(PdfViewerComponent) private pdfComponent: PdfViewerComponent;
 
   constructor(private utilService: UtilService, public dialogDocumentViewer: MatDialogRef<DocumentViewerComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DigitalDocument, public errorHandler: ErrorHandlerService, private sanitizer: DomSanitizer,
@@ -43,7 +43,7 @@ export class DocumentViewerComponent implements OnInit {
       this.document.base64 = 'data:application/pdf;base64,' + this.document.base64;
       setTimeout(() => {
         this.loading = false;
-      }, 2000); 
+      }, 2000);
     }).catch(error => {
       this.loading = false;
       this.document = new DigitalDocument();
@@ -58,7 +58,7 @@ export class DocumentViewerComponent implements OnInit {
 
   cleanUrl(base64) {
     return this.sanitizer.bypassSecurityTrustResourceUrl('data:application/pdf;base64,' + base64);
-  }  
+  }
 
   incrementZoom(amount: number) {
     this.zoom += amount;
@@ -67,7 +67,7 @@ export class DocumentViewerComponent implements OnInit {
   rotate(angle: number) {
     this.rotation += angle;
   }
-  
+
   /**
    * Get pdf information after it's loaded
    * @param pdf
@@ -86,7 +86,7 @@ export class DocumentViewerComponent implements OnInit {
     this.pdf.getOutline().then((outline: any[]) => {
       this.outline = outline;
     });
-  }  
+  }
 
   /**
    * Pdf loading progress callback
@@ -109,7 +109,7 @@ export class DocumentViewerComponent implements OnInit {
    */
   navigateTo(destination: any) {
     this.pdfComponent.pdfLinkService.navigateTo(destination);
-  }  
+  }
 
   /**
    * Page rendered callback, which is called when a page is rendered (called multiple times)
@@ -133,6 +133,38 @@ export class DocumentViewerComponent implements OnInit {
         highlightAll: true,
       });
     }
+  }
+
+  download() {
+    this.pdf.getData().then((u8) => {
+      let blob = new Blob([u8.buffer], {
+        type: 'application/pdf'
+      });
+      if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+        // IE11 and Edge
+        window.navigator.msSaveOrOpenBlob(blob, this.document.name);
+      } else {
+        // Chrome, Safari, Firefox, Opera
+        let url = URL.createObjectURL(blob);
+        this.openLink(url);
+        // Remove the link when done
+        setTimeout(function () {
+          window.URL.revokeObjectURL(url);
+        }, 5000);
+      }
+    });
+  }
+
+  private openLink(url: string) {
+    let a = document.createElement('a');
+    // Firefox requires the link to be in the body
+    document.body.appendChild(a);
+    a.style.display = 'none';
+    a.href = url;
+    a.download = this.document.name;
+    a.click();
+    // Remove the link when done
+    document.body.removeChild(a);
   }
 
 }
