@@ -13,7 +13,7 @@
                                     <mat-form-field>
                                         <mat-label>Tipo Paciente</mat-label>
                                         <mat-select matNativeControl name="type"
-                                        (change)="selectPatientType($event.target.value)" [(ngModel)]="filters.type"
+                                        (selectionChange)="selectPatientType($event.value)" [(ngModel)]="filters.type"
                                         #type>
                                             <mat-option>Ambos</mat-option>
                                             <mat-option value="IDENTIFIED">Identificado</mat-option>
