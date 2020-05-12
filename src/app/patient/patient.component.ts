@@ -109,7 +109,7 @@ export class PatientComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.ngOnInit();
+      this.applyFilter();
     });
   }
 
