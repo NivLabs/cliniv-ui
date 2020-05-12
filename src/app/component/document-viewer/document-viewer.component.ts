@@ -167,4 +167,21 @@ export class DocumentViewerComponent implements OnInit {
     document.body.removeChild(a);
   }
 
+  print() {
+
+    this.pdf.getData().then((u8) => {
+      let blob = new Blob([u8.buffer], {
+        type: 'application/pdf'
+      });
+
+      let blobUrl = URL.createObjectURL(blob);
+      let iframe = document.createElement('iframe');
+      iframe.style.display = 'none';
+      iframe.src = blobUrl;
+      document.body.appendChild(iframe);
+      iframe.contentWindow.print();
+
+    });
+  }
+
 }

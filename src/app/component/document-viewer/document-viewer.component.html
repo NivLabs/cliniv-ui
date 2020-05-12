@@ -5,18 +5,19 @@
     </div>
     <div class="card-body scroll">
         <div class="toolbar d-flex">
-            <span class="my-icon" (click)="rotate(-90)"
-                title="Girar para esquerda"><i class="material-icons">rotate_left</i></span>
-            <span class="my-icon" (click)="rotate(90)"
-                title="Girar para direita"><i class="material-icons">rotate_right</i></span>
-            <span class="my-icon" (click)="incrementZoom(0.1)"
-                title="Zoom In"><i class="material-icons">zoom_in</i></span>
-            <span class="my-icon" (click)="incrementZoom(-0.1)"
-                title="Zoom Out"><i class="material-icons">zoom_out</i></span>
-            <span class="my-icon" (click)="download()"
-                title="Download"><i class="material-icons">cloud_download</i></span>
-            <label class="my-icon ml-auto" for="searchbox"
-                title="Busca.."><i class="material-icons">search</i></label>
+            <span class="my-icon" (click)="rotate(-90)" title="Girar para esquerda"><i
+                    class="material-icons">rotate_left</i></span>
+            <span class="my-icon" (click)="rotate(90)" title="Girar para direita"><i
+                    class="material-icons">rotate_right</i></span>
+            <span class="my-icon" (click)="incrementZoom(0.1)" title="Zoom In"><i
+                    class="material-icons">zoom_in</i></span>
+            <span class="my-icon" (click)="incrementZoom(-0.1)" title="Zoom Out"><i
+                    class="material-icons">zoom_out</i></span>
+            <span class="my-icon" (click)="download()" title="Download"><i
+                    class="material-icons">cloud_download</i></span>
+            <span class="my-icon" (click)="print()" title="Imprimir"><i 
+                    class="material-icons">print</i></span>
+            <label class="my-icon ml-auto" for="searchbox" title="Busca.."><i class="material-icons">search</i></label>
             <input #queryInp type="text" id="searchbox" name="searchbox" class="searchbox mr-5" placeholder="Busca..."
                 [value]="pdfQuery" (input)="searchQueryChanged($event.target.value)"
                 (keyup.enter)="searchQueryChanged(queryInp.value)" />
