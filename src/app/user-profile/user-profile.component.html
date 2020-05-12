@@ -64,7 +64,8 @@
                                 <div class="col-md-4">
                                     <mat-form-field>
                                         <input matInput placeholder="Cadastro de Pessoa Física (CPF)" name="document"
-                                            [(ngModel)]="userInfo.document.value" #document type="text" mask="000.000.000-00" required />
+                                            [(ngModel)]="userInfo.document.value" #document type="text"
+                                            mask="000.000.000-00" required />
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-2">
@@ -75,12 +76,13 @@
                                 </div>
                                 <div class="col-md-2">
                                     <mat-form-field>
-                                        <select matNativeControl placeholder="Gênero" name="gender"
+                                        <mat-label>Gênero</mat-label>
+                                        <mat-select matNativeControl name="gender"
                                             (change)="selectGender($event.target.value)" [(ngModel)]="userInfo.gender"
                                             #gender required>
-                                            <option value="M">Masculino</option>
-                                            <option value="F">Feminino</option>
-                                        </select>
+                                            <mat-option value="M">Masculino</mat-option>
+                                            <mat-option value="F">Feminino</mat-option>
+                                        </mat-select>
                                     </mat-form-field>
                                 </div>
                             </div>
@@ -126,38 +128,39 @@
                                 </div>
                                 <div class="col-md-4">
                                     <mat-form-field>
-                                        <select matNativeControl placeholder="Estado" name="state"
+                                        <mat-label>Estado</mat-label>
+                                        <mat-select matNativeControl name="state"
                                             (change)="selectState($event.target.value)"
                                             [(ngModel)]="userInfo.address.state" #state required>
-                                            <option value="AC">Acre</option>
-                                            <option value="AL">Alagoas</option>
-                                            <option value="AP">Amapá</option>
-                                            <option value="AM">Amazonas</option>
-                                            <option value="BA">Bahia</option>
-                                            <option value="CE">Ceará</option>
-                                            <option value="DF">Distrito Federal</option>
-                                            <option value="ES">Espírito Santo</option>
-                                            <option value="GO">Goiás</option>
-                                            <option value="MA">Maranhão</option>
-                                            <option value="MT">Mato Grosso</option>
-                                            <option value="MS">Mato Grosso do Sul</option>
-                                            <option value="MG">Minas Gerais</option>
-                                            <option value="PA">Pará</option>
-                                            <option value="PB">Paraíba</option>
-                                            <option value="PR">Paraná</option>
-                                            <option value="PE">Pernambuco</option>
-                                            <option value="PI">Piauí</option>
-                                            <option value="RJ">Rio de Janeiro</option>
-                                            <option value="RN">Rio Grande do Norte</option>
-                                            <option value="RS">Rio Grande do Sul</option>
-                                            <option value="RO">Rondônia</option>
-                                            <option value="RR">Roraima</option>
-                                            <option value="SC">Santa Catarina</option>
-                                            <option value="SP">São Paulo</option>
-                                            <option value="SE">Sergipe</option>
-                                            <option value="TO">Tocantins</option>
-                                            <option value="EX">Estrangeiro</option>
-                                        </select>
+                                            <mat-option value="AC">Acre</mat-option>
+                                            <mat-option value="AL">Alagoas</mat-option>
+                                            <mat-option value="AP">Amapá</mat-option>
+                                            <mat-option value="AM">Amazonas</mat-option>
+                                            <mat-option value="BA">Bahia</mat-option>
+                                            <mat-option value="CE">Ceará</mat-option>
+                                            <mat-option value="DF">Distrito Federal</mat-option>
+                                            <mat-option value="ES">Espírito Santo</mat-option>
+                                            <mat-option value="GO">Goiás</mat-option>
+                                            <mat-option value="MA">Maranhão</mat-option>
+                                            <mat-option value="MT">Mato Grosso</mat-option>
+                                            <mat-option value="MS">Mato Grosso do Sul</mat-option>
+                                            <mat-option value="MG">Minas Gerais</mat-option>
+                                            <mat-option value="PA">Pará</mat-option>
+                                            <mat-option value="PB">Paraíba</mat-option>
+                                            <mat-option value="PR">Paraná</mat-option>
+                                            <mat-option value="PE">Pernambuco</mat-option>
+                                            <mat-option value="PI">Piauí</mat-option>
+                                            <mat-option value="RJ">Rio de Janeiro</mat-option>
+                                            <mat-option value="RN">Rio Grande do Norte</mat-option>
+                                            <mat-option value="RS">Rio Grande do Sul</mat-option>
+                                            <mat-option value="RO">Rondônia</mat-option>
+                                            <mat-option value="RR">Roraima</mat-option>
+                                            <mat-option value="SC">Santa Catarina</mat-option>
+                                            <mat-option value="SP">São Paulo</mat-option>
+                                            <mat-option value="SE">Sergipe</mat-option>
+                                            <mat-option value="TO">Tocantins</mat-option>
+                                            <mat-option value="EX">Estrangeiro</mat-option>
+                                        </mat-select>
                                     </mat-form-field>
                                 </div>
                             </div>
@@ -166,14 +169,14 @@
                                     <mat-form-field>
                                         <input matInput placeholder="Telefone principal (Apenas números)"
                                             name="principalNumber" [(ngModel)]="userInfo.principalNumber"
-                                            #principalNumber type="text" mask="(00) 0000-00000"/>
+                                            #principalNumber type="text" mask="(00) 0000-00000" />
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-6">
                                     <mat-form-field>
                                         <input matInput placeholder="Telefone secundário (Apenas números)"
                                             name="secondaryNumber" [(ngModel)]="userInfo.secondaryNumber"
-                                            #secondaryNumber type="text" mask="(00) 0000-00000"/>
+                                            #secondaryNumber type="text" mask="(00) 0000-00000" />
                                     </mat-form-field>
                                 </div>
                             </div>

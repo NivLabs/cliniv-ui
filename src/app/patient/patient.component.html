@@ -11,13 +11,14 @@
                             <div class="row">
                                 <div class="col-md-2">
                                     <mat-form-field>
-                                        <select matNativeControl placeholder="Tipo Paciente" name="type"
-                                            (change)="selectPatientType($event.target.value)" [(ngModel)]="filters.type"
-                                            #type>
-                                            <option value="">Ambos</option>
-                                            <option value="IDENTIFIED">Identificado</option>
-                                            <option value="NOT_IDENTIFIED">Não identificado</option>
-                                        </select>
+                                        <mat-label>Tipo Paciente</mat-label>
+                                        <mat-select matNativeControl name="type"
+                                        (change)="selectPatientType($event.target.value)" [(ngModel)]="filters.type"
+                                        #type>
+                                            <mat-option>Ambos</mat-option>
+                                            <mat-option value="IDENTIFIED">Identificado</mat-option>
+                                            <mat-option value="NOT_IDENTIFIED">Não identificado</mat-option>
+                                        </mat-select>
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-2">
