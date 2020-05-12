@@ -10,12 +10,10 @@
     color: white;
   }
 }
+
 .my-icon {
   margin: 0 7px;
-  cursor: pointer;
-  :hover {
-    opacity: 0.5;
-  }
+  cursor: pointer;  
   &.active {
     opacity: 0.5;
   }
@@ -36,10 +34,12 @@
     box-shadow: none;
   }
 }
+
 .searchbox:focus {
   opacity: 1;
   width: 200px;
 }
+
 .pdf-body {
   margin-top: 46px;
 }
@@ -51,6 +51,7 @@ input {
     box-shadow: none;
   }
 }
+
 .outline {
   position: fixed;
   left: 0;

@@ -40,7 +40,6 @@ import { NgxLoadingModule } from 'ngx-loading';
 import { WebcamModule } from 'ngx-webcam';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
-import { InlineSVGModule } from 'ng-inline-svg';
 //#endregion
 //#region Componentes da aplicação
 import { ConfirmDialogComponent } from '../../core/confirm-dialog/confirm-dialog.component';
@@ -126,8 +125,7 @@ const maskConfig: Partial<IConfig> = {
     SecurityModule,
     WebcamModule,
     NgxMaskModule.forRoot(maskConfig),
-    PdfViewerModule,
-    InlineSVGModule.forRoot()
+    PdfViewerModule
   ],
   exports: [
     CommonModule,

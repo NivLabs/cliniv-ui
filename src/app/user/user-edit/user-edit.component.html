@@ -31,7 +31,7 @@
                     <mat-form-field>
                         <input matInput placeholder="Cadastro de Pessoa Física (CPF)" name="document"
                             [(ngModel)]="dataToForm.document.value" (keypress)="enterKeyPress($event)" #document
-                            type="text" maxlength="14" [disabled]="dataToForm.id" required mask="000.000.000-00"/>
+                            type="text" maxlength="14" [disabled]="dataToForm.id" required mask="000.000.000-00" />
                     </mat-form-field>
                 </div>
                 <div class="col-md-4">
@@ -73,8 +73,8 @@
                 <div class="col-md-4">
                     <mat-form-field>
                         <input matInput placeholder="Telefone principal (Apenas números)" name="principalNumber"
-                            [(ngModel)]="dataToForm.principalNumber" #principalNumber type="text" 
-                            mask="(00) 0000-00000"/>
+                            [(ngModel)]="dataToForm.principalNumber" #principalNumber type="text"
+                            mask="(00) 0000-00000" />
                     </mat-form-field>
                 </div>
                 <div class="col-md-2">
@@ -85,12 +85,12 @@
                 </div>
                 <div class="col-md-2">
                     <mat-form-field>
-                        <select matNativeControl placeholder="Gênero" name="gender"
-                            (change)="selectGender($event.target.value)" [(ngModel)]="dataToForm.gender" #gender
-                            required>
-                            <option value="M">Masculino</option>
-                            <option value="F">Feminino</option>
-                        </select>
+                        <mat-label>Gênero</mat-label>
+                        <mat-select matNativeControl name="gender" (change)="selectGender($event.target.value)"
+                            [(ngModel)]="dataToForm.gender" #gender required>
+                            <mat-option value="M">Masculino</mat-option>
+                            <mat-option value="F">Feminino</mat-option>
+                        </mat-select>
                     </mat-form-field>
                 </div>
             </div>
