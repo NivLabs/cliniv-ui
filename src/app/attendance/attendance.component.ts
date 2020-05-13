@@ -62,7 +62,7 @@ export class AttendanceComponent implements OnInit {
   }
 
   selectSector(newValue) {
-    this.filters.sector = newValue;
+    this.filters.sectorId = newValue;
     this.applyFilter();
   }
 

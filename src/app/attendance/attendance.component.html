@@ -36,9 +36,9 @@
                                 <div class="col-md-2">
                                     <mat-form-field>
                                         <mat-label>Setor</mat-label>
-                                        <mat-select matNativeControl name="sector"
+                                        <mat-select matNativeControl name="sectorId"
                                             (selectionChange)="selectAttendanceType($event.value)"
-                                            [(ngModel)]="filters.sector" #sector>
+                                            [(ngModel)]="filters.sectorId" #sector>
                                             <mat-option *ngFor="let sector of sectors" [value]="sector.id">
                                                 {{sector.description}}</mat-option>
                                         </mat-select>
@@ -91,17 +91,23 @@
                                     {{attendance.firstName + ' ' + attendance.lastName + (attendance.typePatient === 'NOT_IDENTIFIED' ? ' [Não Identificado]' : '')}}
                                 </li>
 
-                                <li><span class="fa fa-user patient-info"> Matrícula:</span> {{attendance.patientId}}</li>
+                                <li><span class="fa fa-user patient-info"> Matrícula: </span> {{attendance.patientId}}
+                                </li>
 
-                                <li><span class="fa fa-address-card patient-info"> Atendimento:</span>{{attendance.id}}</li>
+                                <li><span class="fa fa-address-card patient-info"> Atendimento: </span>{{attendance.id}}
+                                </li>
 
-                                <li *ngIf="attendance.cpf"><span class="fa fa-id-card patient-info"> CPF:</span>{{attendance.cpf | mask:'000.000.000-00'}}</li>
+                                <li *ngIf="attendance.cpf"><span class="fa fa-id-card patient-info">
+                                        CPF: </span>{{attendance.cpf | mask:'000.000.000-00'}}</li>
 
-                                <li *ngIf="attendance.susNumber"><span class="fa fa-lock patient-info"> SUS:</span>{{attendance.susNumber}}</li>
+                                <li *ngIf="attendance.susNumber"><span class="fa fa-lock patient-info">
+                                        SUS:</span>{{attendance.susNumber}}</li>
 
-                                <li><span class="fa fa-plus-square patient-info"> Tipo:</span>{{attendance.type}}</li>
+                                <li><span class="fa fa-plus-square patient-info"> Tipo:
+                                    </span>{{attendance.type === EMERGENCY ? 'Emergência' : 'Ambulatório'}}</li>
 
-                                <li><span class="fa fa-map-marker patient-info"> Setor:</span>{{attendance.sectorId}}</li>
+                                <li><span class="fa fa-map-marker patient-info"> Setor: </span>{{attendance.sectorId}}
+                                </li>
 
                             </ul>
                         </div>
