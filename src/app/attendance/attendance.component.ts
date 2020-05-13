@@ -21,7 +21,7 @@ export class AttendanceComponent implements OnInit {
   public sectorNotFound: boolean;
   sectors = [];
 
-  constructor(private attendanceService: AttendanceService, private errorHandler: ErrorHandlerService, private sectorService: SectorService) { }
+  constructor(private principalService: AttendanceService, private errorHandler: ErrorHandlerService, private sectorService: SectorService) { }
 
   ngOnInit() {
     this.loading = true;
@@ -29,7 +29,7 @@ export class AttendanceComponent implements OnInit {
     this.filters = new AttendanceFilters();
     this.pageSettings = new Pageable();
 
-    this.sectorService.getListOfSectors(null).then(response => {      
+    this.sectorService.getListOfSectors(null).then(response => {
       this.sectors = response;
       this.sectorNotFound = this.sectors.length === 0;
     }).catch(error => {
@@ -38,7 +38,7 @@ export class AttendanceComponent implements OnInit {
       this.errorHandler.handle(error, null);
     });
 
-    this.attendanceService.getPage(this.filters, this.pageSettings).then(response => {
+    this.principalService.getPage(this.filters, this.pageSettings).then(response => {
       this.loading = false;
       this.datas = response.content;
       this.page = response;
@@ -70,7 +70,7 @@ export class AttendanceComponent implements OnInit {
     if (this.filters) {
       this.loading = true;
       this.pageSettings = new Pageable();
-      this.attendanceService.getPage(this.filters, this.pageSettings).then(response => {
+      this.principalService.getPage(this.filters, this.pageSettings).then(response => {
         this.loading = false;
         this.datas = response.content;
         this.dataNotFound = this.datas.length === 0;
@@ -92,7 +92,7 @@ export class AttendanceComponent implements OnInit {
     if (this.page && !this.page.last) {
       this.loading = true;
       this.pageSettings.page = this.pageSettings.page + 1;
-      this.attendanceService.getPage(this.filters, this.pageSettings).then(response => {
+      this.principalService.getPage(this.filters, this.pageSettings).then(response => {
         this.loading = false;
         response.content.forEach(newItem => {
           this.datas.push(newItem);

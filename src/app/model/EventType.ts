@@ -1,6 +1,6 @@
 
 /**
- * Tipo de evento para Atendimento (Visit)
+ * Tipo de evento para Atendimento (Attendance)
  */
 export class EventType {
     id: number;

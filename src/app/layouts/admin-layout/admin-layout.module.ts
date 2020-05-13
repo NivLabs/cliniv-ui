@@ -64,9 +64,9 @@ import { UserEditComponent } from '../../user/user-edit/user-edit.component';
 import { UserComponent } from '../../user/user.component';
 import { UserService } from '../../user/user.service';
 import { PatientHistoryComponent } from '../../visit/history/patient-history.component';
-import { NewVisitComponent } from '../../visit/newVisit/new-visit.component';
-import { VisitComponent } from '../../visit/visit.component';
-import { VisitService } from '../../visit/visit.service'; 
+import { NewAttendanceComponent } from '../../visit/newVisit/new-attendance.component';
+import { MedicalRecordComponent } from '../../visit/medical-record.component';
+import { MedicalRecordService } from '../../visit/medical-record.service'; 
 import { CameraDialogComponent } from 'app/component/camera/dialog/camera-dialog.component';
 import { DocumentViewerComponent } from 'app/component/document-viewer/document-viewer.component';
 import { AttendanceComponent } from 'app/attendance/attendance.component';
@@ -155,9 +155,9 @@ const maskConfig: Partial<IConfig> = {
     UserComponent,
     UserEditComponent,
 
-    VisitComponent,
+    MedicalRecordComponent,
     PatientHistoryComponent,
-    NewVisitComponent,
+    NewAttendanceComponent,
 
     InstituteComponent,
     NotificationsComponent,
@@ -173,7 +173,7 @@ const maskConfig: Partial<IConfig> = {
     PatientEditComponent,
     PatientHistoryComponent,
     ChangePasswordComponent,
-    NewVisitComponent,
+    NewAttendanceComponent,
     UserEditComponent,
     ConfirmDialogComponent,
     CameraDialogComponent,
@@ -185,7 +185,7 @@ const maskConfig: Partial<IConfig> = {
     ProfessionalService,
     UserService,
     SectorService,
-    VisitService,
+    MedicalRecordService,
     InstituteService,
     AttendanceService
   ]

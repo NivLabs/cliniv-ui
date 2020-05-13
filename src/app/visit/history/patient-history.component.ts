@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
-import { PatientHistory } from 'app/model/Visit';
+import { PatientHistory } from 'app/model/Attendance';
 @Component({
     selector: 'app-patient-history',
     templateUrl: './patient-history.component.html'
