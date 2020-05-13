@@ -69,8 +69,9 @@ import { VisitComponent } from '../../visit/visit.component';
 import { VisitService } from '../../visit/visit.service'; 
 import { CameraDialogComponent } from 'app/component/camera/dialog/camera-dialog.component';
 import { DocumentViewerComponent } from 'app/component/document-viewer/document-viewer.component';
-
+import { AttendanceComponent } from 'app/attendance/attendance.component';
 import { AdminLayoutRoutes } from './admin-layout.routing';
+import { AttendanceService } from '../../attendance/attendance.service';
 //#endregion
 
 const matModules = [
@@ -164,7 +165,9 @@ const maskConfig: Partial<IConfig> = {
 
     CameraComponent,
     CameraDialogComponent,
-    DocumentViewerComponent
+    DocumentViewerComponent,
+    
+    AttendanceComponent
   ],
   entryComponents: [
     PatientEditComponent,
@@ -183,7 +186,8 @@ const maskConfig: Partial<IConfig> = {
     UserService,
     SectorService,
     VisitService,
-    InstituteService
+    InstituteService,
+    AttendanceService
   ]
 })
 
