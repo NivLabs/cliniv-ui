@@ -19,7 +19,7 @@ export class AttendanceInfo {
  * Filtros de atendimento
  */
 export class AttendanceFilters {
-    sector: number;
+    sectorId: string;
     firstName: string;
     lastName: string;
     cpf: string;
