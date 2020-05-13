@@ -1,0 +1,120 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-info">
+                        <h4 class="card-title">Filtros</h4>
+                    </div>
+                    <div class="card-body">
+                        <form #form="ngForm" autocomplete="off">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <mat-form-field>
+                                        <mat-label>Tipo Paciente</mat-label>
+                                        <mat-select matNativeControl name="type"
+                                            (selectionChange)="selectPatientType($event.value)"
+                                            [(ngModel)]="filters.typePatient" #type>
+                                            <mat-option>Ambos</mat-option>
+                                            <mat-option value="IDENTIFIED">Identificado</mat-option>
+                                            <mat-option value="NOT_IDENTIFIED">Não identificado</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-2">
+                                    <mat-form-field>
+                                        <mat-label>Tipo Atendimento</mat-label>
+                                        <mat-select matNativeControl name="typeAttendance"
+                                            (selectionChange)="selectAttendanceType($event.value)"
+                                            [(ngModel)]="filters.typeAttendance" #typeAttendance>
+                                            <mat-option value="1">Ambos</mat-option>
+                                            <mat-option value="3">Ambulatório</mat-option>
+                                            <mat-option value="2">Emergência</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-2">
+                                    <mat-form-field>
+                                        <mat-label>Setor</mat-label>
+                                        <mat-select matNativeControl name="sectorId"
+                                            (selectionChange)="selectAttendanceType($event.value)"
+                                            [(ngModel)]="filters.sectorId" #sector>
+                                            <mat-option *ngFor="let sector of sectors" [value]="sector.id">
+                                                {{sector.description}}</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-2">
+                                    <mat-form-field>
+                                        <input matInput placeholder="Nome do paciente" name="firstName"
+                                            [(ngModel)]="filters.firstName" #firstName type="text"
+                                            (keypress)="enterKeyPress($event)" />
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-2">
+                                    <mat-form-field>
+                                        <input matInput placeholder="Sobrenome do paciente" name="lastName"
+                                            [(ngModel)]="filters.lastName" #lastName type="text"
+                                            (keypress)="enterKeyPress($event)" />
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-2">
+                                    <mat-form-field>
+                                        <input matInput placeholder="CPF do paciente" name="cpf"
+                                            [(ngModel)]="filters.cpf" #cpf type="text"
+                                            (keypress)="enterKeyPress($event)" mask="000.000.000-00" />
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <button mat-raised-button type="button" (click)="applyFilter()"
+                                class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-danger pull-right">Filtrar</button>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="search-results" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50"
+            (scrolled)="loadNextPage()">
+            <div class="row">
+                <div class="center" *ngIf="!loading && dataNotFound">
+                    <h1>Nenhum atendimento encontrado...</h1>
+                </div>
+                <div *ngFor="let attendance of datas" class="col-12 col-sm-12 col-md-4 col-lg-4">
+                    <div class="card link-card">
+                        <!-- (click)="openDialog(patient.id)"> -->
+                        <div class="card-body margin-color-active"
+                            [ngClass]="{'margin-color-danger' : attendance.typePatient === 'NOT_IDENTIFIED'}">
+                            <ul>
+                                <li class="patient-name"
+                                    [ngClass]="{'name-not-identified' : attendance.typePatient === 'NOT_IDENTIFIED'}">
+                                    {{attendance.firstName + ' ' + attendance.lastName + (attendance.typePatient === 'NOT_IDENTIFIED' ? ' [Não Identificado]' : '')}}
+                                </li>
+
+                                <li><span class="fa fa-user patient-info"> Matrícula: </span> {{attendance.patientId}}
+                                </li>
+
+                                <li><span class="fa fa-address-card patient-info"> Atendimento: </span>{{attendance.id}}
+                                </li>
+
+                                <li *ngIf="attendance.cpf"><span class="fa fa-id-card patient-info">
+                                        CPF: </span>{{attendance.cpf | mask:'000.000.000-00'}}</li>
+
+                                <li *ngIf="attendance.susNumber"><span class="fa fa-lock patient-info">
+                                        SUS:</span>{{attendance.susNumber}}</li>
+
+                                <li><span class="fa fa-plus-square patient-info"> Tipo:
+                                    </span>{{attendance.type === EMERGENCY ? 'Emergência' : 'Ambulatório'}}</li>
+
+                                <li><span class="fa fa-map-marker patient-info"> Setor: </span>{{attendance.sectorId}}
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<ngx-loading [show]="loading"></ngx-loading>

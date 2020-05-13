@@ -3,18 +3,18 @@ import { FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { NotificationsComponent } from 'app/core/notification/notifications.component';
 import { UtilService } from 'app/core/util.service';
-import { VisitService } from '../visit.service';
+import { MedicalRecordService } from '../medical-record.service';
 import { Specialization } from 'app/model/Specialization';
 import { Professional } from 'app/model/Professional';
-import { NewVisit } from 'app/model/Visit';
+import { NewAttendance } from 'app/model/Attendance';
 import { EventType } from 'app/model/EventType';
 
 
 @Component({
-    selector: 'app-new-visit',
-    templateUrl: './new-visit.component.html'
+    selector: 'app-new-attendance',
+    templateUrl: './new-attendance.component.html'
 })
-export class NewVisitComponent implements OnInit {
+export class NewAttendanceComponent implements OnInit {
 
     loading = false;
 
@@ -27,14 +27,14 @@ export class NewVisitComponent implements OnInit {
     specializationsData: Array<Specialization> = [];
     responsibles: Array<Professional> = [];
 
-    newVisit: NewVisit;
+    newVisit: NewAttendance;
 
-    constructor(public dialogRef: MatDialogRef<NewVisitComponent>, public notification: NotificationsComponent, public utilService: UtilService, public visitService: VisitService,
+    constructor(public dialogRef: MatDialogRef<NewAttendanceComponent>, public notification: NotificationsComponent, public utilService: UtilService, public visitService: MedicalRecordService,
         @Inject(MAT_DIALOG_DATA) public data: number) { }
 
     ngOnInit(): void {
         if (this.dialogRef.componentInstance.data !== null) {
-            this.newVisit = new NewVisit();
+            this.newVisit = new NewAttendance();
             this.newVisit.patientId = this.dialogRef.componentInstance.data['patientId'];
             this.newVisit.entryCause = '';
             this.newVisit.responsibleId = null;

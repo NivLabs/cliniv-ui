@@ -4,25 +4,25 @@ import { ConfirmDialogComponent } from 'app/core/confirm-dialog/confirm-dialog.c
 import { ErrorHandlerService } from 'app/core/error-handler.service';
 import { NotificationsComponent } from 'app/core/notification/notifications.component';
 import { PatientHistoryComponent } from './history/patient-history.component';
-import { NewVisitComponent } from './newVisit/new-visit.component';
-import { VisitService } from './visit.service';
+import { NewAttendanceComponent } from './newVisit/new-attendance.component';
+import { MedicalRecordService } from './medical-record.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { VisitInfo, NewVisit } from 'app/model/Visit';
+import { MedicalRecord, NewAttendance } from 'app/model/Attendance';
 import { Document } from 'app/model/Document';
 import { DocumentViewerComponent } from 'app/component/document-viewer/document-viewer.component';
 
 @Component({
-  selector: 'app-visit',
-  templateUrl: './visit.component.html',
-  styleUrls: ['./visit.component.css']
+  selector: 'app-medical-record',
+  templateUrl: './medical-record.component.html',
+  styleUrls: ['./medical-record.component.css']
 })
-export class VisitComponent implements OnInit {
+export class MedicalRecordComponent implements OnInit {
 
 
-  visit: VisitInfo;
+  visit: MedicalRecord;
   public loading: boolean;
 
-  constructor(private router: Router, private route: ActivatedRoute, public confirmDialog: MatDialog, public dialog: MatDialog, private visitService: VisitService, private errorHandler: ErrorHandlerService, private notification: NotificationsComponent) { }
+  constructor(private router: Router, private route: ActivatedRoute, public confirmDialog: MatDialog, public dialog: MatDialog, private visitService: MedicalRecordService, private errorHandler: ErrorHandlerService, private notification: NotificationsComponent) { }
 
   ngOnInit() {
     this.router.navigate(['visit']);
@@ -116,7 +116,7 @@ export class VisitComponent implements OnInit {
 
 
   openNewVisitDialog(patientId) {
-    const dialogNewVisit = this.dialog.open(NewVisitComponent, {
+    const dialogNewVisit = this.dialog.open(NewAttendanceComponent, {
       width: '90%',
       data: { patientId }
     });
@@ -128,7 +128,7 @@ export class VisitComponent implements OnInit {
     });
   }
 
-  createNewVisit(newVisit: NewVisit) {
+  createNewVisit(newVisit: NewAttendance) {
     this.loading = true;
     this.visitService.initializeVisit(newVisit).then(resp => {
       this.loading = false;

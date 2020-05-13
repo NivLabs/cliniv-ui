@@ -17,25 +17,26 @@ import { SecurityRoutingModule } from './security/security-routing.module';
 import { AdminLayoutModule } from './layouts/admin-layout/admin-layout.module';
 
 @NgModule({
-  imports: [
-    BrowserAnimationsModule,
-    FormsModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    ComponentsModule,
-    RouterModule,
-    CoreModule,
-    SecurityModule,
-    SecurityRoutingModule,
-    AdminLayoutModule,
-
-    AppRoutingModule
-  ],
-  declarations: [
-    AppComponent,
-    AdminLayoutComponent
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+   imports: [
+      BrowserAnimationsModule,
+      FormsModule,
+      ReactiveFormsModule,
+      HttpClientModule,
+      ComponentsModule,
+      RouterModule,
+      CoreModule,
+      SecurityModule,
+      SecurityRoutingModule,
+      AdminLayoutModule,
+      AppRoutingModule
+   ],
+   declarations: [
+      AppComponent,
+      AdminLayoutComponent
+   ],
+   providers: [],
+   bootstrap: [
+      AppComponent
+   ]
 })
 export class AppModule { }

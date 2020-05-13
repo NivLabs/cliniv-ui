@@ -3,9 +3,34 @@ import { Evolution } from "./Evolution";
 import { Document } from "./Document";
 
 /**
+ * Informações do atendimento
+ */
+export class AttendanceInfo {
+    id: number;
+    type: string;
+    firstName: string = "";
+    lastName: string = "";
+    patientId: number;
+    susNumber: number;
+    sectorId: number;
+}
+
+/**
+ * Filtros de atendimento
+ */
+export class AttendanceFilters {
+    sectorId: string;
+    firstName: string;
+    lastName: string;
+    cpf: string;
+    typePatient: string;
+    typeAttendance: string;
+}
+
+/**
  * Representa informações detalhadas do atendimento
  */
-export class VisitInfo {
+export class MedicalRecord {
     id: number;
     patientId: number;
     document: Document;
@@ -16,7 +41,7 @@ export class VisitInfo {
     bornDate: Date;
     gender: string;
     allergies: Array<string>;
-    events: Array<VisitEvent>;
+    events: Array<AttendanceEvent>;
     evolutions: Array<Evolution>;
     medicines: Array<MedicationUsed>;
 }
@@ -24,7 +49,7 @@ export class VisitInfo {
 /**
  * Representa o evento do Atendimento
  */
-export class VisitEvent {
+export class AttendanceEvent {
     id: number;
     datetime: Date;
     description: string;
@@ -34,7 +59,7 @@ export class VisitEvent {
 /**
  * Representa o objeto de criação de Atendimento
  */
-export class NewVisit {
+export class NewAttendance {
     patientId: number;
     eventTypeId: number;
     responsibleId: number;
