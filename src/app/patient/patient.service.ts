@@ -27,7 +27,9 @@ export class PatientService {
         if (filter) {
             let params = new URLSearchParams();
             for (let key in filter) {
-                params.set(key, filter[key])
+                if (filter[key]) {
+                    params.set(key, filter[key])
+                }
             }
             queryString = params.toString();
         }
