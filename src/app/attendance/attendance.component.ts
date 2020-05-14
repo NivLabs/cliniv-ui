@@ -52,12 +52,12 @@ export class AttendanceComponent implements OnInit {
   }
 
   selectPatientType(newValue) {
-    this.filters.typePatient = newValue;
+    this.filters.patientType = newValue;
     this.applyFilter();
   }
 
   selectAttendanceType(newValue) {
-    this.filters.typeAttendance = newValue;
+    this.filters.entryType = newValue;
     this.applyFilter();
   }
 
