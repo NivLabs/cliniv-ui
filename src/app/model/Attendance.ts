@@ -61,6 +61,7 @@ export class AttendanceEvent {
  */
 export class NewAttendance {
     patientId: number;
+    sectorId: number;
     eventTypeId: number;
     responsibleId: number;
     entryCause: string;

@@ -8,6 +8,8 @@ import { Specialization } from 'app/model/Specialization';
 import { Professional } from 'app/model/Professional';
 import { NewAttendance } from 'app/model/Attendance';
 import { EventType } from 'app/model/EventType';
+import { Sector } from 'app/model/Sector';
+import { SectorService } from 'app/sector/sector.service';
 
 
 @Component({
@@ -26,10 +28,11 @@ export class NewAttendanceComponent implements OnInit {
     eventTypes: Array<EventType> = [];
     specializationsData: Array<Specialization> = [];
     responsibles: Array<Professional> = [];
+    sectors: Array<Sector> = [];
 
     newVisit: NewAttendance;
 
-    constructor(public dialogRef: MatDialogRef<NewAttendanceComponent>, public notification: NotificationsComponent, public utilService: UtilService, public visitService: MedicalRecordService,
+    constructor(public dialogRef: MatDialogRef<NewAttendanceComponent>, public sectorService: SectorService, public notification: NotificationsComponent, public utilService: UtilService, public visitService: MedicalRecordService,
         @Inject(MAT_DIALOG_DATA) public data: number) { }
 
     ngOnInit(): void {
@@ -43,8 +46,14 @@ export class NewAttendanceComponent implements OnInit {
 
 
         this.loadEntryEventTypes();
+        this.loadSectors();
         this.loadspecializationsData();
 
+    }
+    loadSectors() {
+        this.sectorService.getListOfSectors(null).then(response => {
+            this.sectors = response;
+        });
     }
 
     loadEntryEventTypes() {
@@ -82,6 +91,10 @@ export class NewAttendanceComponent implements OnInit {
 
     selectResponsible(newValue) {
         this.newVisit.responsibleId = newValue;
+    }
+
+    selectSector(newValue) {
+        this.newVisit.sectorId = newValue;
     }
 
 }  
