@@ -85,11 +85,11 @@
                     <div class="card link-card">
                         <!-- (click)="openDialog(patient.id)"> -->
                         <div class="card-body margin-color-active"
-                            [ngClass]="{'margin-color-danger' : attendance.typePatient === 'NOT_IDENTIFIED'}">
+                            [ngClass]="{'margin-color-danger' : attendance.patientType === 'NOT_IDENTIFIED'}">
                             <ul>
                                 <li class="patient-name"
-                                    [ngClass]="{'name-not-identified' : attendance.typePatient === 'NOT_IDENTIFIED'}">
-                                    {{attendance.firstName + ' ' + attendance.lastName + (attendance.typePatient === 'NOT_IDENTIFIED' ? ' [Não Identificado]' : '')}}
+                                    [ngClass]="{'name-not-identified' : attendance.patientType === 'NOT_IDENTIFIED'}">
+                                    {{attendance.firstName + ' ' + attendance.lastName + (attendance.patientType === 'NOT_IDENTIFIED' ? ' [Não Identificado]' : '')}}
                                 </li>
 
                                 <li><span class="fa fa-user patient-info"> Matrícula: </span> {{attendance.patientId}}
