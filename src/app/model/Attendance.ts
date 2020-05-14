@@ -23,8 +23,8 @@ export class AttendanceFilters {
     firstName: string;
     lastName: string;
     cpf: string;
-    typePatient: string;
-    typeAttendance: string;
+    patientType: string;
+    entryType: string;
 }
 
 /**

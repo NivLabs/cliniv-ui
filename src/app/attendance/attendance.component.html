@@ -12,9 +12,9 @@
                                 <div class="col-md-2">
                                     <mat-form-field>
                                         <mat-label>Tipo Paciente</mat-label>
-                                        <mat-select matNativeControl name="type"
+                                        <mat-select matNativeControl name="patientType"
                                             (selectionChange)="selectPatientType($event.value)"
-                                            [(ngModel)]="filters.typePatient" #type>
+                                            [(ngModel)]="filters.patientType" #patientType>
                                             <mat-option>Ambos</mat-option>
                                             <mat-option value="IDENTIFIED">Identificado</mat-option>
                                             <mat-option value="NOT_IDENTIFIED">Não identificado</mat-option>
@@ -24,21 +24,22 @@
                                 <div class="col-md-2">
                                     <mat-form-field>
                                         <mat-label>Tipo Atendimento</mat-label>
-                                        <mat-select matNativeControl name="typeAttendance"
+                                        <mat-select matNativeControl name="entryType"
                                             (selectionChange)="selectAttendanceType($event.value)"
-                                            [(ngModel)]="filters.typeAttendance" #typeAttendance>
-                                            <mat-option value="1">Ambos</mat-option>
-                                            <mat-option value="3">Ambulatório</mat-option>
-                                            <mat-option value="2">Emergência</mat-option>
+                                            [(ngModel)]="filters.entryType" #entryType>
+                                            <mat-option>Ambos</mat-option>
+                                            <mat-option value="CLINICAL">Ambulatório</mat-option>
+                                            <mat-option value="EMERGENCY">Emergência</mat-option>
                                         </mat-select>
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-2">
                                     <mat-form-field>
                                         <mat-label>Setor</mat-label>
-                                        <mat-select matNativeControl name="sectorId"
-                                            (selectionChange)="selectAttendanceType($event.value)"
+                                        <mat-select matNativeControl name="sector"
+                                            (selectionChange)="selectSector($event.value)"
                                             [(ngModel)]="filters.sectorId" #sector>
+                                            <mat-option>Todos</mat-option>
                                             <mat-option *ngFor="let sector of sectors" [value]="sector.id">
                                                 {{sector.description}}</mat-option>
                                         </mat-select>
@@ -94,19 +95,19 @@
                                 <li><span class="fa fa-user patient-info"> Matrícula: </span> {{attendance.patientId}}
                                 </li>
 
-                                <li><span class="fa fa-address-card patient-info"> Atendimento: </span>{{attendance.id}}
+                                <li><span class="fa fa-address-card patient-info"> Atendimento: </span> {{attendance.id}}
                                 </li>
 
                                 <li *ngIf="attendance.cpf"><span class="fa fa-id-card patient-info">
-                                        CPF: </span>{{attendance.cpf | mask:'000.000.000-00'}}</li>
+                                        CPF: </span> {{attendance.cpf | mask:'000.000.000-00'}}</li>
 
                                 <li *ngIf="attendance.susNumber"><span class="fa fa-lock patient-info">
-                                        SUS:</span>{{attendance.susNumber}}</li>
+                                        SUS: </span> {{attendance.susNumber}}</li>
 
                                 <li><span class="fa fa-plus-square patient-info"> Tipo:
-                                    </span>{{attendance.type === EMERGENCY ? 'Emergência' : 'Ambulatório'}}</li>
+                                    </span> {{attendance.type === 'EMERGENCY' ? 'Emergência' : 'Ambulatório'}}</li>
 
-                                <li><span class="fa fa-map-marker patient-info"> Setor: </span>{{attendance.sectorId}}
+                                <li><span class="fa fa-map-marker patient-info"> Setor: </span> {{attendance.sectorDescription}}
                                 </li>
 
                             </ul>
