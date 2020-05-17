@@ -9,7 +9,7 @@ export class SettingsService {
   baseUrl: string;
 
   constructor(private http: AppHttp) {
-    this.baseUrl = `${environment.apiUrl}/institute/`;
+    this.baseUrl = `${environment.apiUrl}/institute`;
   }
 
   getSettings(): Promise<SeetingsInfo> {
