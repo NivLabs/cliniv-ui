@@ -6,5 +6,6 @@ export class Parameter {
     name: string;
     group: string;
     value: any;
+    groupValues: string;
     metaType: string;
 }
