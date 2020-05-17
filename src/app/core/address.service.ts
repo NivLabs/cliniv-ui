@@ -1,21 +1,7 @@
-import { HttpParams, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AppHttp } from '../security/app-http';
-
-
-export class AddressFromAPI {
-    constructor() { }
-    cep: string;
-    logradouro: string;
-    complemento: string;
-    bairro: string;
-    localidade: string;
-    uf: string;
-    unidade: string;
-    ibge: string;
-    gia: string;
-}
-
+import { environment } from 'environments/environment';
+import { Address } from 'app/model/Address';
 
 @Injectable()
 export class AddressService {
@@ -24,12 +10,12 @@ export class AddressService {
     token: string;
 
     constructor(private http: AppHttp) {
-        this.resourceUrl = `https://viacep.com.br/ws`;
-        this.token = "Bearer " + localStorage.getItem('token');
+        this.resourceUrl = `${environment.apiUrl}/cep`;
     }
 
-    getAddressByCep(cep: string): Promise<AddressFromAPI> {
-        return this.http.get<AddressFromAPI>(`${this.resourceUrl}/${cep}/json`, { })
+    getAddressByCep(cep: string): Promise<Address> {
+        var headers = this.http.getHeadersDefault();
+        return this.http.get<Address>(`${this.resourceUrl}/${cep}`, { headers })
             .toPromise();
     }
 }

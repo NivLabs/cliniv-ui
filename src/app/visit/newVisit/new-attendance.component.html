@@ -27,6 +27,20 @@
                         </mat-select>
                     </mat-form-field>
                 </div>
+                <div class="col-md-3">
+                    <mat-form-field>
+                        <mat-label>Setor/Leito</mat-label>
+                        <mat-select [formControl]="sectorControl" (selectionChange)="selectSector($event.value)"
+                            required>
+                            <mat-option>
+                                Selecione um setor ou leito
+                            </mat-option>
+                            <mat-option *ngFor="let sector of sectors" [value]="sector.id">
+                                {{sector.description}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
             </div>
             <div class="row">
                 <div class="col-md-4">
