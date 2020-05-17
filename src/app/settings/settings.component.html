@@ -1,0 +1,212 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-header card-header-info">
+                <h4 class="card-title">Informações</h4>
+            </div>
+            <div class="card-body">
+                <form #form="ngForm" autocomplete="off">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <mat-form-field>
+                                <input matInput placeholder="Nome App" name="appName" [(ngModel)]="settings.appName"
+                                    #appName="ngModel" type="text" disabled />
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-3">
+                            <mat-form-field>
+                                <input matInput placeholder="Versão" name="version" [(ngModel)]="settings.version"
+                                    #version="ngModel" type="text" disabled />
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-3">
+                            <mat-form-field>
+                                <input matInput placeholder="CNPJ" name="cnpj" [(ngModel)]="settings.customerInfo.cnpj"
+                                    #cnpj="ngModel" mask="00.000.000/0000-00" />
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-3">
+                            <mat-form-field>
+                                <input matInput placeholder="CNES" name="cnes" [(ngModel)]="settings.customerInfo.cnes"
+                                    #cnes="ngModel" />
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <mat-form-field>
+                                <input matInput placeholder="Nome" name="name" [(ngModel)]="settings.customerInfo.name"
+                                    #name="ngModel" type="text" />
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-4">
+                            <mat-form-field>
+                                <input matInput placeholder="Nome corporativo" name="corporativeName"
+                                    [(ngModel)]="settings.customerInfo.corporativeName" #corporativeName="ngModel" />
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-4">
+                            <mat-form-field>
+                                <input matInput placeholder="Natureza Legal" name="legalNature"
+                                    [(ngModel)]="settings.customerInfo.legalNature" #legalNature="ngModel" />
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <mat-form-field>
+                                <input matInput placeholder="Chave" name="key"
+                                    [(ngModel)]="settings.customerInfo.license.key" #key="ngModel" disabled />
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-4">
+                            <mat-form-field>
+                                <input matInput placeholder="Data de Início" name="startDate" type="date"
+                                    [(ngModel)]="settings.customerInfo.license.startDate" #startDate="ngModel" disabled />
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-4">
+                            <mat-form-field>
+                                <input matInput placeholder="Data de Término" name="endDate" type="date"
+                                    [(ngModel)]="settings.customerInfo.license.endDate" #endDate="ngModel" disabled />
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <mat-form-field>
+                                <input matInput placeholder="Código Postal (CEP)" name="cep"
+                                    [(ngModel)]="settings.customerInfo.address.postalCode" size="10" maxlength="10" #cep
+                                    type="text" mask="00.000-000" />
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-4">
+                            <mat-form-field>
+                                <input matInput placeholder="Rua" name="street"
+                                    [(ngModel)]="settings.customerInfo.address.street" #street type="text" />
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-2">
+                            <mat-form-field>
+                                <input matInput placeholder="Número" name="addressNumber"
+                                    [(ngModel)]="settings.customerInfo.address.addressNumber" #addressNumber type="text" />
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-2">
+                            <mat-form-field>
+                                <input matInput placeholder="Complemento" name="complement"
+                                    [(ngModel)]="settings.customerInfo.address.complement" #complement type="text" />
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <mat-form-field>
+                                <input matInput placeholder="Bairro" name="neighborhood"
+                                    [(ngModel)]="settings.customerInfo.address.neighborhood" #neighborhood type="text" />
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-4">
+                            <mat-form-field>
+                                <input matInput placeholder="Cidade" name="city"
+                                    [(ngModel)]="settings.customerInfo.address.city" #city type="text" />
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-4">
+                            <mat-form-field>
+                                <select matNativeControl placeholder="Estado" name="state"
+                                    [(ngModel)]="settings.customerInfo.address.state" #state>
+                                    <option value="AC">Acre</option>
+                                    <option value="AL">Alagoas</option>
+                                    <option value="AP">Amapá</option>
+                                    <option value="AM">Amazonas</option>
+                                    <option value="BA">Bahia</option>
+                                    <option value="CE">Ceará</option>
+                                    <option value="DF">Distrito Federal</option>
+                                    <option value="ES">Espírito Santo</option>
+                                    <option value="GO">Goiás</option>
+                                    <option value="MA">Maranhão</option>
+                                    <option value="MT">Mato Grosso</option>
+                                    <option value="MS">Mato Grosso do Sul</option>
+                                    <option value="MG">Minas Gerais</option>
+                                    <option value="PA">Pará</option>
+                                    <option value="PB">Paraíba</option>
+                                    <option value="PR">Paraná</option>
+                                    <option value="PE">Pernambuco</option>
+                                    <option value="PI">Piauí</option>
+                                    <option value="RJ">Rio de Janeiro</option>
+                                    <option value="RN">Rio Grande do Norte</option>
+                                    <option value="RS">Rio Grande do Sul</option>
+                                    <option value="RO">Rondônia</option>
+                                    <option value="RR">Roraima</option>
+                                    <option value="SC">Santa Catarina</option>
+                                    <option value="SP">São Paulo</option>
+                                    <option value="SE">Sergipe</option>
+                                    <option value="TO">Tocantins</option>
+                                    <option value="EX">Estrangeiro</option>
+                                </select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header card-header-success">
+                <h4 class="card-title">Parâmetros</h4>
+            </div>
+            <div class="card-body">
+                <mat-form-field>
+                    <mat-label>Filtro</mat-label>
+                    <input matInput (keyup)="applyFilter($event)">
+                </mat-form-field>
+
+                <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+                    <ng-container matColumnDef="Grupo">
+                        <mat-header-cell *matHeaderCellDef> Grupo </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element.group}} </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Nome">
+                        <mat-header-cell *matHeaderCellDef> Nome </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Valor">
+                        <mat-header-cell *matHeaderCellDef> Valor </mat-header-cell>
+                        <mat-cell *matCellDef="let element">
+
+                            <span *ngIf="element.metaType === 'string'">
+                                <mat-form-field>
+                                    <input matInput [(ngModel)]="element.value" type="text" />
+                                </mat-form-field>
+                            </span>
+
+                            <span *ngIf="element.metaType === 'number'">
+                                <mat-form-field>
+                                    <input matInput [(ngModel)]="element.value" type="number" />
+                                </mat-form-field>
+                            </span>
+
+                            <span *ngIf="element.metaType === 'bool'">
+                                <mat-slide-toggle checked="{{element.value}}"></mat-slide-toggle>
+                            </span>
+
+                            <span *ngIf="element.metaType === 'password'">
+                                <mat-form-field>
+                                    <input matInput [(ngModel)]="element.value" type="password" />
+                                </mat-form-field>
+                            </span>
+                        </mat-cell>
+                    </ng-container>
+
+                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+                </mat-table>
+            </div>
+        </div>
+    </div>
+</div>
+<ngx-loading [show]="loading"></ngx-loading>
