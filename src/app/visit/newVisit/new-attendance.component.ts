@@ -22,6 +22,7 @@ export class NewAttendanceComponent implements OnInit {
 
     eventTypeControl = new FormControl('', [Validators.required]);
     specializationControl = new FormControl('', [Validators.required]);
+    sectorControl = new FormControl('', [Validators.required]);
     responsibleControl = new FormControl();
 
 
