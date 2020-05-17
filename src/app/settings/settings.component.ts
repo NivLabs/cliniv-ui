@@ -21,14 +21,14 @@ export class SettingsComponent implements OnInit {
 
   constructor(private principalService: SettingsService, private errorHandler: ErrorHandlerService, private addressService: AddressService, private notification: NotificationsComponent) { }
 
-  ngOnInit(){
+  ngOnInit() {
     this.settings = new SeetingsInfo();
     this.loading = true;
 
     this.principalService.getSettings().then(resp => {
       this.loading = false;
       this.settings = resp;
-      this.dataSource = new MatTableDataSource(this.settings.parameters); 
+      this.dataSource = new MatTableDataSource(this.settings.parameters);
     }).catch(error => {
       this.loading = false;
       this.errorHandler.handle(error, null);
@@ -46,10 +46,7 @@ export class SettingsComponent implements OnInit {
     this.loading = true;
     this.addressService.getAddressByCep(this.settings.customerInfo.address.postalCode).then(address => {
       this.loading = false;
-      this.settings.customerInfo.address.city = address.localidade;
-      this.settings.customerInfo.address.neighborhood = address.bairro;
-      this.settings.customerInfo.address.state = address.uf;
-      this.settings.customerInfo.address.street = address.logradouro;
+      this.settings.customerInfo.address = address;
     }).catch(error => {
       this.loading = false;
       this.notification.showWarning("Não foi possível realizar a busca do CEP, verifique se o mesmo está correto.")
