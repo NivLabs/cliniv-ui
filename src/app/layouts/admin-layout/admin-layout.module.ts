@@ -45,8 +45,6 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { ConfirmDialogComponent } from '../../core/confirm-dialog/confirm-dialog.component';
 import { NotificationsComponent } from '../../core/notification/notifications.component';
 import { DashboardComponent } from '../../dashboard/dashboard.component';
-import { InstituteComponent } from '../../institute/institute.component';
-import { InstituteService } from '../../institute/institute.service';
 import { PatientEditComponent } from '../../patient/patient-edit/patient-edit.component';
 import { PatientComponent } from '../../patient/patient.component';
 import { PatientService } from '../../patient/patient.service';
@@ -72,6 +70,8 @@ import { DocumentViewerComponent } from 'app/component/document-viewer/document-
 import { AttendanceComponent } from 'app/attendance/attendance.component';
 import { AdminLayoutRoutes } from './admin-layout.routing';
 import { AttendanceService } from '../../attendance/attendance.service';
+import { SettingsComponent } from 'app/settings/settings.component';
+import { SettingsService } from '../../settings/settings.service';
 //#endregion
 
 const matModules = [
@@ -159,7 +159,6 @@ const maskConfig: Partial<IConfig> = {
     PatientHistoryComponent,
     NewAttendanceComponent,
 
-    InstituteComponent,
     NotificationsComponent,
     ConfirmDialogComponent,
 
@@ -167,7 +166,9 @@ const maskConfig: Partial<IConfig> = {
     CameraDialogComponent,
     DocumentViewerComponent,
     
-    AttendanceComponent
+    AttendanceComponent,
+
+    SettingsComponent
   ],
   entryComponents: [
     PatientEditComponent,
@@ -186,8 +187,8 @@ const maskConfig: Partial<IConfig> = {
     UserService,
     SectorService,
     MedicalRecordService,
-    InstituteService,
-    AttendanceService
+    AttendanceService,
+    SettingsService
   ]
 })
 
