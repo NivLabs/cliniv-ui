@@ -24,7 +24,7 @@ export class UserProfileComponent implements OnInit {
   userInfo: UserInfo = new UserInfo;
 
   constructor(public confirmDialog: MatDialog, private profileService: UserProfileService, private addressService: AddressService, private errorHandler: ErrorHandlerService, private notification: NotificationsComponent) {
-        
+
   }
 
   ngOnInit() {
@@ -38,7 +38,7 @@ export class UserProfileComponent implements OnInit {
       }
       if (!this.userInfo.address) {
         this.userInfo.address = new Address();
-      }     
+      }
     }).catch(error => {
       this.loading = false;
       this.errorHandler.handle(error, null);
@@ -66,7 +66,7 @@ export class UserProfileComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result !== undefined) {
-        
+
       }
     });
   }
@@ -87,10 +87,7 @@ export class UserProfileComponent implements OnInit {
     this.loading = true;
     this.addressService.getAddressByCep(this.userInfo.address.postalCode).then(address => {
       this.loading = false;
-      this.userInfo.address.city = address.localidade;
-      this.userInfo.address.neighborhood = address.bairro;
-      this.userInfo.address.state = address.uf;
-      this.userInfo.address.street = address.logradouro;
+      this.userInfo.address = address;
     }).catch(error => {
       this.loading = false;
       this.notification.showWarning("Não foi possível realizar a busca do CEP, verifique se o mesmo está correto e continue o cadastro normalmente.")

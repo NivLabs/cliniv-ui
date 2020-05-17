@@ -143,10 +143,7 @@ export class UserEditComponent implements OnInit {
     this.loading = true;
     this.addressService.getAddressByCep(this.dataToForm.address.postalCode).then(address => {
       this.loading = false;
-      this.dataToForm.address.city = address.localidade;
-      this.dataToForm.address.neighborhood = address.bairro;
-      this.dataToForm.address.state = address.uf;
-      this.dataToForm.address.street = address.logradouro;
+      this.dataToForm.address = address;
     }).catch(error => {
       this.loading = false;
       this.notification.showWarning("Não foi possível realizar a busca do CEP, verifique se o mesmo está correto e continue o cadastro normalmente.")
