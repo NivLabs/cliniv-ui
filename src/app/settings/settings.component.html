@@ -75,7 +75,7 @@
                     <div class="row">
                         <div class="col-md-4">
                             <mat-form-field>
-                                <input matInput placeholder="Código Postal (CEP)" name="cep"
+                                <input matInput placeholder="Código Postal (CEP)" name="cep" (blur)="searchAddressByCEP()"
                                     [(ngModel)]="settings.customerInfo.address.postalCode" size="10" maxlength="10" #cep
                                     type="text" mask="00.000-000" />
                             </mat-form-field>
