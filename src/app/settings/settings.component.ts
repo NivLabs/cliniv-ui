@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ErrorHandlerService } from 'app/core/error-handler.service';
 import { SeetingsInfo } from 'app/model/Settings';
 import { SettingsService } from 'app/settings/settings.service';
@@ -7,6 +7,7 @@ import { NotificationsComponent } from 'app/core/notification/notifications.comp
 import { AddressService } from 'app/core/address.service';
 import { ConfirmDialogComponent } from 'app/core/confirm-dialog/confirm-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-settings',
@@ -15,6 +16,9 @@ import { MatDialog } from '@angular/material/dialog';
 })
 
 export class SettingsComponent implements OnInit {
+
+
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   public loading: boolean;
   public settings: SeetingsInfo;
@@ -32,12 +36,15 @@ export class SettingsComponent implements OnInit {
       this.loading = false;
       this.settings = resp;
       this.dataSource = new MatTableDataSource(this.settings.parameters);
+      setTimeout(() => {
+        this.dataSource.sort = this.sort;
+      });
     }).catch(error => {
       this.loading = false;
       this.errorHandler.handle(error, null);
     });
 
-    this.displayedColumns = ['Grupo', 'Nome', 'Valor'];
+    this.displayedColumns = ['id', 'group', 'name', 'value'];
   }
 
   applyFilter(event: Event) {

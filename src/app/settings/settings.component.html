@@ -164,20 +164,25 @@
                     <input matInput (keyup)="applyFilter($event)">
                 </mat-form-field>
 
-                <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+                <mat-table [dataSource]="dataSource" matSort>
 
-                    <ng-container matColumnDef="Grupo">
-                        <mat-header-cell *matHeaderCellDef> Grupo </mat-header-cell>
+                    <ng-container matColumnDef="id">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header> Id </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="group">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header> Grupo </mat-header-cell>
                         <mat-cell *matCellDef="let element"> {{element.group}} </mat-cell>
                     </ng-container>
 
-                    <ng-container matColumnDef="Nome">
-                        <mat-header-cell *matHeaderCellDef> Nome </mat-header-cell>
+                    <ng-container matColumnDef="name">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header> Nome </mat-header-cell>
                         <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
                     </ng-container>
 
-                    <ng-container matColumnDef="Valor">
-                        <mat-header-cell *matHeaderCellDef> Valor </mat-header-cell>
+                    <ng-container matColumnDef="value">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header> Valor </mat-header-cell>
                         <mat-cell *matCellDef="let element">
 
                             <span *ngIf="element.metaType === 'string'">
