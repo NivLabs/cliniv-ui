@@ -5,6 +5,8 @@ import { SettingsService } from 'app/settings/settings.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { NotificationsComponent } from 'app/core/notification/notifications.component';
 import { AddressService } from 'app/core/address.service';
+import { ConfirmDialogComponent } from 'app/core/confirm-dialog/confirm-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-settings',
@@ -19,7 +21,8 @@ export class SettingsComponent implements OnInit {
   public dataSource: any;
   public displayedColumns: any;
 
-  constructor(private principalService: SettingsService, private errorHandler: ErrorHandlerService, private addressService: AddressService, private notification: NotificationsComponent) { }
+  constructor(private principalService: SettingsService, private errorHandler: ErrorHandlerService, private addressService: AddressService,
+    private notification: NotificationsComponent, public confirmDialog: MatDialog) { }
 
   ngOnInit() {
     this.settings = new SeetingsInfo();
@@ -42,6 +45,20 @@ export class SettingsComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
+  enterKeyPress(event: any, parameterId: number, value: any) {
+    if (event.key === "Enter") {
+      this.updateParameter(parameterId, value);
+    }
+  }
+
+  changeToggleParameter(event: any, parameterId: number) {
+    this.updateParameter(parameterId, event.checked);
+  }
+
+  changeSelectParameter(parameterId: number, value: any) {
+    this.updateParameter(parameterId, value);
+  }
+
   searchAddressByCEP() {
     this.loading = true;
     this.addressService.getAddressByCep(this.settings.customerInfo.address.postalCode).then(address => {
@@ -50,6 +67,17 @@ export class SettingsComponent implements OnInit {
     }).catch(error => {
       this.loading = false;
       this.notification.showWarning("Não foi possível realizar a busca do CEP, verifique se o mesmo está correto.")
+    });
+  }
+
+  updateParameter(parameterId: number, value: any) {
+    const confirmDialogRef = this.confirmDialog.open(ConfirmDialogComponent, {
+      data: { title: 'Confirmação', message: 'Tem certeza que deseja alterar o valor desse parâmetro?' }
+    });
+    confirmDialogRef.afterClosed().subscribe(result => {
+      if (result) { 
+        this.principalService.update(parameterId, value);
+      }
     });
   }
 

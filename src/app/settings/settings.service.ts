@@ -15,9 +15,17 @@ export class SettingsService {
   getSettings(): Promise<SeetingsInfo> {
 
     var headers = this.http.getHeadersDefault();
-    
+
     return this.http.get<SeetingsInfo>(`${this.baseUrl}`, { headers }).toPromise();
-    
+
+  }
+
+  update(parameterId: number, value: any) {
+
+    var headers = this.http.getHeadersDefault();
+
+    this.http.put(`${environment.apiUrl}/parameter/${parameterId}/${value}`, { headers }).toPromise();
+
   }
 
 }
