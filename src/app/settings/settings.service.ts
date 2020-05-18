@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AppHttp } from '../security/app-http';
 import { environment } from '../../environments/environment';
 import { SeetingsInfo } from 'app/model/Settings';
+import { Parameter } from 'app/model/Parameter';
 
 @Injectable()
 export class SettingsService {
@@ -20,11 +21,11 @@ export class SettingsService {
 
   }
 
-  update(parameterId: number, value: any) {
+  update(parameterId: number, value: any): Promise<void>{
 
     var headers = this.http.getHeadersDefault();
 
-    this.http.put(`${environment.apiUrl}/parameter/${parameterId}/${value}`, { headers }).toPromise();
+    return this.http.put<void>(`${environment.apiUrl}/parameter/${parameterId}/${value}`, { headers }).toPromise();
 
   }
 

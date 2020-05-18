@@ -18,7 +18,7 @@ import { MatSort } from '@angular/material/sort';
 export class SettingsComponent implements OnInit {
 
 
-  @ViewChild(MatSort, {static: true}) sort: MatSort;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   public loading: boolean;
   public settings: SeetingsInfo;
@@ -82,9 +82,17 @@ export class SettingsComponent implements OnInit {
       data: { title: 'Confirmação', message: 'Tem certeza que deseja alterar o valor desse parâmetro?' }
     });
     confirmDialogRef.afterClosed().subscribe(result => {
-      if (result) { 
-        this.principalService.update(parameterId, value);
+      if (result) {
+        this.loading = true;
+        debugger;
+        this.principalService.update(parameterId, value).then(() => {
+          this.notification.showSucess("Parâmetro alterado com sucesso!");
+        }).catch(error => {
+          this.loading = false;
+          this.errorHandler.handle(error, confirmDialogRef);
+        });
       }
+      this.loading = false;
     });
   }
 
