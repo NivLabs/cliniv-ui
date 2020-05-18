@@ -49,14 +49,23 @@ export class UserEditComponent implements OnInit {
           { id: 4, name: 'ROLE_PACIENTE_LEITURA', description: 'Permissão de leitura em paciente', checked: false },
           { id: 5, name: 'ROLE_PACIENTE_ESCRITA', description: 'Permissão de escrita em paciente', checked: false },
 
-          { id: 7, name: 'ROLE_PROFISSIONAL_LEITURA', description: 'Permissão de leitura em profissional', checked: false },
-          { id: 8, name: 'ROLE_PROFISSIONAL_ESCRITA', description: 'Permissão de escrita em profissional', checked: false },
+          { id: 6, name: 'ROLE_PROFISSIONAL_LEITURA', description: 'Permissão de leitura em profissional', checked: false },
+          { id: 7, name: 'ROLE_PROFISSIONAL_ESCRITA', description: 'Permissão de escrita em profissional', checked: false },
 
-          { id: 9, name: 'ROLE_EVENTO_LEITURA', description: 'Permissão de leitura em evento', checked: false },
-          { id: 10, name: 'ROLE_EVENTO_ESCRITA', description: 'Permissão de escrita em evento', checked: false },
+          { id: 8, name: 'ROLE_EVENTO_LEITURA', description: 'Permissão de leitura em evento', checked: false },
+          { id: 9, name: 'ROLE_EVENTO_ESCRITA', description: 'Permissão de escrita em evento', checked: false },
 
-          { id: 11, name: 'ROLE_SETOR_LEITURA', description: 'Permissão de leitura em setor', checked: false },
-          { id: 12, name: 'ROLE_SETOR_ESCRITA', description: 'Permissão de escrita em setor', checked: false }
+          { id: 10, name: 'ROLE_SETOR_LEITURA', description: 'Permissão de leitura em setor', checked: false },
+          { id: 11, name: 'ROLE_SETOR_ESCRITA', description: 'Permissão de escrita em setor', checked: false },
+
+          { id: 12, name: 'ROLE_DOCUMENTO_LEITURA', description: 'Permissão de leitura em documentos digitais', checked: false },
+          { id: 13, name: 'ROLE_DOCUMENTO_ESCRITA', description: 'Permissão de escrita em documentos digitais', checked: false },
+
+          { id: 14, name: 'ROLE_INSTITUTO_LEITURA', description: 'Permissão de leitura em informações intitucionais', checked: false },
+          { id: 15, name: 'ROLE_INSTINTUTO_ESCRITA', description: 'Permissão de escrita em informações intitucionais', checked: false },
+
+          { id: 16, name: 'ROLE_PARAMETRO_LEITURA', description: 'Permissão de leitura em parâmetros da aplicação', checked: false },
+          { id: 17, name: 'ROLE_PARAMETRO_ESCRITA', description: 'Permissão de escrita em parâmetros da aplicação', checked: false }
 
         ];
       }
@@ -221,14 +230,23 @@ export class UserEditComponent implements OnInit {
       { id: 4, name: 'ROLE_PACIENTE_LEITURA', description: 'Permissão de leitura em paciente', checked: false },
       { id: 5, name: 'ROLE_PACIENTE_ESCRITA', description: 'Permissão de escrita em paciente', checked: false },
 
-      { id: 7, name: 'ROLE_PROFISSIONAL_LEITURA', description: 'Permissão de leitura em profissional', checked: false },
-      { id: 8, name: 'ROLE_PROFISSIONAL_ESCRITA', description: 'Permissão de escrita em profissional', checked: false },
+      { id: 6, name: 'ROLE_PROFISSIONAL_LEITURA', description: 'Permissão de leitura em profissional', checked: false },
+      { id: 7, name: 'ROLE_PROFISSIONAL_ESCRITA', description: 'Permissão de escrita em profissional', checked: false },
 
-      { id: 9, name: 'ROLE_EVENTO_LEITURA', description: 'Permissão de leitura em evento', checked: false },
-      { id: 10, name: 'ROLE_EVENTO_ESCRITA', description: 'Permissão de escrita em evento', checked: false },
+      { id: 8, name: 'ROLE_EVENTO_LEITURA', description: 'Permissão de leitura em evento', checked: false },
+      { id: 9, name: 'ROLE_EVENTO_ESCRITA', description: 'Permissão de escrita em evento', checked: false },
 
-      { id: 11, name: 'ROLE_SETOR_LEITURA', description: 'Permissão de leitura em setor', checked: false },
-      { id: 12, name: 'ROLE_SETOR_ESCRITA', description: 'Permissão de escrita em setor', checked: false }
+      { id: 10, name: 'ROLE_SETOR_LEITURA', description: 'Permissão de leitura em setor', checked: false },
+      { id: 11, name: 'ROLE_SETOR_ESCRITA', description: 'Permissão de escrita em setor', checked: false },
+
+      { id: 12, name: 'ROLE_DOCUMENTO_LEITURA', description: 'Permissão de leitura em documentos digitais', checked: false },
+      { id: 13, name: 'ROLE_DOCUMENTO_ESCRITA', description: 'Permissão de escrita em documentos digitais', checked: false },
+
+      { id: 14, name: 'ROLE_INSTITUTO_LEITURA', description: 'Permissão de leitura em informações intitucionais', checked: false },
+      { id: 15, name: 'ROLE_INSTINTUTO_ESCRITA', description: 'Permissão de escrita em informações intitucionais', checked: false },
+
+      { id: 16, name: 'ROLE_PARAMETRO_LEITURA', description: 'Permissão de leitura em parâmetros da aplicação', checked: false },
+      { id: 17, name: 'ROLE_PARAMETRO_ESCRITA', description: 'Permissão de escrita em parâmetros da aplicação', checked: false }
     ];
     if (this.dataToForm && this.dataToForm.roles) {
       this.dataToForm.roles.forEach(role => {

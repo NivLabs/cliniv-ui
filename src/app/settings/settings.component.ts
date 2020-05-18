@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ErrorHandlerService } from 'app/core/error-handler.service';
 import { SeetingsInfo } from 'app/model/Settings';
 import { SettingsService } from 'app/settings/settings.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { NotificationsComponent } from 'app/core/notification/notifications.component';
 import { AddressService } from 'app/core/address.service';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-settings',
@@ -13,6 +14,9 @@ import { AddressService } from 'app/core/address.service';
 })
 
 export class SettingsComponent implements OnInit {
+
+
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   public loading: boolean;
   public settings: SeetingsInfo;
@@ -29,12 +33,15 @@ export class SettingsComponent implements OnInit {
       this.loading = false;
       this.settings = resp;
       this.dataSource = new MatTableDataSource(this.settings.parameters);
+      setTimeout(() => {
+        this.dataSource.sort = this.sort;
+      });
     }).catch(error => {
       this.loading = false;
       this.errorHandler.handle(error, null);
     });
 
-    this.displayedColumns = ['Grupo', 'Nome', 'Valor'];
+    this.displayedColumns = ['id', 'group', 'name', 'value'];
   }
 
   applyFilter(event: Event) {
