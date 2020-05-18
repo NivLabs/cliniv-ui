@@ -84,7 +84,6 @@ export class SettingsComponent implements OnInit {
     confirmDialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.loading = true;
-        debugger;
         this.principalService.update(parameterId, value).then(() => {
           this.notification.showSucess("Parâmetro alterado com sucesso!");
         }).catch(error => {
