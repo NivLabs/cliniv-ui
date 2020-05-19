@@ -35,6 +35,9 @@ export class SettingsComponent implements OnInit {
     this.principalService.getSettings().then(resp => {
       this.loading = false;
       this.settings = resp;
+      this.settings.parameters = this.settings.parameters.sort(function (a, b) {
+        return a.id < b.id ? -1 : a.id > b.id ? 1 : 0;
+      });
       this.dataSource = new MatTableDataSource(this.settings.parameters);
       setTimeout(() => {
         this.dataSource.sort = this.sort;
