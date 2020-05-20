@@ -82,8 +82,8 @@
                     <h1>Nenhum atendimento encontrado...</h1>
                 </div>
                 <div *ngFor="let attendance of datas" class="col-12 col-sm-12 col-md-4 col-lg-4">
-                    <div class="card link-card">
-                        <!-- (click)="openDialog(patient.id)"> -->
+                    <div class="card link-card"
+                        (click)="gotToVisit(attendance.patientId)">
                         <div class="card-body margin-color-active"
                             [ngClass]="{'margin-color-danger' : attendance.patientType === 'NOT_IDENTIFIED'}">
                             <ul>

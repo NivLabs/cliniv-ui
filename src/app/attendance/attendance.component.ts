@@ -4,6 +4,7 @@ import { AttendanceFilters } from '../model/Attendance';
 import { ErrorHandlerService } from 'app/core/error-handler.service';
 import { SectorService } from 'app/sector/sector.service';
 import { AttendanceService } from 'app/attendance/attendance.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-attendance',
@@ -21,7 +22,7 @@ export class AttendanceComponent implements OnInit {
   public sectorNotFound: boolean;
   sectors = [];
 
-  constructor(private principalService: AttendanceService, private errorHandler: ErrorHandlerService, private sectorService: SectorService) { }
+  constructor(private principalService: AttendanceService, private errorHandler: ErrorHandlerService, private sectorService: SectorService, private router: Router) { }
 
   ngOnInit() {
     this.loading = true;
@@ -103,6 +104,10 @@ export class AttendanceComponent implements OnInit {
         this.errorHandler.handle(error, null);
       })
     }
+  }
+
+  gotToVisit(patientId) {
+    this.router.navigate(['visit', { patientId: patientId }]);
   }
 
 }

@@ -164,49 +164,56 @@
                     <input matInput (keyup)="applyFilter($event)">
                 </mat-form-field>
 
-                <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+                <mat-table [dataSource]="dataSource" matSort>
 
-                    <ng-container matColumnDef="Grupo">
-                        <mat-header-cell *matHeaderCellDef> Grupo </mat-header-cell>
+                    <ng-container matColumnDef="id">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header> Id </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="group">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header> Grupo </mat-header-cell>
                         <mat-cell *matCellDef="let element"> {{element.group}} </mat-cell>
                     </ng-container>
 
-                    <ng-container matColumnDef="Nome">
-                        <mat-header-cell *matHeaderCellDef> Nome </mat-header-cell>
+                    <ng-container matColumnDef="name">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header> Nome </mat-header-cell>
                         <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
                     </ng-container>
 
-                    <ng-container matColumnDef="Valor">
-                        <mat-header-cell *matHeaderCellDef> Valor </mat-header-cell>
+                    <ng-container matColumnDef="value">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header> Valor </mat-header-cell>
                         <mat-cell *matCellDef="let element">
 
                             <span *ngIf="element.metaType === 'string'">
                                 <mat-form-field>
-                                    <input matInput [(ngModel)]="element.value" type="text" />
+                                    <input matInput [(ngModel)]="element.value" type="text"
+                                    (keypress)="enterKeyPress($event, element.id, element.value)" />
                                 </mat-form-field>
                             </span>
 
                             <span *ngIf="element.metaType === 'number'">
                                 <mat-form-field>
-                                    <input matInput [(ngModel)]="element.value" type="number" />
+                                    <input matInput [(ngModel)]="element.value" type="number"
+                                    (keypress)="enterKeyPress($event, element.id, element.value)" />
                                 </mat-form-field>
                             </span>
 
                             <span *ngIf="element.metaType === 'bool'">
-                                <mat-slide-toggle checked="{{element.value}}"></mat-slide-toggle>
+                                <mat-slide-toggle checked="{{element.value}}" (change)="changeToggleParameter($event, element.id)"></mat-slide-toggle>
                             </span>
 
                             <span *ngIf="element.metaType === 'password'">
                                 <mat-form-field>
-                                    <input matInput [(ngModel)]="element.value" type="password" />
+                                    <input matInput [(ngModel)]="element.value" type="password"
+                                    (keypress)="enterKeyPress($event, element.id, element.value)" />
                                 </mat-form-field>
                             </span>
 
                             <span *ngIf="element.metaType === 'group'">
                                 <mat-form-field>
-                                    <mat-select [value]="element.value">
-                                        <mat-option *ngFor="let option of element.groupValues" [value]="option">
-                                            {{option}}</mat-option>
+                                    <mat-select [value]="element.value" (change)="changeSelectParameter(element.id, element.value)">
+                                        <mat-option *ngFor="let option of element.groupValues" [value]="option">{{option}}</mat-option>
                                     </mat-select>
                                 </mat-form-field>
                             </span>
