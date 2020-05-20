@@ -1,11 +1,25 @@
-.logoff-layout {
-    bottom: 0px;
-    position: fixed;
-    width: 260px;
+@media all and (max-height: 719px) {
+
+    .logoff-layout {
+        bottom: 0;
+        width: 260px;
+    }
+
 }
+
+@media all and (min-height: 720px) {
+
+    .logoff-layout {
+        bottom: 0;
+        position: fixed;
+        width: 260px;
+    }
+
+}
+
 .logoff-layout .btn {
     border-radius: 0px;
-    margin-right: 0x;
+    margin-right: 0px;
     margin-left: 0px;
 }
 
