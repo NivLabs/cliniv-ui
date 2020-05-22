@@ -1,0 +1,126 @@
+.procedure-name {
+    color: #00BCD4;
+    font-weight: 400;
+    font-size: 14px;
+}
+
+.name-not-identified {
+    color: #F44336 !important;
+    font-weight: 400;
+    font-size: 14px;
+}
+
+.procedure-info {
+    color: rgb(20, 59, 65);
+    font-weight: 400;
+}
+
+.card-header-default {
+    background: linear-gradient(60deg, #696d69, #4d524d);
+}
+
+.margin-color-active {
+    border-left: 10px solid #00BCD4;
+    height: 180px;
+}
+
+.margin-color-danger {
+    border-left: 10px solid #F44336 !important;
+    height: 180px;
+}
+
+.link-card {
+    cursor: pointer;
+    height: 180px;
+}
+
+.link-card:hover {
+    bottom: 3px;
+    cursor: pointer;
+}
+
+.center {
+    text-align: center;
+    width: 100%;
+}
+
+li {
+    list-style-type: none;
+    text-transform: uppercase;
+    font-size: 12px;
+}
+
+ul {
+    padding: 0;
+}.patient-name {
+    color: #00BCD4;
+    font-weight: 400;
+    font-size: 14px;
+}
+
+.name-not-identified {
+    color: #F44336 !important;
+    font-weight: 400;
+    font-size: 14px;
+}
+
+.patient-info {
+    color: rgb(20, 59, 65);
+    font-weight: 400;
+}
+
+.card-header-default {
+    background: linear-gradient(60deg, #696d69, #4d524d);
+}
+
+.margin-color-active {
+    border-left: 10px solid #00BCD4;
+    height: 180px;
+}
+
+.margin-color-danger {
+    border-left: 10px solid #F44336 !important;
+    height: 180px;
+}
+
+.link-card {
+    cursor: pointer;
+    height: 180px;
+}
+
+.link-card:hover {
+    bottom: 3px;
+    cursor: pointer;
+}
+
+.center {
+    text-align: center;
+    width: 100%;
+}
+
+li {
+    list-style-type: none;
+    text-transform: uppercase;
+    font-size: 12px;
+}
+
+ul {
+    padding: 0;
+}
+
+
+:host /deep/ .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
+    background-color: rgb(0, 188, 212, .54);
+  }
+  
+  :host /deep/ .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
+    background-color: rgb(0, 188, 212);
+  }
+  
+  :host /deep/ .mat-slide-toggle:not(.mat-checked):not(.mat-disabled) .mat-slide-toggle-bar {
+    background-color: rgb(244, 67, 54, .54);
+  }
+  
+  :host /deep/ .mat-slide-toggle:not(.mat-checked):not(.mat-disabled) .mat-slide-toggle-thumb {
+    background-color: rgb(244, 67, 54);
+  }
