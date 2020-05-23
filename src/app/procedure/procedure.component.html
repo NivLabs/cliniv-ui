@@ -5,6 +5,7 @@
                 <div class="card">
                     <div class="card-header card-header-info">
                         <h4 class="card-title">Filtros</h4>
+                        <p class="card-category">Clique no procedimento para habilitar ou desabilitar</p>
                     </div>
                     <div class="card-body">
                         <form #form="ngForm" autocomplete="off">
@@ -49,8 +50,8 @@
                 <div class="center" *ngIf="!loading && dataNotFound">
                     <h1>Nenhum procedimento encontrado...</h1>
                 </div>
-                <div *ngFor="let procedure of datas" class="col-12 col-sm-12 col-md-4 col-lg-4">
-                    <div class="card link-card">
+                <div *ngFor="let procedure of datas" class="col-12 col-sm-12 col-md-6 col-lg-4">
+                    <div class="card link-card" (click)="openDialog(procedure)">
                         <div id="card_body_{{procedure.id}}" class="card-body margin-color-active"
                             [ngClass]="{'margin-color-danger' : procedure.active === false}">
                             <ul>
@@ -63,9 +64,9 @@
                                     {{procedure.id}}
                                 </li>
 
-                                <li><span class="fa fa-check-square procedure-info"> Situação: </span>
-                                    <mat-slide-toggle checked="{{procedure.active}}"
-                                        (change)="changeToggle($event, procedure.id)"></mat-slide-toggle>
+                                <li><span id="span_{{procedure.id}}" class="fa procedure-info"
+                                    [ngClass]="procedure.active === true ? 'fa-check-square' : 'fa-window-close'"> Situação: </span>
+                                   {{procedure.active === true ? 'Ativo' : 'Inativo'}}
                                 </li>
                             </ul>
                         </div>

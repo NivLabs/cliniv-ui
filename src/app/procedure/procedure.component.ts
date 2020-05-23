@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ErrorHandlerService } from 'app/core/error-handler.service';
 import { Page, Pageable } from 'app/model/Util';
-import { ProcedureFilters } from '../model/Procedure';
+import { ProcedureFilters, ProcedureInfo } from '../model/Procedure';
 import { ProcedureService } from 'app/procedure/procedure.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from 'app/core/confirm-dialog/confirm-dialog.component';
@@ -62,6 +62,7 @@ export class ProcedureComponent implements OnInit {
       this.principalService.getPage(this.filters, this.pageSettings).then(response => {
         this.loading = false;
         this.datas = response.content;
+        this.page = response;
         this.dataNotFound = this.datas.length === 0;
       }).catch(error => {
         this.dataNotFound = this.datas ? this.datas.length === 0 : true;
@@ -88,35 +89,42 @@ export class ProcedureComponent implements OnInit {
     }
   }
 
-  changeToggle(event: any, procedureId: number) {
+  openDialog(procedure: ProcedureInfo) {
 
-    this.updateProcedure(procedureId, event);
+    this.updateProcedure(procedure);
 
   }
 
-  updateProcedure(procedureId: number, event: any) {
+  updateProcedure(procedure: ProcedureInfo) {
     const confirmDialogRef = this.confirmDialog.open(ConfirmDialogComponent, {
-      data: { title: 'Confirmação', message: event.checked ? 'Tem certeza que deseja ativar esse procedimento?' : 'Tem certeza que deseja inativar esse procedimento?' }
+      data: { title: 'Confirmação', message: procedure.active ? 'Tem certeza que deseja inativar esse procedimento?' : 'Tem certeza que deseja ativar esse procedimento?' }
     });
     confirmDialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.loading = true;
-        this.principalService.update(procedureId).then(() => {
+        this.principalService.update(procedure.id).then(() => {
           
           this.loading = false;
 
-          this.notification.showSucess(event.checked ? "Procedimento ativado com sucesso!" : "Procedimento inativado com sucesso!");
+          this.notification.showSucess(procedure.active ? "Procedimento inativado com sucesso!" : "Procedimento ativado com sucesso!");
 
-          var cardBody = document.getElementById('card_body_' + procedureId);
-          var liName = document.getElementById('li_name_' + procedureId);
+          var cardBody = document.getElementById('card_body_' + procedure.id);
+          var liName = document.getElementById('li_name_' + procedure.id);
+          var span = document.getElementById('span_' + procedure.id);
 
-          if (event.checked) {
-            cardBody.classList.remove('margin-color-danger');
-            liName.classList.remove('name-not-identified');
-          }
-          else {
+          if (procedure.active) {
             cardBody.classList.add('margin-color-danger');
             liName.classList.add('name-not-identified');
+            span.classList.remove('fa-check-square');
+            span.classList.add('fa-window-close');     
+            procedure.active = false;
+          }
+          else {
+            cardBody.classList.remove('margin-color-danger');
+            liName.classList.remove('name-not-identified');
+            span.classList.remove('fa-window-close');
+            span.classList.add('fa-check-square');
+            procedure.active = true;
           }
 
           if(this.filters.activeType != undefined){
@@ -127,16 +135,6 @@ export class ProcedureComponent implements OnInit {
           this.loading = false;
           this.errorHandler.handle(error, confirmDialogRef);
         });
-      }
-      else{
-        
-        if(event.source.checked == true){
-          event.source.checked = false;
-        }
-        else{
-          event.source.checked = true;
-        }
-
       }
     });
   }
