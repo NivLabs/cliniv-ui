@@ -67,6 +67,7 @@ export class UserComponent implements OnInit {
       this.principalService.getPage(this.filters, this.pageSettings).then(response => {
         this.loading = false;
         this.datas = response.content;
+        this.page = response;
         this.dataNotFound = this.datas.length === 0;
         console.log(this.dataNotFound);
       }).catch(error => {
