@@ -1,0 +1,79 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-info">
+                        <h4 class="card-title">Filtros</h4>
+                        <p class="card-category">Clique no procedimento para habilitar ou desabilitar</p>
+                    </div>
+                    <div class="card-body">
+                        <form #form="ngForm" autocomplete="off">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <mat-form-field>
+                                        <input matInput type="number" placeholder="Código do procedimento" name="id"
+                                            [(ngModel)]="filters.id" #id (keypress)="enterKeyPress($event)" />
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-4">
+                                    <mat-form-field>
+                                        <mat-label>Situação</mat-label>
+                                        <mat-select matNativeControl name="activeType"
+                                            (selectionChange)="selectProcedureType($event.value)"
+                                            [(ngModel)]="filters.activeType" #activeType>
+                                            <mat-option>Ambos</mat-option>
+                                            <mat-option value="ACTIVE">Ativo</mat-option>
+                                            <mat-option value="NOT_ACTIVE">Inativo</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-4">
+                                    <mat-form-field>
+                                        <input matInput placeholder="Descrição" name="description"
+                                            [(ngModel)]="filters.description" #description type="text" 
+                                            (keypress)="enterKeyPress($event)" />
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <button mat-raised-button type="button" (click)="applyFilter()"
+                                class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-danger pull-right">Filtrar</button>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="search-results" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50"
+            (scrolled)="loadNextPage()">
+            <div class="row">
+                <div class="center" *ngIf="!loading && dataNotFound">
+                    <h1>Nenhum procedimento encontrado...</h1>
+                </div>
+                <div *ngFor="let procedure of datas" class="col-12 col-sm-12 col-md-6 col-lg-4">
+                    <div class="card link-card" (click)="openDialog(procedure)">
+                        <div id="card_body_{{procedure.id}}" class="card-body margin-color-active"
+                            [ngClass]="{'margin-color-danger' : procedure.active === false}">
+                            <ul>
+                                <li id="li_name_{{procedure.id}}" class="procedure-name"
+                                    [ngClass]="{'name-not-identified' : procedure.active === false}">
+                                    {{procedure.description}}
+                                </li>
+
+                                <li><span class="fa fa-sort-numeric-asc procedure-info"> Código: </span>
+                                    {{procedure.id}}
+                                </li>
+
+                                <li><span id="span_{{procedure.id}}" class="fa procedure-info"
+                                    [ngClass]="procedure.active === true ? 'fa-check-square' : 'fa-window-close'"> Situação: </span>
+                                   {{procedure.active === true ? 'Ativo' : 'Inativo'}}
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<ngx-loading [show]="loading"></ngx-loading>

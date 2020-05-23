@@ -57,16 +57,16 @@ export class SettingsComponent implements OnInit {
 
   enterKeyPress(event: any, parameterId: number, value: any) {
     if (event.key === "Enter") {
-      this.updateParameter(parameterId, value);
+      this.updateParameter(parameterId, value, null);
     }
   }
 
   changeToggleParameter(event: any, parameterId: number) {
-    this.updateParameter(parameterId, event.checked);
+    this.updateParameter(parameterId, event.checked, event.source);
   }
 
   changeSelectParameter(parameterId: number, value: any) {
-    this.updateParameter(parameterId, value);
+    this.updateParameter(parameterId, value, null);
   }
 
   searchAddressByCEP() {
@@ -80,7 +80,7 @@ export class SettingsComponent implements OnInit {
     });
   }
 
-  updateParameter(parameterId: number, value: any) {
+  updateParameter(parameterId: number, value: any, element: any) {
     const confirmDialogRef = this.confirmDialog.open(ConfirmDialogComponent, {
       data: { title: 'Confirmação', message: 'Tem certeza que deseja alterar o valor desse parâmetro?' }
     });
@@ -88,13 +88,23 @@ export class SettingsComponent implements OnInit {
       if (result) {
         this.loading = true;
         this.principalService.update(parameterId, value).then(() => {
+          this.loading = false;
           this.notification.showSucess("Parâmetro alterado com sucesso!");
         }).catch(error => {
           this.loading = false;
           this.errorHandler.handle(error, confirmDialogRef);
         });
       }
-      this.loading = false;
+      else{
+
+        if(element.checked == true){
+          element.checked = false;
+        }
+        else{
+          element.checked = true;
+        }
+
+      }
     });
   }
 

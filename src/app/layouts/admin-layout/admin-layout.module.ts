@@ -72,6 +72,8 @@ import { AdminLayoutRoutes } from './admin-layout.routing';
 import { AttendanceService } from '../../attendance/attendance.service';
 import { SettingsComponent } from 'app/settings/settings.component';
 import { SettingsService } from '../../settings/settings.service';
+import { ProcedureComponent } from '../../procedure/procedure.component';
+import { ProcedureService } from '../../procedure/procedure.service';
 //#endregion
 
 const matModules = [
@@ -168,7 +170,9 @@ const maskConfig: Partial<IConfig> = {
     
     AttendanceComponent,
 
-    SettingsComponent
+    SettingsComponent,
+
+    ProcedureComponent
   ],
   entryComponents: [
     PatientEditComponent,
@@ -188,7 +192,8 @@ const maskConfig: Partial<IConfig> = {
     SectorService,
     MedicalRecordService,
     AttendanceService,
-    SettingsService
+    SettingsService,
+    ProcedureService
   ]
 })
 
