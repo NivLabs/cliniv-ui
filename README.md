@@ -1,32 +1,30 @@
 <h1 align="center">
   <a href="https://gestao-prontuario-ui.herokuapp.com">
-    <img alt="FTGP Logo" src="./readme/logo.png" width="350px" />
+    <img alt="NLGP Logo" src="./readme/logo.png" width="350px" />
   </a>
 </h1>
 <h2 align="center">
   FT - Gestão de Prontuário - UI
 </h2>
 
-O FT - Gestão de Prontuário - UI (FTGP-UI) é uma UI RestClient OpenSource criada inicialmente como doação para hospitais que não possuem nenhuma solução de automação no processo de prontuário. O FTGP-UI é integrado com uma API baseado em Java, o [FTGP-API](https://github.com/viniciosarodrigues/gestao-de-prontuario).
+O FT - Gestão de Prontuário - UI (NLGP-UI) é uma UI RestClient criada inicialmente como doação para hospitais que não possuem nenhuma solução de automação no processo de prontuário. O NLGP-UI é integrado com uma API baseado em Java, o [NLGP-API](https://github.com/niv-labs/gestao-de-prontuario).
 
 <p align="center">
-    <a href="https://github.com/viniciosarodrigues/">
+    <a href="https://github.com/niv-labs/">
         <img alt="Made by Vinícios Rodrigues" src="https://img.shields.io/badge/made%20by-Vin%C3%ADcios%20Rodrigues-brightgreen" />
     </a>
-    <img alt="Last Commit" src="https://img.shields.io/github/last-commit/viniciosarodrigues/gestao-de-prontuario-ui" />
-    <img alt="Contributors" src="https://img.shields.io/github/contributors/viniciosarodrigues/gestao-de-prontuario-ui" />
     <img alt="License" src="https://img.shields.io/badge/license-MIT-%2304D361" />
 </p>
 
-Atualmente encontra-se na versão 1.0.0 em desenvolvimento - [FTGP-UI](https://gestao-prontuario-ui.herokuapp.com/)
+Atualmente encontra-se na versão 1.0.0 em desenvolvimento - [NLGP-UI](https://gestao-prontuario-ui.herokuapp.com/)
 
 ---
 
 <p align="center">
-  <img alt="FTGP Logo" src="./readme/Tela 7.jpeg" height="400px" width="200px" />
-  <img alt="FTGP Logo" src="./readme/Tela 3.jpeg" height="400px" width="200px" />
-  <img alt="FTGP Logo" src="./readme/Tela 4.jpeg" height="400px" width="200px" />
-  <img alt="FTGP Logo" src="./readme/Tela 2.jpeg" height="400px" width="200px" />
+  <img alt="Tela 1" src="./readme/Tela 7.jpeg" height="400px" width="200px" />
+  <img alt="Tela 2" src="./readme/Tela 3.jpeg" height="400px" width="200px" />
+  <img alt="Tela 3" src="./readme/Tela 4.jpeg" height="400px" width="200px" />
+  <img alt="Tela 4" src="./readme/Tela 2.jpeg" height="400px" width="200px" />
 </p>
 
 ---
@@ -55,7 +53,7 @@ Para contribuir com o projeto, existem alguns requisítos mínimos de configura�
 
 ### Passo 1
 
-- 👯 Clone este repositório na sua máquina local usando `https://github.com/viniciosarodrigues/gestao-de-prontuario-ui.git`
+- 👯 Clone este repositório na sua máquina local usando `https://github.com/niv-labs/gestao-de-prontuario-ui.git`
 
 ### Passo 2
 
@@ -76,7 +74,7 @@ Para contribuir com o projeto, existem alguns requisítos mínimos de configura�
 
 ### Passo 2
 
-- 👯 Clone este repositório na sua máquina local usando `https://github.com/viniciosarodrigues/gestao-de-prontuario-ui.git`
+- 👯 Clone este repositório na sua máquina local usando `https://github.com/niv-labs/gestao-de-prontuario-ui.git`
 
 ### Passo 3
 
@@ -102,9 +100,8 @@ Depois que seu Pull Request é aceito e o merge é realizado, você pode deletar
 
 > Você pode me encontrar por aqui...
 
-- Linkedin :: [Vinícios Rodrigues](https://www.linkedin.com/in/viniciosrodrigues/)
-- Instagram :: [@viniarodrigues](https://www.instagram.com/viniarodrigues/)
-- Hangouts/Gmail :: [viniciosarodrigues@gmail.com](viniciosarodrigues@gmail.com)
+- NiV Labs :: [NiV Labs](http://www.nivlabs.com.br)
+- Atendimento :: [atendimento@nivlabs.com.br](atendimento@nivlabs.com.br)
 
 ---
 
