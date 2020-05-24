@@ -4,10 +4,10 @@
   </a>
 </h1>
 <h2 align="center">
-  FT - Gestão de Prontuário - UI
+  NiV Labs - Gestão de Prontuário - UI
 </h2>
 
-O FT - Gestão de Prontuário - UI (NLGP-UI) é uma UI RestClient criada inicialmente como doação para hospitais que não possuem nenhuma solução de automação no processo de prontuário. O NLGP-UI é integrado com uma API baseado em Java, o [NLGP-API](https://github.com/niv-labs/gestao-de-prontuario).
+O NiV Labs - Gestão de Prontuário - UI (NLGP-UI) é uma UI RestClient criada inicialmente como doação para hospitais que não possuem nenhuma solução de automação no processo de prontuário. O NLGP-UI é integrado com uma API baseado em Java, o [NLGP-API](https://github.com/niv-labs/gestao-de-prontuario).
 
 <p align="center">
     <a href="https://github.com/niv-labs/">
