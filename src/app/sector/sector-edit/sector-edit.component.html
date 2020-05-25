@@ -8,19 +8,19 @@
             <div class="row">
                 <div class="col-md-3">
                     <mat-form-field>
-                        <input matInput placeholder="Código do Setor" name="id" [(ngModel)]="sector.id" #id disabled />
+                        <input matInput placeholder="Código do Setor" name="id" [(ngModel)]="dataToForm.id" #id disabled />
                     </mat-form-field>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
                     <mat-form-field>
-                        <input matInput placeholder="Descrição" name="description" [(ngModel)]="sector.description"
+                        <input matInput placeholder="Descrição" name="description" [(ngModel)]="dataToForm.description"
                             #description />
                     </mat-form-field>
                 </div>
             </div>
-            <button *ngIf="sector.id" mat-raised-button type="button" (click)="resetForm()"
+            <button *ngIf="dataToForm.id" mat-raised-button type="button" (click)="resetForm()"
                 class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-info pull-left">Novo setor</button>
             <button mat-raised-button type="submit" [disabled]="!form.valid"
                 class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-success pull-right">Salvar</button>

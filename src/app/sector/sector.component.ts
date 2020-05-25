@@ -81,12 +81,11 @@ export class SectorComponent implements OnInit {
     }
   }
 
-  openDialog(sector): void {
-    console.log(sector)
+  openDialog(id): void {
     const dialogRef = this.dialog.open(SectorEditComponent, {
       width: '100%',
       height: 'auto',
-      data: sector
+      data: {selectedSector: id}
     });
 
     dialogRef.afterClosed().subscribe(result => {

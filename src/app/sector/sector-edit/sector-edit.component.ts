@@ -15,16 +15,32 @@ import { ConfirmDialogComponent } from 'app/core/confirm-dialog/confirm-dialog.c
 export class SectorEditComponent implements OnInit {
 
   public loading = false;
-  public sector: Sector;
+  public dataToForm: Sector;
 
-  constructor(public sectorService: SectorService, public confirmDialog: MatDialog, public dialog: MatDialog, public dialogRef: MatDialogRef<SectorEditComponent>, @Inject(MAT_DIALOG_DATA) public data: Sector, public formBuilder: FormBuilder, private utilService: UtilService, private patientService: SectorService, private errorHandler: ErrorHandlerService, private notification: NotificationsComponent) {
-    this.sector = new Sector(null, null, null);
+  constructor(public principalService: SectorService, public confirmDialog: MatDialog, public dialog: MatDialog, public dialogRef: MatDialogRef<SectorEditComponent>, @Inject(MAT_DIALOG_DATA) public data: Sector, public formBuilder: FormBuilder, private utilService: UtilService, private patientService: SectorService, private errorHandler: ErrorHandlerService, private notification: NotificationsComponent) {
+    this.dialogRef.disableClose = true;
+    this.dataToForm = new Sector();
   }
 
   ngOnInit(): void {
-    if (this.dialogRef.componentInstance.data) {
-      this.sector = this.dialogRef.componentInstance.data;
+
+    if (this.dialogRef.componentInstance.data['selectedSector'] !== null) {
+      this.loading = true;
+      var selectedSectorId = this.dialogRef.componentInstance.data['selectedSector'];
+      this.principalService.getById(selectedSectorId).then(resp => {
+        this.loading = false;
+        this.dataToForm = resp;        
+      }).catch(error => {
+        this.loading = false;       
+        this.dataToForm = new Sector();        
+        this.errorHandler.handle(error, this.dialogRef);
+      });
     }
+
+
+    /* if (this.dialogRef.componentInstance.data) {
+      this.sector = this.dialogRef.componentInstance.data;
+    } */
   }
 
   onCancelClick(): void {
@@ -32,17 +48,17 @@ export class SectorEditComponent implements OnInit {
   }
 
   save() {
-    if (this.sector.id) {
-      this.sectorService.update(this.sector).then(resp => {
-        this.sector = resp;
+    if (this.dataToForm.id) {
+      this.principalService.update(this.dataToForm).then(resp => {
+        this.dataToForm = resp;
         this.notification.showSucess("Setor alterado com sucesso!");
       }).catch(error => {
         this.loading = false;
         this.errorHandler.handle(error, this.dialogRef);
       });
     } else {
-      this.sectorService.create(this.sector).then(resp => {
-        this.sector = resp;
+      this.principalService.create(this.dataToForm).then(resp => {
+        this.dataToForm = resp;
         this.notification.showSucess("Setor cadastrado com sucesso!");
       }).catch(error => {
         this.loading = false;
@@ -58,7 +74,7 @@ export class SectorEditComponent implements OnInit {
 
     confirmDialogRef.afterClosed().subscribe(result => {
       if (result !== undefined && result.isConfirmed) {
-        this.sector = new Sector(null, null, null);
+        this.dataToForm = new Sector();
       }
     });
   }
