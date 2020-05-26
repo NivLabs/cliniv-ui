@@ -1,0 +1,46 @@
+<div class="card">
+    <div class="card-header card-header-info">
+        <h4 class="card-title">Dados da Acomodação</h4>
+        <p class="card-category">Dados completos da Acomodação</p>
+    </div>
+    <div class="card-body">
+        <form #form="ngForm" autocomplete="off" (ngSubmit)="save()">
+            <div class="row">
+                <div class="col-md-3">
+                    <mat-form-field>
+                        <input matInput placeholder="Código da Acomodação" name="id" [(ngModel)]="dataForm.id" #id
+                            disabled />
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <mat-form-field>
+                        <input matInput placeholder="Descrição" name="description" [(ngModel)]="dataForm.description"
+                            #description />
+                    </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                    <mat-form-field>
+                        <mat-label>Tipo Acomodação</mat-label>
+                        <mat-select matNativeControl name="type"
+                            (selectionChange)="selectType($event.value)" [(ngModel)]="dataForm.type"
+                            #type>                            
+                            <mat-option value="bed">Leito</mat-option>
+                            <mat-option value="room">Sala (ambulatório)</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <button *ngIf="dataForm.id" mat-raised-button type="button" (click)="resetForm()"
+                class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-info pull-left">Nova Acomodação</button>
+            <button mat-raised-button type="submit" [disabled]="!form.valid"
+                class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-success pull-right">Salvar</button>
+            <button mat-raised-button type="button" (click)="onCancelClick()"
+                class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-danger pull-right">Fechar</button>
+
+            <div class="clearfix"></div>
+        </form>
+    </div>
+</div>
+<ngx-loading [show]="loading"></ngx-loading>

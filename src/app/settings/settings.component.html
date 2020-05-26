@@ -21,55 +21,52 @@
                         </div>
                         <div class="col-md-3">
                             <mat-form-field>
-                                <input matInput placeholder="CNPJ" name="cnpj" [(ngModel)]="settings.customerInfo.cnpj"
-                                    #cnpj="ngModel" mask="00.000.000/0000-00" />
+                                <input matInput placeholder="CNPJ" name="cnpj"  mask="00.000.000/0000-00" [value]="settings?.customerInfo?.cnpj" #cnpj />
                             </mat-form-field>
                         </div>
                         <div class="col-md-3">
                             <mat-form-field>
-                                <input matInput placeholder="CNES" name="cnes" [(ngModel)]="settings.customerInfo.cnes"
-                                    #cnes="ngModel" />
+                                <input matInput placeholder="CNES" name="cnes" [value]="settings?.customerInfo?.cnes" #cnes />
                             </mat-form-field>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-4">
                             <mat-form-field>
-                                <input matInput placeholder="Nome" name="name" [(ngModel)]="settings.customerInfo.name"
-                                    #name="ngModel" type="text" />
+                                <input matInput placeholder="Nome" name="name" [value]="settings?.customerInfo?.name" type="text" #name />
                             </mat-form-field>
                         </div>
                         <div class="col-md-4">
                             <mat-form-field>
-                                <input matInput placeholder="Nome corporativo" name="corporativeName"
-                                    [(ngModel)]="settings.customerInfo.corporativeName" #corporativeName="ngModel" />
+                                <input matInput placeholder="Nome corporativo" name="corporativeName" #corporativeName
+                                    [value]="settings?.customerInfo?.corporativeName" />
                             </mat-form-field>
                         </div>
                         <div class="col-md-4">
                             <mat-form-field>
-                                <input matInput placeholder="Natureza Legal" name="legalNature"
-                                    [(ngModel)]="settings.customerInfo.legalNature" #legalNature="ngModel" />
+                                <input matInput placeholder="Natureza Legal" name="legalNature" #legalNature
+                                    [value]="settings?.customerInfo?.legalNature"  />
                             </mat-form-field>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-4">
                             <mat-form-field>
-                                <input matInput placeholder="Chave" name="key"
-                                    [(ngModel)]="settings.customerInfo.license.key" #key="ngModel" disabled />
+                                <input matInput placeholder="Chave" name="key" #key
+                                    [value]="settings?.customerInfo?.license?.key" disabled />
                             </mat-form-field>
                         </div>
                         <div class="col-md-4">
                             <mat-form-field>
-                                <input matInput placeholder="Data de Início" name="startDate" type="date"
-                                    [(ngModel)]="settings.customerInfo.license.startDate" #startDate="ngModel"
+                                <input matInput placeholder="Data de Início" name="startDate" type="date" #startDate
+                                    [value]="settings?.customerInfo?.license?.startDate"
                                     disabled />
                             </mat-form-field>
                         </div>
                         <div class="col-md-4">
                             <mat-form-field>
-                                <input matInput placeholder="Data de Término" name="endDate" type="date"
-                                    [(ngModel)]="settings.customerInfo.license.endDate" #endDate="ngModel" disabled />
+                                <input matInput placeholder="Data de Término" name="endDate" type="date" #endDate
+                                    [value]="settings?.customerInfo?.license?.endDate" disabled />
                             </mat-form-field>
                         </div>
                     </div>
@@ -77,27 +74,27 @@
                         <div class="col-md-4">
                             <mat-form-field>
                                 <input matInput placeholder="Código Postal (CEP)" name="cep"
-                                    (blur)="searchAddressByCEP()" [(ngModel)]="settings.customerInfo.address.postalCode"
+                                    (blur)="searchAddressByCEP()" [value]="settings?.customerInfo?.address?.postalCode"
                                     size="10" maxlength="10" #cep type="text" mask="00.000-000" />
                             </mat-form-field>
                         </div>
                         <div class="col-md-4">
                             <mat-form-field>
                                 <input matInput placeholder="Rua" name="street"
-                                    [(ngModel)]="settings.customerInfo.address.street" #street type="text" />
+                                    [value]="settings?.customerInfo?.address?.street" #street type="text" />
                             </mat-form-field>
                         </div>
                         <div class="col-md-2">
                             <mat-form-field>
                                 <input matInput placeholder="Número" name="addressNumber"
-                                    [(ngModel)]="settings.customerInfo.address.addressNumber" #addressNumber
+                                    [value]="settings?.customerInfo?.address?.addressNumber" #addressNumber
                                     type="text" />
                             </mat-form-field>
                         </div>
                         <div class="col-md-2">
                             <mat-form-field>
                                 <input matInput placeholder="Complemento" name="complement"
-                                    [(ngModel)]="settings.customerInfo.address.complement" #complement type="text" />
+                                    [value]="settings?.customerInfo?.address?.complement" #complement type="text" />
                             </mat-form-field>
                         </div>
                     </div>
@@ -105,20 +102,20 @@
                         <div class="col-md-4">
                             <mat-form-field>
                                 <input matInput placeholder="Bairro" name="neighborhood"
-                                    [(ngModel)]="settings.customerInfo.address.neighborhood" #neighborhood
+                                    [value]="settings?.customerInfo?.address?.neighborhood" #neighborhood
                                     type="text" />
                             </mat-form-field>
                         </div>
                         <div class="col-md-4">
                             <mat-form-field>
                                 <input matInput placeholder="Cidade" name="city"
-                                    [(ngModel)]="settings.customerInfo.address.city" #city type="text" />
+                                    [value]="settings?.customerInfo?.address?.city" #city type="text" />
                             </mat-form-field>
                         </div>
                         <div class="col-md-4">
                             <mat-form-field>
                                 <select matNativeControl placeholder="Estado" name="state"
-                                    [(ngModel)]="settings.customerInfo.address.state" #state>
+                                    [value]="settings?.customerInfo?.address?.state" #state>
                                     <option value="AC">Acre</option>
                                     <option value="AL">Alagoas</option>
                                     <option value="AP">Amapá</option>

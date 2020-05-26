@@ -74,6 +74,7 @@ import { SettingsComponent } from 'app/settings/settings.component';
 import { SettingsService } from '../../settings/settings.service';
 import { ProcedureComponent } from '../../procedure/procedure.component';
 import { ProcedureService } from '../../procedure/procedure.service';
+import { AccommodationComponent } from '../../sector/accommodation/accommodation.component';
 //#endregion
 
 const matModules = [
@@ -172,7 +173,9 @@ const maskConfig: Partial<IConfig> = {
 
     SettingsComponent,
 
-    ProcedureComponent
+    ProcedureComponent,
+
+    AccommodationComponent
   ],
   entryComponents: [
     PatientEditComponent,

@@ -3,6 +3,7 @@ import { environment } from "environments/environment";
 import { AppHttp } from "app/security/app-http";
 import { Sector, SectorFilters } from 'app/model/Sector';
 import { Page, Pageable } from 'app/model/Util';
+import { Accommodation } from 'app/model/Accommodation';
 
 @Injectable()
 export class SectorService {
@@ -64,4 +65,29 @@ export class SectorService {
             return this.http.post<Sector>(this.baseUrl, sector, { headers }).toPromise();
         }
     }
+
+    createAccommodation(accommodation): Promise<Accommodation> {
+        var headers = this.http.getHeadersDefault();
+
+        if (accommodation) {
+            return this.http.post<Accommodation>(`${this.baseUrl}/room-or-bed`, accommodation, { headers }).toPromise();
+        }
+    }
+
+    updateAccommodation(accommodation): Promise<Accommodation> {
+        var headers = this.http.getHeadersDefault();
+
+        if (accommodation) {
+            return this.http.put<Accommodation>(`${this.baseUrl}/room-or-bed/${accommodation.id}`, accommodation, { headers }).toPromise();
+        }
+    }
+
+    deleteAccommodation(accommodationId): Promise<void> {
+        var headers = this.http.getHeadersDefault();
+
+        if (accommodationId) {
+            return this.http.delete<void>(`${this.baseUrl}/room-or-bed/${accommodationId}`, { headers }).toPromise();
+        }
+    }
+
 }
