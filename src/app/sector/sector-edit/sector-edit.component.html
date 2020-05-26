@@ -8,20 +8,24 @@
             <div class="row">
                 <div class="col-md-3">
                     <mat-form-field>
-                        <input matInput placeholder="Código do Setor" name="id" [(ngModel)]="sector.id" #id disabled />
+                        <input matInput placeholder="Código do Setor" name="id" [(ngModel)]="dataToForm.id" #id
+                            disabled />
                     </mat-form-field>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
                     <mat-form-field>
-                        <input matInput placeholder="Descrição" name="description" [(ngModel)]="sector.description"
+                        <input matInput placeholder="Descrição" name="description" [(ngModel)]="dataToForm.description"
                             #description />
                     </mat-form-field>
                 </div>
             </div>
-            <button *ngIf="sector.id" mat-raised-button type="button" (click)="resetForm()"
-                class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-info pull-left">Novo setor</button>
+            <button *ngIf="dataToForm.id" mat-raised-button type="button" (click)="resetForm()"
+                class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-info pull-left">Novo Setor</button>
+            <button *ngIf="dataToForm.id" mat-raised-button type="button"
+                (click)="openAccoommodationDialog(dataToForm.id)"
+                class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-warning pull-left">Nova Acomodação</button>
             <button mat-raised-button type="submit" [disabled]="!form.valid"
                 class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-success pull-right">Salvar</button>
             <button mat-raised-button type="button" (click)="onCancelClick()"
@@ -29,6 +33,39 @@
 
             <div class="clearfix"></div>
         </form>
+    </div>
+    <div class="card-body">
+
+        <mat-table [dataSource]="dataSource" matSort>
+
+            <ng-container matColumnDef="type">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Tipo </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.type == 'room' ? 'Sala (ambulatório)' : 'Leito'}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="description">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Descrição </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.description}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="actions">
+                <mat-header-cell *matHeaderCellDef style="justify-content: center;"> Ações </mat-header-cell>
+                <mat-cell *matCellDef="let element" style="justify-content: center;">
+                    <button mat-raised-button type="button" class="btn-info"
+                        (click)="openEditAccoommodationDialog(element)" style="margin-right: 10px;">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                    <button mat-raised-button type="button" class="btn-danger" 
+                        (click)="openDeleteAccoommodationDialog(element.id)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+        </mat-table>
     </div>
 </div>
 <ngx-loading [show]="loading"></ngx-loading>

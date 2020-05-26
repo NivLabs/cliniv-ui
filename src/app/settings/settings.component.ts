@@ -17,7 +17,6 @@ import { MatSort } from '@angular/material/sort';
 
 export class SettingsComponent implements OnInit {
 
-
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   public loading: boolean;
@@ -70,14 +69,19 @@ export class SettingsComponent implements OnInit {
   }
 
   searchAddressByCEP() {
-    this.loading = true;
-    this.addressService.getAddressByCep(this.settings.customerInfo.address.postalCode).then(address => {
-      this.loading = false;
-      this.settings.customerInfo.address = address;
-    }).catch(error => {
-      this.loading = false;
-      this.notification.showWarning("Não foi possível realizar a busca do CEP, verifique se o mesmo está correto.")
-    });
+
+    if (this.settings?.customerInfo?.address?.postalCode != undefined) {
+
+      this.loading = true;
+      this.addressService.getAddressByCep(this.settings?.customerInfo?.address?.postalCode).then(address => {
+        this.loading = false;
+        this.settings.customerInfo.address = address;
+      }).catch(error => {
+        this.loading = false;
+        this.notification.showWarning("Não foi possível realizar a busca do CEP, verifique se o mesmo está correto.")
+      });
+    }
+    
   }
 
   updateParameter(parameterId: number, value: any, element: any) {
@@ -95,12 +99,12 @@ export class SettingsComponent implements OnInit {
           this.errorHandler.handle(error, confirmDialogRef);
         });
       }
-      else{
+      else {
 
-        if(element.checked == true){
+        if (element.checked == true) {
           element.checked = false;
         }
-        else{
+        else {
           element.checked = true;
         }
 

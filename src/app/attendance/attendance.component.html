@@ -34,16 +34,28 @@
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-2">
+
                                     <mat-form-field>
-                                        <mat-label>Setor</mat-label>
-                                        <mat-select matNativeControl name="sector"
-                                            (selectionChange)="selectSector($event.value)"
-                                            [(ngModel)]="filters.sectorId" #sector>
-                                            <mat-option>Todos</mat-option>
-                                            <mat-option *ngFor="let sector of sectors" [value]="sector.id">
-                                                {{sector.description}}</mat-option>
-                                        </mat-select>
+
+                                        <input type="text" placeholder="Setor" matInput [matAutocomplete]="auto" #sector>
+
+                                        <mat-autocomplete #auto="matAutocomplete" infiniteScroll
+                                            [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50"
+                                            (opened)="registerPanelScrollEvent()">                                            
+
+                                            <mat-option *ngFor="let sector of sectors" [value]="sector.description"
+                                                (click)="selectSector(sector.id)">
+                                                {{sector.description}}
+                                            </mat-option>
+
+                                            <mat-option *ngIf="loadingAutocomplete">
+                                                <mat-spinner diameter="35" style="margin:0 auto;"></mat-spinner>
+                                            </mat-option>
+
+                                        </mat-autocomplete>
+
                                     </mat-form-field>
+                                    
                                 </div>
                                 <div class="col-md-2">
                                     <mat-form-field>
@@ -82,8 +94,7 @@
                     <h1>Nenhum atendimento encontrado...</h1>
                 </div>
                 <div *ngFor="let attendance of datas" class="col-12 col-sm-12 col-md-4 col-lg-4">
-                    <div class="card link-card"
-                        (click)="gotToVisit(attendance.patientId)">
+                    <div class="card link-card" (click)="goToVisit(attendance.patientId)">
                         <div class="card-body margin-color-active"
                             [ngClass]="{'margin-color-danger' : attendance.patientType === 'NOT_IDENTIFIED'}">
                             <ul>
@@ -95,7 +106,8 @@
                                 <li><span class="fa fa-user patient-info"> Matrícula: </span> {{attendance.patientId}}
                                 </li>
 
-                                <li><span class="fa fa-address-card patient-info"> Atendimento: </span> {{attendance.id}}
+                                <li><span class="fa fa-address-card patient-info"> Atendimento: </span>
+                                    {{attendance.id}}
                                 </li>
 
                                 <li *ngIf="attendance.cpf"><span class="fa fa-id-card patient-info">
@@ -107,7 +119,8 @@
                                 <li><span class="fa fa-plus-square patient-info"> Tipo:
                                     </span> {{attendance.type === 'EMERGENCY' ? 'Emergência' : 'Ambulatório'}}</li>
 
-                                <li><span class="fa fa-map-marker patient-info"> Setor: </span> {{attendance.sectorDescription}}
+                                <li><span class="fa fa-map-marker patient-info"> Setor: </span>
+                                    {{attendance.sectorDescription}}
                                 </li>
 
                             </ul>
