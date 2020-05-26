@@ -53,7 +53,7 @@ export class SectorEditComponent implements OnInit {
         this.errorHandler.handle(error, this.dialogRef);
       });
 
-      this.displayedColumns = ['description', 'actions'];
+      this.displayedColumns = ['type', 'description', 'actions'];
     }
 
   }
@@ -93,11 +93,6 @@ export class SectorEditComponent implements OnInit {
         this.dataToForm.listOfRoomsOrBeds = new Array<Accommodation>();
       }
     });
-  }
-
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
   openAccoommodationDialog(sectorId): void {    

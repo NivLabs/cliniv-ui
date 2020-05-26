@@ -35,12 +35,13 @@
         </form>
     </div>
     <div class="card-body">
-        <mat-form-field>
-            <mat-label>Filtro</mat-label>
-            <input matInput (keyup)="applyFilter($event)">
-        </mat-form-field>
 
         <mat-table [dataSource]="dataSource" matSort>
+
+            <ng-container matColumnDef="type">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Tipo </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.type == 'room' ? 'Sala (ambulatório)' : 'Leito'}} </mat-cell>
+            </ng-container>
 
             <ng-container matColumnDef="description">
                 <mat-header-cell *matHeaderCellDef mat-sort-header> Descrição </mat-header-cell>
@@ -48,13 +49,14 @@
             </ng-container>
 
             <ng-container matColumnDef="actions">
-                <mat-header-cell *matHeaderCellDef> Ações </mat-header-cell>
-                <mat-cell *matCellDef="let element">
+                <mat-header-cell *matHeaderCellDef style="justify-content: center;"> Ações </mat-header-cell>
+                <mat-cell *matCellDef="let element" style="justify-content: center;">
                     <button mat-raised-button type="button" class="btn-info"
                         (click)="openEditAccoommodationDialog(element)" style="margin-right: 10px;">
                         <mat-icon>edit</mat-icon>
                     </button>
-                    <button mat-raised-button type="button" class="btn-danger" (click)="openDeleteAccoommodationDialog(element.id)">
+                    <button mat-raised-button type="button" class="btn-danger" 
+                        (click)="openDeleteAccoommodationDialog(element.id)">
                         <mat-icon>delete</mat-icon>
                     </button>
                 </mat-cell>

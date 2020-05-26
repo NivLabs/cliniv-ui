@@ -46,7 +46,9 @@ li {
 
 ul {
     padding: 0;
-}.patient-name {
+}
+
+.patient-name {
     color: #00BCD4;
     font-weight: 400;
     font-size: 14px;
@@ -77,27 +79,3 @@ ul {
     height: 180px;
 }
 
-.link-card {
-    cursor: pointer;
-    height: 180px;
-}
-
-.link-card:hover {
-    bottom: 3px;
-    cursor: pointer;
-}
-
-.center {
-    text-align: center;
-    width: 100%;
-}
-
-li {
-    list-style-type: none;
-    text-transform: uppercase;
-    font-size: 12px;
-}
-
-ul {
-    padding: 0;
-}
