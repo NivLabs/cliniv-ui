@@ -7,7 +7,7 @@ import { Person } from "./Person";
  * Classe que representa um profissional da instituição
  */
 export class Professional extends Person {
-    professionalIdentity?: ProfessionalIdentity = new ProfessionalIdentity('CRM');
+    professionalIdentity?: ProfessionalIdentity = new ProfessionalIdentity();
     specializations: any;
 }
 
