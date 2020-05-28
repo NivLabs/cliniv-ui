@@ -88,7 +88,7 @@
                                     {{patient.susNumber}}</li>
                                 <li *ngIf="patient.bornDate"><span class="fa fa-calendar patient-info">
                                         Nascimento:</span>
-                                    {{patient.bornDate}}</li>
+                                    {{patient.bornDate | date: 'dd/MM/yyyy'}}</li>
                                 <li *ngIf="patient.gender"><span class="fa fa-venus-mars patient-info"> Gênero:</span>
                                     {{ patient.gender === 'M' ? 'Masculino' : 'Feminino'}}
                                 </li>

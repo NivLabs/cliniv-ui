@@ -32,13 +32,21 @@
                     </mat-form-field>
                 </div>
             </div>
-            <button *ngIf="dataForm.id" mat-raised-button type="button" (click)="resetForm()"
-                class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-info pull-left">Nova Acomodação</button>
-            <button mat-raised-button type="submit" [disabled]="!form.valid"
-                class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-success pull-right">Salvar</button>
-            <button mat-raised-button type="button" (click)="onCancelClick()"
-                class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-danger pull-right">Fechar</button>
-
+            <div class="row">
+                <div style="overflow:hidden; width: 100%;">
+                    <div *ngIf="dataForm.id" class="col-12 col-sm-12 col-md-4 col-lg-3 pull-left ml-0 mr-0">
+                        <button mat-raised-button type="button" class="btn btn-info col-12" (click)="resetForm()">Novo Acomodação</button>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-4 col-lg-3 pull-right ml-0 mr-0">
+                        <button mat-raised-button type="button" class="btn btn-danger col-12"
+                            (click)="onCancelClick()">Fechar</button>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-4 col-lg-3 pull-right ml-0 mr-0">
+                        <button mat-raised-button type="submit" class="btn btn-success col-12"
+                            [disabled]="!form.valid">Salvar</button>
+                    </div>
+                </div>
+            </div>
             <div class="clearfix"></div>
         </form>
     </div>

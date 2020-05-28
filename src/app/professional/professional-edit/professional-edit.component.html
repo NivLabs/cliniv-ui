@@ -22,13 +22,13 @@
                 <div class="col-md-4">
                     <mat-form-field>
                         <input matInput placeholder="Registro Prof." formControlName="registerValue"
-                            [(ngModel)]="dataToForm.professionalIdentity.registerValue" #registerValue />
+                            [value]="dataToForm?.professionalIdentity?.registerValue" #registerValue />
                     </mat-form-field>
                 </div>
                 <div class="col-md-2">
                     <mat-form-field>
                         <input matInput placeholder="Tipo Reg. (CRM, COREN, etc...)" formControlName="registerType"
-                            [(ngModel)]="dataToForm.professionalIdentity.registerType" #registerType />
+                            [value]="dataToForm?.professionalIdentity?.registerType" #registerType />
                     </mat-form-field>
                 </div>
             </div>
