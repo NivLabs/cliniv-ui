@@ -95,6 +95,10 @@ export class ProfessionalEditComponent implements OnInit {
         if (this.dataToForm.document) {
           this.form.controls.document.disable();
         }
+        if (!resp.professionalIdentity) {
+          this.dataToForm.professionalIdentity = new ProfessionalIdentity();
+        }
+        debugger;
         this.loadspecializationsData();
       }).catch(error => {
         this.loading = false;
@@ -192,7 +196,7 @@ export class ProfessionalEditComponent implements OnInit {
           this.dataToForm.address = new Address();
         }
         if (!resp.professionalIdentity) {
-          this.dataToForm.professionalIdentity = new ProfessionalIdentity('CRM');
+          this.dataToForm.professionalIdentity = new ProfessionalIdentity();
         }
         this.form.controls.document.disable();
         this.loadspecializationsData();

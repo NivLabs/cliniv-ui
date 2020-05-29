@@ -21,26 +21,36 @@
                     </mat-form-field>
                 </div>
             </div>
-            <button *ngIf="dataToForm.id" mat-raised-button type="button" (click)="resetForm()"
-                class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-info pull-left">Novo Setor</button>
-            <button *ngIf="dataToForm.id" mat-raised-button type="button"
-                (click)="openAccoommodationDialog(dataToForm.id)"
-                class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-warning pull-left">Nova Acomodação</button>
-            <button mat-raised-button type="submit" [disabled]="!form.valid"
-                class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-success pull-right">Salvar</button>
-            <button mat-raised-button type="button" (click)="onCancelClick()"
-                class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-danger pull-right">Fechar</button>
-
+            <div class="row">
+                <div style="overflow:hidden; width: 100%;">
+                    <div *ngIf="dataToForm.id" class="col-12 col-sm-12 col-md-4 col-lg-3 pull-left ml-0 mr-0">
+                        <button mat-raised-button type="button" class="btn btn-info col-12" (click)="resetForm()">Novo Setor</button>
+                    </div>
+                    <div *ngIf="dataToForm.id" class="col-12 col-sm-12 col-md-4 col-lg-3 pull-left ml-0 mr-0">
+                        <button mat-raised-button type="button" class="btn btn-warning col-12"
+                            (click)="openAccoommodationDialog(dataToForm.id)">Nova Acomodação</button>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-4 col-lg-3 pull-right ml-0 mr-0">
+                        <button mat-raised-button type="button" class="btn btn-danger col-12"
+                            (click)="onCancelClick()">Fechar</button>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-4 col-lg-3 pull-right ml-0 mr-0">
+                        <button mat-raised-button type="submit" class="btn btn-success col-12"
+                            [disabled]="!form.valid">Salvar</button>
+                    </div>
+                </div>
+            </div>
             <div class="clearfix"></div>
         </form>
     </div>
-    <div class="card-body">
+    <div class="card-body" [hidden]="dataToForm.listOfRoomsOrBeds?.length == 0">
 
         <mat-table [dataSource]="dataSource" matSort>
 
             <ng-container matColumnDef="type">
                 <mat-header-cell *matHeaderCellDef mat-sort-header> Tipo </mat-header-cell>
-                <mat-cell *matCellDef="let element"> {{element.type == 'room' ? 'Sala (ambulatório)' : 'Leito'}} </mat-cell>
+                <mat-cell *matCellDef="let element"> {{element.type == 'room' ? 'Sala (ambulatório)' : 'Leito'}}
+                </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="description">
@@ -55,7 +65,7 @@
                         (click)="openEditAccoommodationDialog(element)" style="margin-right: 10px;">
                         <mat-icon>edit</mat-icon>
                     </button>
-                    <button mat-raised-button type="button" class="btn-danger" 
+                    <button mat-raised-button type="button" class="btn-danger"
                         (click)="openDeleteAccoommodationDialog(element.id)">
                         <mat-icon>delete</mat-icon>
                     </button>
