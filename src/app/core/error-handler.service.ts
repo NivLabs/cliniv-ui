@@ -59,13 +59,20 @@ export class ErrorHandlerService {
       }
 
       var hasShow = false;
-      if (errorResponse.status === 400 && (errorResponse.error && errorResponse.error.validations)) {
-        errorResponse.error.validations.forEach(validationError => {
-          this.notification.showError(validationError.message);
-          hasShow = true;
-        });
-      } else if (errorResponse.status === 400 && (errorResponse.error && !errorResponse.error.validations)) {
+      if (errorResponse.status === 400 && (errorResponse.error && !errorResponse.error.validations)) {
         this.notification.showError(errorResponse.error.message)
+      }
+
+      if (errorResponse.status === 422) {
+        if (errorResponse.error.validations)
+          errorResponse.error.validations.forEach(validationError => {
+            this.notification.showError(validationError.message);
+            hasShow = true;
+          });
+          else{
+            this.notification.showError(errorResponse.error.message);
+            hasShow = true;
+          }
       }
 
       try {
