@@ -1,0 +1,62 @@
+<div class="card">
+    <div class="card-header card-header-info">
+        <h4 class="card-title">Preenchimento da anamnese</h4>
+        <p class="card-category">Preencha os campos solicitados...</p>
+    </div>
+    <div class="card-body">
+        <form #form="ngForm" autocomplete="off">
+            <div *ngFor="let item of datas; let i = index">
+                <div class="row">
+
+                    <div class="col-md-12" *ngIf="item.anamnesisItem.metaType === 'string'">
+                        <div class="col-md-6 pull-left">
+                            <mat-label>{{item.anamnesisItem.question}}</mat-label>
+                        </div>
+                        <div class="col-md-6 pull-right">
+                            <mat-form-field>
+                                <input matInput type="text" [(ngModel)]="item.response" name="question{{i}}" />
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12" *ngIf="item.anamnesisItem.metaType === 'number'">
+                        <div class="col-md-6 pull-left">
+                            <mat-label>{{item.anamnesisItem.question}}</mat-label>
+                        </div>
+                        <div class="col-md-6 pull-right">
+                            <mat-form-field>
+                                <input matInput type="number" [(ngModel)]="item.response" name="question{{i}}" />
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 mt-3 mb-3" *ngIf="item.anamnesisItem.metaType === 'bool'">
+                        <div class="col-md-6 pull-left">
+                            <mat-label>{{item.anamnesisItem.question}}</mat-label>
+                        </div>
+                        <div class="col-md-6 pull-right mt-4">
+                            <mat-radio-group [(ngModel)]="item.response" name="question{{i}}">
+                                <mat-radio-button [value]="'true'" class="mr-3">Sim</mat-radio-button>
+                                <mat-radio-button [value]="'false'">Não</mat-radio-button>
+                              </mat-radio-group>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row">
+                <div style="overflow:hidden; width: 100%;">
+                    <div class="col-12 col-sm-12 col-md-4 col-lg-3 pull-right ml-0 mr-0">
+                        <button mat-raised-button type="button" class="btn btn-danger col-12"
+                            (click)="onCancelClick()">Fechar</button>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-4 col-lg-3 pull-right ml-0 mr-0">
+                        <button mat-raised-button type="submit" class="btn btn-success col-12"
+                            [disabled]="formValid()" (click)="save()">Salvar</button>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </form>
+    </div>
+</div>
