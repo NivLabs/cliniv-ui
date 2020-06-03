@@ -64,15 +64,13 @@ export class ErrorHandlerService {
       }
 
       if (errorResponse.status === 422) {
-        if (errorResponse.error.validations)
+        if (errorResponse.error)
           errorResponse.error.validations.forEach(validationError => {
             this.notification.showError(validationError.message);
             hasShow = true;
           });
-          else{
-            this.notification.showError(errorResponse.error.message);
-            hasShow = true;
-          }
+        if (!hasShow)
+          this.notification.showError(errorResponse.error.message);
       }
 
       try {

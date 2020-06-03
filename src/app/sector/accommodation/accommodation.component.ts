@@ -9,7 +9,7 @@ import { ConfirmDialogComponent } from 'app/core/confirm-dialog/confirm-dialog.c
 import { Accommodation } from 'app/model/Accommodation';
 
 @Component({
-    selector: 'app-sector-edit',
+    selector: 'app-accommodation',
     templateUrl: './accommodation.component.html'
 })
 

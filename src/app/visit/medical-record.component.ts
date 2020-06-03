@@ -10,6 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MedicalRecord, NewAttendance } from 'app/model/Attendance';
 import { Document } from 'app/model/Document';
 import { DocumentViewerComponent } from 'app/component/document-viewer/document-viewer.component';
+import { AnamnesisComponent } from './anamnesis/anamnesis.component';
 
 @Component({
   selector: 'app-medical-record',
@@ -164,4 +165,18 @@ export class MedicalRecordComponent implements OnInit {
     dialogDocumentViewer.afterClosed().subscribe(result => {
     });
   }
+
+  openAnamnesisDialog(visitId) {
+    const dialogNewVisit = this.dialog.open(AnamnesisComponent, {
+      width: '100%',
+      data: { visitId: visitId }
+    });
+
+    dialogNewVisit.afterClosed().subscribe(result => {
+      if (result !== undefined) {
+        this.ngOnInit();
+      }
+    });
+  }
+
 }

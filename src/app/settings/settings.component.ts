@@ -8,6 +8,7 @@ import { AddressService } from 'app/core/address.service';
 import { ConfirmDialogComponent } from 'app/core/confirm-dialog/confirm-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
+import { Customer } from 'app/model/Customer';
 
 @Component({
   selector: 'app-settings',
@@ -34,6 +35,9 @@ export class SettingsComponent implements OnInit {
     this.principalService.getSettings().then(resp => {
       this.loading = false;
       this.settings = resp;
+      if (!resp.customerInfo) {
+        this.settings.customerInfo = new Customer();
+      }
       this.settings.parameters = this.settings.parameters.sort(function (a, b) {
         return a.id < b.id ? -1 : a.id > b.id ? 1 : 0;
       });
