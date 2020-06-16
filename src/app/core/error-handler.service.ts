@@ -69,8 +69,10 @@ export class ErrorHandlerService {
             this.notification.showError(validationError.message);
             hasShow = true;
           });
-        if (!hasShow)
+        if (!hasShow) {
           this.notification.showError(errorResponse.error.message);
+          hasShow = true;
+        }
       }
 
       try {
