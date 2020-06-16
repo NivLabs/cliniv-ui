@@ -11,32 +11,36 @@
                         <div class="float-rigth">
 
                             <button mat-raised-button class="btn btn-info"
-                                *ngIf="visit.id && visit.patientId" (click)="openAnamnesisDialog(visit.id)">Anamnese</button>
+                                matTooltip="Realizar questionário de Anamnese" *ngIf="visit.id && visit.patientId"
+                                (click)="openAnamnesisDialog(visit.id)"><span class="fa fa-question"></span>
+                                Anamnese</button>
 
-                            <button mat-raised-button class="btn btn-info"
-                                *ngIf="visit.id && visit.patientId">Medicamento</button>
+                            <button mat-raised-button class="btn btn-info" matTooltip="Adicionar prescrição"
+                                *ngIf="visit.id && visit.patientId"><span class="fa fa-file"></span> Prescrição</button>
 
-                            <button mat-raised-button class="btn btn-info"
-                                *ngIf="visit.id && visit.patientId">Prescrição</button>
+                            <button mat-raised-button class="btn btn-info" matTooltip="Adicionar evolução"
+                                *ngIf="visit.id && visit.patientId"><span class="fa fa-arrow-up"></span>
+                                Evolução</button>
 
-                            <button mat-raised-button class="btn btn-info"
-                                *ngIf="visit.id && visit.patientId">Evolução</button>
-
-                            <button mat-raised-button class="btn btn-warning"
+                            <button mat-raised-button class="btn btn-warning" matTooltip="Listar histórico do paciente"
                                 *ngIf="visit.id && visit.patientId && (visit.susNumber || (visit.document && visit.document.value))"
-                                (click)="searchPatientHistory()">Histórico</button>
+                                (click)="searchPatientHistory()"><span class="fa fa-history"></span> Histórico</button>
 
-                            <button mat-raised-button class="btn btn-warning"
+                            <button mat-raised-button class="btn btn-warning" matTooltip="Identificar Paciente"
                                 *ngIf="visit.id && visit.patientId && ((!visit.susNumber && !visit.document) || (!visit.susNumber && visit.document && !visit.document.value))"
                                 (click)="identifyPatient()">Identificar paciente</button>
 
-                            <button mat-raised-button (click)="ngOnInit()" class="btn btn-danger"
-                                *ngIf="visit.id && visit.patientId">Nova
-                                Consulta</button>
+                            <button mat-raised-button class="btn btn-primary" matTooltip="Adicionar evento"
+                                *ngIf="visit.id && visit.patientId"><span class="fa fa-plus-square"></span>
+                                Evento</button>
 
-                            <button mat-raised-button class="btn btn-success"
-                                *ngIf="visit.id && visit.patientId">Realizar
+                            <button mat-raised-button class="btn btn-success" matTooltip="Realizar alta"
+                                *ngIf="visit.id && visit.patientId"><span class="fa fa-circle"></span>
                                 Alta</button>
+
+                            <button mat-raised-button (click)="ngOnInit()" matTooltip="Limpar pesquisa"
+                                class="btn btn-danger" *ngIf="visit.id && visit.patientId"><span
+                                    class="fa fa-close"></span> Limpar</button>
 
                         </div>
                         <hr />
@@ -96,7 +100,8 @@
                                         <input [disabled]="true" matInput
                                             placeholder="Telefone principal (Apenas números)" name="principalNumber"
                                             [ngClass]="{'patient-not-identified' : visit.id && visit.patientId && ((!visit.susNumber && !visit.document) || (!visit.susNumber && visit.document && !visit.document.value))}"
-                                            [(ngModel)]="visit.principalNumber" #principalNumber type="text" mask="(00) 0000-00000" />
+                                            [(ngModel)]="visit.principalNumber" #principalNumber type="text"
+                                            mask="(00) 0000-00000" />
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-4">
@@ -155,7 +160,9 @@
                                         <td>{{visitEvent.id}}</td>
                                         <td>{{visitEvent.datetime | date: 'dd/MM/yyyy - HH:mm'}}</td>
                                         <td>{{visitEvent.description}}</td>
-                                        <td *ngIf="visitEvent.documentId"><a [routerLink]="" (click)="openDocumentViewerDialog(visitEvent.documentId)">Visualizar</a></td>
+                                        <td *ngIf="visitEvent.documentId"><a [routerLink]=""
+                                                (click)="openDocumentViewerDialog(visitEvent.documentId)">Visualizar</a>
+                                        </td>
                                         <td *ngIf="!visitEvent.documentId">Não existe</td>
                                     </tr>
                                     <tr *ngIf="visit.events.length === 0">
