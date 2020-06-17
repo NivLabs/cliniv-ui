@@ -203,15 +203,18 @@
             <div class="row">
                 <div style="overflow:hidden; width: 100%;">
                     <div *ngIf="dataToForm.id" class="col-12 col-sm-12 col-md-4 col-lg-3 pull-left ml-0 mr-0">
-                        <button mat-raised-button type="button" class="btn btn-info col-12" (click)="resetForm()">Novo Profissional</button>
-                    </div>                                      
-                    <div class="col-12 col-sm-12 col-md-4 col-lg-3 pull-right ml-0 mr-0">
-                        <button mat-raised-button type="button" class="btn btn-danger col-12"
-                            (click)="onCancelClick()">Fechar</button>
+                        <button mat-raised-button type="button" class="btn btn-info col-12" (click)="resetForm()"
+                            matTooltip="Limpar formulário para novo profissional"><span class="fa fa-eraser"></span>
+                            Novo Profissional</button>
                     </div>
                     <div class="col-12 col-sm-12 col-md-4 col-lg-3 pull-right ml-0 mr-0">
-                        <button mat-raised-button type="submit" class="btn btn-success col-12"
-                            [disabled]="!form.valid">Salvar</button>
+                        <button mat-raised-button type="button" class="btn btn-danger col-12" (click)="onCancelClick()"
+                            matTooltip="Fechar formulário"><span class="fa fa-close"></span> Fechar</button>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-4 col-lg-3 pull-right ml-0 mr-0">
+                        <button mat-raised-button type="submit" class="btn btn-success col-12" [disabled]="!form.valid"
+                            matTooltip="Salvar informações do formulário"><span class="fa fa-check"></span>
+                            Salvar</button>
                     </div>
                 </div>
             </div>
