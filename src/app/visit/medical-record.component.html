@@ -35,7 +35,7 @@
                                 Evento</button>
 
                             <button mat-raised-button class="btn btn-success" matTooltip="Realizar alta"
-                                *ngIf="visit.id && visit.patientId"><span class="fa fa-circle"></span>
+                                *ngIf="visit.id && visit.patientId"><span class="fa fa-check"></span>
                                 Alta</button>
 
                             <button mat-raised-button (click)="ngOnInit()" matTooltip="Limpar pesquisa"
@@ -64,7 +64,7 @@
                                 </div>
                                 <div class="col-md-3">
                                     <mat-form-field>
-                                        <input matInput type="text" placeholder="Código SUS" name="susNumber"
+                                        <input matInput type="text" placeholder="CNS (Número)" name="susNumber"
                                             [ngClass]="{'patient-not-identified' : visit.id && visit.patientId && ((!visit.susNumber && !visit.document) || (!visit.susNumber && visit.document && !visit.document.value))}"
                                             [(ngModel)]="visit.susNumber" #susNumber="ngModel" disabled />
                                     </mat-form-field>

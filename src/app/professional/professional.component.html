@@ -39,9 +39,11 @@
                                 </div>
                             </div>
                             <button mat-raised-button type="button" (click)="applyFilter()"
-                                class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-danger pull-right">Filtrar</button>
+                                class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-danger pull-right"
+                                matTooltip="Aplicar Filtro"><span class="fa fa-search"></span> Filtrar</button>
                             <button mat-raised-button type="button" (click)="openDialog(null)"
-                                class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-info pull-right">Novo
+                                class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-info pull-right"
+                                matTooltip="Adicionar um novo profissional"><span class="fa fa-plus"></span> Novo
                                 Profissional</button>
                             <div class="clearfix"></div>
                         </form>
@@ -66,10 +68,12 @@
                                     {{responsible.bornDate | date: 'dd/MM/yyyy'}}</li>
                                 <li><span class="fa fa-venus-mars responsible-info"> Gênero:</span>
                                     {{ responsible.gender === 'M' ? 'Masculino' : 'Feminino'}}</li>
-                                <li><span class="fa fa-id-card responsible-info"> CPF:</span> {{responsible.cpf | mask: '000.000.000-00'}}
+                                <li><span class="fa fa-id-card responsible-info"> CPF:</span>
+                                    {{responsible.cpf | mask: '000.000.000-00'}}
                                 </li>
                                 <li><span class="fa fa-phone responsible-info"> Tel:</span>
-                                    {{responsible.principalNumber ? (responsible.principalNumber | mask: responsible.principalNumber.length <= 10 ? '(00) 0000-00009' : '(00) 00000-0000') : ('Não informado')}}</li>
+                                    {{responsible.principalNumber ? (responsible.principalNumber | mask: responsible.principalNumber.length <= 10 ? '(00) 0000-00009' : '(00) 00000-0000') : ('Não informado')}}
+                                </li>
                             </ul>
                         </div>
                     </div>

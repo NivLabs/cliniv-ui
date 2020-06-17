@@ -9,6 +9,7 @@
         <h4 class="card-title">Dados do paciente</h4>
         <p class="card-category">Dados completos do paciente
             {{dataToForm.id ? 'criado em ' + (dataToForm.createdAt | date: 'dd/MM/yyyy') : ''}}</p>
+
     </div>
     <div class="card-body">
         <form #form="ngForm" autocomplete="off" (ngSubmit)="save()">
@@ -21,7 +22,7 @@
                 </div>
                 <div class="col-md-3">
                     <mat-form-field>
-                        <input matInput placeholder="Código SUS" name="susNumber"
+                        <input matInput placeholder="CNS (Número)" name="susNumber"
                             (keypress)="enterKeyPress($event, 'searchSUS')" [(ngModel)]="dataToForm.susNumber"
                             #susNumber="ngModel" />
                     </mat-form-field>
@@ -189,19 +190,25 @@
             <div class="row">
                 <div style="overflow:hidden; width: 100%;">
                     <div *ngIf="dataToForm.id" class="col-12 col-sm-12 col-md-4 col-lg-3 pull-left ml-0 mr-0">
-                        <button mat-raised-button type="button" class="btn btn-info col-12" (click)="resetForm()">Novo Paciente</button>
+                        <button mat-raised-button type="button" class="btn btn-info col-12" (click)="resetForm()"
+                            matTooltip="Limpar formulário para novo paciente"><span class="fa fa-eraser"></span> Novo
+                            Paciente</button>
                     </div>
                     <div *ngIf="dataToForm.id" class="col-12 col-sm-12 col-md-4 col-lg-3 pull-left ml-0 mr-0">
                         <button mat-raised-button type="button" class="btn btn-warning col-12"
-                            (click)="gotToVisit(dataToForm.id)">Ir para Atendimentos</button>
-                    </div>                    
+                            (click)="gotToVisit(dataToForm.id)"
+                            matTooltip="Redireciona para a tela de atendimento (prontuário)"><span
+                                class="fa fa-location-arrow"></span> Ir para
+                            Atendimentos</button>
+                    </div>
                     <div class="col-12 col-sm-12 col-md-4 col-lg-3 pull-right ml-0 mr-0">
-                        <button mat-raised-button type="button" class="btn btn-danger col-12"
-                            (click)="onCancelClick()">Fechar</button>
+                        <button mat-raised-button type="button" class="btn btn-danger col-12" (click)="onCancelClick()"
+                            matTooltip="Fecha formulário"><span class="fa fa-close"></span> Fechar</button>
                     </div>
                     <div class="col-12 col-sm-12 col-md-4 col-lg-3 pull-right ml-0 mr-0">
                         <button mat-raised-button type="submit" class="btn btn-success col-12"
-                            [disabled]="!form.valid || !cpfIsValid()">Salvar</button>
+                            [disabled]="!form.valid || !cpfIsValid()" matTooltip="Salva informações do formulário"><span
+                                class="fa fa-check"></span> Salvar</button>
                     </div>
                 </div>
             </div>

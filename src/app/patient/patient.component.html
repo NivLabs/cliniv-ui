@@ -13,8 +13,8 @@
                                     <mat-form-field>
                                         <mat-label>Tipo Paciente</mat-label>
                                         <mat-select matNativeControl name="type"
-                                        (selectionChange)="selectPatientType($event.value)" [(ngModel)]="filters.type"
-                                        #type>
+                                            (selectionChange)="selectPatientType($event.value)"
+                                            [(ngModel)]="filters.type" #type>
                                             <mat-option>Ambos</mat-option>
                                             <mat-option value="IDENTIFIED">Identificado</mat-option>
                                             <mat-option value="NOT_IDENTIFIED">Não identificado</mat-option>
@@ -30,7 +30,7 @@
                                 </div>
                                 <div class="col-md-2">
                                     <mat-form-field>
-                                        <input matInput placeholder="Cartão SUS" name="susNumber"
+                                        <input matInput placeholder="CNS (Número)" name="susNumber"
                                             [(ngModel)]="filters.susNumber" #susNumber type="text"
                                             (keypress)="enterKeyPress($event)" />
                                     </mat-form-field>
@@ -53,14 +53,17 @@
                                     <mat-form-field>
                                         <input matInput placeholder="CPF do paciente" name="cpf"
                                             [(ngModel)]="filters.cpf" #cpf type="text"
-                                            (keypress)="enterKeyPress($event)" mask="000.000.000-00"/>
+                                            (keypress)="enterKeyPress($event)" mask="000.000.000-00" />
                                     </mat-form-field>
                                 </div>
                             </div>
-                            <button mat-raised-button type="button" (click)="applyFilter()"
-                                class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-danger pull-right">Filtrar</button>
+                            <button mat-raised-button type="button" (click)="applyFilter()" matTooltip="Aplicar Filtro"
+                                class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-danger pull-right"><span
+                                    class="fa fa-search"></span> Filtrar</button>
                             <button mat-raised-button type="button" (click)="openDialog(null)"
-                                class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-info pull-right">Novo
+                                matTooltip="Adicionar novo paciente"
+                                class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-info pull-right"><span
+                                    class="fa fa-plus"></span> Novo
                                 Paciente</button>
                             <div class="clearfix"></div>
                         </form>
@@ -95,7 +98,7 @@
                                 <li *ngIf="patient.cpf"><span class="fa fa-id-card patient-info"> CPF:</span>
                                     {{patient.cpf | mask:'000.000.000-00'}}</li>
                                 <li>
-                                    <span class="fa fa-phone patient-info"> Tel:</span>                                    
+                                    <span class="fa fa-phone patient-info"> Tel:</span>
                                     {{patient.principalNumber ? (patient.principalNumber | mask: patient.principalNumber.length <= 10 ? '(00) 0000-00009' : '(00) 00000-0000') : ('Não informado')}}
                                 </li>
                             </ul>
