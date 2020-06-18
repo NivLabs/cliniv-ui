@@ -121,13 +121,15 @@
             </div>
 
             <button *ngIf="dataToForm.id" mat-raised-button type="button" (click)="resetForm()"
-                class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-info pull-left">Novo usuário</button>
+                class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-info pull-left" matTooltip="Adiciona usuário"> <span
+                class="fa fa-plus"></span> Novo usuário</button>
             <button *ngIf="dataToForm.id" mat-raised-button type="button" (click)="resetPassword()"
-                class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-warning pull-left">Resetar senha</button>
-            <button mat-raised-button type="submit" [disabled]="!form.valid"
-                class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-success pull-right">Salvar</button>
+                class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-warning pull-left" matTooltip="Altera a senha atual"><span
+                class="fa fa-lock"></span> Resetar senha</button>
+            <button mat-raised-button type="submit" [disabled]="!form.valid" matTooltip="Salvar informações do formulário"
+                class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-success pull-right"><span class="fa fa-check"></span> Salvar</button>
             <button mat-raised-button type="button" (click)="onCancelClick()"
-                class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-danger pull-right">Fechar</button>
+                class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-danger pull-right" matTooltip="Fecha formulário"><span class="fa fa-close"></span> Fechar</button>
             <div class="clearfix"></div>
         </form>
     </div>
