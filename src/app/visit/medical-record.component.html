@@ -11,26 +11,26 @@
                         <div class="float-rigth">
 
                             <button mat-raised-button class="btn btn-info"
-                                matTooltip="Realizar questionário de Anamnese" *ngIf="visit.id && visit.patientId"
+                                matTooltip="Realiza questionário de Anamnese" *ngIf="visit.id && visit.patientId"
                                 (click)="openAnamnesisDialog(visit.id)"><span class="fa fa-question"></span>
                                 Anamnese</button>
 
-                            <button mat-raised-button class="btn btn-info" matTooltip="Adicionar prescrição"
+                            <button mat-raised-button class="btn btn-info" matTooltip="Adiciona prescrição"
                                 *ngIf="visit.id && visit.patientId"><span class="fa fa-file"></span> Prescrição</button>
 
-                            <button mat-raised-button class="btn btn-info" matTooltip="Adicionar evolução"
+                            <button mat-raised-button class="btn btn-info" matTooltip="Adiciona evolução"
                                 *ngIf="visit.id && visit.patientId"><span class="fa fa-arrow-up"></span>
                                 Evolução</button>
 
-                            <button mat-raised-button class="btn btn-warning" matTooltip="Listar histórico do paciente"
+                            <button mat-raised-button class="btn btn-warning" matTooltip="Lista histórico do paciente"
                                 *ngIf="visit.id && visit.patientId && (visit.susNumber || (visit.document && visit.document.value))"
                                 (click)="searchPatientHistory()"><span class="fa fa-history"></span> Histórico</button>
 
-                            <button mat-raised-button class="btn btn-warning" matTooltip="Identificar Paciente"
+                            <button mat-raised-button class="btn btn-warning" matTooltip="Identifica Paciente"
                                 *ngIf="visit.id && visit.patientId && ((!visit.susNumber && !visit.document) || (!visit.susNumber && visit.document && !visit.document.value))"
                                 (click)="identifyPatient()">Identificar paciente</button>
 
-                            <button mat-raised-button class="btn btn-primary" matTooltip="Adicionar evento"
+                            <button mat-raised-button class="btn btn-primary" matTooltip="Adiciona evento"
                                 *ngIf="visit.id && visit.patientId"><span class="fa fa-plus-square"></span>
                                 Evento</button>
 
@@ -130,7 +130,10 @@
             <div class="col-md-4">
                 <div class="card">
                     <div class="card-header card-header-warning">
-                        <h4 class="card-title">Alergias</h4>
+                        <h4 class="card-title">Alergias
+                            <span class="pull-right fa fa-plus" matTooltip="Adiciona alergia" style="cursor: pointer;" 
+                            *ngIf="visit.id && visit.patientId" (click)="openAllergyDialog(visit.patientId)"></span>
+                        </h4>
                     </div>
                     <div class="card-body">
                         <ul>

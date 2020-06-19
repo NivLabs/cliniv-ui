@@ -4,7 +4,6 @@ import { ErrorHandlerService } from 'app/core/error-handler.service';
 import { MedicalRecordService } from '../medical-record.service';
 import { FormBuilder } from '@angular/forms';
 import { MatDialogRef, MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ConfirmDialogComponent } from 'app/core/confirm-dialog/confirm-dialog.component';
 import { AnamnesisItem } from 'app/model/AnamnesisItem';
 import { Page, Pageable } from 'app/model/Util';
 import { Response } from 'app/model/Response';
