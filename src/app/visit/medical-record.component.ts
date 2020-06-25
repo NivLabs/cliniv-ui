@@ -181,15 +181,13 @@ export class MedicalRecordComponent implements OnInit {
   }
 
   openAllergyDialog(patientId) {
-    const dialogNewVisit = this.dialog.open(AllergyComponent, {
+    const dialogAllergy = this.dialog.open(AllergyComponent, {
       width: '100%',
-      data: { patientId: patientId }
+      data: { patientId: patientId, allergies: this.visit.allergies }
     });
 
-    dialogNewVisit.afterClosed().subscribe(result => {
-      if (result !== undefined) {
-        this.ngOnInit();
-      }
+    dialogAllergy.afterClosed().subscribe(result => {      
+        this.searchActivedVisitByPatientId();      
     });
   }
 

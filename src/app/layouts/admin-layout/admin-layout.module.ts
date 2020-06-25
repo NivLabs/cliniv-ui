@@ -40,8 +40,7 @@ import { NgxLoadingModule } from 'ngx-loading';
 import { WebcamModule } from 'ngx-webcam';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; 
-import { TagInputModule } from 'ngx-chips';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 //#endregion
 //#region Componentes da aplicação
 import { ConfirmDialogComponent } from '../../core/confirm-dialog/confirm-dialog.component';
@@ -134,8 +133,7 @@ const maskConfig: Partial<IConfig> = {
     WebcamModule,
     NgxMaskModule.forRoot(maskConfig),
     PdfViewerModule,
-    BrowserAnimationsModule,
-    TagInputModule
+    BrowserAnimationsModule
   ],
   exports: [
     CommonModule,

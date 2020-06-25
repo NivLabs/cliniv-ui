@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { AppHttp } from '../security/app-http';
 import { PatientHistory, MedicalRecord, NewAttendance } from 'app/model/Attendance';
-import { AnamnesisItem } from 'app/model/AnamnesisItem';
 import { Page, Pageable } from 'app/model/Util';
 import { ResponseAnamnesis } from 'app/model/ResponseAnamnesis';
+import { Allergy, AllergyFilters } from 'app/model/Allergy';
 
 @Injectable()
 export class MedicalRecordService {
@@ -61,4 +61,36 @@ export class MedicalRecordService {
             return this.http.post<ResponseAnamnesis>(`${this.resourceUrl}/anamnesis`, responseAnamnesis, { headers }).toPromise();
         }
     }
+
+    getPageAllergies(filter: AllergyFilters, pageSettings: Pageable): Promise<Page> {
+        var headers = this.http.getHeadersDefault();
+        var queryString;
+        if (filter) {
+            let params = new URLSearchParams();
+            for (let key in filter) {
+                if (filter[key]) {
+                    params.set(key, filter[key])
+                }
+            }
+            queryString = params.toString();
+        }
+        if (pageSettings) {
+            let params = new URLSearchParams();
+            for (let key in pageSettings) {
+                params.set(key, pageSettings[key])
+            }
+            queryString = queryString ? queryString + '&' + params.toString() : params.toString();
+
+        }
+        return this.http.get<Page>(`${environment.apiUrl}/allergy?${queryString}`, { headers }).toPromise();
+    }
+
+    saveAllergies(descriptions, patientId): Promise<any> {
+        var headers = this.http.getHeadersDefault();
+
+        if (descriptions) {
+            return this.http.post<Allergy>(`${environment.apiUrl}/allergy/patient/${patientId}`, descriptions, { headers }).toPromise();
+        }
+    }
+
 }

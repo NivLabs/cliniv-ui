@@ -62,6 +62,7 @@ export class AttendanceComponent implements OnInit {
 
       if (this.sectorsFilters.description) {
         this.loadingAutocomplete = true;
+        this.sectorspageSettings.page = 0;
         this.sectorService.getPage(this.sectorsFilters, this.sectorspageSettings).then(response => {
           this.loadingAutocomplete = false;
           this.sectors = response.content;
@@ -170,7 +171,7 @@ export class AttendanceComponent implements OnInit {
   }
 
   registerPanelScrollEvent() {
-    const panel = document.getElementById('mat-autocomplete-0');
+    const panel = document.querySelector('[id^="mat-autocomplete"]');
     panel.addEventListener('scroll', event => this.loadAllOnScroll(event));
   }
 

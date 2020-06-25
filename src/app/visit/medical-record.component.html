@@ -138,7 +138,7 @@
                     <div class="card-body">
                         <ul>
                             <li *ngFor="let allergy of visit.allergies">{{allergy}}</li>
-                            <li *ngIf="visit.events">Sem registros de alergias.</li>
+                            <li *ngIf="visit.allergies.length == 0">Sem registros de alergias.</li>
                         </ul>
                     </div>
                 </div>
