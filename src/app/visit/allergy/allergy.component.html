@@ -1,0 +1,52 @@
+<div class="card">
+    <div class="card-header card-header-info">
+        <h4 class="card-title">Preenchimento das alergias</h4>
+    </div>
+    <div class="card-body">
+        <form #form="ngForm" autocomplete="off">
+            <div class="row">
+                <div class="col-md-12">
+                    <mat-form-field class="chip-list">
+                        <mat-chip-list #chipList aria-label="Seleção de Alergias">
+                            <mat-chip *ngFor="let allergy of allergies.descriptions" [selectable]="selectable"
+                                [removable]="removable" (removed)="remove(allergy)">
+                                {{allergy}}
+                                <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                            </mat-chip>
+                            <input placeholder="Nova Alergia..." #allergyInput [formControl]="allergyCtrl" matInput
+                                [matAutocomplete]="auto" [matChipInputFor]="chipList"
+                                [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                (matChipInputTokenEnd)="add($event)">
+                        </mat-chip-list>
+                        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)" infiniteScroll
+                            [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50"
+                            (opened)="registerPanelScrollEvent()">
+                            <mat-option *ngFor="let filteredAllergy of autocompleteAllergies.descriptions"
+                                [value]="filteredAllergy">
+                                {{filteredAllergy}}
+                            </mat-option>
+                            <mat-option *ngIf="loadingAutocomplete">
+                                <mat-spinner diameter="35" style="margin:0 auto;"></mat-spinner>
+                            </mat-option>
+                        </mat-autocomplete>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div style="overflow:hidden; width: 100%;">
+                    <div class="col-12 col-sm-12 col-md-4 col-lg-3 pull-right ml-0 mr-0">
+                        <button mat-raised-button type="button" class="btn btn-danger col-12" (click)="onCancelClick()"
+                            matTooltip="Fecha formulário"><span class="fa fa-close"></span> Fechar</button>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-4 col-lg-3 pull-right ml-0 mr-0">
+                        <button mat-raised-button type="submit" class="btn btn-success col-12"
+                            matTooltip="Salva as alergias" [disabled]="allergies.descriptions.length == 0"
+                            (click)="save()"><span class="fa fa-check"></span> Salvar</button>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </form>
+    </div>
+</div>
+<ngx-loading [show]="loading"></ngx-loading>

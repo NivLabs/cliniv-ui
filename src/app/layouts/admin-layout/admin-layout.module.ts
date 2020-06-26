@@ -40,6 +40,7 @@ import { NgxLoadingModule } from 'ngx-loading';
 import { WebcamModule } from 'ngx-webcam';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 //#endregion
 //#region Componentes da aplicação
 import { ConfirmDialogComponent } from '../../core/confirm-dialog/confirm-dialog.component';
@@ -76,6 +77,7 @@ import { ProcedureComponent } from '../../procedure/procedure.component';
 import { ProcedureService } from '../../procedure/procedure.service';
 import { AccommodationComponent } from '../../sector/accommodation/accommodation.component';
 import { AnamnesisComponent } from '../../visit/anamnesis/anamnesis.component';
+import { AllergyComponent } from '../../visit/allergy/allergy.component';
 //#endregion
 
 const matModules = [
@@ -130,7 +132,8 @@ const maskConfig: Partial<IConfig> = {
     SecurityModule,
     WebcamModule,
     NgxMaskModule.forRoot(maskConfig),
-    PdfViewerModule
+    PdfViewerModule,
+    BrowserAnimationsModule
   ],
   exports: [
     CommonModule,
@@ -178,7 +181,9 @@ const maskConfig: Partial<IConfig> = {
 
     AccommodationComponent,
 
-    AnamnesisComponent
+    AnamnesisComponent,
+
+    AllergyComponent
   ],
   entryComponents: [
     PatientEditComponent,

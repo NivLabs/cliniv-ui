@@ -11,6 +11,7 @@ import { MedicalRecord, NewAttendance } from 'app/model/Attendance';
 import { Document } from 'app/model/Document';
 import { DocumentViewerComponent } from 'app/component/document-viewer/document-viewer.component';
 import { AnamnesisComponent } from './anamnesis/anamnesis.component';
+import { AllergyComponent } from './allergy/allergy.component';
 
 @Component({
   selector: 'app-medical-record',
@@ -176,6 +177,17 @@ export class MedicalRecordComponent implements OnInit {
       if (result !== undefined) {
         this.ngOnInit();
       }
+    });
+  }
+
+  openAllergyDialog(patientId) {
+    const dialogAllergy = this.dialog.open(AllergyComponent, {
+      width: '100%',
+      data: { patientId: patientId, allergies: this.visit.allergies }
+    });
+
+    dialogAllergy.afterClosed().subscribe(result => {      
+        this.searchActivedVisitByPatientId();      
     });
   }
 

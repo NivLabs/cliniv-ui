@@ -24,19 +24,21 @@
             <div class="row">
                 <div style="overflow:hidden; width: 100%;">
                     <div *ngIf="dataToForm.id" class="col-12 col-sm-12 col-md-4 col-lg-3 pull-left ml-0 mr-0">
-                        <button mat-raised-button type="button" class="btn btn-info col-12" (click)="resetForm()">Novo Setor</button>
+                        <button mat-raised-button type="button" class="btn btn-info col-12" (click)="resetForm()" matTooltip="Adiciona setor"><span
+                            class="fa fa-plus"></span> Novo Setor</button>
                     </div>
                     <div *ngIf="dataToForm.id" class="col-12 col-sm-12 col-md-4 col-lg-3 pull-left ml-0 mr-0">
-                        <button mat-raised-button type="button" class="btn btn-warning col-12"
-                            (click)="openAccoommodationDialog(dataToForm.id)">Nova Acomodação</button>
+                        <button mat-raised-button type="button" class="btn btn-warning col-12" matTooltip="Adiciona acomodação"
+                            (click)="openAccoommodationDialog(dataToForm.id)"><span
+                            class="fa fa-plus"></span> Nova Acomodação</button>
                     </div>
                     <div class="col-12 col-sm-12 col-md-4 col-lg-3 pull-right ml-0 mr-0">
                         <button mat-raised-button type="button" class="btn btn-danger col-12"
-                            (click)="onCancelClick()">Fechar</button>
+                            (click)="onCancelClick()" matTooltip="Fecha formulário"><span class="fa fa-close"></span> Fechar</button>
                     </div>
                     <div class="col-12 col-sm-12 col-md-4 col-lg-3 pull-right ml-0 mr-0">
-                        <button mat-raised-button type="submit" class="btn btn-success col-12"
-                            [disabled]="!form.valid" (click)="save()">Salvar</button>
+                        <button mat-raised-button type="submit" class="btn btn-success col-12" matTooltip="Salvar informações do formulário"
+                            [disabled]="!form.valid" (click)="save()"><span class="fa fa-check"></span>Salvar</button>
                     </div>
                 </div>
             </div>
