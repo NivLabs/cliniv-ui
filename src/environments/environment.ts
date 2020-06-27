@@ -5,7 +5,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: "https://gestao-prontuario.herokuapp.com", //"http://localhost:8080",
+  apiUrl: "http://localhost:8080",
   tokenWhitelistedDomains: [],
   tokenBlacklistedRoutes: []
 };
