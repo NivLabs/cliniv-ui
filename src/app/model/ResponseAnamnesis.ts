@@ -8,6 +8,7 @@ export class ResponseAnamnesis {
         this.attendanceId = 0;
         this.listOfResponse = new Array<Response>();
     }
+    roomOrBedId:number;
     attendanceId: number; 
     listOfResponse: Array<Response>;
 }

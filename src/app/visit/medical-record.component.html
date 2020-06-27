@@ -160,10 +160,10 @@
                                         <td>{{visitEvent.id}}</td>
                                         <td>{{visitEvent.datetime | date: 'dd/MM/yyyy - HH:mm'}}</td>
                                         <td>{{visitEvent.description}}</td>
-                                        <td *ngIf="visitEvent.documentId"><a [routerLink]=""
-                                                (click)="openDocumentViewerDialog(visitEvent.documentId)">Visualizar</a>
+                                        <td *ngIf="visitEvent.documents && visitEvent.documents.length > 0"><a [routerLink]=""
+                                                (click)="openDocumentViewerDialog(visitEvent.documents)">Visualizar</a>
                                         </td>
-                                        <td *ngIf="!visitEvent.documentId">Não existe</td>
+                                        <td *ngIf="visitEvent.documents.length === 0">Não existe</td>
                                     </tr>
                                     <tr *ngIf="visit.events.length === 0">
                                         <td>Sem Registro</td>

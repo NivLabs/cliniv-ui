@@ -63,8 +63,9 @@ export class AnamnesisComponent implements OnInit {
 
     save() {
         this.responseAnamnesis.listOfResponse = this.responseAnamnesis.listOfResponse.filter(x => x.response != "" && x.response != null);
-
-        this.principalService.createAnamnesis(this.responseAnamnesis).then(resp => {            
+        this.loading = true;
+        this.principalService.createAnamnesis(this.responseAnamnesis).then(resp => {
+            this.loading = false;          
             this.notification.showSucess("Anamnese inserida com sucesso!");
             this.dialogRef.close();
         }).catch(error => {
