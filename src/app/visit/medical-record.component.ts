@@ -157,14 +157,18 @@ export class MedicalRecordComponent implements OnInit {
    * 
    * @param id Identificador do documento
    */
-  openDocumentViewerDialog(id): void {
-    const dialogDocumentViewer = this.dialog.open(DocumentViewerComponent, {
-      width: '100%',
-      height: 'auto',
-      data: { selectedDigitalDocumentId: id }
-    });
-    dialogDocumentViewer.afterClosed().subscribe(result => {
-    });
+  openDocumentViewerDialog(documents): void {
+    if(documents.length === 1) {
+      const dialogDocumentViewer = this.dialog.open(DocumentViewerComponent, {
+        width: '100%',
+        height: 'auto',
+        data: { selectedDigitalDocumentId: documents[0].id }
+      });
+      dialogDocumentViewer.afterClosed().subscribe(result => {
+      });
+    } else {
+      // TODO: Implementar algo diferente quando houver mais de 1 documento
+    }
   }
 
   openAnamnesisDialog(visitId) {
