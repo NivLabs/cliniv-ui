@@ -127,7 +127,7 @@
                 </div>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <div class="card">
                     <div class="card-header card-header-warning">
                         <h4 class="card-title">Alergias
@@ -143,8 +143,38 @@
                     </div>
                 </div>
             </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header card-header-success">
+                        <h4 class="card-title">Evoluções</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class=" text-primary">
+                                    <th>COD</th>
+                                    <th>Data - Hora</th>
+                                    <th>Ação</th>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let evolution of visit.evolutions">
+                                        <td>{{evolution.id}}</td>
+                                        <td>{{evolution.datetime | date: 'dd/MM/yyyy - HH:mm'}}</td>
+                                        <td><a href="#">Visualizar</a></td>
+                                    </tr>
+                                    <tr *ngIf="visit.evolutions.length === 0">
+                                        <td>Sem Registro</td>
+                                        <td>Sem Registro</td>
+                                        <td>Sem Registro</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-            <div class="col-md-8">
+            <div class="col-md-12">
                 <div class="card">
                     <div class="card-header card-header-info">
                         <h4 class="card-title">Eventos</h4>
@@ -180,38 +210,9 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-header card-header-success">
-                        <h4 class="card-title">Evoluções</h4>
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead class=" text-primary">
-                                    <th>COD</th>
-                                    <th>Data - Hora</th>
-                                    <th>Ação</th>
-                                </thead>
-                                <tbody>
-                                    <tr *ngFor="let evolution of visit.evolutions">
-                                        <td>{{evolution.id}}</td>
-                                        <td>{{evolution.datetime | date: 'dd/MM/yyyy - HH:mm'}}</td>
-                                        <td><a href="#">Visualizar</a></td>
-                                    </tr>
-                                    <tr *ngIf="visit.evolutions.length === 0">
-                                        <td>Sem Registro</td>
-                                        <td>Sem Registro</td>
-                                        <td>Sem Registro</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            
 
-            <div class="col-md-8">
+            <div class="col-md-12">
                 <div class="card">
                     <div class="card-header card-header-info">
                         <h4 class="card-title">Medicamentos</h4>
