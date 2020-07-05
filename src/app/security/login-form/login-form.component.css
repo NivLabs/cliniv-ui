@@ -60,3 +60,9 @@
 .footer .copyright {
     padding: 15px 0;
 }
+
+.logo-img {
+    align-items: center;
+    align-content: center;
+    text-align: center;
+}
