@@ -33,14 +33,19 @@ import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
+import { AttendanceComponent } from 'app/attendance/attendance.component';
+import { CameraDialogComponent } from 'app/component/camera/dialog/camera-dialog.component';
+import { DocumentViewerComponent } from 'app/component/document-viewer/document-viewer.component';
 import { CameraComponent } from 'app/core/camera/camera.component';
+import { SettingsComponent } from 'app/settings/settings.component';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { NgxLoadingModule } from 'ngx-loading';
+import { IConfig, NgxMaskModule } from 'ngx-mask';
 import { WebcamModule } from 'ngx-webcam';
-import { NgxMaskModule, IConfig } from 'ngx-mask';
-import { PdfViewerModule } from 'ng2-pdf-viewer';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AttendanceService } from '../../attendance/attendance.service';
 //#endregion
 //#region Componentes da aplicação
 import { ConfirmDialogComponent } from '../../core/confirm-dialog/confirm-dialog.component';
@@ -49,35 +54,32 @@ import { DashboardComponent } from '../../dashboard/dashboard.component';
 import { PatientEditComponent } from '../../patient/patient-edit/patient-edit.component';
 import { PatientComponent } from '../../patient/patient.component';
 import { PatientService } from '../../patient/patient.service';
+import { ProcedureComponent } from '../../procedure/procedure.component';
+import { ProcedureService } from '../../procedure/procedure.service';
 import { ProfessionalEditComponent } from '../../professional/professional-edit/professional-edit.component';
 import { ProfessionalComponent } from '../../professional/professional.component';
 import { ProfessionalService } from '../../professional/professional.service';
+import { AccommodationComponent } from '../../sector/accommodation/accommodation.component';
 import { SectorEditComponent } from '../../sector/sector-edit/sector-edit.component';
 import { SectorComponent } from '../../sector/sector.component';
 import { SectorService } from '../../sector/sector.service';
 import { SecurityModule } from '../../security/security.module';
+import { SettingsService } from '../../settings/settings.service';
 import { ChangePasswordComponent } from '../../user-profile/change-password/change-password.component';
 import { UserProfileComponent } from '../../user-profile/user-profile.component';
 import { UserProfileService } from '../../user-profile/user-profile.service';
 import { UserEditComponent } from '../../user/user-edit/user-edit.component';
 import { UserComponent } from '../../user/user.component';
 import { UserService } from '../../user/user.service';
-import { PatientHistoryComponent } from '../../visit/history/patient-history.component';
-import { NewAttendanceComponent } from '../../visit/newVisit/new-attendance.component';
-import { MedicalRecordComponent } from '../../visit/medical-record.component';
-import { MedicalRecordService } from '../../visit/medical-record.service'; 
-import { CameraDialogComponent } from 'app/component/camera/dialog/camera-dialog.component';
-import { DocumentViewerComponent } from 'app/component/document-viewer/document-viewer.component';
-import { AttendanceComponent } from 'app/attendance/attendance.component';
-import { AdminLayoutRoutes } from './admin-layout.routing';
-import { AttendanceService } from '../../attendance/attendance.service';
-import { SettingsComponent } from 'app/settings/settings.component';
-import { SettingsService } from '../../settings/settings.service';
-import { ProcedureComponent } from '../../procedure/procedure.component';
-import { ProcedureService } from '../../procedure/procedure.service';
-import { AccommodationComponent } from '../../sector/accommodation/accommodation.component';
-import { AnamnesisComponent } from '../../visit/anamnesis/anamnesis.component';
 import { AllergyComponent } from '../../visit/allergy/allergy.component';
+import { AnamnesisComponent } from '../../visit/anamnesis/anamnesis.component';
+import { EvolutionComponent } from '../../visit/evolution/evolution.component';
+import { PatientHistoryComponent } from '../../visit/history/patient-history.component';
+import { MedicalRecordComponent } from '../../visit/medical-record.component';
+import { MedicalRecordService } from '../../visit/medical-record.service';
+import { NewAttendanceComponent } from '../../visit/newVisit/new-attendance.component';
+import { AdminLayoutRoutes } from './admin-layout.routing';
+
 //#endregion
 
 const matModules = [
@@ -172,7 +174,7 @@ const maskConfig: Partial<IConfig> = {
     CameraComponent,
     CameraDialogComponent,
     DocumentViewerComponent,
-    
+
     AttendanceComponent,
 
     SettingsComponent,
@@ -182,6 +184,8 @@ const maskConfig: Partial<IConfig> = {
     AccommodationComponent,
 
     AnamnesisComponent,
+
+    EvolutionComponent,
 
     AllergyComponent
   ],

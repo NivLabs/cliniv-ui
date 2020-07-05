@@ -93,7 +93,6 @@ export class DocumentViewerComponent implements OnInit {
    * @param {PDFProgressData} progressData
    */
   onProgress(progressData: PDFProgressData) {
-    console.log(progressData);
     this.progressData = progressData;
     this.isLoaded = false;
     this.error = null; // clear error
@@ -117,7 +116,6 @@ export class DocumentViewerComponent implements OnInit {
    * @param {CustomEvent} e
    */
   pageRendered(e: CustomEvent) {
-    console.log('(page-rendered)', e);
   }
 
   searchQueryChanged(newQuery: string) {

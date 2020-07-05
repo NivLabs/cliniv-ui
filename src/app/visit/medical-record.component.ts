@@ -12,6 +12,7 @@ import { Document } from 'app/model/Document';
 import { DocumentViewerComponent } from 'app/component/document-viewer/document-viewer.component';
 import { AnamnesisComponent } from './anamnesis/anamnesis.component';
 import { AllergyComponent } from './allergy/allergy.component';
+import { EvolutionComponent } from './evolution/evolution.component';
 
 @Component({
   selector: 'app-medical-record',
@@ -36,6 +37,7 @@ export class MedicalRecordComponent implements OnInit {
       lastName: null,
       principalNumber: null,
       susNumber: null,
+      bedOrRoom: null,
       bornDate: null,
       gender: null,
       events: [],
@@ -58,7 +60,7 @@ export class MedicalRecordComponent implements OnInit {
         .then(result => this.onFindVisitInfo(result))
         .catch(error => {
           this.loading = false;
-          if (error.error && error.error.status === 400) {
+          if (error.error && error.error.status === 422) {
             this.visitService.getPatientHistory(this.visit.patientId)
               .then(result => this.openHistoryDialog(result))
               .catch(error => {
@@ -75,6 +77,10 @@ export class MedicalRecordComponent implements OnInit {
           }
         });
     }
+  }
+
+  patientNotIdentified() {
+    return this.visit.id && this.visit.patientId && ((!this.visit.susNumber && !this.visit.document) || (!this.visit.susNumber && this.visit.document && !this.visit.document.value));
   }
 
   searchVisitById() {
@@ -158,7 +164,7 @@ export class MedicalRecordComponent implements OnInit {
    * @param id Identificador do documento
    */
   openDocumentViewerDialog(documents): void {
-    if(documents.length === 1) {
+    if (documents.length === 1) {
       const dialogDocumentViewer = this.dialog.open(DocumentViewerComponent, {
         width: '100%',
         height: 'auto',
@@ -171,10 +177,10 @@ export class MedicalRecordComponent implements OnInit {
     }
   }
 
-  openAnamnesisDialog(visitId) {
+  openAnamnesisDialog(attendanceId) {
     const dialogNewVisit = this.dialog.open(AnamnesisComponent, {
       width: '100%',
-      data: { visitId: visitId }
+      data: { attendanceId: attendanceId }
     });
 
     dialogNewVisit.afterClosed().subscribe(result => {
@@ -190,8 +196,21 @@ export class MedicalRecordComponent implements OnInit {
       data: { patientId: patientId, allergies: this.visit.allergies }
     });
 
-    dialogAllergy.afterClosed().subscribe(result => {      
-        this.searchActivedVisitByPatientId();      
+    dialogAllergy.afterClosed().subscribe(result => {
+      this.searchActivedVisitByPatientId();
+    });
+  }
+
+  openEvolutionDialog(attendanceId) {
+    const dialogNewEvolution = this.dialog.open(EvolutionComponent, {
+      width: '100%',
+      data: { attendanceId: attendanceId }
+    });
+
+    dialogNewEvolution.afterClosed().subscribe(result => {
+      if (result !== undefined) {
+        this.ngOnInit();
+      }
     });
   }
 
