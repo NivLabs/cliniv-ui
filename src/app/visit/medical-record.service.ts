@@ -28,9 +28,9 @@ export class MedicalRecordService {
             .toPromise();
     }
 
-    getVisitById(visitId: number): Promise<MedicalRecord> {
+    getVisitById(attendanceId: number): Promise<MedicalRecord> {
         var headers = this.http.getHeadersDefault();
-        return this.http.get<MedicalRecord>(`${this.resourceUrl}/${visitId}`, { headers })
+        return this.http.get<MedicalRecord>(`${this.resourceUrl}/${attendanceId}`, { headers })
             .toPromise();
     }
 

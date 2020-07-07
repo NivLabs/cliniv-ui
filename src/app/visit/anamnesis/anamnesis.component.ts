@@ -30,13 +30,13 @@ export class AnamnesisComponent implements OnInit {
 
     ngOnInit() {
 
-        if (this.dialogRef.componentInstance.data['visitId'] !== null) {
+        if (this.dialogRef.componentInstance.data['attendanceId'] !== null) {
             this.loading = true;
             this.page = new Page();
             this.pageSettings = new Pageable();
             this.pageSettings.size = 100;
             this.responseAnamnesis = new ResponseAnamnesis();
-            this.responseAnamnesis.attendanceId = this.dialogRef.componentInstance.data['visitId'];
+            this.responseAnamnesis.attendanceId = this.dialogRef.componentInstance.data['attendanceId'];
 
             this.principalService.getPageOfQuestions(this.pageSettings).then(resp => {
                 this.loading = false;

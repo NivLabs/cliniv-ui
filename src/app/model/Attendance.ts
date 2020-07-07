@@ -38,6 +38,7 @@ export class MedicalRecord {
     firstName: string;
     lastName: string;
     principalNumber: string;
+    bedOrRoom: string;
     bornDate: Date;
     gender: string;
     allergies: Array<string>;
