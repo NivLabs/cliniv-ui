@@ -7,6 +7,10 @@ export class Evolution {
 }
 
 export class EvolutionInfo {
+    id: number;
     attendanceId: number;
-    evolution: string = "";
+    accomodationId: number;
+    description: string = "";
+    datetime: Date;
+
 }
