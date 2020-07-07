@@ -13,6 +13,7 @@ import { DocumentViewerComponent } from 'app/component/document-viewer/document-
 import { AnamnesisComponent } from './anamnesis/anamnesis.component';
 import { AllergyComponent } from './allergy/allergy.component';
 import { EvolutionComponent } from './evolution/evolution.component';
+import { Accommodation } from 'app/model/Accommodation';
 
 @Component({
   selector: 'app-medical-record',
@@ -37,7 +38,7 @@ export class MedicalRecordComponent implements OnInit {
       lastName: null,
       principalNumber: null,
       susNumber: null,
-      bedOrRoom: null,
+      lastAccommodation: new Accommodation(),
       bornDate: null,
       gender: null,
       events: [],

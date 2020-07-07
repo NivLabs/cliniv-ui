@@ -1,6 +1,7 @@
 import { MedicationUsed } from "./Medicine";
 import { Evolution } from "./Evolution";
 import { Document } from "./Document";
+import { Accommodation } from "./Accommodation";
 
 /**
  * Informações do atendimento
@@ -38,7 +39,7 @@ export class MedicalRecord {
     firstName: string;
     lastName: string;
     principalNumber: string;
-    bedOrRoom: string;
+    lastAccommodation: Accommodation;
     bornDate: Date;
     gender: string;
     allergies: Array<string>;

@@ -4,6 +4,6 @@
 export class Accommodation {
     id: number;
     sectorId: number;
-    description: string;
-    type: string;    
+    description: string = "Nenhum";
+    type: string = "room";
 }
