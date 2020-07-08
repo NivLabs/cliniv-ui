@@ -16,9 +16,10 @@ export class EvolutionComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.dialogRef.componentInstance.data.attendanceId);
-    if (this.dialogRef.componentInstance.data.attendanceId !== null) {
+    const attendanceId = this.dialogRef.componentInstance.data.attendanceId;
+    if (attendanceId !== null) {
       this.dataToForm = new EvolutionInfo();
+      this.dataToForm.attendanceId = attendanceId;
     } else {
       this.onCancelClick();
     }
@@ -29,7 +30,7 @@ export class EvolutionComponent implements OnInit {
   }
 
   save() {
-
+    //TODO: Chamar camada de serviço pra envio na API
   }
 
 }
