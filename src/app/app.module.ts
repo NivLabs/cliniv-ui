@@ -11,6 +11,7 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
 import { AdminLayoutModule } from './layouts/admin-layout/admin-layout.module';
 import { SecurityRoutingModule } from './security/security-routing.module';
 import { SecurityModule } from './security/security.module';
+import { DocumentSelectorComponent } from './visit/document-selector/document-selector.component';
 
 @NgModule({
    imports: [
@@ -28,7 +29,8 @@ import { SecurityModule } from './security/security.module';
    ],
    declarations: [
       AppComponent,
-      AdminLayoutComponent
+      AdminLayoutComponent,
+      DocumentSelectorComponent
    ],
    providers: [],
    bootstrap: [

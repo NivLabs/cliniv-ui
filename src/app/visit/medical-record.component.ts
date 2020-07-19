@@ -14,6 +14,7 @@ import { AnamnesisComponent } from './anamnesis/anamnesis.component';
 import { AllergyComponent } from './allergy/allergy.component';
 import { EvolutionComponent } from './evolution/evolution.component';
 import { Accommodation } from 'app/model/Accommodation';
+import { DocumentSelectorComponent } from './document-selector/document-selector.component';
 
 @Component({
   selector: 'app-medical-record',
@@ -174,7 +175,16 @@ export class MedicalRecordComponent implements OnInit {
       dialogDocumentViewer.afterClosed().subscribe(result => {
       });
     } else {
-      // TODO: Implementar algo diferente quando houver mais de 1 documento
+      const dialogDocumentSelectorViewer = this.dialog.open(DocumentSelectorComponent, {
+        width: '100%',
+        height: 'auto',
+        data: { dataSource: documents }
+      });
+      dialogDocumentSelectorViewer.afterClosed().subscribe(result => {
+        if(result) {
+          this.openDocumentViewerDialog(result);
+        }
+      });
     }
   }
 
