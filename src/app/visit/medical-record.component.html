@@ -194,7 +194,7 @@
                                         <td>{{visitEvent.description}}</td>
                                         <td *ngIf="visitEvent.documents && visitEvent.documents.length > 0"><a
                                                 [routerLink]=""
-                                                (click)="openDocumentViewerDialog(visitEvent.documents)">Visualizar</a>
+                                                (click)="openDocumentViewerDialog(visitEvent.documents)">{{visitEvent.documents.length == 1 ? 'Visualizar' : 'Selecionar'}}</a>
                                         </td>
                                         <td *ngIf="visitEvent.documents.length === 0">Não existe</td>
                                     </tr>

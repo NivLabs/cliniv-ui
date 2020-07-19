@@ -1,0 +1,39 @@
+<div class="card">
+    <div class="card-header card-header-info">
+        <h4 class="card-title">Documentos do evento</h4>
+        <p class="card-category">Documentos encontrados...</p>
+    </div>
+    <div class="card-body">
+        <mat-table [dataSource]="dataSource" matSort>
+            <!-- ID Column -->
+            <ng-container matColumnDef="id">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Identificador do documento</mat-header-cell>
+                <mat-cell *matCellDef="let row">{{row.id}}</mat-cell>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="createdAt">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Dt. de criação</mat-header-cell>
+                <mat-cell *matCellDef="let row">{{row.createdAt}}</mat-cell>
+            </ng-container>
+
+            <!-- Progress Column -->
+            <ng-container matColumnDef="name">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Título</mat-header-cell>
+                <mat-cell *matCellDef="let row">{{row.name}}</mat-cell>
+            </ng-container>
+
+            <!-- Color Column -->
+            <ng-container matColumnDef="actions">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Selecionar</mat-header-cell>
+                <mat-cell *matCellDef="let row" style="text-align: center; display: block;">
+                    <button mat-raised-button class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-info"
+                        [mat-dialog-close]="[row]" matTooltip="Visualizar"><span class="fa fa-eye"></span></button>
+                </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+    </div>
+</div>
