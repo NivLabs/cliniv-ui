@@ -131,7 +131,9 @@ export class ProfessionalEditComponent implements OnInit {
       }
     });
     if (this.dataToForm.id) {
+      this.loading = true;
       this.professionalService.update(this.dataToForm).then(resp => {
+        this.loading = false;
         this.dataToForm = resp;
         if (!resp.address) {
           this.dataToForm.address = new Address();
@@ -142,7 +144,9 @@ export class ProfessionalEditComponent implements OnInit {
         this.errorHandler.handle(error, this.dialogRef);
       });
     } else {
+      this.loading = true;
       this.professionalService.create(this.dataToForm).then(resp => {
+        this.loading = false;
         this.dataToForm = resp;
         if (!resp.address) {
           this.dataToForm.address = new Address();
