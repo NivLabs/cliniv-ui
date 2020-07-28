@@ -7,6 +7,7 @@
 .wrapper.wrapper-full-page {
     height: auto;
     min-height: 100vh;
+    height: 100vh;
 }
 
 .lock-page .page-header, .login-page .page-header {
