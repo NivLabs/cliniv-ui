@@ -4,7 +4,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header card-header-info">
-                        <h4 class="card-title">Atendimento</h4>
+                        <h4 class="card-title">Atendimento <span *ngIf="visit.allergies.length > 0">(Paciente Alérgico)</span> </h4>
                         <p class="card-category">Informe uma matrícula de paciente ou um código de atendimento...</p>
                     </div>
                     <div class="card-body">
@@ -33,6 +33,10 @@
                             <button mat-raised-button class="btn btn-primary" matTooltip="Adiciona evento"
                                 *ngIf="visit.id && visit.patientId"><span class="fa fa-plus-square"></span>
                                 Evento</button>
+
+                            <button mat-raised-button class="btn btn-warning" matTooltip="Adiciona alergia"
+                                *ngIf="visit.id && visit.patientId" (click)="openAllergyDialog(visit.patientId)"><span class="fa fa-plus"></span>
+                                Alergia</button>
 
                             <button mat-raised-button class="btn btn-success" matTooltip="Realizar alta"
                                 *ngIf="visit.id && visit.patientId"><span class="fa fa-check"></span>
@@ -126,23 +130,47 @@
                 </div>
             </div>
 
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header card-header-warning">
-                        <h4 class="card-title">Alergias
-                            <span class="pull-right fa fa-plus" matTooltip="Adiciona alergia" style="cursor: pointer;"
-                                *ngIf="visit.id && visit.patientId" (click)="openAllergyDialog(visit.patientId)"></span>
-                        </h4>
+                    <div class="card-header card-header-info">
+                        <h4 class="card-title">Medicamentos</h4>
                     </div>
                     <div class="card-body">
-                        <ul>
-                            <li *ngFor="let allergy of visit.allergies">{{allergy}}</li>
-                            <li *ngIf="visit.allergies.length == 0">Sem registros de alergias.</li>
-                        </ul>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class=" text-primary">
+                                    <th>COD</th>
+                                    <th>Data - Hora</th>
+                                    <th>Descrição</th>
+                                    <th>Dosagem</th>
+                                    <th>Médico</th>
+                                    <th>Administração</th>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let medicine of visit.medicines">
+                                        <td>{{medicine.id}}</td>
+                                        <td>{{medicine.datetime | date: 'dd/MM/yyyy - HH:mm'}}</td>
+                                        <td>{{medicine.description}}</td>
+                                        <td>{{medicine.amount}}</td>
+                                        <td>{{medicine.prescriptionOfficer}}</td>
+                                        <td>{{medicine.responsibleForTheAdministration}}</td>
+                                    </tr>
+                                    <tr *ngIf="visit.medicines.length === 0">
+                                        <td>Sem Registro</td>
+                                        <td>Sem Registro</td>
+                                        <td>Sem Registro</td>
+                                        <td>Sem Registro</td>
+                                        <td>Sem Registro</td>
+                                        <td>Sem Registro</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
+
+            <div class="col-md-12">
                 <div class="card">
                     <div class="card-header card-header-success">
                         <h4 class="card-title">Evoluções</h4>
@@ -192,9 +220,11 @@
                                         <td>{{visitEvent.id}}</td>
                                         <td>{{visitEvent.datetime | date: 'dd/MM/yyyy - HH:mm'}}</td>
                                         <td>{{visitEvent.description}}</td>
-                                        <td *ngIf="visitEvent.documents && visitEvent.documents.length > 0"><a
-                                                [routerLink]=""
-                                                (click)="openDocumentViewerDialog(visitEvent.documents)">{{visitEvent.documents.length == 1 ? 'Visualizar' : 'Selecionar'}}</a>
+                                        <td *ngIf="visitEvent.documents && visitEvent.documents.length > 0">
+                                            
+                                            <button *ngIf="visitEvent.documents.length == 1" mat-raised-button (click)="openDocumentViewerDialog(visitEvent.documents)" class="col-12 col-sm-12 col-md-4 col-lg-4 btn btn-info" matTooltip="Visualizar"><span class="fa fa-eye"></span></button>
+                                            <button *ngIf="visitEvent.documents.length > 1" mat-raised-button (click)="openDocumentViewerDialog(visitEvent.documents)" class="col-12 col-sm-12 col-md-4 col-lg-4 btn btn-info" matTooltip="Selecionar"><span class="fa fa-list"></span></button>                                            
+                                            
                                         </td>
                                         <td *ngIf="visitEvent.documents.length === 0">Não existe</td>
                                     </tr>
@@ -210,47 +240,7 @@
                     </div>
                 </div>
             </div>
-
-
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header card-header-info">
-                        <h4 class="card-title">Medicamentos</h4>
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead class=" text-primary">
-                                    <th>COD</th>
-                                    <th>Data - Hora</th>
-                                    <th>Descrição</th>
-                                    <th>Dosagem</th>
-                                    <th>Médico</th>
-                                    <th>Administração</th>
-                                </thead>
-                                <tbody>
-                                    <tr *ngFor="let medicine of visit.medicines">
-                                        <td>{{medicine.id}}</td>
-                                        <td>{{medicine.datetime | date: 'dd/MM/yyyy - HH:mm'}}</td>
-                                        <td>{{medicine.description}}</td>
-                                        <td>{{medicine.amount}}</td>
-                                        <td>{{medicine.prescriptionOfficer}}</td>
-                                        <td>{{medicine.responsibleForTheAdministration}}</td>
-                                    </tr>
-                                    <tr *ngIf="visit.medicines.length === 0">
-                                        <td>Sem Registro</td>
-                                        <td>Sem Registro</td>
-                                        <td>Sem Registro</td>
-                                        <td>Sem Registro</td>
-                                        <td>Sem Registro</td>
-                                        <td>Sem Registro</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            
         </div>
     </div>
 </div>

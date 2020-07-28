@@ -172,7 +172,9 @@ export class AllergyComponent implements OnInit {
         });
         confirmDialogRef.afterClosed().subscribe(result => {
             if (result) {
+                this.loading = true;
                 this.principalService.saveAllergies(this.allergies, this.patientId).then(resp => {
+                    this.loading = false;
                     this.notification.showSucess("Informações salvas com sucesso!");
                     this.dialogRef.close();
                 }).catch(error => {
