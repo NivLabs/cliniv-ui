@@ -59,3 +59,7 @@ video {
 .cdk-overlay-connected-position-bounding-box > div[id^="cdk-overlay"]{
   overflow: visible;
 }
+
+.mat-tab-body-content {
+  overflow: hidden !important;
+}
