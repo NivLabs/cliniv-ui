@@ -65,7 +65,10 @@ export class UserEditComponent implements OnInit {
           { id: 15, name: 'ROLE_INSTINTUTO_ESCRITA', description: 'Permissão de escrita em informações intitucionais', checked: false },
 
           { id: 16, name: 'ROLE_PARAMETRO_LEITURA', description: 'Permissão de leitura em parâmetros da aplicação', checked: false },
-          { id: 17, name: 'ROLE_PARAMETRO_ESCRITA', description: 'Permissão de escrita em parâmetros da aplicação', checked: false }
+          { id: 17, name: 'ROLE_PARAMETRO_ESCRITA', description: 'Permissão de escrita em parâmetros da aplicação', checked: false },
+
+          { id: 18, name: 'ROLE_OPERADORA_LEITURA', description: 'Permissão de leitura em operadoras de planos', checked: false },
+          { id: 19, name: 'ROLE_OPERADORA_ESCRITA', description: 'Permissão de escrita em operadoras de planos', checked: false }
 
         ];
       }
@@ -246,7 +249,10 @@ export class UserEditComponent implements OnInit {
       { id: 15, name: 'ROLE_INSTINTUTO_ESCRITA', description: 'Permissão de escrita em informações intitucionais', checked: false },
 
       { id: 16, name: 'ROLE_PARAMETRO_LEITURA', description: 'Permissão de leitura em parâmetros da aplicação', checked: false },
-      { id: 17, name: 'ROLE_PARAMETRO_ESCRITA', description: 'Permissão de escrita em parâmetros da aplicação', checked: false }
+      { id: 17, name: 'ROLE_PARAMETRO_ESCRITA', description: 'Permissão de escrita em parâmetros da aplicação', checked: false },
+
+      { id: 18, name: 'ROLE_OPERADORA_LEITURA', description: 'Permissão de leitura em operadoras de planos', checked: false },
+      { id: 19, name: 'ROLE_OPERADORA_ESCRITA', description: 'Permissão de escrita em operadoras de planos', checked: false }
     ];
     if (this.dataToForm && this.dataToForm.roles) {
       this.dataToForm.roles.forEach(role => {

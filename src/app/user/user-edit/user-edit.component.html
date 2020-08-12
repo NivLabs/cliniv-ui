@@ -12,124 +12,140 @@
     </div>
     <div class="card-body">
         <form #form="ngForm" autocomplete="off" (ngSubmit)="save()">
-            <div class="row">
-                <div class="col-md-3">
-                    <mat-form-field>
-                        <input matInput placeholder="Matrícula do Usuário" name="id" [(ngModel)]="dataToForm.id"
-                            #id="ngModel" disabled />
-                    </mat-form-field>
-                </div>
-                <div class="col-md-3">
-                    <mat-form-field>
-                        <input matInput placeholder="Nome de Usuário" name="userName" [(ngModel)]="dataToForm.userName"
-                            #id="ngModel" [disabled]="dataToForm.id" required />
-                    </mat-form-field>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-4">
-                    <mat-form-field>
-                        <input matInput placeholder="Cadastro de Pessoa Física (CPF)" name="document"
-                            [(ngModel)]="dataToForm.document.value" (keypress)="enterKeyPress($event)" #document
-                            type="text" maxlength="14" [disabled]="dataToForm.id" required mask="000.000.000-00" />
-                    </mat-form-field>
-                </div>
-                <div class="col-md-4">
-                    <mat-form-field>
-                        <input matInput placeholder="Nome" name="firstName" [(ngModel)]="dataToForm.firstName"
-                            #firstName="ngModel" type="text" required />
-                    </mat-form-field>
-                </div>
-                <div class="col-md-4">
-                    <mat-form-field>
-                        <input matInput placeholder="Sobrenome" name="lastName" [(ngModel)]="dataToForm.lastName"
-                            #lastName="ngModel" type="text" required />
-                    </mat-form-field>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <mat-form-field>
-                        <input matInput placeholder="Nome completo da Mãe" name="motherName"
-                            [(ngModel)]="dataToForm.motherName" #motherName="ngModel" type="text" />
-                    </mat-form-field>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <mat-form-field>
-                        <input matInput placeholder="Nome completo do Pai" name="fatherName"
-                            [(ngModel)]="dataToForm.fatherName" #fatherName type="text" />
-                    </mat-form-field>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-4">
-                    <mat-form-field>
-                        <input matInput placeholder="Email" name="email" [(ngModel)]="dataToForm.email" #email
-                            type="email" required />
-                    </mat-form-field>
-                </div>
-                <div class="col-md-4">
-                    <mat-form-field>
-                        <input matInput placeholder="Telefone principal (Apenas números)" name="principalNumber"
-                            [(ngModel)]="dataToForm.principalNumber" #principalNumber type="text"
-                            mask="(00) 0000-00000" />
-                    </mat-form-field>
-                </div>
-                <div class="col-md-2">
-                    <mat-form-field>
-                        <input matInput placeholder="Data de nascimento" name="bornDate"
-                            [(ngModel)]="dataToForm.bornDate" #bornDate type="date" required />
-                    </mat-form-field>
-                </div>
-                <div class="col-md-2">
-                    <mat-form-field>
-                        <mat-label>Gênero</mat-label>
-                        <mat-select matNativeControl name="gender" (change)="selectGender($event.target.value)"
-                            [(ngModel)]="dataToForm.gender" #gender required>
-                            <mat-option value="M">Masculino</mat-option>
-                            <mat-option value="F">Feminino</mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <h5 for="specializationTitle">Papéis</h5>
-                </div>
-                <mat-divider class="col-md-12"></mat-divider>
-                <small class="col-md-12">Selecione os papeis de acesso do profissional</small>
-                <br />
-
-                <mat-checkbox hidden></mat-checkbox>
-                <div *ngFor="let role of roles" class="col-sm-12 col-md-6 col-lg-6 underline-class"
-                    [ngClass]="{'col-md-12' : role.id === 1, 'col-lg-12' : role.id === 1}" style="text-align: left;">
-                    <div>
-                        <label class="mat-checkbox-layout" for="{{role.id}}">
-                            <div class="mat-checkbox-inner-container">
-                                <input type="checkbox" class="mat-checkbox-input" name="roles" [checked]="role.checked"
-                                    value="{{role.name}}" id="{{role.id}}">
-                                <div matripple="" class="mat-ripple mat-checkbox-ripple">
-                                    <div class="mat-ripple-element mat-checkbox-persistent-ripple"></div>
-                                </div>
+            <mat-tab-group>
+                <mat-tab label="Informações">
+                    <br />
+                    <div class="row">
+                        <div class="col-md-3">
+                            <mat-form-field>
+                                <input matInput placeholder="Matrícula do Usuário" name="id" [(ngModel)]="dataToForm.id"
+                                    #id="ngModel" disabled />
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-3">
+                            <mat-form-field>
+                                <input matInput placeholder="Nome de Usuário" name="userName"
+                                    [(ngModel)]="dataToForm.userName" #id="ngModel" [disabled]="dataToForm.id"
+                                    required />
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <mat-form-field>
+                                <input matInput placeholder="Cadastro de Pessoa Física (CPF)" name="document"
+                                    [(ngModel)]="dataToForm.document.value" (keypress)="enterKeyPress($event)" #document
+                                    type="text" maxlength="14" [disabled]="dataToForm.id" required
+                                    mask="000.000.000-00" />
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-4">
+                            <mat-form-field>
+                                <input matInput placeholder="Nome" name="firstName" [(ngModel)]="dataToForm.firstName"
+                                    #firstName="ngModel" type="text" required />
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-4">
+                            <mat-form-field>
+                                <input matInput placeholder="Sobrenome" name="lastName"
+                                    [(ngModel)]="dataToForm.lastName" #lastName="ngModel" type="text" required />
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <mat-form-field>
+                                <input matInput placeholder="Nome completo da Mãe" name="motherName"
+                                    [(ngModel)]="dataToForm.motherName" #motherName="ngModel" type="text" />
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <mat-form-field>
+                                <input matInput placeholder="Nome completo do Pai" name="fatherName"
+                                    [(ngModel)]="dataToForm.fatherName" #fatherName type="text" />
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <mat-form-field>
+                                <input matInput placeholder="Email" name="email" [(ngModel)]="dataToForm.email" #email
+                                    type="email" required />
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-4">
+                            <mat-form-field>
+                                <input matInput placeholder="Telefone principal (Apenas números)" name="principalNumber"
+                                    [(ngModel)]="dataToForm.principalNumber" #principalNumber type="text"
+                                    mask="(00) 0000-00000" />
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-2">
+                            <mat-form-field>
+                                <input matInput placeholder="Data de nascimento" name="bornDate"
+                                    [(ngModel)]="dataToForm.bornDate" #bornDate type="date" required />
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-2">
+                            <mat-form-field>
+                                <mat-label>Gênero</mat-label>
+                                <mat-select matNativeControl name="gender" (change)="selectGender($event.target.value)"
+                                    [(ngModel)]="dataToForm.gender" #gender required>
+                                    <mat-option value="M">Masculino</mat-option>
+                                    <mat-option value="F">Feminino</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </mat-tab>
+                <mat-tab label="Permissões">
+                    <br />
+                    <div class="row">
+                        <mat-checkbox hidden></mat-checkbox>
+                        <div *ngFor="let role of roles" class="col-sm-12 col-md-6 col-lg-6 underline-class"
+                            [ngClass]="{'col-md-12' : role.id === 1, 'col-lg-12' : role.id === 1}"
+                            style="text-align: left;">
+                            <div>
+                                <label class="mat-checkbox-layout" for="{{role.id}}">
+                                    <div class="mat-checkbox-inner-container">
+                                        <input type="checkbox" class="mat-checkbox-input" name="roles"
+                                            [checked]="role.checked" value="{{role.name}}" id="{{role.id}}">
+                                        <div matripple="" class="mat-ripple mat-checkbox-ripple">
+                                            <div class="mat-ripple-element mat-checkbox-persistent-ripple"></div>
+                                        </div>
+                                    </div>
+                                    <span class="mat-checkbox-label">{{role.description}}</span>
+                                </label>
                             </div>
-                            <span class="mat-checkbox-label">{{role.description}}</span>
-                        </label>
+                        </div>
+                    </div>
+                </mat-tab>
+            </mat-tab-group>
+            <div class="row">
+                <div style="overflow:hidden; width: 100%;">
+                    <div *ngIf="dataToForm.id" class="col-12 col-sm-12 col-md-4 col-lg-3 pull-left ml-0 mr-0">
+                        <button mat-raised-button type="button" class="btn btn-info col-12" (click)="resetForm()"
+                            matTooltip="Adciona paciente"><span class="fa fa-plus"></span> Novo
+                            Paciente</button>
+                    </div>
+                    <div *ngIf="dataToForm.id" class="col-12 col-sm-12 col-md-4 col-lg-3 pull-left ml-0 mr-0">
+                        <button mat-raised-button type="button" (click)="resetPassword()" class="col-12 btn btn-warning"
+                            matTooltip="Altera a senha atual"><span class="fa fa-lock"></span> Resetar senha</button>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-4 col-lg-3 pull-right ml-0 mr-0">
+                        <button mat-raised-button type="submit" [disabled]="!form.valid"
+                            matTooltip="Salvar informações do formulário" class="col-12 btn btn-success"><span
+                                class="fa fa-check"></span>
+                            Salvar</button>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-4 col-lg-3 pull-right ml-0 mr-0">
+                        <button mat-raised-button type="button" (click)="onCancelClick()" class="col-12 btn btn-danger"
+                            matTooltip="Fecha formulário"><span class="fa fa-close"></span> Fechar</button>
                     </div>
                 </div>
             </div>
-
-            <button *ngIf="dataToForm.id" mat-raised-button type="button" (click)="resetForm()"
-                class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-info pull-left" matTooltip="Adiciona usuário"> <span
-                class="fa fa-plus"></span> Novo usuário</button>
-            <button *ngIf="dataToForm.id" mat-raised-button type="button" (click)="resetPassword()"
-                class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-warning pull-left" matTooltip="Altera a senha atual"><span
-                class="fa fa-lock"></span> Resetar senha</button>
-            <button mat-raised-button type="submit" [disabled]="!form.valid" matTooltip="Salvar informações do formulário"
-                class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-success pull-right"><span class="fa fa-check"></span> Salvar</button>
-            <button mat-raised-button type="button" (click)="onCancelClick()"
-                class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-danger pull-right" matTooltip="Fecha formulário"><span class="fa fa-close"></span> Fechar</button>
             <div class="clearfix"></div>
         </form>
     </div>
