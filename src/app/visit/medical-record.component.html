@@ -4,7 +4,8 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header card-header-info">
-                        <h4 class="card-title">Atendimento <span *ngIf="visit.allergies.length > 0">(Paciente Alérgico)</span> </h4>
+                        <h4 class="card-title">Atendimento <span *ngIf="visit.allergies.length > 0">(Paciente
+                                Alérgico)</span> </h4>
                         <p class="card-category">Informe uma matrícula de paciente ou um código de atendimento...</p>
                     </div>
                     <div class="card-body">
@@ -35,7 +36,8 @@
                                 Evento</button>
 
                             <button mat-raised-button class="btn btn-warning" matTooltip="Adiciona alergia"
-                                *ngIf="visit.id && visit.patientId" (click)="openAllergyDialog(visit.patientId)"><span class="fa fa-plus"></span>
+                                *ngIf="visit.id && visit.patientId" (click)="openAllergyDialog(visit.patientId)"><span
+                                    class="fa fa-plus"></span>
                                 Alergia</button>
 
                             <button mat-raised-button class="btn btn-success" matTooltip="Realizar alta"
@@ -70,8 +72,8 @@
                                     <mat-form-field>
                                         <input matInput type="text" placeholder="Leito | Sala" name="lastAccommodation"
                                             [ngClass]="{'patient-not-identified' : patientNotIdentified()}"
-                                            [(ngModel)]="visit.lastAccommodation.description" #lastAccommodation="ngModel"
-                                            disabled />
+                                            [(ngModel)]="visit.lastAccommodation.description"
+                                            #lastAccommodation="ngModel" disabled />
                                     </mat-form-field>
                                 </div>
                             </div>
@@ -102,16 +104,16 @@
                                 <div class="col-md-4">
                                     <mat-form-field>
                                         <input [disabled]="true" matInput placeholder="Cadastro de Pessoa Física (CPF)"
-                                            [ngClass]="{'patient-not-identified' : patientNotIdentified()}" name="document"
-                                            [(ngModel)]="visit.document.value" #document type="text" maxlength="14"
-                                            mask="000.000.000-00" />
+                                            [ngClass]="{'patient-not-identified' : patientNotIdentified()}"
+                                            name="document" [(ngModel)]="visit.document.value" #document type="text"
+                                            maxlength="14" mask="000.000.000-00" />
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-4">
                                     <mat-form-field>
                                         <input [disabled]="true" matInput placeholder="Data de nascimento"
-                                            [ngClass]="{'patient-not-identified' : patientNotIdentified()}" name="bornDate"
-                                            [(ngModel)]="visit.bornDate" #bornDate type="date" />
+                                            [ngClass]="{'patient-not-identified' : patientNotIdentified()}"
+                                            name="bornDate" [(ngModel)]="visit.bornDate" #bornDate type="date" />
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-4">
@@ -136,36 +138,50 @@
                         <h4 class="card-title">Medicamentos</h4>
                     </div>
                     <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead class=" text-primary">
-                                    <th>COD</th>
-                                    <th>Data - Hora</th>
-                                    <th>Descrição</th>
-                                    <th>Dosagem</th>
-                                    <th>Médico</th>
-                                    <th>Administração</th>
-                                </thead>
-                                <tbody>
-                                    <tr *ngFor="let medicine of visit.medicines">
-                                        <td>{{medicine.id}}</td>
-                                        <td>{{medicine.datetime | date: 'dd/MM/yyyy - HH:mm'}}</td>
-                                        <td>{{medicine.description}}</td>
-                                        <td>{{medicine.amount}}</td>
-                                        <td>{{medicine.prescriptionOfficer}}</td>
-                                        <td>{{medicine.responsibleForTheAdministration}}</td>
-                                    </tr>
-                                    <tr *ngIf="visit.medicines.length === 0">
-                                        <td>Sem Registro</td>
-                                        <td>Sem Registro</td>
-                                        <td>Sem Registro</td>
-                                        <td>Sem Registro</td>
-                                        <td>Sem Registro</td>
-                                        <td>Sem Registro</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+
+                        <mat-table [dataSource]="dataSourceMedicines" matSort>
+
+                            <ng-container matColumnDef="id">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header class="text-primary"
+                                    style="font-size: 0.95rem; font-weight: 500;"> COD </mat-header-cell>
+                                <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
+                            </ng-container>
+
+                            <ng-container matColumnDef="datetime">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header class="text-primary"
+                                    style="font-size: 0.95rem; font-weight: 500;"> Data - Hora </mat-header-cell>
+                                <mat-cell *matCellDef="let element"> {{element.datetime != 'Sem Registro' ? (element.datetime  | date: 'dd/MM/yyyy HH:mm') : element.datetime}} </mat-cell>
+                            </ng-container>
+
+                            <ng-container matColumnDef="description">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header class="text-primary"
+                                    style="font-size: 0.95rem; font-weight: 500;"> Descrição </mat-header-cell>
+                                <mat-cell *matCellDef="let element"> {{element.description}} </mat-cell>
+                            </ng-container> 
+                            
+                            <ng-container matColumnDef="amount">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header class="text-primary"
+                                    style="font-size: 0.95rem; font-weight: 500;"> Dosagem </mat-header-cell>
+                                <mat-cell *matCellDef="let element"> {{element.amount}} </mat-cell>
+                            </ng-container>
+
+                            <ng-container matColumnDef="prescriptionOfficer">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header class="text-primary"
+                                    style="font-size: 0.95rem; font-weight: 500;"> Médico </mat-header-cell>
+                                <mat-cell *matCellDef="let element"> {{element.prescriptionOfficer}} </mat-cell>
+                            </ng-container>
+
+                            <ng-container matColumnDef="responsibleForTheAdministration">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header class="text-primary"
+                                    style="font-size: 0.95rem; font-weight: 500;"> Administração </mat-header-cell>
+                                <mat-cell *matCellDef="let element"> {{element.responsibleForTheAdministration}} </mat-cell>
+                            </ng-container>
+
+                            <mat-header-row *matHeaderRowDef="displayedColumnsMedicines"></mat-header-row>
+                            <mat-row *matRowDef="let row; columns: displayedColumnsMedicines;"></mat-row>
+
+                        </mat-table>
+
                     </div>
                 </div>
             </div>
@@ -176,27 +192,32 @@
                         <h4 class="card-title">Evoluções</h4>
                     </div>
                     <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead class=" text-primary">
-                                    <th>COD</th>
-                                    <th>Data - Hora</th>
-                                    <th>Ação</th>
-                                </thead>
-                                <tbody>
-                                    <tr *ngFor="let evolution of visit.evolutions">
-                                        <td>{{evolution.id}}</td>
-                                        <td>{{evolution.datetime | date: 'dd/MM/yyyy - HH:mm'}}</td>
-                                        <td><a href="#">Visualizar</a></td>
-                                    </tr>
-                                    <tr *ngIf="visit.evolutions.length === 0">
-                                        <td>Sem Registro</td>
-                                        <td>Sem Registro</td>
-                                        <td>Sem Registro</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+
+                        <mat-table [dataSource]="dataSourceEvolutions" matSort>
+
+                            <ng-container matColumnDef="id">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header class="text-primary"
+                                    style="font-size: 0.95rem; font-weight: 500;"> COD </mat-header-cell>
+                                <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
+                            </ng-container>
+
+                            <ng-container matColumnDef="datetime">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header class="text-primary"
+                                    style="font-size: 0.95rem; font-weight: 500;"> Data - Hora </mat-header-cell>
+                                <mat-cell *matCellDef="let element"> {{element.datetime != 'Sem Registro' ? (element.datetime  | date: 'dd/MM/yyyy HH:mm') : element.datetime}} </mat-cell>
+                            </ng-container>
+
+                            <ng-container matColumnDef="action">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header class="text-primary"
+                                    style="font-size: 0.95rem; font-weight: 500;"> Ação </mat-header-cell>
+                                <mat-cell *matCellDef="let element"> {{element.action}} </mat-cell>
+                            </ng-container>                            
+
+                            <mat-header-row *matHeaderRowDef="displayedColumnsEvolutions"></mat-header-row>
+                            <mat-row *matRowDef="let row; columns: displayedColumnsEvolutions;"></mat-row>
+
+                        </mat-table>
+
                     </div>
                 </div>
             </div>
@@ -207,40 +228,63 @@
                         <h4 class="card-title">Eventos</h4>
                     </div>
                     <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead class=" text-primary">
-                                    <th>COD</th>
-                                    <th>Data - Hora</th>
-                                    <th>Tipo</th>
-                                    <th>Documento</th>
-                                </thead>
-                                <tbody>
-                                    <tr *ngFor="let visitEvent of visit.events">
-                                        <td>{{visitEvent.id}}</td>
-                                        <td>{{visitEvent.datetime | date: 'dd/MM/yyyy - HH:mm'}}</td>
-                                        <td>{{visitEvent.description}}</td>
-                                        <td *ngIf="visitEvent.documents && visitEvent.documents.length > 0">
-                                            
-                                            <button *ngIf="visitEvent.documents.length == 1" mat-raised-button (click)="openDocumentViewerDialog(visitEvent.documents)" class="col-12 col-sm-12 col-md-4 col-lg-4 btn btn-info" matTooltip="Visualizar"><span class="fa fa-eye"></span></button>
-                                            <button *ngIf="visitEvent.documents.length > 1" mat-raised-button (click)="openDocumentViewerDialog(visitEvent.documents)" class="col-12 col-sm-12 col-md-4 col-lg-4 btn btn-info" matTooltip="Selecionar"><span class="fa fa-list"></span></button>                                            
-                                            
-                                        </td>
-                                        <td *ngIf="visitEvent.documents.length === 0">Não existe</td>
-                                    </tr>
-                                    <tr *ngIf="visit.events.length === 0">
-                                        <td>Sem Registro</td>
-                                        <td>Sem Registro</td>
-                                        <td>Sem Registro</td>
-                                        <td>Sem Registro</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+
+                        <mat-table [dataSource]="dataSourceEvents" matSort>
+
+                            <ng-container matColumnDef="id">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header class="text-primary"
+                                    style="font-size: 0.95rem; font-weight: 500;"> COD </mat-header-cell>
+                                <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
+                            </ng-container>
+
+                            <ng-container matColumnDef="datetime">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header class="text-primary"
+                                    style="font-size: 0.95rem; font-weight: 500;"> Data - Hora </mat-header-cell>
+                                <mat-cell *matCellDef="let element"> {{element.datetime != 'Sem Registro' ? (element.datetime  | date: 'dd/MM/yyyy HH:mm') : element.datetime}} </mat-cell>
+                            </ng-container>
+
+                            <ng-container matColumnDef="description">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header class="text-primary"
+                                    style="font-size: 0.95rem; font-weight: 500;"> Tipo </mat-header-cell>
+                                <mat-cell *matCellDef="let element"> {{element.description}} </mat-cell>
+                            </ng-container>
+
+                            <ng-container matColumnDef="documents">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header class="text-primary"
+                                    style="font-size: 0.95rem; font-weight: 500;"> Documento </mat-header-cell>
+                                <mat-cell *matCellDef="let element">
+
+                                    <span *ngIf="element.documents === 'Sem Registro'">
+                                        Sem Registro
+                                    </span>
+
+                                    <span *ngIf="element.documents.length === 0">
+                                        Não existe
+                                    </span>
+
+                                    <button *ngIf="element.documents.length === 1" mat-raised-button
+                                        (click)="openDocumentViewerDialog(element.documents)"
+                                        class="col-12 col-sm-12 col-md-4 col-lg-4 btn btn-info"
+                                        matTooltip="Visualizar"><span class="fa fa-eye"></span></button>
+
+
+                                    <button *ngIf="element.documents.length > 1 && element.documents != 'Sem Registro'" mat-raised-button
+                                        (click)="openDocumentViewerDialog(element.documents)"
+                                        class="col-12 col-sm-12 col-md-4 col-lg-4 btn btn-info"
+                                        matTooltip="Selecionar"><span class="fa fa-list"></span></button>
+
+                                </mat-cell>
+                            </ng-container>
+
+                            <mat-header-row *matHeaderRowDef="displayedColumnsEvents"></mat-header-row>
+                            <mat-row *matRowDef="let row; columns: displayedColumnsEvents;"></mat-row>
+
+                        </mat-table>
+
                     </div>
                 </div>
             </div>
-            
+
         </div>
     </div>
 </div>
