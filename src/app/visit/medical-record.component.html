@@ -139,7 +139,7 @@
                     </div>
                     <div class="card-body">
 
-                        <mat-table [dataSource]="dataSourceMedicines" matSort>
+                        <mat-table [dataSource]="dataSourceMedicines" matSort #sortMedicines="matSort">
 
                             <ng-container matColumnDef="id">
                                 <mat-header-cell *matHeaderCellDef mat-sort-header class="text-primary"
@@ -193,7 +193,7 @@
                     </div>
                     <div class="card-body">
 
-                        <mat-table [dataSource]="dataSourceEvolutions" matSort>
+                        <mat-table [dataSource]="dataSourceEvolutions" matSort #sortEvolutions="matSort">
 
                             <ng-container matColumnDef="id">
                                 <mat-header-cell *matHeaderCellDef mat-sort-header class="text-primary"
@@ -229,7 +229,7 @@
                     </div>
                     <div class="card-body">
 
-                        <mat-table [dataSource]="dataSourceEvents" matSort>
+                        <mat-table [dataSource]="dataSourceEvents" matSort #sortEvents="matSort">
 
                             <ng-container matColumnDef="id">
                                 <mat-header-cell *matHeaderCellDef mat-sort-header class="text-primary"
