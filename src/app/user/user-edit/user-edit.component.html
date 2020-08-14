@@ -111,7 +111,7 @@
                                 <label class="mat-checkbox-layout" for="{{role.id}}">
                                     <div class="mat-checkbox-inner-container">
                                         <input type="checkbox" class="mat-checkbox-input" name="roles"
-                                            [checked]="role.checked" value="{{role.name}}" id="{{role.id}}">
+                                            [checked]="role.checked" (change)="checkItem(role)" value="{{role.name}}" id="{{role.id}}">
                                         <div matripple="" class="mat-ripple mat-checkbox-ripple">
                                             <div class="mat-ripple-element mat-checkbox-persistent-ripple"></div>
                                         </div>
