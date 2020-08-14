@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from 'app/core/confirm-dialog/confirm-dialog.component';
 import { ErrorHandlerService } from 'app/core/error-handler.service';
@@ -15,6 +15,8 @@ import { AllergyComponent } from './allergy/allergy.component';
 import { EvolutionComponent } from './evolution/evolution.component';
 import { Accommodation } from 'app/model/Accommodation';
 import { DocumentSelectorComponent } from './document-selector/document-selector.component';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-medical-record',
@@ -23,9 +25,16 @@ import { DocumentSelectorComponent } from './document-selector/document-selector
 })
 export class MedicalRecordComponent implements OnInit {
 
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   visit: MedicalRecord;
   public loading: boolean;
+  public dataSourceEvents: any;
+  public displayedColumnsEvents: any;
+  public dataSourceEvolutions: any;
+  public displayedColumnsEvolutions: any;
+  public dataSourceMedicines: any;
+  public displayedColumnsMedicines: any;
 
   constructor(private router: Router, private route: ActivatedRoute, public confirmDialog: MatDialog, public dialog: MatDialog, private visitService: MedicalRecordService, private errorHandler: ErrorHandlerService, private notification: NotificationsComponent) { }
 
@@ -53,6 +62,16 @@ export class MedicalRecordComponent implements OnInit {
       this.visit.patientId = Number.parseInt(patientIdFromUrl);
       this.searchActivedVisitByPatientId();
     }
+
+    this.displayedColumnsEvents = ['id', 'datetime', 'description', 'documents'];
+    this.dataSourceEvents = new MatTableDataSource([{ id: 'Sem Registro', datetime: 'Sem Registro', description: 'Sem Registro', documents: 'Sem Registro' }]);
+
+    this.displayedColumnsEvolutions = ['id', 'datetime', 'action'];
+    this.dataSourceEvolutions = new MatTableDataSource([{ id: 'Sem Registro', datetime: 'Sem Registro', action: 'Sem Registro' }]);
+
+    this.displayedColumnsMedicines = ['id', 'datetime', 'description', 'amount', 'prescriptionOfficer', 'responsibleForTheAdministration'];
+    this.dataSourceMedicines = new MatTableDataSource([{ id: 'Sem Registro', datetime: 'Sem Registro', description: 'Sem Registro', amount: 'Sem Registro', prescriptionOfficer: 'Sem Registro', responsibleForTheAdministration: 'Sem Registro' }]);
+
   }
 
   searchActivedVisitByPatientId() {
@@ -95,8 +114,48 @@ export class MedicalRecordComponent implements OnInit {
   }
 
   onFindVisitInfo(result) {
-    this.loading = false
+    this.loading = false;
     this.visit = result;
+
+    if (this.visit.events.length > 0) {
+
+      this.visit.events = this.visit.events.sort(function (a, b) {
+        return a.id > b.id ? -1 : a.id < b.id ? 1 : 0;
+      });
+
+      this.dataSourceEvents = new MatTableDataSource(this.visit.events);
+
+      setTimeout(() => {
+        this.dataSourceEvents.sort = this.sort;
+      });
+    }
+
+    if (this.visit.evolutions.length > 0) {
+
+      this.visit.evolutions = this.visit.evolutions.sort(function (a, b) {
+        return a.id < b.id ? -1 : a.id > b.id ? 1 : 0;
+      });
+
+      this.dataSourceEvolutions = new MatTableDataSource(this.visit.evolutions);
+
+      setTimeout(() => {
+        this.dataSourceEvolutions.sort = this.sort;
+      });
+    }
+
+    if (this.visit.medicines.length > 0) {
+
+      this.visit.medicines = this.visit.medicines.sort(function (a, b) {
+        return a.id < b.id ? -1 : a.id > b.id ? 1 : 0;
+      });
+
+      this.dataSourceMedicines = new MatTableDataSource(this.visit.medicines);
+
+      setTimeout(() => {
+        this.dataSourceMedicines.sort = this.sort;
+      });
+    }
+
   }
 
   onServiceException(error) {
@@ -181,7 +240,7 @@ export class MedicalRecordComponent implements OnInit {
         data: { dataSource: documents }
       });
       dialogDocumentSelectorViewer.afterClosed().subscribe(result => {
-        if(result) {
+        if (result) {
           this.openDocumentViewerDialog(result);
         }
       });
