@@ -115,13 +115,6 @@ export class UserEditComponent implements OnInit {
   }
 
   save() {
-    this.dataToForm.roles = [];
-    document.getElementsByName('roles').forEach(checkbox => {
-      if (checkbox['checked']) {
-        this.dataToForm.roles.push({ 'id': checkbox['id'], 'description': checkbox['value'] })
-      }
-    });
-
     if (this.dataToForm.id) {
       this.loading = true;
       this.userService.update(this.dataToForm).then(resp => {
@@ -263,6 +256,22 @@ export class UserEditComponent implements OnInit {
           }
         });
       });
+    }
+  }
+
+
+  checkItem(checked: any) {
+    var exists = false;
+    this.dataToForm.roles.forEach(spec => {
+      if (spec.id == checked.id) {
+        exists = true;
+        return;
+      }
+    });
+    if (exists) {
+      this.dataToForm.roles = this.dataToForm.roles.filter(role => role.id != checked['id']);
+    } else {
+      this.dataToForm.roles.push({id: checked['id'], name: checked['name'], description: checked['description']});
     }
   }
 
