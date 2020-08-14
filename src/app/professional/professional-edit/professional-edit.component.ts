@@ -12,6 +12,7 @@ import { Address } from 'app/model/Address';
 import { ProfessionalIdentity } from 'app/model/ProfessionalIdentity';
 import { CameraDialogComponent } from 'app/component/camera/dialog/camera-dialog.component';
 import { Document } from 'app/model/Document';
+import { Specialization } from 'app/model/Specialization';
 
 
 @Component({
@@ -98,7 +99,6 @@ export class ProfessionalEditComponent implements OnInit {
         if (!resp.professionalIdentity) {
           this.dataToForm.professionalIdentity = new ProfessionalIdentity();
         }
-        debugger;
         this.loadspecializationsData();
       }).catch(error => {
         this.loading = false;
@@ -124,12 +124,6 @@ export class ProfessionalEditComponent implements OnInit {
   }
 
   save() {
-    this.dataToForm.specializations = [];
-    document.getElementsByName('specializations').forEach(specInput => {
-      if (specInput['checked']) {
-        this.dataToForm.specializations.push({ id: specInput['id'], name: specInput['value'] })
-      }
-    });
     if (this.dataToForm.id) {
       this.loading = true;
       this.professionalService.update(this.dataToForm).then(resp => {
@@ -221,6 +215,21 @@ export class ProfessionalEditComponent implements OnInit {
         }
       });
     });
+  }
+
+  checkItem(checked: Specialization) {
+    var exists = false;
+    this.dataToForm.specializations.forEach(spec => {
+      if (spec.id == checked.id) {
+        exists = true;
+        return;
+      }
+    });
+    if (exists) {
+      this.dataToForm.specializations = this.dataToForm.specializations.filter(spec => spec.id != checked.id);
+    } else {
+      this.dataToForm.specializations.push(checked);
+    }
   }
 
   /**
