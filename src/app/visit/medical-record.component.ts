@@ -25,7 +25,9 @@ import { MatSort } from '@angular/material/sort';
 })
 export class MedicalRecordComponent implements OnInit {
 
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild("sortEvents", { static: true }) sortEvents: MatSort;
+  @ViewChild("sortEvolutions", { static: true }) sortEvolutions: MatSort;
+  @ViewChild("sortMedicines", { static: true }) sortMedicines: MatSort;
 
   visit: MedicalRecord;
   public loading: boolean;
@@ -116,17 +118,17 @@ export class MedicalRecordComponent implements OnInit {
   onFindVisitInfo(result) {
     this.loading = false;
     this.visit = result;
+    
+    if (this.visit.medicines.length > 0) {
 
-    if (this.visit.events.length > 0) {
-
-      this.visit.events = this.visit.events.sort(function (a, b) {
-        return a.id > b.id ? -1 : a.id < b.id ? 1 : 0;
+      this.visit.medicines = this.visit.medicines.sort(function (a, b) {
+        return a.id < b.id ? -1 : a.id > b.id ? 1 : 0;
       });
 
-      this.dataSourceEvents = new MatTableDataSource(this.visit.events);
+      this.dataSourceMedicines = new MatTableDataSource(this.visit.medicines);
 
       setTimeout(() => {
-        this.dataSourceEvents.sort = this.sort;
+        this.dataSourceMedicines.sort = this.sortMedicines;
       });
     }
 
@@ -139,20 +141,20 @@ export class MedicalRecordComponent implements OnInit {
       this.dataSourceEvolutions = new MatTableDataSource(this.visit.evolutions);
 
       setTimeout(() => {
-        this.dataSourceEvolutions.sort = this.sort;
+        this.dataSourceEvolutions.sort = this.sortEvolutions;
       });
-    }
+    }    
 
-    if (this.visit.medicines.length > 0) {
+    if (this.visit.events.length > 0) {
 
-      this.visit.medicines = this.visit.medicines.sort(function (a, b) {
-        return a.id < b.id ? -1 : a.id > b.id ? 1 : 0;
+      this.visit.events = this.visit.events.sort(function (a, b) {
+        return a.id > b.id ? -1 : a.id < b.id ? 1 : 0;
       });
 
-      this.dataSourceMedicines = new MatTableDataSource(this.visit.medicines);
+      this.dataSourceEvents = new MatTableDataSource(this.visit.events);
 
       setTimeout(() => {
-        this.dataSourceMedicines.sort = this.sort;
+        this.dataSourceEvents.sort = this.sortEvents;
       });
     }
 
