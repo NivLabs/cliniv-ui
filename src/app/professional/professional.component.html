@@ -18,15 +18,15 @@
                                 </div>
                                 <div class="col-md-2">
                                     <mat-form-field>
-                                        <input matInput placeholder="Nome do profissional" name="firstName"
-                                            [(ngModel)]="filters.firstName" #firstName type="text"
+                                        <input matInput placeholder="Nome do profissional" name="fullName"
+                                            [(ngModel)]="filters.fullName" #fullName type="text"
                                             (keypress)="enterKeyPress($event)" />
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-3">
                                     <mat-form-field>
-                                        <input matInput placeholder="Sobrenome do profissional" name="lastName"
-                                            [(ngModel)]="filters.lastName" #lastName type="text"
+                                        <input matInput placeholder="Nome Social do profissional" name="socialName"
+                                            [(ngModel)]="filters.socialName" #socialName type="text"
                                             (keypress)="enterKeyPress($event)" />
                                     </mat-form-field>
                                 </div>
@@ -61,7 +61,7 @@
                     <div class="card link-card" (click)="openDialog(responsible.id)">
                         <div class="card-body margin-color-active">
                             <ul>
-                                <li class="responsible-name"> {{responsible.firstName + ' ' + responsible.lastName}}
+                                <li class="responsible-name"> {{responsible.fullName + ' ' + responsible.socialName}}
                                 </li>
                                 <li><span class="fa fa-user responsible-info"> Matrícula:</span> {{responsible.id}}</li>
                                 <li><span class="fa fa-calendar responsible-info"> Nascimento:</span>

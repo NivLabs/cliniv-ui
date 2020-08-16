@@ -134,7 +134,7 @@ export class PatientEditComponent implements OnInit {
   }
 
   selectGenderIdeology(newValue) {
-    this.dataToForm.genderIdeology = newValue;
+    this.dataToForm.genderIdentity = newValue;
   }
 
   selectState(newValue) {

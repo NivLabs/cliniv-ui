@@ -18,6 +18,6 @@ export class ProfessionalFilters {
     id: number;
     professionalIdentity: string;
     cpf: string;
-    firstName: string;
-    lastName: string;
+    fullName: string;
+    socialName: string;
 }
