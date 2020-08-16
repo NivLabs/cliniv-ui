@@ -6,8 +6,8 @@ import { Address } from "./Address";
  */
 export class Person {
     id: number;
-    firstName: string = "";
-    lastName: string = "";
+    fullName: string = "";
+    socialName: string = "";
     fatherName: string;
     motherName: string;
     identity: string;
@@ -18,7 +18,7 @@ export class Person {
     bornDate: Date;
     observations: string;
     gender: string;
-    genderIdeology: string;
+    genderIdentity: string;
     createdAt: Date;
     profilePhoto: string;
 }

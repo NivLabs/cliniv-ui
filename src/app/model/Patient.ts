@@ -1,5 +1,3 @@
-import { Document } from "./Document";
-import { Address } from "./Address";
 import { Person } from "./Person";
 
 /**
@@ -13,8 +11,8 @@ export class PatientInfo extends Person {
 
 export class PatientFilters {
     id: number;
-    firstName: string;
-    lastName: string;
+    fullName: string;
+    socialName: string;
     cpf: string;
     susNumber: string;
     type: string;

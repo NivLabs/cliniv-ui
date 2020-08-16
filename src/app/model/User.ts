@@ -17,7 +17,7 @@ export class UserInfo extends Person {
 export class UserFilters {
     userName: string;
     cpf: string;
-    firstName: string;
-    lastName: string;
+    fullName: string;
+    socialName: string;
     gender: string;;
 }

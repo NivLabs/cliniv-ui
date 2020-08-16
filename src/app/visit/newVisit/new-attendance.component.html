@@ -81,7 +81,7 @@
                                 Não há profissional habilitado
                             </mat-option>
                             <mat-option *ngFor="let responsible of responsibles" [value]="responsible.id">
-                                {{responsible.firstName + ' ' + responsible.lastName}}
+                                {{responsible.fullName + ' ' + responsible.socialName}}
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
