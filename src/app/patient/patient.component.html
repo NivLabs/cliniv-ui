@@ -37,15 +37,15 @@
                                 </div>
                                 <div class="col-md-2">
                                     <mat-form-field>
-                                        <input matInput placeholder="Nome do paciente" name="firstName"
-                                            [(ngModel)]="filters.firstName" #firstName type="text"
+                                        <input matInput placeholder="Nome do paciente" name="fullName"
+                                            [(ngModel)]="filters.fullName" #fullName type="text"
                                             (keypress)="enterKeyPress($event)" />
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-2">
                                     <mat-form-field>
-                                        <input matInput placeholder="Sobrenome do paciente" name="lastName"
-                                            [(ngModel)]="filters.lastName" #lastName type="text"
+                                        <input matInput placeholder="Nome Social do paciente" name="socialName"
+                                            [(ngModel)]="filters.socialName" #socialName type="text"
                                             (keypress)="enterKeyPress($event)" />
                                     </mat-form-field>
                                 </div>
@@ -84,7 +84,7 @@
                             <ul>
                                 <li class="patient-name"
                                     [ngClass]="{'name-not-identified' : patient.type === 'NOT_IDENTIFIED'}">
-                                    {{patient.firstName + ' ' + patient.lastName + (patient.type === 'NOT_IDENTIFIED' ? ' [Não Identificado]' : '')}}
+                                    {{patient.fullName + ' ' + patient.socialName + (patient.type === 'NOT_IDENTIFIED' ? ' [Não Identificado]' : '')}}
                                 </li>
                                 <li><span class="fa fa-user patient-info"> Matrícula:</span> {{patient.id}}</li>
                                 <li *ngIf="patient.susNumber"><span class="fa fa-lock patient-info"> SUS:</span>

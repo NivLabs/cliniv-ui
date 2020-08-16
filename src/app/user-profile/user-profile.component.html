@@ -26,22 +26,22 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <mat-form-field>
-                                        <input matInput placeholder="Nome" name="firstName"
-                                            [(ngModel)]="userInfo.firstName" #firstName="ngModel" type="text"
+                                        <input matInput placeholder="Nome Completo" name="fullName"
+                                            [(ngModel)]="userInfo.fullName" #fullName="ngModel" type="text"
                                             required />
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-6">
                                     <mat-form-field>
-                                        <input matInput placeholder="Sobrenome" name="lastName"
-                                            [(ngModel)]="userInfo.lastName" #lastName="ngModel" type="text" required />
+                                        <input matInput placeholder="Nome Social" name="socialName"
+                                            [(ngModel)]="userInfo.socialName" #socialName="ngModel" type="text" />
                                     </mat-form-field>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
                                     <mat-form-field>
-                                        <input matInput placeholder="Nome completo da Mãe" name="motherName"
+                                        <input matInput placeholder="Nome Completo da Mãe" name="motherName"
                                             [(ngModel)]="userInfo.motherName" #motherName="ngModel" type="text" />
                                     </mat-form-field>
                                 </div>
@@ -49,7 +49,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <mat-form-field>
-                                        <input matInput placeholder="Nome completo do Pai" name="fatherName"
+                                        <input matInput placeholder="Nome Completo do Pai" name="fatherName"
                                             [(ngModel)]="userInfo.fatherName" #fatherName type="text" />
                                     </mat-form-field>
                                 </div>
@@ -76,7 +76,7 @@
                                 </div>
                                 <div class="col-md-2">
                                     <mat-form-field>
-                                        <mat-label>Gênero</mat-label>
+                                        <mat-label>Sexo</mat-label>
                                         <mat-select matNativeControl name="gender"
                                             (change)="selectGender($event.target.value)" [(ngModel)]="userInfo.gender"
                                             #gender required>

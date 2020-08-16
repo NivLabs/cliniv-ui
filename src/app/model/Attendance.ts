@@ -9,8 +9,8 @@ import { Accommodation } from "./Accommodation";
 export class AttendanceInfo {
     id: number;
     type: string;
-    firstName: string = "";
-    lastName: string = "";
+    fullName: string = "";
+    socialName: string = "";
     patientId: number;
     susNumber: number;
     sectorId: number;
@@ -21,8 +21,8 @@ export class AttendanceInfo {
  */
 export class AttendanceFilters {
     sectorId: string;
-    firstName: string;
-    lastName: string;
+    fullName: string;
+    socialName: string;
     cpf: string;
     patientType: string;
     entryType: string;
@@ -36,8 +36,8 @@ export class MedicalRecord {
     patientId: number;
     document: Document;
     susNumber: string;
-    firstName: string;
-    lastName: string;
+    fullName: string;
+    socialName: string;
     principalNumber: string;
     lastAccommodation: Accommodation;
     bornDate: Date;
