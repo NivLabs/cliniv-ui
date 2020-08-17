@@ -95,13 +95,13 @@
                         </div>
                         <div class="col-md-3">
                             <mat-form-field>
-                                <mat-label>Identidade de Sexo</mat-label>
+                                <mat-label>Identidade de Gênero</mat-label>
                                 <mat-select matNativeControl name="genderIdentity"
                                     (change)="selectGenderIdeology($event.target.value)"
                                     [(ngModel)]="dataToForm.genderIdentity" #genderIdentity required>
                                     <mat-option value="HETERO" selected>Heterosexual</mat-option>
                                     <mat-option value="HOMO">Homossexual</mat-option>
-                                    <mat-option value="TRANS">TransSexo</mat-option>
+                                    <mat-option value="TRANS">Transexual</mat-option>
                                 </mat-select>
                             </mat-form-field>
                         </div>
