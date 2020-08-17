@@ -101,7 +101,7 @@
                             <ul>
                                 <li class="patient-name"
                                     [ngClass]="{'name-not-identified' : attendance.patientType === 'NOT_IDENTIFIED'}">
-                                    {{attendance.fullName + ' ' + attendance.socialName + (attendance.patientType === 'NOT_IDENTIFIED' ? ' [Não Identificado]' : '')}}
+                                    {{attendance.fullName + (attendance.patientType === 'NOT_IDENTIFIED' ? ' [Não Identificado]' : '')}}
                                 </li>
 
                                 <li><span class="fa fa-user patient-info"> Matrícula: </span> {{attendance.patientId}}
