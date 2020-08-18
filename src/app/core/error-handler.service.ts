@@ -39,7 +39,7 @@ export class ErrorHandlerService {
         msg = errorResponse.error.message;
       }
 
-      if (errorResponse.status === 401) {
+      if (errorResponse.status === 403) {
         msg = 'Você não tem permissão para executar esta ação';
         if (dialogRefToClose) {
           dialogRefToClose.close();
@@ -49,7 +49,7 @@ export class ErrorHandlerService {
       if (errorResponse.status === 405 && errorResponse.error && errorResponse.error.message) {
         msg = errorResponse.error.message;
       }
-      if (errorResponse.status === 403) {
+      if (errorResponse.status === 401) {
         msg = 'Sua sessão expirou!';
         this.auth.removeAccessToken();
         this.router.navigate(['/login']);
