@@ -17,5 +17,5 @@ export class Customer {
     instituteType: string;
     license?: License = new License();
     address?: Address = new Address();
-    
+    logoBase64: string;
 }

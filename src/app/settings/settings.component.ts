@@ -9,6 +9,7 @@ import { ConfirmDialogComponent } from 'app/core/confirm-dialog/confirm-dialog.c
 import { MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 import { Customer } from 'app/model/Customer';
+import { FileInfo } from 'app/model/File';
 
 @Component({
   selector: 'app-settings',
@@ -35,6 +36,7 @@ export class SettingsComponent implements OnInit {
     this.principalService.getSettings().then(resp => {
       this.loading = false;
       this.settings = resp;
+      this.settings.customerInfo.logoBase64 = 'data:image/png;base64,' + this.settings.customerInfo.logoBase64;
       if (!resp.customerInfo) {
         this.settings.customerInfo = new Customer();
       }
@@ -115,5 +117,26 @@ export class SettingsComponent implements OnInit {
       }
     });
   }
+
+  saveLogo(fileInputEvent: any) {
+
+        var t = this;
+        var file = fileInputEvent.target.files[0];
+
+        var fileInfo = new FileInfo();
+        var reader  = new FileReader();
+
+        reader.onload = function(readerEvt) {
+          var binaryString = readerEvt.target.result.toString();
+          fileInfo.base64 = btoa(binaryString);
+          t.principalService.saveLogo(fileInfo);
+          t.ngOnInit();
+        };
+
+        reader.readAsBinaryString(file);
+
+  }
+    
+  
 
 }

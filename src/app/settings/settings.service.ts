@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AppHttp } from '../security/app-http';
 import { environment } from '../../environments/environment';
 import { SeetingsInfo } from 'app/model/Settings';
+import { FileInfo } from 'app/model/File';
 
 @Injectable()
 export class SettingsService {
@@ -25,6 +26,14 @@ export class SettingsService {
     var headers = this.http.getHeadersDefault();
 
     return this.http.put<void>(`${environment.apiUrl}/parameter/${parameterId}`, {"newValue": value}, { headers }).toPromise();
+
+  }
+
+  saveLogo(file: FileInfo): Promise<FileInfo>{
+
+    var headers = this.http.getHeadersDefault().append('Content-Type', "application/json");
+
+    return this.http.post<FileInfo>(this.baseUrl, file, { headers }).toPromise();
 
   }
 
