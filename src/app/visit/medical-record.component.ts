@@ -71,8 +71,8 @@ export class MedicalRecordComponent implements OnInit {
     this.displayedColumnsEvolutions = ['id', 'datetime', 'action'];
     this.dataSourceEvolutions = new MatTableDataSource([{ id: 'Sem Registro', datetime: 'Sem Registro', action: 'Sem Registro' }]);
 
-    this.displayedColumnsMedicines = ['id', 'datetime', 'description', 'amount', 'prescriptionOfficer', 'responsibleForTheAdministration'];
-    this.dataSourceMedicines = new MatTableDataSource([{ id: 'Sem Registro', datetime: 'Sem Registro', description: 'Sem Registro', amount: 'Sem Registro', prescriptionOfficer: 'Sem Registro', responsibleForTheAdministration: 'Sem Registro' }]);
+    this.displayedColumnsMedicines = ['id', 'datetime', 'description', 'amount', 'responsibleForTheAdministration'];
+    this.dataSourceMedicines = new MatTableDataSource([{ id: 'Sem Registro', datetime: 'Sem Registro', description: 'Sem Registro', amount: 'Sem Registro', responsibleForTheAdministration: 'Sem Registro' }]);
 
   }
 
