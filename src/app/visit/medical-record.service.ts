@@ -5,6 +5,7 @@ import { PatientHistory, MedicalRecord, NewAttendance } from 'app/model/Attendan
 import { Page, Pageable } from 'app/model/Util';
 import { ResponseAnamnesis } from 'app/model/ResponseAnamnesis';
 import { Allergy, AllergyFilters } from 'app/model/Allergy';
+import { EvolutionInfo } from 'app/model/Evolution';
 
 @Injectable()
 export class MedicalRecordService {
@@ -90,6 +91,14 @@ export class MedicalRecordService {
 
         if (descriptions) {
             return this.http.post<Allergy>(`${environment.apiUrl}/allergy/patient/${patientId}`, descriptions, { headers }).toPromise();
+        }
+    }
+
+    saveEvolution(evolution): Promise<any> {
+        var headers = this.http.getHeadersDefault().append('Content-Type', "application/json");
+        
+        if (evolution) {
+            return this.http.post<EvolutionInfo>(`${this.resourceUrl}/evolution`, evolution, { headers }).toPromise();
         }
     }
 
