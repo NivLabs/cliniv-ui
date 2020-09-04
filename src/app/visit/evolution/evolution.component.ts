@@ -1,6 +1,9 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { EvolutionInfo } from 'app/model/Evolution';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MedicalRecordService } from '../medical-record.service';
+import { NotificationsComponent } from 'app/core/notification/notifications.component';
+import { ErrorHandlerService } from 'app/core/error-handler.service';
 
 @Component({
   selector: 'app-evolution',
@@ -10,8 +13,10 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 export class EvolutionComponent implements OnInit {
 
   dataToForm: EvolutionInfo;
+  public loading = false;
 
-  constructor(public dialogRef: MatDialogRef<EvolutionComponent>, @Inject(MAT_DIALOG_DATA) public data: EvolutionInfo) {
+  constructor(public dialogRef: MatDialogRef<EvolutionComponent>, @Inject(MAT_DIALOG_DATA) public data: EvolutionInfo, public principalService: MedicalRecordService,
+              private notification: NotificationsComponent, private errorHandler: ErrorHandlerService) {
     this.dialogRef.disableClose = true;
   }
 
@@ -30,7 +35,16 @@ export class EvolutionComponent implements OnInit {
   }
 
   save() {
-    //TODO: Chamar camada de serviço pra envio na API
+    this.loading = true;
+    this.principalService.saveEvolution(this.dataToForm).then(resp => {    
+      this.loading = false;  
+      this.notification.showSucess("Evolução salva com sucesso!");
+      this.dialogRef.close();
+    }).catch(error => {
+      this.loading = false;
+      this.errorHandler.handle(error, this.dialogRef);
+    });
+
   }
 
 }

@@ -12,5 +12,5 @@ export class EvolutionInfo {
     accomodationId: number;
     description: string = "";
     datetime: Date;
-
+    responsibleName: string;
 }
