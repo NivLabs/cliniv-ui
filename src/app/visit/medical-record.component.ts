@@ -68,8 +68,8 @@ export class MedicalRecordComponent implements OnInit {
     this.displayedColumnsEvents = ['id', 'datetime', 'description', 'documents'];
     this.dataSourceEvents = new MatTableDataSource([{ id: 'Sem Registro', datetime: 'Sem Registro', description: 'Sem Registro', documents: 'Sem Registro' }]);
 
-    this.displayedColumnsEvolutions = ['id', 'datetime', 'action'];
-    this.dataSourceEvolutions = new MatTableDataSource([{ id: 'Sem Registro', datetime: 'Sem Registro', action: 'Sem Registro' }]);
+    this.displayedColumnsEvolutions = ['id', 'datetime', 'responsibleName', 'action'];
+    this.dataSourceEvolutions = new MatTableDataSource([{ id: 'Sem Registro', datetime: 'Sem Registro', responsibleName: 'Sem Registro', action: 'Sem Registro' }]);
 
     this.displayedColumnsMedicines = ['id', 'datetime', 'description', 'amount', 'responsibleForTheAdministration'];
     this.dataSourceMedicines = new MatTableDataSource([{ id: 'Sem Registro', datetime: 'Sem Registro', description: 'Sem Registro', amount: 'Sem Registro', responsibleForTheAdministration: 'Sem Registro' }]);
@@ -280,10 +280,9 @@ export class MedicalRecordComponent implements OnInit {
     });
 
     dialogNewEvolution.afterClosed().subscribe(result => {
-      if (result !== undefined) {
-        this.ngOnInit();
-      }
+      this.searchActivedVisitByPatientId();      
     });
+    
   }
 
 }
