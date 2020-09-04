@@ -87,6 +87,9 @@ export class ErrorHandlerService {
       msg = 'Erro ao processar serviço remoto. Tente novamente.';
       if (errorResponse.message) {
         msg = errorResponse.message;
+        if (msg.includes("Http failure response for ") || (errorResponse?.statusText == 'Unknown Error')) {
+          msg = 'Erro ao processar serviço remoto, verifique sua rede e tente novamente.';
+        }
       }
       console.error('Ocorreu um erro', errorResponse);
       this.notification.showError(msg);
