@@ -12,6 +12,7 @@ import { AdminLayoutModule } from './layouts/admin-layout/admin-layout.module';
 import { SecurityRoutingModule } from './security/security-routing.module';
 import { SecurityModule } from './security/security.module';
 import { DocumentSelectorComponent } from './visit/document-selector/document-selector.component';
+import { ConvenantComponent } from './convenant/convenant.component';
 
 @NgModule({
    imports: [
@@ -30,7 +31,8 @@ import { DocumentSelectorComponent } from './visit/document-selector/document-se
    declarations: [
       AppComponent,
       AdminLayoutComponent,
-      DocumentSelectorComponent
+      DocumentSelectorComponent,
+      ConvenantComponent
    ],
    providers: [],
    bootstrap: [
