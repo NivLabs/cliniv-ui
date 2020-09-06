@@ -3,7 +3,6 @@
         <app-sidebar></app-sidebar>
     </div>
     <div [ngClass]="isAuthenticated() ? 'main-panel' : '' ">
-        <app-navbar *ngIf="isAuthenticated()"></app-navbar>
         <router-outlet></router-outlet>
         <div>
             <app-footer *ngIf="isAuthenticated()"></app-footer>

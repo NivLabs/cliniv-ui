@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'app/security/auth.service';
 import { Router } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 declare const $: any;
 declare interface RouteInfo {
@@ -29,10 +30,16 @@ export const ROUTES: RouteInfo[] = [
 })
 export class SidebarComponent implements OnInit {
   menuItems: any[];
+  userName: string;
+
 
   constructor(
     private auth: AuthService,
-    private router: Router) { }
+    private router: Router,
+    private jwtHelper: JwtHelperService) {
+    const token = localStorage.getItem('token');
+    this.userName = this.jwtHelper.decodeToken(token) !== null ? this.jwtHelper.decodeToken(token).sub : '';
+  }
 
   ngOnInit() {
     this.menuItems = ROUTES.filter(menuItem => menuItem);

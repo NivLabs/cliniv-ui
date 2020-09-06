@@ -5,4 +5,5 @@
 .video-pic {
     width: 100% !important;
     max-width: 700px !important;
+    margin-bottom: -25px;
 }

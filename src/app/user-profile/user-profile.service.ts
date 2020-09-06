@@ -23,7 +23,7 @@ export class UserProfileService {
   save(userInfo: UserInfo): Promise<UserInfo> {
     var validUserInfo = this.validAddress(userInfo);
     var headers = this.http.getHeadersDefault()
-    return this.http.put<UserInfo>(`${this.resourceUrl}/${validUserInfo.id}`, validUserInfo, { headers })
+    return this.http.put<UserInfo>(`${this.resourceUrl}`, validUserInfo, { headers })
       .toPromise();
   }
 

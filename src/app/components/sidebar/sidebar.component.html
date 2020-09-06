@@ -7,15 +7,20 @@
 </div>
 <div class="sidebar-wrapper">
     <ul class="nav">
+        <li class="nav-item welcome-message">
+            <a class="nav-link">
+                <p>Bem vindo, {{userName}}</p>
+            </a>
+        </li>
         <li routerLinkActive="active" *ngFor="let menuItem of menuItems" class="{{menuItem.class}} nav-item">
             <a class="nav-link" [routerLink]="[menuItem.path]">
                 <i class="material-icons">{{menuItem.icon}}</i>
                 <p>{{menuItem.title}}</p>
             </a>
-        </li>     
+        </li>
         <li class="logoff-layout">
             <button type="button" class="col-12 btn btn-danger btn-small" (click)="logoff()">Sair</button>
-        </li>   
+        </li>
     </ul>
     <!-- <div class="logoff-layout">
         <button type="button" class="col-12 btn btn-danger btn-small" (click)="logoff()">Sair</button>

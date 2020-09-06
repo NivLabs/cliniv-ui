@@ -43,3 +43,12 @@
     position: unset;
     top: 0px;
 }
+
+
+.welcome-message {
+    background-color: #F4F4F4;
+}
+
+.welcome-message .nav-link:hover {
+    background-color: #F4F4F4;
+}
