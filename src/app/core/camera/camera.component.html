@@ -2,7 +2,6 @@
     *ngIf="showWebcam" [allowCameraSwitch]="allowCameraSwitch" [switchCamera]="nextWebcamObservable"
     [videoOptions]="videoOptions" (cameraSwitched)="cameraWasSwitched($event)" (initError)="handleInitError($event)">
 </webcam>
-<br />
 <button mat-raised-button type="button" (click)="triggerSnapshot()"
     class="col-12 btn btn-warning btn-block">Tirar foto</button>
 <h4 *ngIf="errors.length > 0">Mensagens:</h4>
