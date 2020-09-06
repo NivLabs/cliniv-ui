@@ -31,7 +31,7 @@ export const ROUTES: RouteInfo[] = [
 })
 export class SidebarComponent implements OnInit {
   menuItems: any[];
-  userName: string;
+  personName: string;
 
 
   constructor(
@@ -39,7 +39,8 @@ export class SidebarComponent implements OnInit {
     private router: Router,
     private jwtHelper: JwtHelperService) {
     const token = localStorage.getItem('token');
-    this.userName = this.jwtHelper.decodeToken(token) !== null ? this.jwtHelper.decodeToken(token).sub : '';
+    this.personName = this.jwtHelper.decodeToken(token) !== null ? this.jwtHelper.decodeToken(token).personName : '';
+    this.personName = this.personName.split(" ")[0];
   }
 
   ngOnInit() {
