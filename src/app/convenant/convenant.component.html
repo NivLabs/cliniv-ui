@@ -1,0 +1,40 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-info">
+                        <h4 class="card-title">Convênios</h4>
+                    </div>
+                    <div class="card-body">
+                        <form #form="ngForm" autocomplete="off">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <mat-form-field>
+                                        <input matInput type="number" placeholder="Código do Convênio" name="id"  
+                                            [(ngModel)]="filters.id" #id (keypress)="enterKeyPress($event)" />
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-4">
+                                    <mat-form-field>
+                                        <input matInput placeholder="Descrição do Convênio" name="description"
+                                            [(ngModel)]="filters.description" #description type="text"
+                                            (keypress)="enterKeyPress($event)" />
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <button mat-raised-button type="button" (click)="applyFilter()"
+                                class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-danger pull-right" matTooltip="Aplica Filtro"> 
+                                <span class="fa fa-search"></span> Filtrar</button>
+                            <button mat-raised-button type="button" (click)="openDialog(null)" matTooltip="Adiciona Convênio"
+                                class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-info pull-right"><span
+                                class="fa fa-plus"></span> Novo Convênio</button>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<ngx-loading [show]="loading"></ngx-loading>

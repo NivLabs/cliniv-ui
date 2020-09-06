@@ -1,4 +1,3 @@
-import { HttpParams, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { AppHttp } from '../security/app-http';

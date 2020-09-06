@@ -15,12 +15,12 @@
 
 .margin-color-active {
     border-left: 10px solid #00BCD4;
-    height: 180px;
+    height: 200px;
 }
 
 .link-card {
     cursor: pointer;
-    height: 180px;
+    height: 200px;
 }
 
 .link-card:hover {

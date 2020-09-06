@@ -52,3 +52,6 @@
 .welcome-message .nav-link:hover {
     background-color: #F4F4F4;
 }
+.logoff {
+    color: #EA4541 !important;
+}
