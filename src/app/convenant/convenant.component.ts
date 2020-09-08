@@ -13,10 +13,10 @@ export class ConvenantComponent implements OnInit {
 
   public loading: boolean;
   public dataNotFound: boolean;
-  private datas: [];
-  private page: Page;
-  private pageSettings: Pageable;
-  private filters: ConvenantFilter;
+  public datas: [];
+  public page: Page;
+  public pageSettings: Pageable;
+  public filters: ConvenantFilter;
 
   constructor(private principalService: ConvenantService, private errorHandler: ErrorHandlerService) { }
 
@@ -64,7 +64,6 @@ export class ConvenantComponent implements OnInit {
       })
     }
   }
-
 
   applyFilter() {
     if (this.filters) {

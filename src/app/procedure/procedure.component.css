@@ -19,21 +19,6 @@
     background: linear-gradient(60deg, #696d69, #4d524d);
 }
 
-.margin-color-active {
-    border-left: 10px solid #00BCD4;
-    height: 180px;
-}
-
-.margin-color-danger {
-    border-left: 10px solid #F44336 !important;
-    height: 180px;
-}
-
-.link-card {
-    cursor: pointer;
-    height: 180px;
-}
-
 .link-card:hover {
     bottom: 3px;
     cursor: pointer;
@@ -75,17 +60,17 @@ ul {
 
 .margin-color-active {
     border-left: 10px solid #00BCD4;
-    height: 180px;
+    height: 260px;
 }
 
 .margin-color-danger {
     border-left: 10px solid #F44336 !important;
-    height: 180px;
+    height: 260px;
 }
 
 .link-card {
     cursor: pointer;
-    height: 180px;
+    height: 260px;
 }
 
 .link-card:hover {
