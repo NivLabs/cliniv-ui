@@ -31,13 +31,14 @@
                                 <div class="col-md-4">
                                     <mat-form-field>
                                         <input matInput placeholder="Descrição" name="description"
-                                            [(ngModel)]="filters.description" #description type="text" 
+                                            [(ngModel)]="filters.description" #description type="text"
                                             (keypress)="enterKeyPress($event)" />
                                     </mat-form-field>
                                 </div>
                             </div>
                             <button mat-raised-button type="button" (click)="applyFilter()"
-                                class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-danger pull-right" matTooltip="Aplica Filtro"> 
+                                class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-danger pull-right"
+                                matTooltip="Aplica Filtro">
                                 <span class="fa fa-search"></span> Filtrar</button>
                             <div class="clearfix"></div>
                         </form>
@@ -66,8 +67,44 @@
                                 </li>
 
                                 <li><span id="span_{{procedure.id}}" class="fa procedure-info"
-                                    [ngClass]="procedure.active === true ? 'fa-check-square' : 'fa-window-close'"> Situação: </span>
-                                   {{procedure.active === true ? 'Ativo' : 'Inativo'}}
+                                        [ngClass]="procedure.active === true ? 'fa-check-square' : 'fa-window-close'">
+                                        Situação: </span>
+                                    {{procedure.active === true ? 'Ativo' : 'Inativo'}}
+                                </li>
+
+                                <li *ngIf="procedure.baseValue"><span id="span_{{procedure.baseValue}}"
+                                        class="fa fa-money procedure-info"> Valor Base: </span>
+                                    {{procedure.baseValue | currency:'BRL'}}
+                                </li>
+
+                                <li><span
+                                        id="span_{{procedure.specialAuthorization}}"
+                                        class="fa fa-sign-in procedure-info"> Req. Autorização Espec.: </span>
+                                    {{procedure.specialAuthorization ? 'SIM' : 'NÃO'}}
+                                </li>
+
+                                <li><span id="span_{{procedure.previousAudit}}"
+                                        class="fa fa-search procedure-info"> Req. Auditoria Prévia: </span>
+                                    {{procedure.previousAudit ? 'SIM' : 'NÃO'}}
+                                </li>
+
+                                <li><span id="span_{{procedure.specialty}}"
+                                        class="fa fa-user-secret procedure-info"> Req. Especialidade: </span>
+                                    {{procedure.specialty ? 'SIM' : 'NÃO'}}
+                                </li>
+                                <li *ngIf="procedure.frequency"><span id="span_{{procedure.frequency}}"
+                                        class="fa fa-refresh procedure-info"> Periocidade: </span>
+                                    {{procedure.frequency}}
+                                </li>
+
+                                <li *ngIf="procedure.minAge"><span id="span_{{procedure.minAge}}"
+                                        class="fa fa-birthday-cake procedure-info"> Idade minAge: </span>
+                                    {{procedure.minAge}}
+                                </li>
+
+                                <li *ngIf="procedure.maxAge"><span id="span_{{procedure.maxAge}}"
+                                        class="fa fa-birthday-cake procedure-info"> Idade máxima: </span>
+                                    {{procedure.maxAge}}
                                 </li>
                             </ul>
                         </div>
