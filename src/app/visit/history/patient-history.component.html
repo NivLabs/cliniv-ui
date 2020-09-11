@@ -14,7 +14,7 @@
             <!-- Name Column -->
             <ng-container matColumnDef="entryDatetime">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>Dt. Entrada</mat-header-cell>
-                <mat-cell *matCellDef="let row">{{row.entryDatetime}}</mat-cell>
+                <mat-cell *matCellDef="let row">{{row.entryDatetime | date: 'dd/MM/yyyy HH:mm'}}</mat-cell>
             </ng-container>
 
             <!-- Progress Column -->
@@ -35,8 +35,9 @@
             <ng-container matColumnDef="actions">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>Selecionar</mat-header-cell>
                 <mat-cell *matCellDef="let row" style="text-align: center; display: block;">
-                    <button mat-raised-button (click)="ngOnInit()" class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-info" 
-                    [mat-dialog-close]="row" matTooltip="Visualizar"><span class="fa fa-eye"></span></button>
+                    <button mat-raised-button (click)="ngOnInit()"
+                        class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-info" [mat-dialog-close]="row"
+                        matTooltip="Visualizar"><span class="fa fa-eye"></span></button>
 
                 </mat-cell>
             </ng-container>

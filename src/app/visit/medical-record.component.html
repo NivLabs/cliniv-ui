@@ -235,9 +235,8 @@
                             <ng-container matColumnDef="action">
                                 <mat-header-cell *matHeaderCellDef mat-sort-header class="text-primary"
                                     style="font-size: 0.95rem; font-weight: 500;"> Ação </mat-header-cell>
-                                <mat-cell *matCellDef="let element"> {{element.action}} </mat-cell>
+                                <mat-cell *matCellDef="let element">Sem ação...</mat-cell>
                             </ng-container>
-
                             <mat-header-row *matHeaderRowDef="displayedColumnsEvolutions"></mat-header-row>
                             <mat-row *matRowDef="let row; columns: displayedColumnsEvolutions;"></mat-row>
 
