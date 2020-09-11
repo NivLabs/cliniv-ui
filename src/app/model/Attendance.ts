@@ -33,6 +33,8 @@ export class AttendanceFilters {
  */
 export class MedicalRecord {
     id: number;
+    entryDatetime: Date;
+    exitDatetime: Date;
     patientId: number;
     document: Document;
     susNumber: string;

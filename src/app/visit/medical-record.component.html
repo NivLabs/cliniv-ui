@@ -12,15 +12,17 @@
                         <div class="float-rigth">
 
                             <button mat-raised-button class="btn btn-info" matTooltip="Realiza questionário de Anamnese"
-                                *ngIf="visit.id && visit.patientId" (click)="openAnamnesisDialog(visit.id)"><span
-                                    class="fa fa-question"></span>
+                                *ngIf="visit.id && visit.patientId && !visit.exitDateTime"
+                                (click)="openAnamnesisDialog(visit.id)"><span class="fa fa-question"></span>
                                 Anamnese</button>
 
                             <button mat-raised-button class="btn btn-info" matTooltip="Adiciona prescrição"
-                                *ngIf="visit.id && visit.patientId"><span class="fa fa-file"></span> Prescrição</button>
+                                *ngIf="visit.id && visit.patientId && !visit.exitDateTime"><span
+                                    class="fa fa-file"></span> Prescrição</button>
 
                             <button mat-raised-button class="btn btn-info" matTooltip="Adiciona evolução"
-                                (click)="openEvolutionDialog(visit.id)" *ngIf="visit.id && visit.patientId"><span
+                                (click)="openEvolutionDialog(visit.id)"
+                                *ngIf="visit.id && visit.patientId && !visit.exitDateTime"><span
                                     class="fa fa-arrow-up"></span>
                                 Evolução</button>
 
@@ -32,16 +34,18 @@
                                 *ngIf="patientNotIdentified()" (click)="identifyPatient()">Identificar paciente</button>
 
                             <button mat-raised-button class="btn btn-primary" matTooltip="Adiciona evento"
-                                *ngIf="visit.id && visit.patientId"><span class="fa fa-plus-square"></span>
+                                *ngIf="visit.id && visit.patientId && !visit.exitDateTime"><span
+                                    class="fa fa-plus-square"></span>
                                 Evento</button>
 
                             <button mat-raised-button class="btn btn-warning" matTooltip="Adiciona alergia"
-                                *ngIf="visit.id && visit.patientId" (click)="openAllergyDialog(visit.patientId)"><span
-                                    class="fa fa-plus"></span>
+                                *ngIf="visit.id && visit.patientId && !visit.exitDateTime"
+                                (click)="openAllergyDialog(visit.patientId)"><span class="fa fa-plus"></span>
                                 Alergia</button>
 
                             <button mat-raised-button class="btn btn-success" matTooltip="Realizar alta"
-                                *ngIf="visit.id && visit.patientId"><span class="fa fa-check"></span>
+                                *ngIf="visit.id && visit.patientId && !visit.exitDateTime"><span
+                                    class="fa fa-check"></span>
                                 Alta</button>
 
                             <button mat-raised-button (click)="ngOnInit()" matTooltip="Limpar pesquisa"
@@ -231,9 +235,8 @@
                             <ng-container matColumnDef="action">
                                 <mat-header-cell *matHeaderCellDef mat-sort-header class="text-primary"
                                     style="font-size: 0.95rem; font-weight: 500;"> Ação </mat-header-cell>
-                                <mat-cell *matCellDef="let element"> {{element.action}} </mat-cell>
+                                <mat-cell *matCellDef="let element">Sem ação...</mat-cell>
                             </ng-container>
-
                             <mat-header-row *matHeaderRowDef="displayedColumnsEvolutions"></mat-header-row>
                             <mat-row *matRowDef="let row; columns: displayedColumnsEvolutions;"></mat-row>
 
