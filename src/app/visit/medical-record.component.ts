@@ -52,6 +52,8 @@ export class MedicalRecordComponent implements OnInit {
       susNumber: null,
       lastAccommodation: new Accommodation(),
       bornDate: null,
+      entryDatetime: null,
+      exitDatetime: null,
       gender: null,
       events: [],
       allergies: [],
