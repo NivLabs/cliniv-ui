@@ -52,7 +52,7 @@
                         <hr />
                         <form #form="ngForm" autocomplete="off">
                             <div class="row">
-                                <div class="col-md-3">
+                                <div class="col-md-2">
                                     <mat-form-field>
                                         <input matInput type="number" placeholder="Código do atendimento" name="id"
                                             [ngClass]="{'patient-not-identified' : patientNotIdentified()}"
@@ -60,7 +60,7 @@
                                             [disabled]="visit.patientId" />
                                     </mat-form-field>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-2">
                                     <mat-form-field>
                                         <input matInput type="number" placeholder="Código do paciente" name="patientId"
                                             [ngClass]="{'patient-not-identified' : patientNotIdentified()}"
@@ -68,7 +68,23 @@
                                             (keypress)="enterKeyPress($event)" [disabled]="visit.id" />
                                     </mat-form-field>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-2">
+                                    <mat-form-field>
+                                        <input matInput type="datetime-local" placeholder="Data/Hora Entrada"
+                                            name="entryDateTime"
+                                            [ngClass]="{'patient-not-identified' : patientNotIdentified()}"
+                                            [(ngModel)]="visit.entryDateTime" #entryDateTime="ngModel" disabled />
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-2">
+                                    <mat-form-field>
+                                        <input matInput type="datetime-local" placeholder="Data/Hora Saída"
+                                            name="exitDatetime"
+                                            [ngClass]="{'patient-not-identified' : patientNotIdentified()}"
+                                            [(ngModel)]="visit.exitDatetime" #exitDatetime="ngModel" disabled />
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-4">
                                     <mat-form-field>
                                         <input matInput type="text" placeholder="Leito | Sala" name="lastAccommodation"
                                             [ngClass]="{'patient-not-identified' : patientNotIdentified()}"
@@ -150,15 +166,17 @@
                             <ng-container matColumnDef="datetime">
                                 <mat-header-cell *matHeaderCellDef mat-sort-header class="text-primary"
                                     style="font-size: 0.95rem; font-weight: 500;"> Data - Hora </mat-header-cell>
-                                <mat-cell *matCellDef="let element"> {{element.datetime != 'Sem Registro' ? (element.datetime  | date: 'dd/MM/yyyy HH:mm') : element.datetime}} </mat-cell>
+                                <mat-cell *matCellDef="let element">
+                                    {{element.datetime != 'Sem Registro' ? (element.datetime  | date: 'dd/MM/yyyy HH:mm') : element.datetime}}
+                                </mat-cell>
                             </ng-container>
 
                             <ng-container matColumnDef="description">
                                 <mat-header-cell *matHeaderCellDef mat-sort-header class="text-primary"
                                     style="font-size: 0.95rem; font-weight: 500;"> Descrição </mat-header-cell>
                                 <mat-cell *matCellDef="let element"> {{element.description}} </mat-cell>
-                            </ng-container> 
-                            
+                            </ng-container>
+
                             <ng-container matColumnDef="amount">
                                 <mat-header-cell *matHeaderCellDef mat-sort-header class="text-primary"
                                     style="font-size: 0.95rem; font-weight: 500;"> Dosagem </mat-header-cell>
@@ -168,7 +186,8 @@
                             <ng-container matColumnDef="responsibleForTheAdministration">
                                 <mat-header-cell *matHeaderCellDef mat-sort-header class="text-primary"
                                     style="font-size: 0.95rem; font-weight: 500;"> Administração </mat-header-cell>
-                                <mat-cell *matCellDef="let element"> {{element.responsibleForTheAdministration}} </mat-cell>
+                                <mat-cell *matCellDef="let element"> {{element.responsibleForTheAdministration}}
+                                </mat-cell>
                             </ng-container>
 
                             <mat-header-row *matHeaderRowDef="displayedColumnsMedicines"></mat-header-row>
@@ -198,7 +217,9 @@
                             <ng-container matColumnDef="datetime">
                                 <mat-header-cell *matHeaderCellDef mat-sort-header class="text-primary"
                                     style="font-size: 0.95rem; font-weight: 500;"> Data - Hora </mat-header-cell>
-                                <mat-cell *matCellDef="let element"> {{element.datetime != 'Sem Registro' ? (element.datetime  | date: 'dd/MM/yyyy HH:mm') : element.datetime}} </mat-cell>
+                                <mat-cell *matCellDef="let element">
+                                    {{element.datetime != 'Sem Registro' ? (element.datetime  | date: 'dd/MM/yyyy HH:mm') : element.datetime}}
+                                </mat-cell>
                             </ng-container>
 
                             <ng-container matColumnDef="responsibleName">
@@ -211,7 +232,7 @@
                                 <mat-header-cell *matHeaderCellDef mat-sort-header class="text-primary"
                                     style="font-size: 0.95rem; font-weight: 500;"> Ação </mat-header-cell>
                                 <mat-cell *matCellDef="let element"> {{element.action}} </mat-cell>
-                            </ng-container>                            
+                            </ng-container>
 
                             <mat-header-row *matHeaderRowDef="displayedColumnsEvolutions"></mat-header-row>
                             <mat-row *matRowDef="let row; columns: displayedColumnsEvolutions;"></mat-row>
@@ -239,7 +260,9 @@
                             <ng-container matColumnDef="datetime">
                                 <mat-header-cell *matHeaderCellDef mat-sort-header class="text-primary"
                                     style="font-size: 0.95rem; font-weight: 500;"> Data - Hora </mat-header-cell>
-                                <mat-cell *matCellDef="let element"> {{element.datetime != 'Sem Registro' ? (element.datetime  | date: 'dd/MM/yyyy HH:mm') : element.datetime}} </mat-cell>
+                                <mat-cell *matCellDef="let element">
+                                    {{element.datetime != 'Sem Registro' ? (element.datetime  | date: 'dd/MM/yyyy HH:mm') : element.datetime}}
+                                </mat-cell>
                             </ng-container>
 
                             <ng-container matColumnDef="description">
@@ -267,8 +290,8 @@
                                         matTooltip="Visualizar"><span class="fa fa-eye"></span></button>
 
 
-                                    <button *ngIf="element.documents.length > 1 && element.documents != 'Sem Registro'" mat-raised-button
-                                        (click)="openDocumentViewerDialog(element.documents)"
+                                    <button *ngIf="element.documents.length > 1 && element.documents != 'Sem Registro'"
+                                        mat-raised-button (click)="openDocumentViewerDialog(element.documents)"
                                         class="col-12 col-sm-12 col-md-4 col-lg-4 btn btn-info"
                                         matTooltip="Selecionar"><span class="fa fa-list"></span></button>
 
