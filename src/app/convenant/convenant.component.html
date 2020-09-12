@@ -11,7 +11,7 @@
                             <div class="row">
                                 <div class="col-md-2">
                                     <mat-form-field>
-                                        <input matInput type="number" placeholder="Código do Convênio" name="id"  
+                                        <input matInput type="number" placeholder="Código do Convênio" name="id"
                                             [(ngModel)]="filters.id" #id (keypress)="enterKeyPress($event)" />
                                     </mat-form-field>
                                 </div>
@@ -24,13 +24,36 @@
                                 </div>
                             </div>
                             <button mat-raised-button type="button" (click)="applyFilter()"
-                                class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-danger pull-right" matTooltip="Aplica Filtro"> 
+                                class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-danger pull-right"
+                                matTooltip="Aplica Filtro">
                                 <span class="fa fa-search"></span> Filtrar</button>
-                            <button mat-raised-button type="button" (click)="openDialog(null)" matTooltip="Adiciona Convênio"
+                            <button mat-raised-button type="button" (click)="openDialog(null)"
+                                matTooltip="Adiciona Convênio"
                                 class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-info pull-right"><span
-                                class="fa fa-plus"></span> Novo Convênio</button>
+                                    class="fa fa-plus"></span> Novo Convênio</button>
                             <div class="clearfix"></div>
                         </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="search-results" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50"
+            (scrolled)="loadNextPage()">
+            <div class="row">
+                <div class="center" *ngIf="!loading && dataNotFound">
+                    <h1>Nenhuma operadora de saúde encontrada...</h1>
+                </div>
+                <div *ngFor="let data of datas" class="col-12 col-sm-12 col-md-4 col-lg-4">
+                    <div class="card link-card" (click)="openDialog(data.id)">
+                        <div class="card-body margin-color-active">
+                            <ul>
+                                <li class="data-name"> {{data.companyName}}</li>
+                                <li><span class="fa fa-user data-info"> Nome Fantasia:</span> {{data.fantasyName}}</li>
+                                <li><span class="fa fa-key data-info"> Matrícula:</span> {{data.id}}</li>
+                                <li><span class="fa fa-id-card data-info"> CNPJ:</span> {{data.cnpj}}</li>
+                                <li><span class="fa fa-phone data-info"> Modalidade:</span> {{data.modality}}</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
