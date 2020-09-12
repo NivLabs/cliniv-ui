@@ -82,4 +82,31 @@ export class ConvenantComponent implements OnInit {
       });
     }
   }
+
+  /**
+   * 
+   * Converte o ENUM de modalidade para a descrição
+   * @param modality Modalidade
+   */
+  getModalityDescription(modality: string) {
+    switch (modality) {
+      case 'HEALTH_PLAN_OPERATORS':
+        return "Operadora de Plano de Saúde";
+      case 'MEDICAL_OR_DENTAL_COOPERATIVE':
+        return "Cooperativa Médica ou Odontológica";
+      case 'SELF_MANAGEMENT':
+        return "Autogerenciamento";
+      case 'PHILANTHROPY':
+        return "Filantropia";
+      case 'ADMNISTRATOR':
+        return "Administradora";
+      case 'HEALTH_INSURERS':
+        return "Seguradora de saúde";
+    }
+  }
+
+  selectOperatorModality(newValue) {
+    this.filters.modality = newValue;
+    this.applyFilter();
+  }
 }
