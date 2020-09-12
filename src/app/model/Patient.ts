@@ -1,3 +1,4 @@
+import { HealthPlan } from "./HealthPlan";
 import { Person } from "./Person";
 
 /**
@@ -6,6 +7,7 @@ import { Person } from "./Person";
 export class PatientInfo extends Person {
     susNumber: string;
     type: string;
+    healthPlan?: HealthPlan = new HealthPlan();
     annotations: string;
 }
 

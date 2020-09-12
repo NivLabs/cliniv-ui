@@ -43,7 +43,7 @@ Atualmente encontra-se na versão 1.0.0 em desenvolvimento - [NLGP-UI](https://g
 
 ## Mínimo para rodar
 Para contribuir com o projeto, existem alguns requisítos mínimos de configurações, são eles?
-- Node 10 + **(Obrigatório)**
+- Node 14 + **(Obrigatório)**
 - Angular 9 (Community) **(Obrigatório)**
 - Qualquer editor de texto *(Opcional)*
 
