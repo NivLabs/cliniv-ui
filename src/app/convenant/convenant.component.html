@@ -11,15 +11,36 @@
                             <div class="row">
                                 <div class="col-md-2">
                                     <mat-form-field>
-                                        <input matInput type="number" placeholder="Código do Convênio" name="id"
-                                            [(ngModel)]="filters.id" #id (keypress)="enterKeyPress($event)" />
+                                        <input matInput type="text" placeholder="Código ANS" name="ansCode"
+                                            [(ngModel)]="filters.ansCode" #ansCode (keypress)="enterKeyPress($event)" />
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-3">
+                                    <mat-form-field>
+                                        <input matInput type="text" placeholder="Nome Corporativo" name="companyName"
+                                            [(ngModel)]="filters.companyName" #companyName (keypress)="enterKeyPress($event)" />
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-3">
+                                    <mat-form-field>
+                                        <input matInput type="text" placeholder="Nome fantasia" name="fantasyName"
+                                            [(ngModel)]="filters.fantasyName" #fantasyName (keypress)="enterKeyPress($event)" />
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-4">
                                     <mat-form-field>
-                                        <input matInput placeholder="Descrição do Convênio" name="description"
-                                            [(ngModel)]="filters.description" #description type="text"
-                                            (keypress)="enterKeyPress($event)" />
+                                        <mat-label>Modalidade</mat-label>
+                                        <mat-select matNativeControl name="modality"
+                                            (selectionChange)="selectOperatorModality($event.value)"
+                                            [(ngModel)]="filters.modality" #patientType>
+                                            <mat-option>Todas</mat-option>
+                                            <mat-option value="HEALTH_PLAN_OPERATORS">Operadora de plando de saúde</mat-option>
+                                            <mat-option value="MEDICAL_OR_DENTAL_COOPERATIVE">Cooperativa médica ou odontológica</mat-option>
+                                            <mat-option value="SELF_MANAGEMENT">Autogerenciamento</mat-option>
+                                            <mat-option value="PHILANTHROPY">Filantropia</mat-option>
+                                            <mat-option value="ADMNISTRATOR">Administradora</mat-option>
+                                            <mat-option value="HEALTH_INSURERS">Seguradora de saúde</mat-option>
+                                        </mat-select>
                                     </mat-form-field>
                                 </div>
                             </div>
@@ -50,8 +71,9 @@
                                 <li class="data-name"> {{data.companyName}}</li>
                                 <li><span class="fa fa-user data-info"> Nome Fantasia:</span> {{data.fantasyName}}</li>
                                 <li><span class="fa fa-key data-info"> Matrícula:</span> {{data.id}}</li>
+                                <li><span class="fa fa-key data-info"> Código ANS:</span> {{data.ansCode}}</li>
                                 <li><span class="fa fa-id-card data-info"> CNPJ:</span> {{data.cnpj}}</li>
-                                <li><span class="fa fa-phone data-info"> Modalidade:</span> {{data.modality}}</li>
+                                <li><span class="fa fa-phone data-info"> Modalidade:</span> {{getModalityDescription(data.modality)}}</li>
                             </ul>
                         </div>
                     </div>
