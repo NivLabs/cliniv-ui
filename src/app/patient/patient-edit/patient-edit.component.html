@@ -14,7 +14,7 @@
     <div class="card-body">
         <form #form="ngForm" autocomplete="off" (ngSubmit)="save()">
             <mat-tab-group>
-                <mat-tab label="Informações">
+                <mat-tab label="Informações *">
                     <br />
                     <div class="row">
                         <div *ngIf="dataToForm.id" class="col-md-3">
@@ -116,7 +116,7 @@
                         </div>
                     </div>
                 </mat-tab>
-                <mat-tab label="Endereco">
+                <mat-tab label="Endereco *">
                     <br />
                     <div class="row">
                         <div class="col-md-4">
