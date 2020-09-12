@@ -12,6 +12,7 @@ import { Address } from 'app/model/Address';
 import { WebcamImage } from 'ngx-webcam';
 import { CameraDialogComponent } from 'app/component/camera/dialog/camera-dialog.component';
 import { Document } from 'app/model/Document';
+import { HealthPlan } from 'app/model/HealthPlan';
 
 
 @Component({
@@ -72,6 +73,9 @@ export class PatientEditComponent implements OnInit {
         if (!resp.document) {
           this.isNewCpf = true;
           this.dataToForm.document = new Document('CPF');
+        }
+        if(!resp.healthPlan) {
+          this.dataToForm.healthPlan = new HealthPlan();
         }
       }).catch(error => {
         this.loading = false;
