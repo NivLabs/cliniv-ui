@@ -9,7 +9,7 @@ export class ConvenantService {
     baseUrl: string;
 
     constructor(private http: AppHttp) {
-        this.baseUrl = `${environment.apiUrl}/convenant`;
+        this.baseUrl = `${environment.apiUrl}/health-operator`;
     }
 
     getPage(filter: ConvenantFilter, pageSettings: Pageable): Promise<Page> {

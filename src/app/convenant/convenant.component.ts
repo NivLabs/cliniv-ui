@@ -7,7 +7,7 @@ import { ErrorHandlerService } from 'app/core/error-handler.service';
 @Component({
   selector: 'app-convenant',
   templateUrl: './convenant.component.html',
-  styleUrls: ['./convenant.component.scss']
+  styleUrls: ['./convenant.component.css']
 })
 export class ConvenantComponent implements OnInit {
 
