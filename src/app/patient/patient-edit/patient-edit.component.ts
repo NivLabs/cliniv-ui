@@ -74,7 +74,7 @@ export class PatientEditComponent implements OnInit {
           this.isNewCpf = true;
           this.dataToForm.document = new Document('CPF');
         }
-        if(!resp.healthPlan) {
+        if (!resp.healthPlan) {
           this.dataToForm.healthPlan = new HealthPlan();
         }
       }).catch(error => {
@@ -92,8 +92,10 @@ export class PatientEditComponent implements OnInit {
   }
 
   save() {
+    this.loading = true;
     if (this.dataToForm.id) {
       this.patientService.update(this.dataToForm).then(resp => {
+        this.loading = false;
         this.dataToForm = resp;
         if (!resp.address) {
           this.dataToForm.address = new Address();
@@ -105,6 +107,7 @@ export class PatientEditComponent implements OnInit {
       });
     } else {
       this.patientService.create(this.dataToForm).then(resp => {
+        this.loading = false;
         this.dataToForm = resp;
         if (!resp.address) {
           this.dataToForm.address = new Address();
