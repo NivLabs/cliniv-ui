@@ -1,3 +1,4 @@
+import { PatientHistory } from "./Attendance";
 import { HealthPlan } from "./HealthPlan";
 import { Person } from "./Person";
 
@@ -9,6 +10,7 @@ export class PatientInfo extends Person {
     type: string;
     healthPlan?: HealthPlan = new HealthPlan();
     annotations: string;
+    attendanceHistory: Array<PatientHistory>;
 }
 
 export class PatientFilters {

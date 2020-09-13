@@ -66,6 +66,11 @@ export class MedicalRecordComponent implements OnInit {
       this.visit.patientId = Number.parseInt(patientIdFromUrl);
       this.searchActivedVisitByPatientId();
     }
+    var attendanceFromUrl = this.route.snapshot.paramMap.get('attendanceId');
+    if (attendanceFromUrl) {
+      this.visit.id = Number.parseInt(attendanceFromUrl);
+      this.searchVisitById();
+    }
 
     this.displayedColumnsEvents = ['id', 'datetime', 'description', 'documents'];
     this.dataSourceEvents = new MatTableDataSource([{ id: 'Sem Registro', datetime: 'Sem Registro', description: 'Sem Registro', documents: 'Sem Registro' }]);
@@ -120,7 +125,7 @@ export class MedicalRecordComponent implements OnInit {
   onFindVisitInfo(result) {
     this.loading = false;
     this.visit = result;
-    
+
     if (this.visit.medicines.length > 0) {
 
       this.visit.medicines = this.visit.medicines.sort(function (a, b) {
@@ -145,7 +150,7 @@ export class MedicalRecordComponent implements OnInit {
       setTimeout(() => {
         this.dataSourceEvolutions.sort = this.sortEvolutions;
       });
-    }    
+    }
 
     if (this.visit.events.length > 0) {
 
@@ -282,9 +287,9 @@ export class MedicalRecordComponent implements OnInit {
     });
 
     dialogNewEvolution.afterClosed().subscribe(result => {
-      this.searchActivedVisitByPatientId();      
+      this.searchActivedVisitByPatientId();
     });
-    
+
   }
 
 }

@@ -13,6 +13,8 @@ import { WebcamImage } from 'ngx-webcam';
 import { CameraDialogComponent } from 'app/component/camera/dialog/camera-dialog.component';
 import { Document } from 'app/model/Document';
 import { HealthPlan } from 'app/model/HealthPlan';
+import { MatTableDataSource } from '@angular/material/table';
+import { PatientHistory } from 'app/model/Attendance';
 
 
 @Component({
@@ -25,11 +27,21 @@ export class PatientEditComponent implements OnInit {
   public loading: boolean;
   public isNewCpf = false;
 
-  constructor(private router: Router, public confirmDialog: MatDialog,
-    public dialogRef: MatDialogRef<PatientEditComponent>, public errorHandler: ErrorHandlerService,
-    @Inject(MAT_DIALOG_DATA) public data: PatientInfo, private patientService: PatientService, private addressService: AddressService, private notification: NotificationsComponent, private utilService: UtilService) {
-    this.dialogRef.disableClose = true;
+  public displayedColumns = ['id', 'entryDatetime', 'entryCause', 'isFinished', 'actions'];
+  public attendanceHistoryDataSource: MatTableDataSource<PatientHistory>;
 
+  constructor(private router: Router,
+    public confirmDialog: MatDialog,
+    @Inject(MAT_DIALOG_DATA) public history: Array<PatientHistory>,
+    public dialogRef: MatDialogRef<PatientEditComponent>,
+    public errorHandler: ErrorHandlerService,
+    @Inject(MAT_DIALOG_DATA) public data: PatientInfo,
+    private patientService: PatientService,
+    private addressService: AddressService,
+    private notification: NotificationsComponent,
+    private utilService: UtilService) {
+
+    this.dialogRef.disableClose = true;
     this.dataToForm = new PatientInfo();
 
   }
@@ -76,6 +88,10 @@ export class PatientEditComponent implements OnInit {
         }
         if (!resp.healthPlan) {
           this.dataToForm.healthPlan = new HealthPlan();
+        }
+        if (resp.attendanceHistory) {
+          this.dataToForm.attendanceHistory = resp.attendanceHistory;
+          this.attendanceHistoryDataSource = new MatTableDataSource(this.dataToForm.attendanceHistory);
         }
       }).catch(error => {
         this.loading = false;
@@ -131,9 +147,12 @@ export class PatientEditComponent implements OnInit {
     });
   }
 
-  gotToVisit() {
+  gotToVisit(attendanceId) {
     this.dialogRef.close();
-    this.router.navigate(['visit', { patientId: this.dataToForm.id }]);
+    if (attendanceId)
+      this.router.navigate(['visit', { attendanceId: attendanceId }]);
+    else
+      this.router.navigate(['visit', { patientId: this.dataToForm.id }]);
   }
 
   selectGender(newValue) {
@@ -173,6 +192,10 @@ export class PatientEditComponent implements OnInit {
         if (!resp.address) {
           this.dataToForm.address = new Address();
         }
+        if (resp.attendanceHistory) {
+          this.dataToForm.attendanceHistory = resp.attendanceHistory;
+          this.attendanceHistoryDataSource = new MatTableDataSource(this.dataToForm.attendanceHistory);
+        }
       }).catch(error => {
         this.loading = false;
         this.dataToForm.document = new Document('CPF');
@@ -189,6 +212,10 @@ export class PatientEditComponent implements OnInit {
         this.dataToForm = resp;
         if (!resp.address) {
           this.dataToForm.address = new Address();
+        }
+        if (resp.attendanceHistory) {
+          this.dataToForm.attendanceHistory = resp.attendanceHistory;
+          this.attendanceHistoryDataSource = new MatTableDataSource(this.dataToForm.attendanceHistory);
         }
       }).catch(error => {
         this.loading = false;
@@ -213,5 +240,9 @@ export class PatientEditComponent implements OnInit {
       if (handler === "searchSUS")
         this.searchPatientBySusNumber();
     }
+  }
+
+  showStatus(status: boolean) {
+    return status ? 'Teve alta' : 'Em atendimento';
   }
 }
