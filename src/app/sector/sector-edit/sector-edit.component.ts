@@ -16,7 +16,6 @@ import { MatSort } from '@angular/material/sort';
   selector: 'app-sector-edit',
   templateUrl: './sector-edit.component.html'
 })
-
 export class SectorEditComponent implements OnInit {
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
