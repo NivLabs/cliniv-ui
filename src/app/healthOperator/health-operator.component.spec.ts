@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ConvenantComponent } from './convenant.component';
+import { HealthOperatorComponent } from './health-operator.component';
 
-describe('ConvenantComponent', () => {
-  let component: ConvenantComponent;
-  let fixture: ComponentFixture<ConvenantComponent>;
+describe('HealthOperatorComponent', () => {
+  let component: HealthOperatorComponent;
+  let fixture: ComponentFixture<HealthOperatorComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ConvenantComponent ]
+      declarations: [ HealthOperatorComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ConvenantComponent);
+    fixture = TestBed.createComponent(HealthOperatorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

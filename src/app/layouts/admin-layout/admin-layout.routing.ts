@@ -10,7 +10,7 @@ import { SectorComponent } from '../../sector/sector.component';
 import { UserComponent } from '../../user/user.component';
 import { UserProfileComponent } from '../../user-profile/user-profile.component';
 import { SettingsComponent } from '../../settings/settings.component';
-import { ConvenantComponent } from 'app/convenant/convenant.component';
+import { HealthOperatorComponent } from 'app/healthOperator/health-operator.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard', component: DashboardComponent },
@@ -20,7 +20,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'procedure', component: ProcedureComponent },
     { path: 'professional', component: ProfessionalComponent },
     { path: 'sector', component: SectorComponent },
-    { path: 'convenant', component: ConvenantComponent },
+    { path: 'health-operator', component: HealthOperatorComponent },
     { path: 'user', component: UserComponent },
     { path: 'user-profile', component: UserProfileComponent },
     { path: 'settings', component: SettingsComponent }

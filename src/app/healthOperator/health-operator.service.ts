@@ -2,17 +2,17 @@ import { Injectable } from "@angular/core";
 import { AppHttp } from "app/security/app-http";
 import { environment } from "environments/environment";
 import { Page, Pageable } from "app/model/Util";
-import { ConvenantFilter } from "app/model/Convenant";
+import { HealthOperatorFilter } from "app/model/HealthOperator";
 
 @Injectable()
-export class ConvenantService {
+export class HealthOperatorService {
     baseUrl: string;
 
     constructor(private http: AppHttp) {
         this.baseUrl = `${environment.apiUrl}/health-operator`;
     }
 
-    getPage(filter: ConvenantFilter, pageSettings: Pageable): Promise<Page> {
+    getPage(filter: HealthOperatorFilter, pageSettings: Pageable): Promise<Page> {
         var headers = this.http.getHeadersDefault();
         var queryString;
         if (filter) {

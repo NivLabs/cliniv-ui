@@ -79,7 +79,7 @@ import { MedicalRecordComponent } from '../../visit/medical-record.component';
 import { MedicalRecordService } from '../../visit/medical-record.service';
 import { NewAttendanceComponent } from '../../visit/newVisit/new-attendance.component';
 import { AdminLayoutRoutes } from './admin-layout.routing';
-import { ConvenantService } from 'app/convenant/convenant.service';
+import { HealthOperatorService } from 'app/healthOperator/health-operator.service';
 
 //#endregion
 
@@ -206,7 +206,7 @@ const maskConfig: Partial<IConfig> = {
     ProfessionalService,
     UserService,
     SectorService,
-    ConvenantService,
+    HealthOperatorService,
     MedicalRecordService,
     AttendanceService,
     SettingsService,

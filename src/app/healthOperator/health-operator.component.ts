@@ -1,29 +1,29 @@
 import { Component, OnInit } from '@angular/core';
-import { ConvenantFilter } from 'app/model/Convenant';
+import { HealthOperatorFilter } from 'app/model/HealthOperator';
 import { Page, Pageable } from 'app/model/Util';
-import { ConvenantService } from './convenant.service';
+import { HealthOperatorService } from './health-operator.service';
 import { ErrorHandlerService } from 'app/core/error-handler.service';
 
 @Component({
-  selector: 'app-convenant',
-  templateUrl: './convenant.component.html',
-  styleUrls: ['./convenant.component.css']
+  selector: 'app-health-operator',
+  templateUrl: './health-operator.component.html',
+  styleUrls: ['./health-operator.component.css']
 })
-export class ConvenantComponent implements OnInit {
+export class HealthOperatorComponent implements OnInit {
 
   public loading: boolean;
   public dataNotFound: boolean;
   public datas: [];
   public page: Page;
   public pageSettings: Pageable;
-  public filters: ConvenantFilter;
+  public filters: HealthOperatorFilter;
 
-  constructor(private principalService: ConvenantService, private errorHandler: ErrorHandlerService) { }
+  constructor(private principalService: HealthOperatorService, private errorHandler: ErrorHandlerService) { }
 
   ngOnInit(): void {
     this.loading = true;
     this.page = new Page();
-    this.filters = new ConvenantFilter();
+    this.filters = new HealthOperatorFilter();
     this.pageSettings = new Pageable();
     this.principalService.getPage(this.filters, this.pageSettings).then(response => {
       this.loading = false;
