@@ -1,5 +1,5 @@
 
-export class ConvenantFilter {
+export class HealthOperatorFilter {
     id: string;
     ansCode: string;
     cnpj: string;

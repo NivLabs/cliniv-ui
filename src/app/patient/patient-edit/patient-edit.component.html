@@ -262,15 +262,56 @@
                         </div>
                     </div>
                 </mat-tab>
-                <mat-tab label="Histórico">
+                <mat-tab *ngIf="dataToForm.attendanceHistory && dataToForm.attendanceHistory.length > 0"
+                    label="Histórico">
                     <br />
                     <div class="row">
                         <div class="col-12">
-                            <mat-form-field>
-                                <mat-label>Anotações sobre o paciente</mat-label>
-                                <textarea matInput cdkTextareaAutosize="true" cdkAutosizeMinRows="8" name="annotations"
-                                    [(ngModel)]="dataToForm.annotations" #annotations></textarea>
-                            </mat-form-field>
+                            <mat-table [dataSource]="attendanceHistoryDataSource" matSort>
+                                <!-- ID Column -->
+                                <ng-container matColumnDef="id">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Identificador</mat-header-cell>
+                                    <mat-cell *matCellDef="let row">{{row.id}}</mat-cell>
+                                </ng-container>
+
+                                <!-- Name Column -->
+                                <ng-container matColumnDef="entryDatetime">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Dt. Entrada</mat-header-cell>
+                                    <mat-cell *matCellDef="let row">{{row.entryDatetime | date: 'dd/MM/yyyy HH:mm'}}
+                                    </mat-cell>
+                                </ng-container>
+
+                                <!-- Progress Column -->
+                                <ng-container matColumnDef="entryCause">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Motivo da entrada
+                                    </mat-header-cell>
+                                    <mat-cell *matCellDef="let row">{{row.entryCause}}</mat-cell>
+                                </ng-container>
+
+                                <!-- Color Column -->
+                                <ng-container matColumnDef="isFinished">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Situação</mat-header-cell>
+                                    <mat-cell *matCellDef="let row"
+                                        [style.color]="row.isFinished ? '#ED4E4A' : '#5EB462'">
+                                        <h5>{{showStatus(row.isFinished)}}</h5>
+                                    </mat-cell>
+                                </ng-container>
+
+                                <!-- Color Column -->
+                                <ng-container matColumnDef="actions">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Selecionar</mat-header-cell>
+                                    <mat-cell *matCellDef="let row" style="text-align: center; display: block;">
+                                        <button mat-raised-button (click)="gotToVisit(row.id)"
+                                            class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-info"
+                                            [mat-dialog-close]="row" matTooltip="Visualizar"><span
+                                                class="fa fa-eye"></span></button>
+
+                                    </mat-cell>
+                                </ng-container>
+
+                                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                            </mat-table>
                         </div>
                     </div>
                 </mat-tab>
@@ -283,11 +324,9 @@
                             Paciente</button>
                     </div>
                     <div *ngIf="dataToForm.id" class="col-12 col-sm-12 col-md-4 col-lg-3 pull-left ml-0 mr-0">
-                        <button mat-raised-button type="button" class="btn btn-warning col-12"
-                            (click)="gotToVisit(dataToForm.id)"
+                        <button mat-raised-button type="button" class="btn btn-warning col-12" (click)="gotToVisit()"
                             matTooltip="Redireciona para a tela de atendimento (prontuário)"><span
-                                class="fa fa-location-arrow"></span> Ir para
-                            Atendimentos</button>
+                                class="fa fa-location-arrow"></span> Ir para Prontuário</button>
                     </div>
                     <div class="col-12 col-sm-12 col-md-4 col-lg-3 pull-right ml-0 mr-0">
                         <button mat-raised-button type="button" class="btn btn-danger col-12" (click)="onCancelClick()"

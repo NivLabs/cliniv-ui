@@ -12,7 +12,7 @@ import { AdminLayoutModule } from './layouts/admin-layout/admin-layout.module';
 import { SecurityRoutingModule } from './security/security-routing.module';
 import { SecurityModule } from './security/security.module';
 import { DocumentSelectorComponent } from './visit/document-selector/document-selector.component';
-import { ConvenantComponent } from './convenant/convenant.component';
+import { HealthOperatorComponent } from './healthOperator/health-operator.component';
 
 @NgModule({
    imports: [
@@ -32,7 +32,7 @@ import { ConvenantComponent } from './convenant/convenant.component';
       AppComponent,
       AdminLayoutComponent,
       DocumentSelectorComponent,
-      ConvenantComponent
+      HealthOperatorComponent
    ],
    providers: [],
    bootstrap: [
