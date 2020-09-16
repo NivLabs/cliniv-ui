@@ -20,13 +20,6 @@ export class SectorService {
         }
     }
 
-    getListOfSectors(filter): Promise<Array<Sector>> {
-        var headers = this.http.getHeadersDefault();
-        if (!filter) {
-            return this.http.get<Array<Sector>>(`${this.baseUrl}/list`, { headers }).toPromise();
-        }
-    }
-
     getPage(filter: SectorFilters, pageSettings: Pageable): Promise<Page> {
         var headers = this.http.getHeadersDefault();
         var queryString;
