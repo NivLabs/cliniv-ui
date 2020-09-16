@@ -7,10 +7,12 @@ import { MedicalRecordService } from '../medical-record.service';
 import { Specialization } from 'app/model/Specialization';
 import { Professional } from 'app/model/Professional';
 import { NewAttendance } from 'app/model/Attendance';
-import { EventType } from 'app/model/EventType';
-import { Sector } from 'app/model/Sector';
+import { Accommodation } from 'app/model/Accommodation';
+import { Sector, SectorFilters } from 'app/model/Sector';
 import { SectorService } from 'app/sector/sector.service';
-
+import { Pageable } from 'app/model/Util';
+import { ErrorHandlerService } from 'app/core/error-handler.service';
+import { AttendanceService } from 'app/attendance/attendance.service';
 
 @Component({
     selector: 'app-new-attendance',
@@ -21,48 +23,46 @@ export class NewAttendanceComponent implements OnInit {
     loading = false;
 
     eventTypeControl = new FormControl('', [Validators.required]);
+    levelControl = new FormControl('', [Validators.required]);
     specializationControl = new FormControl('', [Validators.required]);
     sectorControl = new FormControl('', [Validators.required]);
+    accommodationControl = new FormControl('', [Validators.required]);
     responsibleControl = new FormControl();
 
-
-    eventTypes: Array<EventType> = [];
     specializationsData: Array<Specialization> = [];
     responsibles: Array<Professional> = [];
     sectors: Array<Sector> = [];
+    accommodations: Array<Accommodation> = [];
 
     newVisit: NewAttendance;
 
-    constructor(public dialogRef: MatDialogRef<NewAttendanceComponent>, public sectorService: SectorService, public notification: NotificationsComponent, public utilService: UtilService, public visitService: MedicalRecordService,
+    filters = new SectorFilters();
+    pageSettings = new Pageable();
+
+    constructor(public dialogRef: MatDialogRef<NewAttendanceComponent>, public attendanceService: AttendanceService, public sectorService: SectorService, public notification: NotificationsComponent, public utilService: UtilService, public visitService: MedicalRecordService, private errorHandler: ErrorHandlerService,
         @Inject(MAT_DIALOG_DATA) public data: number) { }
 
     ngOnInit(): void {
+
         if (this.dialogRef.componentInstance.data !== null) {
             this.newVisit = new NewAttendance();
             this.newVisit.patientId = this.dialogRef.componentInstance.data['patientId'];
             this.newVisit.entryCause = '';
+            this.newVisit.level = 'LOW';
             this.newVisit.responsibleId = null;
             this.newVisit.eventTypeId = null;
+            this.newVisit.accommodationId = null;
+            this.newVisit.specialityId = null;
         }
 
-
-        this.loadEntryEventTypes();
         this.loadSectors();
         this.loadspecializationsData();
 
     }
-    loadSectors() {
-        this.sectorService.getListOfSectors(null).then(response => {
-            this.sectors = response;
-        });
-    }
 
-    loadEntryEventTypes() {
-        this.utilService.getEventTypes().then(events => {
-            events.forEach(event => {
-                if (event.superEventType && event.superEventType.id === 1)
-                    this.eventTypes.push(event);
-            })
+    loadSectors() {
+        this.sectorService.getPage(this.filters, this.pageSettings).then(response => {
+            this.sectors = response.content;
         });
     }
 
@@ -75,10 +75,21 @@ export class NewAttendanceComponent implements OnInit {
         });
     }
 
+    loadAccommodations(event: any) {
+        var sectorId = event.value;
+        if (sectorId) {
+            this.sectorService.getById(sectorId).then(response => {
+                this.accommodations = response.listOfRoomsOrBeds;
+            }).catch(e => {
+                this.accommodations = [];
+            });
+        }
+    }
+
     loadResponsibles(event: any) {
-        var especId = event.value;
-        if (especId) {
-            this.utilService.getSpecializationById(especId).then(response => {
+        this.newVisit.specialityId = event.value;
+        if (this.newVisit.specialityId) {
+            this.utilService.getSpecializationById(this.newVisit.specialityId).then(response => {
                 this.responsibles = response.responsibles;
             }).catch(e => {
                 this.responsibles = [];
@@ -90,12 +101,16 @@ export class NewAttendanceComponent implements OnInit {
         this.newVisit.eventTypeId = newValue;
     }
 
+    selectLevel(newValue) {
+        this.newVisit.level = newValue;
+    }
+
     selectResponsible(newValue) {
         this.newVisit.responsibleId = newValue;
     }
 
-    selectSector(newValue) {
-        this.newVisit.sectorId = newValue;
+    selectAccommodation(newValue) {
+        this.newVisit.accommodationId = newValue;
     }
 
-}  
+}

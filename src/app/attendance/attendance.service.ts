@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AppHttp } from '../security/app-http';
 import { environment } from '../../environments/environment';
-import { AttendanceInfo, AttendanceFilters } from 'app/model/Attendance';
+import { AttendanceInfo, AttendanceFilters, NewAttendance } from 'app/model/Attendance';
 import { Page, Pageable } from 'app/model/Util';
 
 @Injectable()

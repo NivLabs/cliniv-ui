@@ -6,7 +6,7 @@
     <div class="card-body">
         <form #form="ngForm" autocomplete="off">
             <div class="row">
-                <div class="col-md-2">
+                <div class="col-md-1">
                     <mat-form-field>
                         <input matInput type="number" placeholder="Código do paciente" name="patientId"
                             [(ngModel)]="newVisit.patientId" #patientId="ngModel" disabled required />
@@ -21,16 +21,15 @@
                             <mat-option>
                                 Selecione um tipo de entrada
                             </mat-option>
-                            <mat-option *ngFor="let eventType of eventTypes" [value]="eventType.id">
-                                {{eventType.description}}
-                            </mat-option>
+                            <mat-option value="3">Ambulatório</mat-option>
+                            <mat-option value="2">Emergência</mat-option>
                         </mat-select>
                     </mat-form-field>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <mat-form-field>
                         <mat-label>Setor/Leito</mat-label>
-                        <mat-select [formControl]="sectorControl" (selectionChange)="selectSector($event.value)"
+                        <mat-select [formControl]="sectorControl" (selectionChange)="loadAccommodations($event)"
                             required>
                             <mat-option>
                                 Selecione um setor ou leito
@@ -41,12 +40,46 @@
                         </mat-select>
                     </mat-form-field>
                 </div>
+                <div class="col-md-4">
+                    <mat-form-field>
+                        <mat-label>
+                            {{accommodations && accommodations.length > 0 ? 'Selecione uma acomodação' : 'Não há acomodação habilitada'}}
+                        </mat-label>
+                        <mat-select [formControl]="accommodationControl"
+                            (selectionChange)="selectAccommodation($event.value)"
+                            [disabled]="!accommodations || accommodations.length === 0">
+                            <mat-option *ngIf="accommodations && accommodations.length > 0">
+                                Selecione uma acomodação
+                            </mat-option>
+                            <mat-option *ngIf="!accommodations || accommodations.length === 0">
+                                Não há acomodação habilitada
+                            </mat-option>
+                            <mat-option *ngFor="let accommodation of accommodations" [value]="accommodation.id">
+                                {{accommodation.description}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
             </div>
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-2">
                     <mat-form-field>
                         <input matInput placeholder="Motivo do atendimento" name="entryCause"
                             [(ngModel)]="newVisit.entryCause" #entryCause="ngModel" type="text" />
+                    </mat-form-field>
+                </div>
+                <div class="col-md-2">
+                    <mat-form-field>
+                        <mat-label>Nível de Risco</mat-label>
+                        <mat-select [formControl]="levelControl" (selectionChange)="selectLevel($event.value)"
+                            required>
+                            <mat-option>
+                                Selecione um nível de risco
+                            </mat-option>
+                            <mat-option value="LOW">Baixo</mat-option>
+                            <mat-option value="MEDIUM">Médio</mat-option>
+                            <mat-option value="HIGH">Alto</mat-option>
+                        </mat-select>
                     </mat-form-field>
                 </div>
                 <div class="col-md-4">
@@ -87,9 +120,10 @@
                     </mat-form-field>
                 </div>
                 <button mat-raised-button type="submit"
-                    [disabled]="eventTypeControl.hasError('required') || specializationControl.hasError('required')"
+                    [disabled]="eventTypeControl.hasError('required') || accommodationControl.hasError('required') || 
+                                specializationControl.hasError('required') || levelControl.hasError('required')"
                     class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-success pull-right"
-                    [mat-dialog-close]="newVisit">Iniciar Atendimento</button>
+                    [mat-dialog-close]="newVisit" >Iniciar Atendimento</button>
             </div>
         </form>
     </div>
