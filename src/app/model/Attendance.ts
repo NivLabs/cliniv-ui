@@ -70,6 +70,7 @@ export class NewAttendance {
     responsibleId: number;
     specialityId: number;
     entryCause: string;
+    level: string;
 }
 
 /**

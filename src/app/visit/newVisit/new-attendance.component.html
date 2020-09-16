@@ -62,10 +62,24 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-2">
                     <mat-form-field>
                         <input matInput placeholder="Motivo do atendimento" name="entryCause"
                             [(ngModel)]="newVisit.entryCause" #entryCause="ngModel" type="text" />
+                    </mat-form-field>
+                </div>
+                <div class="col-md-2">
+                    <mat-form-field>
+                        <mat-label>Nível de Risco</mat-label>
+                        <mat-select [formControl]="levelControl" (selectionChange)="selectLevel($event.value)"
+                            required>
+                            <mat-option>
+                                Selecione um nível de risco
+                            </mat-option>
+                            <mat-option value="LOW">Baixo</mat-option>
+                            <mat-option value="MEDIUM">Médio</mat-option>
+                            <mat-option value="HIGH">Alto</mat-option>
+                        </mat-select>
                     </mat-form-field>
                 </div>
                 <div class="col-md-4">
@@ -106,7 +120,8 @@
                     </mat-form-field>
                 </div>
                 <button mat-raised-button type="submit"
-                    [disabled]="eventTypeControl.hasError('required') || accommodationControl.hasError('required') || specializationControl.hasError('required')"
+                    [disabled]="eventTypeControl.hasError('required') || accommodationControl.hasError('required') || 
+                                specializationControl.hasError('required') || levelControl.hasError('required')"
                     class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-success pull-right"
                     [mat-dialog-close]="newVisit" >Iniciar Atendimento</button>
             </div>

@@ -23,6 +23,7 @@ export class NewAttendanceComponent implements OnInit {
     loading = false;
 
     eventTypeControl = new FormControl('', [Validators.required]);
+    levelControl = new FormControl('', [Validators.required]);
     specializationControl = new FormControl('', [Validators.required]);
     sectorControl = new FormControl('', [Validators.required]);
     accommodationControl = new FormControl('', [Validators.required]);
@@ -47,6 +48,7 @@ export class NewAttendanceComponent implements OnInit {
             this.newVisit = new NewAttendance();
             this.newVisit.patientId = this.dialogRef.componentInstance.data['patientId'];
             this.newVisit.entryCause = '';
+            this.newVisit.level = 'LOW';
             this.newVisit.responsibleId = null;
             this.newVisit.eventTypeId = null;
             this.newVisit.accommodationId = null;
@@ -97,6 +99,10 @@ export class NewAttendanceComponent implements OnInit {
 
     selectEventType(newValue) {
         this.newVisit.eventTypeId = newValue;
+    }
+
+    selectLevel(newValue) {
+        this.newVisit.level = newValue;
     }
 
     selectResponsible(newValue) {
