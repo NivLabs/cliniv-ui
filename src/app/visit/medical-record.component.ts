@@ -91,17 +91,13 @@ export class MedicalRecordComponent implements OnInit {
         .catch(error => {
           this.loading = false;
           if (error.error && error.error.status === 422) {
-            this.visitService.getPatientHistory(this.visit.patientId)
-              .then(result => this.openHistoryDialog(result))
-              .catch(error => {
-                const confirmDialogRef = this.confirmDialog.open(ConfirmDialogComponent, {
-                  data: { title: 'Confirmação', message: 'Não há atendimento ativo nem histórico para o paciente informado, deseja iniciar um novo atendimento?' }
-                });
-                confirmDialogRef.afterClosed().subscribe(result => {
-                  if (result)
-                    this.openNewVisitDialog(this.visit.patientId);
-                });
-              });
+            const confirmDialogRef = this.confirmDialog.open(ConfirmDialogComponent, {
+              data: { title: 'Confirmação', message: 'Não há atendimento ativo para o paciente informado, deseja iniciar um novo atendimento?' }
+            });
+            confirmDialogRef.afterClosed().subscribe(result => {
+              if (result)
+                this.openNewVisitDialog(this.visit.patientId);
+            });
           } else {
             this.onServiceException(error)
           }
