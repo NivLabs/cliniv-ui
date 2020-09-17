@@ -52,13 +52,14 @@ export class MedicalRecordComponent implements OnInit {
       susNumber: null,
       lastAccommodation: new Accommodation(),
       bornDate: null,
-      entryDatetime: null,
-      exitDatetime: null,
+      entryDateTime: null,
+      exitDateTime: null,
       gender: null,
       events: [],
       allergies: [],
       evolutions: [],
-      medicines: []
+      medicines: [],
+      attendanceLevel: null
     }
 
     var patientIdFromUrl = this.route.snapshot.paramMap.get('patientId');

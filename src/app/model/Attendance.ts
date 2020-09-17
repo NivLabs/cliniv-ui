@@ -33,8 +33,8 @@ export class AttendanceFilters {
  */
 export class MedicalRecord {
     id: number;
-    entryDatetime: Date;
-    exitDatetime: Date;
+    entryDateTime: Date;
+    exitDateTime: Date;
     patientId: number;
     document: Document;
     susNumber: string;
@@ -48,6 +48,7 @@ export class MedicalRecord {
     events: Array<AttendanceEvent>;
     evolutions: Array<Evolution>;
     medicines: Array<MedicationUsed>;
+    attendanceLevel: string;
 }
 
 /**
