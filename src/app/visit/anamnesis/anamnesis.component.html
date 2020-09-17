@@ -8,7 +8,7 @@
             <div *ngFor="let item of datas; let i = index">
                 <div class="row">
 
-                    <div class="col-md-12" *ngIf="item.anamnesisItem.metaType === 'string'">
+                    <div class="col-md-12" *ngIf="item.anamnesisItem.metaType === 'STRING'">
                         <div class="col-md-6 pull-left">
                             <mat-label>{{item.anamnesisItem.question}}</mat-label>
                         </div>
@@ -19,7 +19,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-12" *ngIf="item.anamnesisItem.metaType === 'number'">
+                    <div class="col-md-12" *ngIf="item.anamnesisItem.metaType === 'NUMBER'">
                         <div class="col-md-6 pull-left">
                             <mat-label>{{item.anamnesisItem.question}}</mat-label>
                         </div>
@@ -30,7 +30,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-12 mt-3 mb-3" *ngIf="item.anamnesisItem.metaType === 'bool'">
+                    <div class="col-md-12 mt-3 mb-3" *ngIf="item.anamnesisItem.metaType === 'BOOL'">
                         <div class="col-md-6 pull-left">
                             <mat-label>{{item.anamnesisItem.question}}</mat-label>
                         </div>
