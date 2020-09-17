@@ -195,6 +195,7 @@ const maskConfig: Partial<IConfig> = {
     PatientHistoryComponent,
     ChangePasswordComponent,
     NewAttendanceComponent,
+    AllergyComponent,
     SectorEditComponent,
     AccommodationComponent,
     UserEditComponent,
