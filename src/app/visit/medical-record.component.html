@@ -8,55 +8,70 @@
                                 'card-header-danger' : visit && visit.attendanceLevel === 'HIGH',
                                 'card-header-warning' : visit && visit.attendanceLevel === 'MEDIUM'
                             }">
-                        <h4 class="card-title">Atendimento <span *ngIf="visit.allergies.length > 0">(Paciente
-                                Alérgico)</span> </h4>
-                        <p class="card-category">Informe uma matrícula de paciente ou um código de atendimento...</p>
+                        <div class="card-title">
+                            <h4>Atendimento <span *ngIf="visit.allergies.length > 0">(Paciente
+                                    Alérgico)</span>
+                                <button mat-icon-button [matMenuTriggerFor]="menu" style="float: right;" *ngIf="visit.id && visit.patientId">
+                                    <mat-icon>menu</mat-icon>
+                                </button>
+                                <mat-menu #menu="matMenu">
+                                    <button mat-menu-item matTooltip="Realiza questionário de Anamnese"
+                                        *ngIf="visit.id && visit.patientId && !visit.exitDateTime"
+                                        (click)="openAnamnesisDialog(visit.id)">
+                                        <mat-icon>ballot</mat-icon>
+                                        <span>Anamnese</span>
+                                    </button>
+                                    <button mat-menu-item matTooltip="Adiciona prescrição"
+                                        *ngIf="visit.id && visit.patientId && !visit.exitDateTime">
+                                        <mat-icon>insert_drive_file</mat-icon>
+                                        <span>Prescrição</span>
+                                    </button>
+                                    <button mat-menu-item matTooltip="Adiciona evolução"
+                                        *ngIf="visit.id && visit.patientId && !visit.exitDateTime"
+                                        (click)="openEvolutionDialog(visit.id)">
+                                        <mat-icon>arrow_upward</mat-icon>
+                                        <span>Evolução</span>
+                                    </button>
+                                    <button mat-menu-item matTooltip="Lista histórico do paciente"
+                                        *ngIf="visit.id && visit.patientId && (visit.susNumber || (visit.document && visit.document.value))"
+                                        (click)="searchPatientHistory()">
+                                        <mat-icon>history</mat-icon>
+                                        <span>Histórico</span>
+                                    </button>
+                                    <button mat-menu-item matTooltip="Identifica Paciente"
+                                        *ngIf="patientNotIdentified()" (click)="identifyPatient()">
+                                        <mat-icon>perm_identity</mat-icon>
+                                        <span>Identificar paciente</span>
+                                    </button>
+                                    <button mat-menu-item matTooltip="Adiciona evento"
+                                        *ngIf="visit.id && visit.patientId && !visit.exitDateTime">
+                                        <mat-icon>create</mat-icon>
+                                        <span>Eventos</span>
+                                    </button>
+                                    <button mat-menu-item matTooltip="Adiciona alergia"
+                                        *ngIf="visit.id && visit.patientId && !visit.exitDateTime"
+                                        (click)="openAllergyDialog(visit.patientId)">
+                                        <mat-icon>add</mat-icon>
+                                        <span>Alergia</span>
+                                    </button>
+                                    <button mat-menu-item matTooltip="Realizar alta"
+                                        *ngIf="visit.id && visit.patientId && !visit.exitDateTime">
+                                        <mat-icon>check</mat-icon>
+                                        <span>Alta</span>
+                                    </button>
+                                    <button mat-menu-item matTooltip="Limpar pesquisa"
+                                        *ngIf="visit.id && visit.patientId"
+                                        (click)="ngOnInit()">
+                                        <mat-icon>clear</mat-icon>
+                                        <span>Limpar</span>
+                                    </button>
+                                </mat-menu>
+                            </h4>
+                        </div>
+                        <p class="card-category">Informe uma matrícula de paciente ou um código de atendimento...
+                        </p>
                     </div>
                     <div class="card-body">
-                        <div class="float-rigth">
-                            <button mat-raised-button class="btn btn-info" matTooltip="Realiza questionário de Anamnese"
-                                *ngIf="visit.id && visit.patientId && !visit.exitDateTime"
-                                (click)="openAnamnesisDialog(visit.id)"><span class="fa fa-question"></span>
-                                Anamnese</button>
-
-                            <button mat-raised-button class="btn btn-info" matTooltip="Adiciona prescrição"
-                                *ngIf="visit.id && visit.patientId && !visit.exitDateTime"><span
-                                    class="fa fa-file"></span> Prescrição</button>
-
-                            <button mat-raised-button class="btn btn-info" matTooltip="Adiciona evolução"
-                                (click)="openEvolutionDialog(visit.id)"
-                                *ngIf="visit.id && visit.patientId && !visit.exitDateTime"><span
-                                    class="fa fa-arrow-up"></span>
-                                Evolução</button>
-
-                            <button mat-raised-button class="btn btn-warning" matTooltip="Lista histórico do paciente"
-                                *ngIf="visit.id && visit.patientId && (visit.susNumber || (visit.document && visit.document.value))"
-                                (click)="searchPatientHistory()"><span class="fa fa-history"></span> Histórico</button>
-
-                            <button mat-raised-button class="btn btn-warning" matTooltip="Identifica Paciente"
-                                *ngIf="patientNotIdentified()" (click)="identifyPatient()">Identificar paciente</button>
-
-                            <button mat-raised-button class="btn btn-primary" matTooltip="Adiciona evento"
-                                *ngIf="visit.id && visit.patientId && !visit.exitDateTime"><span
-                                    class="fa fa-plus-square"></span>
-                                Evento</button>
-
-                            <button mat-raised-button class="btn btn-warning" matTooltip="Adiciona alergia"
-                                *ngIf="visit.id && visit.patientId && !visit.exitDateTime"
-                                (click)="openAllergyDialog(visit.patientId)"><span class="fa fa-plus"></span>
-                                Alergia</button>
-
-                            <button mat-raised-button class="btn btn-success" matTooltip="Realizar alta"
-                                *ngIf="visit.id && visit.patientId && !visit.exitDateTime"><span
-                                    class="fa fa-check"></span>
-                                Alta</button>
-
-                            <button mat-raised-button (click)="ngOnInit()" matTooltip="Limpar pesquisa"
-                                class="btn btn-danger" *ngIf="visit.id && visit.patientId"><span
-                                    class="fa fa-close"></span> Limpar</button>
-
-                        </div>
-                        <hr />
                         <form #form="ngForm" autocomplete="off">
                             <div class="row">
                                 <div class="col-md-2">
