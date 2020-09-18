@@ -60,7 +60,8 @@
                                         <span>Alta</span>
                                     </button>
                                     <button mat-menu-item matTooltip="Limpar pesquisa"
-                                        *ngIf="visit.id && visit.patientId">
+                                        *ngIf="visit.id && visit.patientId"
+                                        (click)="ngOnInit()">
                                         <mat-icon>clear</mat-icon>
                                         <span>Limpar</span>
                                     </button>
@@ -71,50 +72,6 @@
                         </p>
                     </div>
                     <div class="card-body">
-                        <div class="float-rigth">
-                            <button mat-raised-button class="btn btn-info" matTooltip="Realiza questionário de Anamnese"
-                                *ngIf="visit.id && visit.patientId && !visit.exitDateTime"
-                                (click)="openAnamnesisDialog(visit.id)"><span class="fa fa-question"></span>
-                                Anamnese</button>
-
-                            <button mat-raised-button class="btn btn-info" matTooltip="Adiciona prescrição"
-                                *ngIf="visit.id && visit.patientId && !visit.exitDateTime"><span
-                                    class="fa fa-file"></span> Prescrição</button>
-
-                            <button mat-raised-button class="btn btn-info" matTooltip="Adiciona evolução"
-                                (click)="openEvolutionDialog(visit.id)"
-                                *ngIf="visit.id && visit.patientId && !visit.exitDateTime"><span
-                                    class="fa fa-arrow-up"></span>
-                                Evolução</button>
-
-                            <button mat-raised-button class="btn btn-warning" matTooltip="Lista histórico do paciente"
-                                *ngIf="visit.id && visit.patientId && (visit.susNumber || (visit.document && visit.document.value))"
-                                (click)="searchPatientHistory()"><span class="fa fa-history"></span> Histórico</button>
-
-                            <button mat-raised-button class="btn btn-warning" matTooltip="Identifica Paciente"
-                                *ngIf="patientNotIdentified()" (click)="identifyPatient()">Identificar paciente</button>
-
-                            <button mat-raised-button class="btn btn-primary" matTooltip="Adiciona evento"
-                                *ngIf="visit.id && visit.patientId && !visit.exitDateTime"><span
-                                    class="fa fa-plus-square"></span>
-                                Evento</button>
-
-                            <button mat-raised-button class="btn btn-warning" matTooltip="Adiciona alergia"
-                                *ngIf="visit.id && visit.patientId && !visit.exitDateTime"
-                                (click)="openAllergyDialog(visit.patientId)"><span class="fa fa-plus"></span>
-                                Alergia</button>
-
-                            <button mat-raised-button class="btn btn-success" matTooltip="Realizar alta"
-                                *ngIf="visit.id && visit.patientId && !visit.exitDateTime"><span
-                                    class="fa fa-check"></span>
-                                Alta</button>
-
-                            <button mat-raised-button (click)="ngOnInit()" matTooltip="Limpar pesquisa"
-                                class="btn btn-danger" *ngIf="visit.id && visit.patientId"><span
-                                    class="fa fa-close"></span> Limpar</button>
-
-                        </div>
-                        <hr />
                         <form #form="ngForm" autocomplete="off">
                             <div class="row">
                                 <div class="col-md-2">
