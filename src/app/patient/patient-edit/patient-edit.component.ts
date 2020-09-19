@@ -73,6 +73,7 @@ export class PatientEditComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.dataToForm = new PatientInfo();
     if (this.dialogRef.componentInstance.data['selectedPatient'] !== null) {
       this.loading = true;
       var selectedPatientId = this.dialogRef.componentInstance.data['selectedPatient'];
@@ -110,6 +111,7 @@ export class PatientEditComponent implements OnInit {
   save() {
     this.loading = true;
     if (this.dataToForm.id) {
+
       this.patientService.update(this.dataToForm).then(resp => {
         this.loading = false;
         this.dataToForm = resp;
