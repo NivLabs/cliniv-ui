@@ -11,29 +11,30 @@
                             <div class="row">
                                 <div class="col-md-2">
                                     <mat-form-field>
-                                        <input matInput placeholder="Matrícula do profissional" name="id"
-                                            [(ngModel)]="filters.id" #id type="number"
+                                        <input matInput placeholder="Matrícula do profissional ([ENTER] para pesquisar)"
+                                            name="id" [(ngModel)]="filters.id" #id type="number"
                                             (keypress)="enterKeyPress($event)" />
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-2">
                                     <mat-form-field>
-                                        <input matInput placeholder="Nome do profissional" name="fullName"
-                                            [(ngModel)]="filters.fullName" #fullName type="text"
+                                        <input matInput placeholder="Nome do profissional ([ENTER] para pesquisar)"
+                                            name="fullName" [(ngModel)]="filters.fullName" #fullName type="text"
                                             (keypress)="enterKeyPress($event)" />
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-3">
                                     <mat-form-field>
-                                        <input matInput placeholder="Nome Social do profissional" name="socialName"
-                                            [(ngModel)]="filters.socialName" #socialName type="text"
+                                        <input matInput
+                                            placeholder="Nome Social do profissional ([ENTER] para pesquisar)"
+                                            name="socialName" [(ngModel)]="filters.socialName" #socialName type="text"
                                             (keypress)="enterKeyPress($event)" />
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-3">
                                     <mat-form-field>
-                                        <input matInput placeholder="CPF do profissional" name="cpf"
-                                            [(ngModel)]="filters.cpf" #cpf type="text"
+                                        <input matInput placeholder="CPF do profissional ([ENTER] para pesquisar)"
+                                            name="cpf" [(ngModel)]="filters.cpf" #cpf type="text"
                                             (keypress)="enterKeyPress($event)" mask="000.000.000-00" />
                                     </mat-form-field>
                                 </div>

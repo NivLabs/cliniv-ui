@@ -11,40 +11,41 @@
                             <div class="row">
                                 <div class="col-md-3">
                                     <mat-form-field>
-                                        <input matInput placeholder="Nome de usuário" name="userName"
-                                            [(ngModel)]="filters.userName" #userName type="text"
+                                        <input matInput placeholder="Nome de usuário ([ENTER] para pesquisar)"
+                                            name="userName" [(ngModel)]="filters.userName" #userName type="text"
                                             (keypress)="enterKeyPress($event)" />
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-3">
                                     <mat-form-field>
-                                        <input matInput placeholder="CPF do usuário" name="cpf"
+                                        <input matInput placeholder="CPF do usuário ([ENTER] para pesquisar)" name="cpf"
                                             [(ngModel)]="filters.cpf" #cpf type="text"
-                                            (keypress)="enterKeyPress($event)" mask="000.000.000-00"/>
+                                            (keypress)="enterKeyPress($event)" mask="000.000.000-00" />
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-3">
                                     <mat-form-field>
-                                        <input matInput placeholder="Nome Completo" name="fullName"
-                                            [(ngModel)]="filters.fullName" #fullName type="text"
+                                        <input matInput placeholder="Nome Completo ([ENTER] para pesquisar)"
+                                            name="fullName" [(ngModel)]="filters.fullName" #fullName type="text"
                                             (keypress)="enterKeyPress($event)" />
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-3">
                                     <mat-form-field>
-                                        <input matInput placeholder="Nome Social" name="socialName"
-                                            [(ngModel)]="filters.socialName" #socialName type="text"
+                                        <input matInput placeholder="Nome Social ([ENTER] para pesquisar)"
+                                            name="socialName" [(ngModel)]="filters.socialName" #socialName type="text"
                                             (keypress)="enterKeyPress($event)" />
                                     </mat-form-field>
                                 </div>
 
                             </div>
                             <button mat-raised-buttontype="submit" (click)="applyFilter()"
-                                class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-danger pull-right" matTooltip="Aplica Filtro"> 
+                                class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-danger pull-right"
+                                matTooltip="Aplica Filtro">
                                 <span class="fa fa-search"></span> Filtrar</button>
                             <button mat-raised-button type="button" (click)="openDialog(null)"
-                                class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-info pull-right" matTooltip="Adiciona usuário"> <span
-                                class="fa fa-plus"></span> Novo Usuário</button>
+                                class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-info pull-right"
+                                matTooltip="Adiciona usuário"> <span class="fa fa-plus"></span> Novo Usuário</button>
                             <div class="clearfix"></div>
                         </form>
                     </div>
@@ -64,8 +65,11 @@
                                 <li class="user-name"> {{user.fullName}}</li>
                                 <li><span class="fa fa-key user-info"> Matrícula:</span> {{user.id}}</li>
                                 <li><span class="fa fa-user user-info"> Usuário:</span> {{user.userName}}</li>
-                                <li><span class="fa fa-id-card user-info"> CPF:</span> {{user.cpf | mask: '000.000.000-00'}}</li>
-                                <li><span class="fa fa-phone user-info"> Telefone:</span> {{user.principalNumber ? (user.principalNumber | mask: user.principalNumber.length <= 10 ? '(00) 0000-00009' : '(00) 00000-0000') : ('Não informado')}}</li>
+                                <li><span class="fa fa-id-card user-info"> CPF:</span>
+                                    {{user.cpf | mask: '000.000.000-00'}}</li>
+                                <li><span class="fa fa-phone user-info"> Telefone:</span>
+                                    {{user.principalNumber ? (user.principalNumber | mask: user.principalNumber.length <= 10 ? '(00) 0000-00009' : '(00) 00000-0000') : ('Não informado')}}
+                                </li>
                             </ul>
                         </div>
                     </div>

@@ -25,7 +25,7 @@
                         </div>
                         <div class="col-md-3">
                             <mat-form-field>
-                                <input matInput placeholder="CNS (Número)" name="susNumber"
+                                <input matInput placeholder="CNS (Número) ([ENTER] para pesquisar)" name="susNumber"
                                     (keypress)="enterKeyPress($event, 'searchSUS')" [(ngModel)]="dataToForm.susNumber"
                                     #susNumber="ngModel" />
                             </mat-form-field>
@@ -34,8 +34,8 @@
                     <div class="row">
                         <div class="col-md-4">
                             <mat-form-field>
-                                <input matInput placeholder="Cadastro de Pessoa Física (CPF)" name="document"
-                                    [(ngModel)]="dataToForm.document.value"
+                                <input matInput placeholder="Cadastro de Pessoa Física (CPF)  ([ENTER] para pesquisar)"
+                                    name="document" [(ngModel)]="dataToForm.document.value"
                                     (keypress)="enterKeyPress($event, 'searchCPF')" #document type="text" maxlength="14"
                                     mask="000.000.000-00" />
                             </mat-form-field>
@@ -208,7 +208,7 @@
                         </div>
                         <div class="col-4">
                             <mat-form-field>
-                                <mat-label>Código do plano</mat-label>
+                                <mat-label>Código do plano ([ENTER] para pesquisar)</mat-label>
                                 <input matInput name="planCode" [(ngModel)]="dataToForm.healthPlan.planCode"
                                     #planCode />
                             </mat-form-field>
@@ -242,8 +242,32 @@
                         <div class="col-6">
                             <mat-form-field>
                                 <mat-label>Segmentação</mat-label>
-                                <input matInput name="segmentation" [(ngModel)]="dataToForm.healthPlan.segmentation"
-                                    #segmentation disabled />
+                                <mat-select matNativeControl name="segmentation" disabled
+                                    [(ngModel)]="dataToForm.healthPlan.segmentation" #segmentation>
+                                    <mat-option value="AMBULATORIAL">AMBULATORIAL</mat-option>
+                                    <mat-option value="HOSPITAL_WITHOUT_OBSTETRICS">HOSPITALAR SEM OBSTETRÍCIA
+                                    </mat-option>
+                                    <mat-option value="HOSPITAL_WITH_OBSTETRICS">HOSPITALAR COM OBSTETRÍCIA</mat-option>
+                                    <mat-option value="EXCLUSIVELY_DENTISTRY">EXCLUSIVAMENTE ODONTOLOGIA</mat-option>
+                                    <mat-option value="REFERENCE">REFERÊNCIA</mat-option>
+                                    <mat-option value="AMBULATORIAL_AND_DENTISTRY">AMBULTORIAL + ODONTOLOGIA
+                                    </mat-option>
+                                    <mat-option value="AMBULATORIAL_AND_HOSPITAL_WITHOUT_OBSTETRICS">AMBULATORIAL +
+                                        HOSPITALAR SEM OBSTETRÍCIA
+                                    </mat-option>
+                                    <mat-option value="AMBULATORIAL_AND_HOSPITAL_WITH_OBSTETRICS">AMBULATORIAL +
+                                        HOSPITALAR COM OBSTETRÍCIA
+                                    </mat-option>
+                                    <mat-option value="HOSPITAL_WITH_OBSTETRICS_AND_DENTISTRY">HOSPITALAR COM
+                                        OBSTETRÍCIA + ODONTOLOGIA</mat-option>
+                                    <mat-option value="HOSPITAL_WITHOUT_OBSTETRICS_AND_DENTISTRY">HOSPITALAR SEM
+                                        OBSTETRÍCIA + ODONTOLOGIA
+                                    </mat-option>
+                                    <mat-option value="AMBULATORIAL_AND_HOSPITAL_WITHOUT_OBSTETRICS_AND_DENTISTRY">
+                                        AMBULATORIAL + HOSPITALAR SEM OBSTETRÍCIA + ODONTOLOGIA</mat-option>
+                                    <mat-option value="AMBULATORIAL_AND_HOSPITAL_WITH_OBSTETRICS_AND_DENTISTRY">
+                                        AMBULATORIAL + HOSPITALAR COM OBSTETRÍCIA + ODONTOLOGIA</mat-option>
+                                </mat-select>
                             </mat-form-field>
                         </div>
                         <div class="col-3">
@@ -256,8 +280,13 @@
                         <div class="col-3">
                             <mat-form-field>
                                 <mat-label>Tipo de contrato</mat-label>
-                                <input matInput name="contractType" [(ngModel)]="dataToForm.healthPlan.contractType"
-                                    #contractType disabled />
+                                <mat-select matNativeControl name="contractType" disabled
+                                    [(ngModel)]="dataToForm.healthPlan.contractType" #contractType>
+                                    <mat-option value="INDIVIDUAL_OR_FAMILY">INDIVIDUAL OU FAMILIAR</mat-option>
+                                    <mat-option value="BUSINESS_COLLECTIVE">COLETIVO EMPRESARIAL</mat-option>
+                                    <mat-option value="MEMBERSHIP_COLLECTIVE">COLETIVO COOPERATIVA</mat-option>
+
+                                </mat-select>
                             </mat-form-field>
                         </div>
                     </div>

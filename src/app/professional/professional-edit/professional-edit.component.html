@@ -39,10 +39,10 @@
                     <div class="row">
                         <div class="col-md-4">
                             <mat-form-field>
-                                <input matInput placeholder="Cadastro de Pessoa Física (CPF)" formControlName="document"
-                                    (keypress)="enterKeyPress($event)" [(ngModel)]="dataToForm.document.value" #document
-                                    type="text" maxlength="14" [disabled]="dataToForm.id" required
-                                    mask="000.000.000-00" />
+                                <input matInput placeholder="Cadastro de Pessoa Física (CPF) ([ENTER] para pesquisar)"
+                                    formControlName="document" (keypress)="enterKeyPress($event)"
+                                    [(ngModel)]="dataToForm.document.value" #document type="text" maxlength="14"
+                                    [disabled]="dataToForm.id" required mask="000.000.000-00" />
                             </mat-form-field>
                         </div>
                         <div class="col-md-4">
@@ -200,7 +200,7 @@
                                     <div class="mat-checkbox-inner-container">
                                         <input type="checkbox" class="mat-checkbox-input" name="specializations"
                                             checked="{{specialitity.checked}}" value="{{specialitity.name}}"
-                                    id="{{specialitity.id}}" (change)="checkItem(specialitity)" >
+                                            id="{{specialitity.id}}" (change)="checkItem(specialitity)">
                                         <div matripple="" class="mat-ripple mat-checkbox-ripple">
                                             <div class="mat-ripple-element mat-checkbox-persistent-ripple"></div>
                                         </div>
