@@ -11,7 +11,7 @@
                             <div class="row">
                                 <div class="col-md-2">
                                     <mat-form-field>
-                                        <input matInput type="text" placeholder="Código ANS ([ENTER] para pesquisar)"
+                                        <input matInput type="text" placeholder="Código ANS [ENTER]"
                                             name="ansCode" [(ngModel)]="filters.ansCode" #ansCode
                                             (keypress)="enterKeyPress($event)" />
                                     </mat-form-field>
@@ -19,14 +19,14 @@
                                 <div class="col-md-3">
                                     <mat-form-field>
                                         <input matInput type="text"
-                                            placeholder="Nome Corporativo ([ENTER] para pesquisar)" name="companyName"
+                                            placeholder="Nome Corporativo [ENTER]" name="companyName"
                                             [(ngModel)]="filters.companyName" #companyName
                                             (keypress)="enterKeyPress($event)" />
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-3">
                                     <mat-form-field>
-                                        <input matInput type="text" placeholder="Nome fantasia ([ENTER] para pesquisar)"
+                                        <input matInput type="text" placeholder="Nome fantasia [ENTER]"
                                             name="fantasyName" [(ngModel)]="filters.fantasyName" #fantasyName
                                             (keypress)="enterKeyPress($event)" />
                                     </mat-form-field>

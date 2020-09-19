@@ -78,7 +78,7 @@
                                 <div class="col-md-2">
                                     <mat-form-field>
                                         <input matInput type="number"
-                                            placeholder="Código do atendimento ([ENTER] para pesquisar)" name="id"
+                                            placeholder="Código do atendimento [ENTER]" name="id"
                                             [ngClass]="{'patient-not-identified' : patientNotIdentified()}"
                                             [(ngModel)]="visit.id" #id="ngModel" (keypress)="enterKeyPress($event)"
                                             [disabled]="visit.patientId" />
@@ -87,7 +87,7 @@
                                 <div class="col-md-2">
                                     <mat-form-field>
                                         <input matInput type="number"
-                                            placeholder="Código do paciente ([ENTER] para pesquisar)" name="patientId"
+                                            placeholder="Código do paciente [ENTER]" name="patientId"
                                             [ngClass]="{'patient-not-identified' : patientNotIdentified()}"
                                             [(ngModel)]="visit.patientId" #patientId="ngModel"
                                             (keypress)="enterKeyPress($event)" [disabled]="visit.id" />

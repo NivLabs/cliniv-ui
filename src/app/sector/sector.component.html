@@ -12,13 +12,13 @@
                                 <div class="col-md-2">
                                     <mat-form-field>
                                         <input matInput type="number"
-                                            placeholder="Código do setor ([ENTER] para pesquisar)" name="id"
+                                            placeholder="Código do setor [ENTER]" name="id"
                                             [(ngModel)]="filters.id" #id (keypress)="enterKeyPress($event)" />
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-4">
                                     <mat-form-field>
-                                        <input matInput placeholder="Descrição do setor ([ENTER] para pesquisar)"
+                                        <input matInput placeholder="Descrição do setor [ENTER]"
                                             name="description" [(ngModel)]="filters.description" #description
                                             type="text" (keypress)="enterKeyPress($event)" />
                                     </mat-form-field>

@@ -25,7 +25,7 @@
                         </div>
                         <div class="col-md-3">
                             <mat-form-field>
-                                <input matInput placeholder="CNS (Número) ([ENTER] para pesquisar)" name="susNumber"
+                                <input matInput placeholder="CNS (Número) [ENTER]" name="susNumber"
                                     (keypress)="enterKeyPress($event, 'searchSUS')" [(ngModel)]="dataToForm.susNumber"
                                     #susNumber="ngModel" />
                             </mat-form-field>
@@ -34,7 +34,7 @@
                     <div class="row">
                         <div class="col-md-4">
                             <mat-form-field>
-                                <input matInput placeholder="Cadastro de Pessoa Física (CPF)  ([ENTER] para pesquisar)"
+                                <input matInput placeholder="Cadastro de Pessoa Física (CPF)  [ENTER]"
                                     name="document" [(ngModel)]="dataToForm.document.value"
                                     (keypress)="enterKeyPress($event, 'searchCPF')" #document type="text" maxlength="14"
                                     mask="000.000.000-00" />
@@ -208,7 +208,7 @@
                         </div>
                         <div class="col-4">
                             <mat-form-field>
-                                <mat-label>Código do plano ([ENTER] para pesquisar)</mat-label>
+                                <mat-label>Código do plano [ENTER]</mat-label>
                                 <input matInput name="planCode" [(ngModel)]="dataToForm.healthPlan.planCode"
                                     #planCode />
                             </mat-form-field>

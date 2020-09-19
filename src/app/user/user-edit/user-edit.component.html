@@ -33,7 +33,7 @@
                     <div class="row">
                         <div class="col-md-4">
                             <mat-form-field>
-                                <input matInput placeholder="Cadastro de Pessoa Física (CPF) ([ENTER] para pesquisar)" name="document"
+                                <input matInput placeholder="Cadastro de Pessoa Física (CPF) [ENTER]" name="document"
                                     [(ngModel)]="dataToForm.document.value" (keypress)="enterKeyPress($event)" #document
                                     type="text" maxlength="14" [disabled]="dataToForm.id" required
                                     mask="000.000.000-00" />
