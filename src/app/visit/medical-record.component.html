@@ -11,7 +11,8 @@
                         <div class="card-title">
                             <h4>Atendimento <span *ngIf="visit.allergies.length > 0">(Paciente
                                     Alérgico)</span>
-                                <button mat-icon-button [matMenuTriggerFor]="menu" style="float: right;" *ngIf="visit.id && visit.patientId">
+                                <button mat-icon-button [matMenuTriggerFor]="menu" style="float: right;"
+                                    *ngIf="visit.id && visit.patientId">
                                     <mat-icon>menu</mat-icon>
                                 </button>
                                 <mat-menu #menu="matMenu">
@@ -46,7 +47,7 @@
                                     <button mat-menu-item matTooltip="Adiciona evento"
                                         *ngIf="visit.id && visit.patientId && !visit.exitDateTime">
                                         <mat-icon>create</mat-icon>
-                                        <span>Eventos</span>
+                                        <span>Criar Evento</span>
                                     </button>
                                     <button mat-menu-item matTooltip="Adiciona alergia"
                                         *ngIf="visit.id && visit.patientId && !visit.exitDateTime"
@@ -60,15 +61,15 @@
                                         <span>Alta</span>
                                     </button>
                                     <button mat-menu-item matTooltip="Limpar pesquisa"
-                                        *ngIf="visit.id && visit.patientId"
-                                        (click)="ngOnInit()">
+                                        *ngIf="visit.id && visit.patientId" (click)="ngOnInit()">
                                         <mat-icon>clear</mat-icon>
                                         <span>Limpar</span>
                                     </button>
                                 </mat-menu>
                             </h4>
                         </div>
-                        <p class="card-category">Informe uma matrícula de paciente ou um código de atendimento...
+                        <p class="card-category">Informe uma matrícula de paciente ou um código de atendimento e aperte
+                            a tecla [ENTER]...
                         </p>
                     </div>
                     <div class="card-body">
@@ -171,7 +172,7 @@
                 </div>
             </div>
 
-            <div class="col-md-12">
+            <div *ngIf="visit.medicines.length > 0" class="col-md-12">
                 <div class="card">
                     <div class="card-header card-header-info" [ngClass]="
                             {
@@ -226,7 +227,7 @@
                 </div>
             </div>
 
-            <div class="col-md-12">
+            <div *ngIf="visit.evolutions.length > 0" class="col-md-12">
                 <div class="card">
                     <div class="card-header card-header-info" [ngClass]="
                             {
@@ -273,7 +274,7 @@
                 </div>
             </div>
 
-            <div class="col-md-12">
+            <div *ngIf="visit.events.length > 0" class="col-md-12">
                 <div class="card">
                     <div class="card-header card-header-info" [ngClass]="
                             {

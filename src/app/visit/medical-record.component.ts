@@ -170,8 +170,12 @@ export class MedicalRecordComponent implements OnInit {
   }
 
   searchPatientHistory(): void {
+    this.loading = true;
     this.visitService.getPatientHistory(this.visit.patientId).
-      then(result => this.openHistoryDialog(result))
+      then(result => {
+        this.loading = false;
+        this.openHistoryDialog(result);
+      })
       .catch(error => this.onServiceException(error))
   }
 
