@@ -34,8 +34,8 @@
                     <div class="row">
                         <div class="col-md-4">
                             <mat-form-field>
-                                <input matInput placeholder="Cadastro de Pessoa Física (CPF)  [ENTER]"
-                                    name="document" [(ngModel)]="dataToForm.document.value"
+                                <input matInput placeholder="Cadastro de Pessoa Física (CPF)  [ENTER]" name="document"
+                                    [(ngModel)]="dataToForm.document.value"
                                     (keypress)="enterKeyPress($event, 'searchCPF')" #document type="text" maxlength="14"
                                     mask="000.000.000-00" />
                             </mat-form-field>
@@ -209,8 +209,8 @@
                         <div class="col-4">
                             <mat-form-field>
                                 <mat-label>Código do plano [ENTER]</mat-label>
-                                <input matInput name="planCode" [(ngModel)]="dataToForm.healthPlan.planCode"
-                                    #planCode />
+                                <input matInput (keypress)="enterKeyPress($event, 'searchHealthPlan')" name="planCode"
+                                    [(ngModel)]="dataToForm.healthPlan.planCode" #planCode />
                             </mat-form-field>
                         </div>
                         <div class="col-4">
