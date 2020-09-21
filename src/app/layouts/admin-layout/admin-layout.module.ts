@@ -39,6 +39,8 @@ import { AttendanceComponent } from 'app/attendance/attendance.component';
 import { CameraDialogComponent } from 'app/component/camera/dialog/camera-dialog.component';
 import { DocumentViewerComponent } from 'app/component/document-viewer/document-viewer.component';
 import { CameraComponent } from 'app/core/camera/camera.component';
+import { HealthOperatorService } from 'app/healthOperator/health-operator.service';
+import { HealthPlanService } from 'app/healthOperator/health-plan.service';
 import { SettingsComponent } from 'app/settings/settings.component';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
@@ -79,7 +81,6 @@ import { MedicalRecordComponent } from '../../visit/medical-record.component';
 import { MedicalRecordService } from '../../visit/medical-record.service';
 import { NewAttendanceComponent } from '../../visit/newVisit/new-attendance.component';
 import { AdminLayoutRoutes } from './admin-layout.routing';
-import { HealthOperatorService } from 'app/healthOperator/health-operator.service';
 
 //#endregion
 
@@ -208,6 +209,7 @@ const maskConfig: Partial<IConfig> = {
   providers: [
     UserProfileService,
     PatientService,
+    HealthPlanService,
     ProfessionalService,
     UserService,
     SectorService,

@@ -12,7 +12,8 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <mat-form-field>
-                                        <input matInput type="number" placeholder="Código do procedimento" name="id"
+                                        <input matInput type="number"
+                                            placeholder="Código do procedimento [ENTER]" name="id"
                                             [(ngModel)]="filters.id" #id (keypress)="enterKeyPress($event)" />
                                     </mat-form-field>
                                 </div>
@@ -30,9 +31,9 @@
                                 </div>
                                 <div class="col-md-4">
                                     <mat-form-field>
-                                        <input matInput placeholder="Descrição" name="description"
-                                            [(ngModel)]="filters.description" #description type="text"
-                                            (keypress)="enterKeyPress($event)" />
+                                        <input matInput placeholder="Descrição [ENTER]"
+                                            name="description" [(ngModel)]="filters.description" #description
+                                            type="text" (keypress)="enterKeyPress($event)" />
                                     </mat-form-field>
                                 </div>
                             </div>
@@ -77,19 +78,18 @@
                                     {{procedure.baseValue | currency:'BRL'}}
                                 </li>
 
-                                <li><span
-                                        id="span_{{procedure.specialAuthorization}}"
+                                <li><span id="span_{{procedure.specialAuthorization}}"
                                         class="fa fa-sign-in procedure-info"> Req. Autorização Espec.: </span>
                                     {{procedure.specialAuthorization ? 'SIM' : 'NÃO'}}
                                 </li>
 
-                                <li><span id="span_{{procedure.previousAudit}}"
-                                        class="fa fa-search procedure-info"> Req. Auditoria Prévia: </span>
+                                <li><span id="span_{{procedure.previousAudit}}" class="fa fa-search procedure-info">
+                                        Req. Auditoria Prévia: </span>
                                     {{procedure.previousAudit ? 'SIM' : 'NÃO'}}
                                 </li>
 
-                                <li><span id="span_{{procedure.specialty}}"
-                                        class="fa fa-user-secret procedure-info"> Req. Especialidade: </span>
+                                <li><span id="span_{{procedure.specialty}}" class="fa fa-user-secret procedure-info">
+                                        Req. Especialidade: </span>
                                     {{procedure.specialty ? 'SIM' : 'NÃO'}}
                                 </li>
                                 <li *ngIf="procedure.frequency"><span id="span_{{procedure.frequency}}"

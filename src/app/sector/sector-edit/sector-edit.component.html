@@ -4,80 +4,97 @@
         <p class="card-category">Dados completos do setor</p>
     </div>
     <div class="card-body">
-        <form #form="ngForm" autocomplete="off" (ngSubmit)="save()">
-            <div class="row">
-                <div class="col-md-3">
-                    <mat-form-field>
-                        <input matInput placeholder="Código do Setor" name="id" [(ngModel)]="dataToForm.id" #id
-                            disabled />
-                    </mat-form-field>
+        <mat-tab-group>
+            <mat-tab label="Informações do Setor *">
+                <br />
+                <form #form="ngForm" autocomplete="off">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <mat-form-field>
+                                <input matInput placeholder="Código do Setor" name="id" [(ngModel)]="dataToForm.id" #id
+                                    disabled />
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <mat-form-field>
+                                <input matInput placeholder="Descrição" name="description"
+                                    [(ngModel)]="dataToForm.description" #description required />
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div style="overflow:hidden; width: 100%;">
+                            <div *ngIf="dataToForm.id" class="col-12 col-sm-12 col-md-4 col-lg-3 pull-left ml-0 mr-0">
+                                <button mat-raised-button type="button" class="btn btn-info col-12"
+                                    (click)="resetForm()" matTooltip="Adiciona setor"><span class="fa fa-plus"></span>
+                                    Novo Setor</button>
+                            </div>
+
+                            <div class="col-12 col-sm-12 col-md-4 col-lg-3 pull-right ml-0 mr-0">
+                                <button mat-raised-button type="button" class="btn btn-danger col-12"
+                                    (click)="onCancelClick()" matTooltip="Fecha formulário"><span
+                                        class="fa fa-close"></span> Fechar</button>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-4 col-lg-3 pull-right ml-0 mr-0">
+                                <button mat-raised-button type="submit" class="btn btn-success col-12"
+                                    matTooltip="Salvar informações do formulário" [disabled]="!form.valid"
+                                    (click)="save()"><span class="fa fa-check"></span>Salvar</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </form>
+
+            </mat-tab>
+            <mat-tab *ngIf="dataToForm.id" label="Acomodações">
+                <div class="row">
+                    <div class="col-md-12">
+                        <mat-table [dataSource]="dataSource" matSort>
+                            <ng-container matColumnDef="type">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header> Tipo </mat-header-cell>
+                                <mat-cell *matCellDef="let element">
+                                    {{element.type == 'ROOM' ? 'Sala (ambulatório)' : 'Leito'}}
+                                </mat-cell>
+                            </ng-container>
+
+                            <ng-container matColumnDef="description">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header> Descrição </mat-header-cell>
+                                <mat-cell *matCellDef="let element"> {{element.description}} </mat-cell>
+                            </ng-container>
+
+                            <ng-container matColumnDef="actions">
+                                <mat-header-cell *matHeaderCellDef style="justify-content: center;"> Ações
+                                </mat-header-cell>
+                                <mat-cell *matCellDef="let element" style="justify-content: center;">
+                                    <button mat-raised-button type="button" class="btn-info"
+                                        (click)="openEditAccommodationDialog(element)" style="margin-right: 10px;">
+                                        <mat-icon>edit</mat-icon>
+                                    </button>
+                                    <button mat-raised-button type="button" class="btn-danger"
+                                        (click)="openDeleteAccommodationDialog(element.id)">
+                                        <mat-icon>delete</mat-icon>
+                                    </button>
+                                </mat-cell>
+                            </ng-container>
+
+                            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+                        </mat-table>
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <mat-form-field>
-                        <input matInput placeholder="Descrição" name="description" [(ngModel)]="dataToForm.description"
-                            #description />
-                    </mat-form-field>
-                </div>
-            </div>
-            <div class="row">
-                <div style="overflow:hidden; width: 100%;">
+                <div class="row">
                     <div *ngIf="dataToForm.id" class="col-12 col-sm-12 col-md-4 col-lg-3 pull-left ml-0 mr-0">
-                        <button mat-raised-button type="button" class="btn btn-info col-12" (click)="resetForm()" matTooltip="Adiciona setor"><span
-                            class="fa fa-plus"></span> Novo Setor</button>
-                    </div>
-                    <div *ngIf="dataToForm.id" class="col-12 col-sm-12 col-md-4 col-lg-3 pull-left ml-0 mr-0">
-                        <button mat-raised-button type="button" class="btn btn-warning col-12" matTooltip="Adiciona acomodação"
-                            (click)="openAccoommodationDialog(dataToForm.id)"><span
-                            class="fa fa-plus"></span> Nova Acomodação</button>
-                    </div>
-                    <div class="col-12 col-sm-12 col-md-4 col-lg-3 pull-right ml-0 mr-0">
-                        <button mat-raised-button type="button" class="btn btn-danger col-12"
-                            (click)="onCancelClick()" matTooltip="Fecha formulário"><span class="fa fa-close"></span> Fechar</button>
-                    </div>
-                    <div class="col-12 col-sm-12 col-md-4 col-lg-3 pull-right ml-0 mr-0">
-                        <button mat-raised-button type="submit" class="btn btn-success col-12" matTooltip="Salvar informações do formulário"
-                            [disabled]="!form.valid" (click)="save()"><span class="fa fa-check"></span>Salvar</button>
+                        <button mat-raised-button type="button" class="btn btn-warning col-12"
+                            matTooltip="Adiciona acomodação" (click)="openAccoommodationDialog(dataToForm.id)"><span
+                                class="fa fa-plus"></span>
+                            Nova Acomodação</button>
                     </div>
                 </div>
-            </div>
-            <div class="clearfix"></div>
-        </form>
-    </div>
-    <div class="card-body" [hidden]="dataToForm.listOfRoomsOrBeds?.length == 0">
-
-        <mat-table [dataSource]="dataSource" matSort>
-
-            <ng-container matColumnDef="type">
-                <mat-header-cell *matHeaderCellDef mat-sort-header> Tipo </mat-header-cell>
-                <mat-cell *matCellDef="let element"> {{element.type == 'ROOM' ? 'Sala (ambulatório)' : 'Leito'}}
-                </mat-cell>
-            </ng-container>
-
-            <ng-container matColumnDef="description">
-                <mat-header-cell *matHeaderCellDef mat-sort-header> Descrição </mat-header-cell>
-                <mat-cell *matCellDef="let element"> {{element.description}} </mat-cell>
-            </ng-container>
-
-            <ng-container matColumnDef="actions">
-                <mat-header-cell *matHeaderCellDef style="justify-content: center;"> Ações </mat-header-cell>
-                <mat-cell *matCellDef="let element" style="justify-content: center;">
-                    <button mat-raised-button type="button" class="btn-info"
-                        (click)="openEditAccoommodationDialog(element)" style="margin-right: 10px;">
-                        <mat-icon>edit</mat-icon>
-                    </button>
-                    <button mat-raised-button type="button" class="btn-danger"
-                        (click)="openDeleteAccoommodationDialog(element.id)">
-                        <mat-icon>delete</mat-icon>
-                    </button>
-                </mat-cell>
-            </ng-container>
-
-            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-
-        </mat-table>
+            </mat-tab>
+        </mat-tab-group>
     </div>
 </div>
 <ngx-loading [show]="loading"></ngx-loading>

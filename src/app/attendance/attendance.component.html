@@ -37,11 +37,12 @@
 
                                     <mat-form-field>
 
-                                        <input type="text" placeholder="Setor" matInput [matAutocomplete]="auto" #sector>
+                                        <input type="text" placeholder="Setor" matInput [matAutocomplete]="auto"
+                                            #sector>
 
                                         <mat-autocomplete #auto="matAutocomplete" infiniteScroll
                                             [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50"
-                                            (opened)="registerPanelScrollEvent()">                                            
+                                            (opened)="registerPanelScrollEvent()">
 
                                             <mat-option *ngFor="let sector of sectors" [value]="sector.description"
                                                 (click)="selectSector(sector.id)">
@@ -55,32 +56,33 @@
                                         </mat-autocomplete>
 
                                     </mat-form-field>
-                                    
+
                                 </div>
                                 <div class="col-md-2">
                                     <mat-form-field>
-                                        <input matInput placeholder="Nome do paciente" name="fullName"
-                                            [(ngModel)]="filters.fullName" #fullName type="text"
+                                        <input matInput placeholder="Nome do paciente [ENTER]"
+                                            name="fullName" [(ngModel)]="filters.fullName" #fullName type="text"
                                             (keypress)="enterKeyPress($event)" />
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-2">
                                     <mat-form-field>
-                                        <input matInput placeholder="Nome Social do paciente" name="socialName"
-                                            [(ngModel)]="filters.socialName" #socialName type="text"
+                                        <input matInput placeholder="Nome Social do paciente [ENTER]"
+                                            name="socialName" [(ngModel)]="filters.socialName" #socialName type="text"
                                             (keypress)="enterKeyPress($event)" />
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-2">
                                     <mat-form-field>
-                                        <input matInput placeholder="CPF do paciente" name="cpf"
-                                            [(ngModel)]="filters.cpf" #cpf type="text"
+                                        <input matInput placeholder="CPF do paciente [ENTER]"
+                                            name="cpf" [(ngModel)]="filters.cpf" #cpf type="text"
                                             (keypress)="enterKeyPress($event)" mask="000.000.000-00" />
                                     </mat-form-field>
                                 </div>
                             </div>
                             <button mat-raised-button type="button" (click)="applyFilter()"
-                                class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-danger pull-right" matTooltip="Aplica Filtro"> 
+                                class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-danger pull-right"
+                                matTooltip="Aplica Filtro">
                                 <span class="fa fa-search"></span> Filtrar</button>
                             <div class="clearfix"></div>
                         </form>

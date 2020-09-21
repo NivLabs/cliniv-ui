@@ -1,20 +1,20 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
+import { CameraDialogComponent } from 'app/component/camera/dialog/camera-dialog.component';
+import { AddressService } from 'app/core/address.service';
+import { ConfirmDialogComponent } from 'app/core/confirm-dialog/confirm-dialog.component';
 import { ErrorHandlerService } from 'app/core/error-handler.service';
 import { NotificationsComponent } from 'app/core/notification/notifications.component';
-import { PatientService } from '../patient.service';
-import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
-import { AddressService } from 'app/core/address.service';
 import { UtilService } from 'app/core/util.service';
-import { ConfirmDialogComponent } from 'app/core/confirm-dialog/confirm-dialog.component';
-import { Router } from '@angular/router';
-import { PatientInfo } from 'app/model/Patient';
+import { HealthPlanService } from 'app/healthOperator/health-plan.service';
 import { Address } from 'app/model/Address';
-import { WebcamImage } from 'ngx-webcam';
-import { CameraDialogComponent } from 'app/component/camera/dialog/camera-dialog.component';
+import { PatientHistory } from 'app/model/Attendance';
 import { Document } from 'app/model/Document';
 import { HealthPlan } from 'app/model/HealthPlan';
-import { MatTableDataSource } from '@angular/material/table';
-import { PatientHistory } from 'app/model/Attendance';
+import { PatientInfo } from 'app/model/Patient';
+import { PatientService } from '../patient.service';
 
 
 @Component({
@@ -35,6 +35,7 @@ export class PatientEditComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public history: Array<PatientHistory>,
     public dialogRef: MatDialogRef<PatientEditComponent>,
     public errorHandler: ErrorHandlerService,
+    public healthOperatorService: HealthPlanService,
     @Inject(MAT_DIALOG_DATA) public data: PatientInfo,
     private patientService: PatientService,
     private addressService: AddressService,
@@ -182,6 +183,29 @@ export class PatientEditComponent implements OnInit {
     return false
   }
 
+  searchHealthPlan() {
+    if (!this.dataToForm.healthPlan || !this.dataToForm.healthPlan.planCode) {
+      this.notification.showWarning("Limpando campos de informções do plano de saúde");
+      let patientPlanNumber = this.dataToForm.healthPlan.patientPlanNumber;
+      this.dataToForm.healthPlan = new HealthPlan();
+      this.dataToForm.healthPlan.patientPlanNumber = patientPlanNumber;
+    } else {
+      this.loading = true;
+      this.healthOperatorService.getByAnsCode(this.dataToForm.healthPlan.planCode).then(resp => {
+        this.loading = false;
+        let patientPlanNumber = this.dataToForm.healthPlan.patientPlanNumber;
+        this.dataToForm.healthPlan = resp;
+        this.dataToForm.healthPlan.patientPlanNumber = patientPlanNumber;
+      }).catch(error => {
+        this.loading = false;
+        let patientPlanNumber = this.dataToForm.healthPlan.patientPlanNumber;
+        this.dataToForm.healthPlan = new HealthPlan();
+        this.dataToForm.healthPlan.patientPlanNumber = patientPlanNumber;
+        this.errorHandler.handle(error, this.dialogRef);
+      });
+    }
+  }
+
   searchPatientByCpf() {
     if (!this.cpfIsValid()) {
       this.notification.showWarning("CPF Inválido, favor informar um CPF válido e sem pontos e/ou traços");
@@ -241,6 +265,8 @@ export class PatientEditComponent implements OnInit {
         this.searchPatientByCpf();
       if (handler === "searchSUS")
         this.searchPatientBySusNumber();
+      if (handler === "searchHealthPlan")
+        this.searchHealthPlan();
     }
   }
 

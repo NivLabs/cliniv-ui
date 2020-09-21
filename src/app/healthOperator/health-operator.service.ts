@@ -3,6 +3,7 @@ import { AppHttp } from "app/security/app-http";
 import { environment } from "environments/environment";
 import { Page, Pageable } from "app/model/Util";
 import { HealthOperatorFilter } from "app/model/HealthOperator";
+import { HealthPlan } from "app/model/HealthPlan";
 
 @Injectable()
 export class HealthOperatorService {
