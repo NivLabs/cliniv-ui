@@ -24,7 +24,7 @@ export class SectorEditComponent implements OnInit {
   public dataToForm: Sector;
   public dataSource: any;
   public displayedColumns: any;
-  public selectedSectorId: number;
+  public selectedSectorId: number = 0;
 
   constructor(public principalService: SectorService, public confirmDialog: MatDialog, public dialog: MatDialog, public dialogRef: MatDialogRef<SectorEditComponent>, @Inject(MAT_DIALOG_DATA) public data: Sector, public formBuilder: FormBuilder, private utilService: UtilService, private patientService: SectorService, private errorHandler: ErrorHandlerService, private notification: NotificationsComponent) {
     this.dialogRef.disableClose = true;
@@ -38,18 +38,17 @@ export class SectorEditComponent implements OnInit {
       this.selectedSectorId = this.dialogRef.componentInstance.data['selectedSector'];
       this.principalService.getById(this.selectedSectorId).then(resp => {
         this.loading = false;
-        this.dataToForm = resp;       
+        this.dataToForm = resp;
         this.dataToForm.listOfRoomsOrBeds = this.dataToForm.listOfRoomsOrBeds.sort(function (a, b) {
           return a.id < b.id ? -1 : a.id > b.id ? 1 : 0;
         });
-        this.dataSource = new MatTableDataSource(this.dataToForm.listOfRoomsOrBeds); 
+        this.dataSource = new MatTableDataSource(this.dataToForm.listOfRoomsOrBeds);
         setTimeout(() => {
           this.dataSource.sort = this.sort;
         });
       }).catch(error => {
-        this.loading = false;       
-        this.dataToForm = new Sector();        
-        this.errorHandler.handle(error, this.dialogRef);
+        this.dataToForm = new Sector();
+        this.handlerException(error);
       });
 
       this.displayedColumns = ['type', 'description', 'actions'];
@@ -57,30 +56,33 @@ export class SectorEditComponent implements OnInit {
 
   }
 
+  /**
+   * Fecha o dialog de edição de setor
+   */
   onCancelClick(): void {
     this.dialogRef.close();
   }
 
+  /**
+   * Cria ou atualiza um setor
+   */
   save() {
     if (this.dataToForm.id) {
       this.principalService.update(this.dataToForm).then(resp => {
-        this.dataToForm = resp;
         this.notification.showSucess("Setor alterado com sucesso!");
-      }).catch(error => {
-        this.loading = false;
-        this.errorHandler.handle(error, this.dialogRef);
-      });
+        this.dataToForm = resp;
+      }).catch(this.handlerException);
     } else {
       this.principalService.create(this.dataToForm).then(resp => {
         this.dataToForm = resp;
         this.notification.showSucess("Setor cadastrado com sucesso!");
-      }).catch(error => {
-        this.loading = false;
-        this.errorHandler.handle(error, this.dialogRef);
-      });
+      }).catch(this.handlerException);
     }
   }
 
+  /**
+   * Limpa o formulário
+   */
   resetForm() {
     const confirmDialogRef = this.confirmDialog.open(ConfirmDialogComponent, {
       data: { title: 'Confirmação', message: 'Você confirma a limpeza do formulário?' }
@@ -94,12 +96,18 @@ export class SectorEditComponent implements OnInit {
     });
   }
 
-  openAccoommodationDialog(sectorId): void {    
+
+  /**
+   * Abre o dialog de acomodação por identificador único do setor
+   * 
+   * @param sectorId Identificador único do setor
+   */
+  openAccoommodationDialog(sectorId): void {
 
     const dialogRef = this.dialog.open(AccommodationComponent, {
       width: '100%',
       height: 'auto',
-      data: {sectorId: sectorId}
+      data: { sectorId: sectorId }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -108,12 +116,17 @@ export class SectorEditComponent implements OnInit {
 
   }
 
-  openEditAccoommodationDialog(accommodation): void {    
-    
+  /**
+   * Abre o formulário de edição de acomodação
+   * 
+   * @param accommodation Acomodação
+   */
+  openEditAccommodationDialog(accommodation): void {
+
     const dialogRef = this.dialog.open(AccommodationComponent, {
       width: '100%',
       height: 'auto',
-      data: {accommodation: accommodation}
+      data: { accommodation: accommodation }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -122,7 +135,12 @@ export class SectorEditComponent implements OnInit {
 
   }
 
-  openDeleteAccoommodationDialog(id){
+  /**
+   * Abre o dialog de confirmação de deleção de acomodação
+   * 
+   * @param id Identificador único da acomodação
+   */
+  openDeleteAccommodationDialog(id) {
     const confirmDialogRef = this.confirmDialog.open(ConfirmDialogComponent, {
       data: { title: 'Confirmação', message: 'Você confirma a exclusão da acomodação?' }
     });
@@ -132,12 +150,18 @@ export class SectorEditComponent implements OnInit {
         this.principalService.deleteAccommodation(id).then(resp => {
           this.ngOnInit();
           this.notification.showSucess("Acomodação excluída com sucesso!");
-        }).catch(error => {
-          this.loading = false;
-          this.errorHandler.handle(error, this.dialogRef);
-        });
+        }).catch(this.handlerException);
       }
     });
+  }
+
+  /**
+   * 
+   * @param error Trata exception padrão
+   */
+  handlerException(error) {
+    this.loading = false;
+    this.errorHandler.handle(error, this.dialogRef);
   }
 
 }
