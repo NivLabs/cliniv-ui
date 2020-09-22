@@ -7,12 +7,13 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
 import { CoreModule } from './core/core.module';
+import { HealthOperatorEditComponent } from './healthOperator/health-operator-edit/health-operator-edit.component';
+import { HealthOperatorComponent } from './healthOperator/health-operator.component';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { AdminLayoutModule } from './layouts/admin-layout/admin-layout.module';
 import { SecurityRoutingModule } from './security/security-routing.module';
 import { SecurityModule } from './security/security.module';
 import { DocumentSelectorComponent } from './visit/document-selector/document-selector.component';
-import { HealthOperatorComponent } from './healthOperator/health-operator.component';
 
 @NgModule({
    imports: [
@@ -32,7 +33,8 @@ import { HealthOperatorComponent } from './healthOperator/health-operator.compon
       AppComponent,
       AdminLayoutComponent,
       DocumentSelectorComponent,
-      HealthOperatorComponent
+      HealthOperatorComponent,
+      HealthOperatorEditComponent
    ],
    providers: [],
    bootstrap: [
