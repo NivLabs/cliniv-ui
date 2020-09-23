@@ -1,9 +1,8 @@
 import { Injectable } from "@angular/core";
+import { HealthOperator, HealthOperatorFilter } from "app/model/HealthOperator";
+import { Page, Pageable } from "app/model/Util";
 import { AppHttp } from "app/security/app-http";
 import { environment } from "environments/environment";
-import { Page, Pageable } from "app/model/Util";
-import { HealthOperatorFilter } from "app/model/HealthOperator";
-import { HealthPlan } from "app/model/HealthPlan";
 
 @Injectable()
 export class HealthOperatorService {
@@ -11,6 +10,13 @@ export class HealthOperatorService {
 
     constructor(private http: AppHttp) {
         this.baseUrl = `${environment.apiUrl}/health-operator`;
+    }
+
+    getById(id): Promise<HealthOperator> {
+        var headers = this.http.getHeadersDefault();
+        if (id) {
+            return this.http.get<HealthOperator>(`${this.baseUrl}/${id}`, { headers }).toPromise();
+        }
     }
 
     getPage(filter: HealthOperatorFilter, pageSettings: Pageable): Promise<Page> {

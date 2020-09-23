@@ -26,7 +26,7 @@ export class SectorEditComponent implements OnInit {
   public displayedColumns: any;
   public selectedSectorId: number = 0;
 
-  constructor(public principalService: SectorService, public confirmDialog: MatDialog, public dialog: MatDialog, public dialogRef: MatDialogRef<SectorEditComponent>, @Inject(MAT_DIALOG_DATA) public data: Sector, public formBuilder: FormBuilder, private utilService: UtilService, private patientService: SectorService, private errorHandler: ErrorHandlerService, private notification: NotificationsComponent) {
+  constructor(public principalService: SectorService, public confirmDialog: MatDialog, public dialog: MatDialog, public dialogRef: MatDialogRef<SectorEditComponent>, @Inject(MAT_DIALOG_DATA) public data: Sector, public formBuilder: FormBuilder, private utilService: UtilService, private errorHandler: ErrorHandlerService, private notification: NotificationsComponent) {
     this.dialogRef.disableClose = true;
     this.dataToForm = new Sector();
   }
