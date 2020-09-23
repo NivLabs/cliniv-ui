@@ -1,0 +1,123 @@
+<div class="card">
+    <div class="card-header card-header-info">
+        <h4 class="card-title">Dados da operadora</h4>
+        <p class="card-category">Dados completos da operadora</p>
+    </div>
+    <div class="card-body">
+        <mat-tab-group>
+            <mat-tab label="Informações do Setor *">
+                <br />
+                <form #form="ngForm" autocomplete="off">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <mat-form-field>
+                                <input matInput placeholder="Código da operadora" name="id" [(ngModel)]="dataToForm.id"
+                                    #id disabled />
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-3">
+                            <mat-form-field>
+                                <input matInput placeholder="CNPJ da operadora" name="cnpj"
+                                    [(ngModel)]="dataToForm.cnpj" #cnpj required />
+                            </mat-form-field>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <mat-form-field>
+                                <input matInput placeholder="Razão Social" name="fantasyName"
+                                    [(ngModel)]="dataToForm.fantasyName" #fantasyName required />
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-6">
+                            <mat-form-field>
+                                <input matInput placeholder="Nome Fantasia" name="fantasyName"
+                                    [(ngModel)]="dataToForm.fantasyName" #fantasyName required />
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div style="overflow:hidden; width: 100%;">
+                            <div *ngIf="dataToForm.id" class="col-12 col-sm-12 col-md-4 col-lg-3 pull-left ml-0 mr-0">
+                                <button mat-raised-button type="button" class="btn btn-info col-12"
+                                    (click)="resetForm()" matTooltip="Adiciona setor"><span class="fa fa-plus"></span>
+                                    Nova operadora</button>
+                            </div>
+
+                            <div class="col-12 col-sm-12 col-md-4 col-lg-3 pull-right ml-0 mr-0">
+                                <button mat-raised-button type="button" class="btn btn-danger col-12"
+                                    (click)="onCancelClick()" matTooltip="Fecha formulário"><span
+                                        class="fa fa-close"></span> Fechar</button>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-4 col-lg-3 pull-right ml-0 mr-0">
+                                <button mat-raised-button type="submit" class="btn btn-success col-12"
+                                    matTooltip="Salvar informações do formulário" [disabled]="!form.valid"
+                                    (click)="save()"><span class="fa fa-check"></span>Salvar</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </form>
+
+            </mat-tab>
+            <mat-tab *ngIf="dataToForm.id" label="Planos de Saúde">
+                <div class="row">
+                    <div class="col-md-12">
+                        <mat-table [dataSource]="dataSource" matSort>
+
+                            <ng-container matColumnDef="id">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header> Id </mat-header-cell>
+                                <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
+                            </ng-container>
+
+                            <ng-container matColumnDef="planCode">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header> Código do plano (ANS)
+                                </mat-header-cell>
+                                <mat-cell *matCellDef="let element"> {{element.planCode}} </mat-cell>
+                            </ng-container>
+
+                            <ng-container matColumnDef="commercialName">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header> Nome Comercial </mat-header-cell>
+                                <mat-cell *matCellDef="let element"> {{element.commercialName}} </mat-cell>
+                            </ng-container>
+
+                            <ng-container matColumnDef="contractType">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header> Tipo de contrato </mat-header-cell>
+                                <mat-cell *matCellDef="let element"> {{element.contractType}} </mat-cell>
+                            </ng-container>
+
+                            <ng-container matColumnDef="actions">
+                                <mat-header-cell *matHeaderCellDef style="justify-content: center;"> Ações
+                                </mat-header-cell>
+                                <mat-cell *matCellDef="let element" style="justify-content: center;">
+                                    <button mat-raised-button type="button" class="btn-info"
+                                        (click)="openEditAccommodationDialog(element)" style="margin-right: 10px;">
+                                        <mat-icon>edit</mat-icon>
+                                    </button>
+                                    <button mat-raised-button type="button" class="btn-danger"
+                                        (click)="openDeleteAccommodationDialog(element.id)">
+                                        <mat-icon>delete</mat-icon>
+                                    </button>
+                                </mat-cell>
+                            </ng-container>
+
+                            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+                        </mat-table>
+                    </div>
+                </div>
+                <div class="row">
+                    <div *ngIf="dataToForm.id" class="col-12 col-sm-12 col-md-4 col-lg-3 pull-left ml-0 mr-0">
+                        <button mat-raised-button type="button" class="btn btn-warning col-12"
+                            matTooltip="Adiciona acomodação" (click)="openHealthPlanDialog(dataToForm.id)"><span
+                                class="fa fa-plus"></span>
+                            Novo Plano</button>
+                    </div>
+                </div>
+            </mat-tab>
+        </mat-tab-group>
+    </div>
+</div>
+<ngx-loading [show]="loading"></ngx-loading>

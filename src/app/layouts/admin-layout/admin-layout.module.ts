@@ -39,6 +39,7 @@ import { AttendanceComponent } from 'app/attendance/attendance.component';
 import { CameraDialogComponent } from 'app/component/camera/dialog/camera-dialog.component';
 import { DocumentViewerComponent } from 'app/component/document-viewer/document-viewer.component';
 import { CameraComponent } from 'app/core/camera/camera.component';
+import { HealthOperatorEditComponent } from 'app/healthOperator/health-operator-edit/health-operator-edit.component';
 import { HealthOperatorService } from 'app/healthOperator/health-operator.service';
 import { HealthPlanService } from 'app/healthOperator/health-plan.service';
 import { SettingsComponent } from 'app/settings/settings.component';
@@ -201,6 +202,7 @@ const maskConfig: Partial<IConfig> = {
     AnamnesisComponent,
     SectorEditComponent,
     AccommodationComponent,
+    HealthOperatorEditComponent,
     UserEditComponent,
     ConfirmDialogComponent,
     CameraDialogComponent,

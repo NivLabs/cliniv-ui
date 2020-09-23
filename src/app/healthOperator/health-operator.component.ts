@@ -3,6 +3,8 @@ import { HealthOperatorFilter } from 'app/model/HealthOperator';
 import { Page, Pageable } from 'app/model/Util';
 import { HealthOperatorService } from './health-operator.service';
 import { ErrorHandlerService } from 'app/core/error-handler.service';
+import { MatDialog } from '@angular/material/dialog';
+import { HealthOperatorEditComponent } from './health-operator-edit/health-operator-edit.component';
 
 @Component({
   selector: 'app-health-operator',
@@ -18,7 +20,7 @@ export class HealthOperatorComponent implements OnInit {
   public pageSettings: Pageable;
   public filters: HealthOperatorFilter;
 
-  constructor(private principalService: HealthOperatorService, private errorHandler: ErrorHandlerService) { }
+  constructor(public dialog: MatDialog, private principalService: HealthOperatorService, private errorHandler: ErrorHandlerService) { }
 
   ngOnInit(): void {
     this.loading = true;
@@ -103,6 +105,25 @@ export class HealthOperatorComponent implements OnInit {
       case 'HEALTH_INSURERS':
         return "Seguradora de saúde";
     }
+  }
+
+  /**
+   * Abre dialog com informações da Operadora de saúde
+   * 
+   * @param id Identificador único da operadora
+   * 
+   */
+  openDialog(id) {
+    const dialogRef = this.dialog.open(HealthOperatorEditComponent, {
+      width: '100%',
+      height: 'auto',
+      data: { selectedId: id },
+
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.applyFilter();
+    });
   }
 
   selectOperatorModality(newValue) {
