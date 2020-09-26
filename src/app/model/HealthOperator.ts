@@ -4,7 +4,7 @@ import { HealthPlan } from "./HealthPlan";
 export class HealthOperator {
     id: number;
     ansCode: string;
-    document?: Document = new Document('CNOJ');
+    document?: Document = new Document('CNPJ');
     companyName: string;
     fantasyName: string;
     modality: string;
