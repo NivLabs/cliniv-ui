@@ -5,29 +5,50 @@
     </div>
     <div class="card-body">
         <mat-tab-group>
-            <mat-tab label="Informações do Setor *">
+            <mat-tab label="Informações da Operadora *">
                 <br />
                 <form #form="ngForm" autocomplete="off">
                     <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <mat-form-field>
                                 <input matInput placeholder="Código da operadora" name="id" [(ngModel)]="dataToForm.id"
                                     #id disabled />
                             </mat-form-field>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <mat-form-field>
-                                <input matInput placeholder="CNPJ da operadora" name="cnpj"
-                                    [(ngModel)]="dataToForm.cnpj" #cnpj required />
+                                <input matInput placeholder="Código da Operadora na ANS" name="ansCode"
+                                    [(ngModel)]="dataToForm.ansCode" #ansCode required />
                             </mat-form-field>
                         </div>
-
+                        <div class="col-md-4">
+                            <mat-form-field>
+                                <input matInput placeholder="CNPJ da operadora" name="document"
+                                    [(ngModel)]="dataToForm.document.value" #document required />
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-4">
+                            <mat-form-field>
+                                <mat-label>Modalidade</mat-label>
+                                <mat-select matNativeControl name="modality" [(ngModel)]="dataToForm.modality" #modality
+                                    required>
+                                    <mat-option value="HEALTH_PLAN_OPERATORS">Operadora de Planos de Saúde</mat-option>
+                                    <mat-option value="MEDICAL_OR_DENTAL_COOPERATIVE">Médica ou Dental Cooperativa
+                                    </mat-option>
+                                    <mat-option value="SELF_MANAGEMENT">Auto Gerenciamento</mat-option>
+                                    <mat-option value="PHILANTHROPY">Filantropia</mat-option>
+                                    <mat-option value="ADMNISTRATOR">Adminstradora</mat-option>
+                                    <mat-option value="HEALTH_INSURERS">Insumos de Saúde</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
                     </div>
+
                     <div class="row">
                         <div class="col-md-6">
                             <mat-form-field>
-                                <input matInput placeholder="Razão Social" name="fantasyName"
-                                    [(ngModel)]="dataToForm.fantasyName" #fantasyName required />
+                                <input matInput placeholder="Razão Social" name="companyName"
+                                    [(ngModel)]="dataToForm.companyName" #companyName required />
                             </mat-form-field>
                         </div>
                         <div class="col-md-6">
@@ -84,7 +105,8 @@
 
                             <ng-container matColumnDef="contractType">
                                 <mat-header-cell *matHeaderCellDef mat-sort-header> Tipo de contrato </mat-header-cell>
-                                <mat-cell *matCellDef="let element"> {{element.contractType}} </mat-cell>
+                                <mat-cell *matCellDef="let element">
+                                    {{showContractTypeDescription(element.contractType)}} </mat-cell>
                             </ng-container>
 
                             <ng-container matColumnDef="actions">

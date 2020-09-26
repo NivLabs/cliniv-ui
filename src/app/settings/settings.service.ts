@@ -33,7 +33,7 @@ export class SettingsService {
 
     var headers = this.http.getHeadersDefault().append('Content-Type', "application/json");
 
-    return this.http.post<FileInfo>(this.baseUrl, file, { headers }).toPromise();
+    return this.http.post<FileInfo>(`${this.baseUrl}/logo`, file, { headers }).toPromise();
 
   }
 

@@ -41,4 +41,21 @@ export class HealthOperatorService {
         }
         return this.http.get<Page>(`${this.baseUrl}?${queryString}`, { headers }).toPromise();
     }
+
+    create(healthOperator): Promise<HealthOperator> {
+        var headers = this.http.getHeadersDefault()
+            .append('Content-Type', "application/json");
+        if (healthOperator) {
+            return this.http.post<HealthOperator>(this.baseUrl, healthOperator, { headers }).toPromise();
+        }
+    }
+
+    update(healthOperator): Promise<HealthOperator> {
+        var headers = this.http.getHeadersDefault()
+            .append('Content-Type', "application/json");
+        if (healthOperator) {
+            return this.http.put<HealthOperator>(`${this.baseUrl}/${healthOperator.id}`, healthOperator, { headers }).toPromise();
+        }
+    }
+
 }

@@ -1,9 +1,10 @@
+import { Document } from "./Document";
 import { HealthPlan } from "./HealthPlan";
 
 export class HealthOperator {
-    id: string;
+    id: number;
     ansCode: string;
-    cnpj: string;
+    document?: Document = new Document('CNPJ');
     companyName: string;
     fantasyName: string;
     modality: string;
