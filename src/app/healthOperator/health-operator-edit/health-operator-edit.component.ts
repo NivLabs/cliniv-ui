@@ -3,10 +3,12 @@ import { FormBuilder } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { ConfirmDialogComponent } from 'app/core/confirm-dialog/confirm-dialog.component';
 import { ErrorHandlerService } from 'app/core/error-handler.service';
 import { NotificationsComponent } from 'app/core/notification/notifications.component';
 import { UtilService } from 'app/core/util.service';
 import { HealthOperator } from 'app/model/HealthOperator';
+import { HealthPlan } from 'app/model/HealthPlan';
 import { HealthOperatorService } from '../health-operator.service';
 
 @Component({
@@ -37,6 +39,7 @@ export class HealthOperatorEditComponent implements OnInit {
     this.dialogRef.disableClose = true;
     this.dataToForm = new HealthOperator();
   }
+
   ngOnInit(): void {
 
     if (this.dialogRef.componentInstance.data['selectedId'] !== null || this.selectedId !== 0) {
@@ -61,7 +64,56 @@ export class HealthOperatorEditComponent implements OnInit {
     }
   }
 
+  /**
+   * Limpa o formulário
+   */
+  resetForm() {
+    const confirmDialogRef = this.confirmDialog.open(ConfirmDialogComponent, {
+      data: { title: 'Confirmação', message: 'Você confirma a limpeza do formulário?' }
+    });
 
+    confirmDialogRef.afterClosed().subscribe(result => {
+      if (result !== undefined && result.isConfirmed) {
+        this.dataToForm = new HealthOperator();
+        this.dataToForm.healthPlans = new Array<HealthPlan>();
+      }
+    });
+  }
+
+  showContractTypeDescription(contractType: string) {
+    switch (contractType) {
+      case 'BUSINESS_COLLECTIVE':
+        return 'Coletivo Empresarial';
+      case 'MEMBERSHIP_COLLECTIVE':
+        return 'Coletivo por Adeção'
+      case 'INDIVIDUAL_OR_FAMILY':
+        return 'Individual ou Familiar';
+    }
+  }
+
+  /**
+   * Cria ou atualiza uma operadora
+   */
+  save() {
+    this.loading = true;
+    if (this.dataToForm.id) {
+      this.principalService.update(this.dataToForm).then(resp => {
+        this.loading = false;
+        this.notification.showSucess("Operadora alterada com sucesso!");
+        this.dataToForm = resp;
+      }).catch((error) => this.handlerException(error));
+    } else {
+      this.principalService.create(this.dataToForm).then(resp => {
+        this.loading = false;
+        this.dataToForm = resp;
+        this.notification.showSucess("Operadora cadastrada com sucesso!");
+      }).catch((error) => this.handlerException(error));
+    }
+  }
+
+  /**
+   * Fecha o componente
+   */
   onCancelClick(): void {
     this.dialogRef.close();
   }

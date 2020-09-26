@@ -17,8 +17,8 @@
                         </div>
                         <div class="col-md-3">
                             <mat-form-field>
-                                <input matInput placeholder="CNPJ da operadora" name="cnpj"
-                                    [(ngModel)]="dataToForm.cnpj" #cnpj required />
+                                <input matInput placeholder="CNPJ da operadora" name="document"
+                                    [(ngModel)]="dataToForm.document.value" #document required />
                             </mat-form-field>
                         </div>
 
@@ -84,7 +84,8 @@
 
                             <ng-container matColumnDef="contractType">
                                 <mat-header-cell *matHeaderCellDef mat-sort-header> Tipo de contrato </mat-header-cell>
-                                <mat-cell *matCellDef="let element"> {{element.contractType}} </mat-cell>
+                                <mat-cell *matCellDef="let element">
+                                    {{showContractTypeDescription(element.contractType)}} </mat-cell>
                             </ng-container>
 
                             <ng-container matColumnDef="actions">

@@ -67,16 +67,19 @@ export class SectorEditComponent implements OnInit {
    * Cria ou atualiza um setor
    */
   save() {
+    this.loading = true;
     if (this.dataToForm.id) {
       this.principalService.update(this.dataToForm).then(resp => {
+        this.loading = false;
         this.notification.showSucess("Setor alterado com sucesso!");
         this.dataToForm = resp;
-      }).catch(this.handlerException);
+      }).catch((error) => this.handlerException(error));
     } else {
       this.principalService.create(this.dataToForm).then(resp => {
+        this.loading = false;
         this.dataToForm = resp;
         this.notification.showSucess("Setor cadastrado com sucesso!");
-      }).catch(this.handlerException);
+      }).catch((error) => this.handlerException(error));
     }
   }
 
@@ -150,7 +153,7 @@ export class SectorEditComponent implements OnInit {
         this.principalService.deleteAccommodation(id).then(resp => {
           this.ngOnInit();
           this.notification.showSucess("Acomodação excluída com sucesso!");
-        }).catch(this.handlerException);
+        }).catch((error) => this.handlerException(error));
       }
     });
   }
