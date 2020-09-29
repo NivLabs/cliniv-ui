@@ -38,4 +38,27 @@ export class HealthPlanService {
         }
     }
 
+    create(request: HealthPlan): Promise<HealthPlan> {
+        var headers = this.http.getHeadersDefault()
+            .append('Content-Type', "application/json");
+        if (request) {
+            return this.http.post<HealthPlan>(`${this.baseUrl}`, request, { headers }).toPromise();
+        }
+    }
+
+    update(request: HealthPlan): Promise<HealthPlan> {
+        var headers = this.http.getHeadersDefault()
+            .append('Content-Type', "application/json");
+        if (request) {
+            return this.http.put<HealthPlan>(`${this.baseUrl}/${request.id}`, request, { headers }).toPromise();
+        }
+    }
+
+    delete(id: number): Promise<void> {
+        var headers = this.http.getHeadersDefault();
+
+        if (id) {
+            return this.http.delete<void>(`${this.baseUrl}/${id}`, { headers }).toPromise();
+        }
+    }
 }
