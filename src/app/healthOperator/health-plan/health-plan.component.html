@@ -1,0 +1,82 @@
+<div class="card">
+    <div class="card-header card-header-info">
+        <h4 class="card-title">Dados da do plano</h4>
+        <p class="card-category">Dados completos do Plano de saúde</p>
+    </div>
+    <div class="card-body">
+        <form #form="ngForm" autocomplete="off" (ngSubmit)="save()">
+            <div class="row">
+                <div class="col-md-3">
+                    <mat-form-field>
+                        <input matInput placeholder="Código da Plano de Saúde" name="id" [(ngModel)]="dataForm.id" #id
+                            disabled />
+                    </mat-form-field>
+                </div>
+                <div class="col-md-3">
+                    <mat-form-field>
+                        <input matInput placeholder="Código do plano (ANS)" name="planCode"
+                            [(ngModel)]="dataForm.planCode" #planCode required />
+                    </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                    <mat-form-field>
+                        <input matInput placeholder="Nome comercial" name="commercialName"
+                            [(ngModel)]="dataForm.commercialName" #commercialName required />
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <mat-form-field>
+                        <mat-label>Tipo de Contrato</mat-label>
+                        <mat-select matNativeControl name="contractType" [(ngModel)]="dataForm.contractType"
+                            #contractType required>
+                            <mat-option value="INDIVIDUAL_OR_FAMILY">Individual ou Familiar</mat-option>
+                            <mat-option value="MEMBERSHIP_COLLECTIVE">Coletivo Assinante</mat-option>
+                            <mat-option value="BUSINESS_COLLECTIVE">Coletivo empresarial</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                    <mat-form-field>
+                        <mat-label>Abrangência</mat-label>
+                        <mat-select matNativeControl name="abrangency" [(ngModel)]="dataForm.abrangency" #abrangency
+                            required>
+                            <mat-option value="NATIONAL">Nacional</mat-option>
+                            <mat-option value="MUNICIPAL">Municipal</mat-option>
+                            <mat-option value="GROUP_OF_MUNICIPALITIES">Grupo de municípios</mat-option>
+                            <mat-option value="STATE">Estadual</mat-option>
+                            <mat-option value="GROUP_OF_STATES">Grupo de estados</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                    <mat-form-field>
+                        <input matInput placeholder="Tipo de plano" name="type" [(ngModel)]="dataForm.type" #type
+                            required />
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div style="overflow:hidden; width: 100%;">
+                    <div *ngIf="dataForm.id" class="col-12 col-sm-12 col-md-4 col-lg-3 pull-left ml-0 mr-0">
+                        <button mat-raised-button type="button" class="btn btn-info col-12" (click)="resetForm()"
+                            matTooltip="Adicionar Plano"><span class="fa fa-plus"></span> Nova Plano de
+                            Saúde</button>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-4 col-lg-3 pull-right ml-0 mr-0">
+                        <button mat-raised-button type="button" class="btn btn-danger col-12" (click)="onCancelClick()"
+                            matTooltip="Fecha formulário"><span class="fa fa-close"></span> Fechar</button>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-4 col-lg-3 pull-right ml-0 mr-0">
+                        <button mat-raised-button type="submit" class="btn btn-success col-12"
+                            matTooltip="Salvar informações do formulário" [disabled]="!form.valid"><span
+                                class="fa fa-check"></span> Salvar</button>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </form>
+    </div>
+</div>
+<ngx-loading [show]="loading"></ngx-loading>

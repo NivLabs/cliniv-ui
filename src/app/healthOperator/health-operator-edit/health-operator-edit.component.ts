@@ -10,6 +10,8 @@ import { UtilService } from 'app/core/util.service';
 import { HealthOperator } from 'app/model/HealthOperator';
 import { HealthPlan } from 'app/model/HealthPlan';
 import { HealthOperatorService } from '../health-operator.service';
+import { HealthPlanService } from '../health-plan.service';
+import { HealthPlanComponent } from '../health-plan/health-plan.component';
 
 @Component({
   selector: 'app-health-operator-edit',
@@ -27,6 +29,7 @@ export class HealthOperatorEditComponent implements OnInit {
   public selectedId: number = 0;
 
   constructor(public principalService: HealthOperatorService,
+    public healthPlanService: HealthPlanService,
     public confirmDialog: MatDialog,
     public dialog: MatDialog,
     public dialogRef: MatDialogRef<HealthOperatorEditComponent>,
@@ -62,6 +65,66 @@ export class HealthOperatorEditComponent implements OnInit {
 
       this.displayedColumns = ['id', 'planCode', 'commercialName', 'contractType', 'actions'];
     }
+  }
+
+
+
+  /**
+   * Abre o formulário de edição de plano de saúde
+   * 
+   * @param healthPlan Plano de Saúde
+   */
+  openEditHealthPlanDialog(healthPlan: HealthPlan): void {
+    healthPlan.operatorCode = this.dataToForm.ansCode;
+    const dialogRef = this.dialog.open(HealthPlanComponent, {
+      width: '100%',
+      height: 'auto',
+      data: { healthPlan: healthPlan }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.ngOnInit();
+    });
+
+  }
+
+  /**
+   * Deleta plano de saúde inutilizado
+   * 
+   * @param healthPlan Plano de saúde à ser excluído
+   */
+  openDeleteHealthPlanDialog(healthPlan: HealthPlan) {
+    const confirmDialogRef = this.confirmDialog.open(ConfirmDialogComponent, {
+      data: { title: 'Confirmação', message: 'Você confirma a exclusão do plano de saúde?' }
+    });
+
+    confirmDialogRef.afterClosed().subscribe(result => {
+      if (result !== undefined && result.isConfirmed) {
+        this.healthPlanService.delete(healthPlan.id).then(resp => {
+          this.ngOnInit();
+          this.notification.showSucess("Plano de saúde excluída com sucesso!");
+        }).catch((error) => this.handlerException(error));
+      }
+    });
+  }
+
+  /**
+  * Abre o dialog de plano de saúde com identificador único da operadora para criação
+  * 
+  * @param sectorId Identificador único do setor
+  */
+  openNewHealthPlanDialog(operatorCode: string): void {
+
+    const dialogRef = this.dialog.open(HealthPlanComponent, {
+      width: '100%',
+      height: 'auto',
+      data: { operatorCode: operatorCode }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.ngOnInit();
+    });
+
   }
 
   /**

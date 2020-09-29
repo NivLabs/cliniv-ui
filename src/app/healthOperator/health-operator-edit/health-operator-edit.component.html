@@ -114,11 +114,11 @@
                                 </mat-header-cell>
                                 <mat-cell *matCellDef="let element" style="justify-content: center;">
                                     <button mat-raised-button type="button" class="btn-info"
-                                        (click)="openEditAccommodationDialog(element)" style="margin-right: 10px;">
+                                        (click)="openEditHealthPlanDialog(element)" style="margin-right: 10px;">
                                         <mat-icon>edit</mat-icon>
                                     </button>
                                     <button mat-raised-button type="button" class="btn-danger"
-                                        (click)="openDeleteAccommodationDialog(element.id)">
+                                        (click)="openDeleteHealthPlanDialog(element.id)">
                                         <mat-icon>delete</mat-icon>
                                     </button>
                                 </mat-cell>
@@ -133,7 +133,7 @@
                 <div class="row">
                     <div *ngIf="dataToForm.id" class="col-12 col-sm-12 col-md-4 col-lg-3 pull-left ml-0 mr-0">
                         <button mat-raised-button type="button" class="btn btn-warning col-12"
-                            matTooltip="Adiciona acomodação" (click)="openHealthPlanDialog(dataToForm.id)"><span
+                            matTooltip="Adiciona acomodação" (click)="openNewHealthPlanDialog(dataToForm.ansCode)"><span
                                 class="fa fa-plus"></span>
                             Novo Plano</button>
                     </div>

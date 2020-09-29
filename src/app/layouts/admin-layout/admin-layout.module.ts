@@ -42,6 +42,7 @@ import { CameraComponent } from 'app/core/camera/camera.component';
 import { HealthOperatorEditComponent } from 'app/healthOperator/health-operator-edit/health-operator-edit.component';
 import { HealthOperatorService } from 'app/healthOperator/health-operator.service';
 import { HealthPlanService } from 'app/healthOperator/health-plan.service';
+import { HealthPlanComponent } from 'app/healthOperator/health-plan/health-plan.component';
 import { SettingsComponent } from 'app/settings/settings.component';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
@@ -203,6 +204,7 @@ const maskConfig: Partial<IConfig> = {
     SectorEditComponent,
     AccommodationComponent,
     HealthOperatorEditComponent,
+    HealthPlanComponent,
     UserEditComponent,
     ConfirmDialogComponent,
     CameraDialogComponent,
