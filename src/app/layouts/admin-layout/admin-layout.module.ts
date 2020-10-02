@@ -200,6 +200,7 @@ const maskConfig: Partial<IConfig> = {
     NewAttendanceComponent,
     AllergyComponent,
     EvolutionComponent,
+    ProfessionalEditComponent,
     AnamnesisComponent,
     SectorEditComponent,
     AccommodationComponent,
