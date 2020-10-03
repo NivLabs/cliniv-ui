@@ -93,16 +93,16 @@ export class HealthOperatorEditComponent implements OnInit {
    * 
    * @param healthPlan Plano de saúde à ser excluído
    */
-  openDeleteHealthPlanDialog(healthPlan: HealthPlan) {
+  openDeleteHealthPlanDialog(id: number) {
     const confirmDialogRef = this.confirmDialog.open(ConfirmDialogComponent, {
       data: { title: 'Confirmação', message: 'Você confirma a exclusão do plano de saúde?' }
     });
 
     confirmDialogRef.afterClosed().subscribe(result => {
       if (result !== undefined && result.isConfirmed) {
-        this.healthPlanService.delete(healthPlan.id).then(resp => {
+        this.healthPlanService.delete(id).then(resp => {
           this.ngOnInit();
-          this.notification.showSucess("Plano de saúde excluída com sucesso!");
+          this.notification.showSucess("Plano de saúde excluído com sucesso!");
         }).catch((error) => this.handlerException(error));
       }
     });
