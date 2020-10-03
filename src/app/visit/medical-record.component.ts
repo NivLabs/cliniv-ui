@@ -261,7 +261,7 @@ export class MedicalRecordComponent implements OnInit {
   closeAttendance() {
     const dialogNewVisit = this.dialog.open(CloseEventComponent, {
       width: '100%',
-      data: { medicalRecord: this.visit }
+      data: { attendanceId: this.visit.id }
     });
 
     dialogNewVisit.afterClosed().subscribe(result => {
