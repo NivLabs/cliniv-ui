@@ -56,7 +56,6 @@ export class HealthPlanService {
 
     delete(id: number): Promise<void> {
         var headers = this.http.getHeadersDefault();
-
         if (id) {
             return this.http.delete<void>(`${this.baseUrl}/${id}`, { headers }).toPromise();
         }

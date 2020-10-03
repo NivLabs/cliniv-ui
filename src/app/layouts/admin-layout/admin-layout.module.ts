@@ -44,6 +44,7 @@ import { HealthOperatorService } from 'app/healthOperator/health-operator.servic
 import { HealthPlanService } from 'app/healthOperator/health-plan.service';
 import { HealthPlanComponent } from 'app/healthOperator/health-plan/health-plan.component';
 import { SettingsComponent } from 'app/settings/settings.component';
+import { DocumentSelectorComponent } from 'app/visit/document-selector/document-selector.component';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { NgxLoadingModule } from 'ngx-loading';
@@ -200,9 +201,11 @@ const maskConfig: Partial<IConfig> = {
     NewAttendanceComponent,
     AllergyComponent,
     EvolutionComponent,
+    ProfessionalEditComponent,
     AnamnesisComponent,
     SectorEditComponent,
     AccommodationComponent,
+    DocumentSelectorComponent,
     HealthOperatorEditComponent,
     HealthPlanComponent,
     UserEditComponent,
