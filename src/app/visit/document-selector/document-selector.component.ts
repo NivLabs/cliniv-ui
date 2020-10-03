@@ -1,5 +1,4 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { DocumentViewerComponent } from 'app/component/document-viewer/document-viewer.component';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DigitalDocument } from 'app/model/DigitalDocument';
 import { MatTableDataSource } from '@angular/material/table';
