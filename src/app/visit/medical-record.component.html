@@ -56,7 +56,7 @@
                                         <span>Alergia</span>
                                     </button>
                                     <button mat-menu-item matTooltip="Realizar alta"
-                                        *ngIf="visit.id && visit.patientId && !visit.exitDateTime">
+                                        *ngIf="visit.id && visit.patientId && !visit.exitDateTime" (click)="closeAttendance()">
                                         <mat-icon>check</mat-icon>
                                         <span>Alta</span>
                                     </button>

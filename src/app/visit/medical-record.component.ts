@@ -17,6 +17,7 @@ import { Accommodation } from 'app/model/Accommodation';
 import { DocumentSelectorComponent } from './document-selector/document-selector.component';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
+import { CloseEventComponent } from './close-event/close-event.component';
 
 @Component({
   selector: 'app-medical-record',
@@ -255,6 +256,19 @@ export class MedicalRecordComponent implements OnInit {
         }
       });
     }
+  }
+
+  closeAttendance() {
+    const dialogNewVisit = this.dialog.open(CloseEventComponent, {
+      width: '100%',
+      data: { medicalRecord: this.visit }
+    });
+
+    dialogNewVisit.afterClosed().subscribe(result => {
+      if (result !== undefined) {
+        this.ngOnInit();
+      }
+    });
   }
 
   openAnamnesisDialog(attendanceId) {

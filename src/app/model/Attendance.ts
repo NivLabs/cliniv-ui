@@ -83,3 +83,11 @@ export class PatientHistory {
     entryCause: string;
     isFinished: boolean;
 }
+
+/**
+ * Classe que representa Objeto de requisição de alta médicaz
+ */
+export class CloseAttendanceRequest {
+    eventTypeId: number = 19;
+    observation: string;
+}
