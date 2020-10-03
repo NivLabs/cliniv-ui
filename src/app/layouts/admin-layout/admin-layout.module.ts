@@ -44,6 +44,7 @@ import { HealthOperatorService } from 'app/healthOperator/health-operator.servic
 import { HealthPlanService } from 'app/healthOperator/health-plan.service';
 import { HealthPlanComponent } from 'app/healthOperator/health-plan/health-plan.component';
 import { SettingsComponent } from 'app/settings/settings.component';
+import { CloseEventComponent } from 'app/visit/close-event/close-event.component';
 import { DocumentSelectorComponent } from 'app/visit/document-selector/document-selector.component';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
@@ -179,6 +180,8 @@ const maskConfig: Partial<IConfig> = {
     CameraComponent,
     CameraDialogComponent,
     DocumentViewerComponent,
+    DocumentSelectorComponent,
+    CloseEventComponent,
 
     AttendanceComponent,
 
@@ -203,6 +206,7 @@ const maskConfig: Partial<IConfig> = {
     EvolutionComponent,
     ProfessionalEditComponent,
     AnamnesisComponent,
+    CloseEventComponent,
     SectorEditComponent,
     AccommodationComponent,
     DocumentSelectorComponent,
