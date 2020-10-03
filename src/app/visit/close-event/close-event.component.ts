@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
 import { CloseAttendanceRequest } from 'app/model/Attendance';
 
 @Component({
@@ -10,10 +11,20 @@ export class CloseEventComponent implements OnInit {
 
   public dataToForm: CloseAttendanceRequest;
 
-  constructor() { }
+  constructor(public dialogRef: MatDialogRef<CloseEventComponent>) {
+    this.dialogRef.disableClose = true;
+  }
 
   ngOnInit(): void {
     this.dataToForm = new CloseAttendanceRequest();
+  }
+
+  onCancelClick() {
+    this.dialogRef.close();
+  }
+
+  save() {
+    console.log(this.dataToForm);
   }
 
 }

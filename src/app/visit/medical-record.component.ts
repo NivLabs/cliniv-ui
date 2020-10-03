@@ -258,9 +258,6 @@ export class MedicalRecordComponent implements OnInit {
     }
   }
 
-  /**
-   * TODO: Finalizar esta implementação no Sábado 04/10/2020
-   */
   closeAttendance() {
     const dialogNewVisit = this.dialog.open(CloseEventComponent, {
       width: '100%',

@@ -88,6 +88,6 @@ export class PatientHistory {
  * Classe que representa Objeto de requisição de alta médicaz
  */
 export class CloseAttendanceRequest {
-    eventyTypeId: number;
+    eventTypeId: number = 19;
     observation: string;
 }
