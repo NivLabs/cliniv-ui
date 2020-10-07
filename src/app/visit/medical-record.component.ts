@@ -18,6 +18,7 @@ import { DocumentSelectorComponent } from './document-selector/document-selector
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { CloseEventComponent } from './close-event/close-event.component';
+import { NewEventComponent } from './new-event/new-event.component';
 
 @Component({
   selector: 'app-medical-record',
@@ -258,6 +259,9 @@ export class MedicalRecordComponent implements OnInit {
     }
   }
 
+  /**
+   * Abre o componente que cria o Evento de alta clínica
+   */
   closeAttendance() {
     const dialogNewVisit = this.dialog.open(CloseEventComponent, {
       width: '100%',
@@ -271,6 +275,10 @@ export class MedicalRecordComponent implements OnInit {
     });
   }
 
+  /**
+   * Abre o componente de formulário do paciente
+   * @param attendanceId Identificador único do atendimento
+   */
   openAnamnesisDialog(attendanceId) {
     const dialogNewVisit = this.dialog.open(AnamnesisComponent, {
       width: '100%',
@@ -284,6 +292,10 @@ export class MedicalRecordComponent implements OnInit {
     });
   }
 
+  /**
+   * Abre componente de manutenção de alergias do paciente
+   * @param patientId Identificador único do paciente
+   */
   openAllergyDialog(patientId) {
     const dialogAllergy = this.dialog.open(AllergyComponent, {
       width: '100%',
@@ -295,8 +307,28 @@ export class MedicalRecordComponent implements OnInit {
     });
   }
 
+  /**
+   * Abre componente de criação de evolução clínica
+   * @param attendanceId Identificador único do atendimento
+   */
   openEvolutionDialog(attendanceId) {
     const dialogNewEvolution = this.dialog.open(EvolutionComponent, {
+      width: '100%',
+      data: { attendanceId: attendanceId }
+    });
+
+    dialogNewEvolution.afterClosed().subscribe(result => {
+      this.searchActivedVisitByPatientId();
+    });
+
+  }
+
+  /**
+   * Abre componente de criação de eventos clínicos
+   * @param attendanceId Identificador único do atendimento
+   */
+  openNewEventDialog(attendanceId) {
+    const dialogNewEvolution = this.dialog.open(NewEventComponent, {
       width: '100%',
       data: { attendanceId: attendanceId }
     });
