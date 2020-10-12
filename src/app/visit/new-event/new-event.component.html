@@ -68,7 +68,14 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-2">
+                    <mat-form-field>
+                        <input matInput placeholder="Código do procedimento" name="procedureId"
+                            (blur)="searchProcessdureById()" [(ngModel)]="dataToForm.procedure.id" maxlength="10"
+                            #procedureId type="text" />
+                    </mat-form-field>
+                </div>
+                <div class="col-md-10">
                     <mat-form-field>
                         <mat-label>Procedimento</mat-label>
                         <mat-select [formControl]="procedure" (selectionChange)="selectProcedure($event.value)">

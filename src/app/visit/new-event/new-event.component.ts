@@ -9,8 +9,9 @@ import { Accommodation } from 'app/model/Accommodation';
 import { NewAttendance, NewAttendanceEvent } from 'app/model/Attendance';
 import { ProcedureInfo } from 'app/model/Procedure';
 import { Professional } from 'app/model/Professional';
-import { Sector } from 'app/model/Sector';
+import { Sector, SectorFilters } from 'app/model/Sector';
 import { Specialization } from 'app/model/Specialization';
+import { Pageable } from 'app/model/Util';
 import { SectorService } from 'app/sector/sector.service';
 import { MedicalRecordService } from '../medical-record.service';
 
@@ -36,6 +37,9 @@ export class NewEventComponent implements OnInit {
 
   dataToForm: NewAttendanceEvent;
 
+  sectorFilters = new SectorFilters();
+  setorPageSettings = new Pageable();
+
 
   constructor(public dialogRef: MatDialogRef<NewEventComponent>, public attendanceService: AttendanceService, public sectorService: SectorService, public notification: NotificationsComponent, public utilService: UtilService, public visitService: MedicalRecordService, private errorHandler: ErrorHandlerService,
     @Inject(MAT_DIALOG_DATA) public data: any) { }
@@ -49,8 +53,26 @@ export class NewEventComponent implements OnInit {
       this.dataToForm.documents = [];
       this.dataToForm.responsible = new Professional();
       this.dataToForm.procedure = new ProcedureInfo();
-      
     }
+    this.loadSectors();
   }
 
+
+  loadSectors() {
+    this.sectorService.getPage(this.sectorFilters, this.setorPageSettings).then(response => {
+      this.sectors = response.content;
+    });
+  }
+
+
+  loadAccommodations(event: any) {
+    var sectorId = event.value;
+    if (sectorId) {
+      this.sectorService.getById(sectorId).then(response => {
+        this.accommodations = response.listOfRoomsOrBeds;
+      }).catch(e => {
+        this.accommodations = [];
+      });
+    }
+  }
 }
