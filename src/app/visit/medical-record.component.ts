@@ -99,7 +99,7 @@ export class MedicalRecordComponent implements OnInit {
             });
             confirmDialogRef.afterClosed().subscribe(result => {
               if (result)
-                this.openNewVisitDialog(this.visit.patientId);
+                this.openNewAttendanceDialog(this.visit.patientId);
             });
           } else {
             this.onServiceException(error)
@@ -195,8 +195,12 @@ export class MedicalRecordComponent implements OnInit {
     }
   }
 
-
-  openNewVisitDialog(patientId) {
+  /**
+   * Abre componente de criação de novo atendimento
+   * 
+   * @param patientId Código interno do paciente
+   */
+  openNewAttendanceDialog(patientId) {
     const dialogNewVisit = this.dialog.open(NewAttendanceComponent, {
       width: '90%',
       data: { patientId }
@@ -204,12 +208,17 @@ export class MedicalRecordComponent implements OnInit {
 
     dialogNewVisit.afterClosed().subscribe(result => {
       if (result !== undefined) {
-        this.createNewVisit(result);
+        this.createNewAttendance(result);
       }
     });
   }
 
-  createNewVisit(dataToForm: NewAttendance) {
+  /**
+   * Cria um novo atendimento
+   * 
+   * @param dataToForm Objeto para novo atendimento
+   */
+  createNewAttendance(dataToForm: NewAttendance) {
     this.loading = true;
     this.visitService.initializeVisit(dataToForm).then(resp => {
       this.loading = false;
@@ -218,6 +227,11 @@ export class MedicalRecordComponent implements OnInit {
     }).catch(error => this.onServiceException(error));
   }
 
+  /**
+   * Abre componente que exibe o hitórico do paciente
+   * 
+   * @param patientHistory Histórico do paciente
+   */
   openHistoryDialog(patientHistory) {
     const dialogPatitenHistory = this.dialog.open(PatientHistoryComponent, {
       width: '90%',
@@ -263,12 +277,12 @@ export class MedicalRecordComponent implements OnInit {
    * Abre o componente que cria o Evento de alta clínica
    */
   closeAttendance() {
-    const dialogNewVisit = this.dialog.open(CloseEventComponent, {
+    const closeAttendanceDialog = this.dialog.open(CloseEventComponent, {
       width: '100%',
       data: { attendanceId: this.visit.id }
     });
 
-    dialogNewVisit.afterClosed().subscribe(result => {
+    closeAttendanceDialog.afterClosed().subscribe(result => {
       if (result !== undefined) {
         this.ngOnInit();
       }
@@ -334,7 +348,8 @@ export class MedicalRecordComponent implements OnInit {
     });
 
     dialogNewEvolution.afterClosed().subscribe(result => {
-      this.searchActivedVisitByPatientId();
+      console.log(result);
+      //this.searchActivedVisitByPatientId();
     });
 
   }

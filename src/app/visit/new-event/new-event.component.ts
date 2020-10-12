@@ -7,6 +7,7 @@ import { NotificationsComponent } from 'app/core/notification/notifications.comp
 import { UtilService } from 'app/core/util.service';
 import { Accommodation } from 'app/model/Accommodation';
 import { NewAttendance, NewAttendanceEvent } from 'app/model/Attendance';
+import { EventType } from 'app/model/EventType';
 import { ProcedureInfo } from 'app/model/Procedure';
 import { Professional } from 'app/model/Professional';
 import { Sector, SectorFilters } from 'app/model/Sector';
@@ -30,6 +31,7 @@ export class NewEventComponent implements OnInit {
   sectorControl = new FormControl();
   accommodationControl = new FormControl('', [Validators.required]);
   responsibleControl = new FormControl('', [Validators.required]);
+  procedureControl = new FormControl('');
 
   responsibles: Array<Professional> = [];
   sectors: Array<Sector> = [];
@@ -49,15 +51,22 @@ export class NewEventComponent implements OnInit {
     if (this.dialogRef.componentInstance.data) {
       this.dataToForm = new NewAttendanceEvent();
       this.dataToForm.attendanceId = data.id;
-      this.dataToForm.accommodation = data.lastAccommodation;
+      this.dataToForm.accommodation = data.lastAccommodation ? data.lastAccommodation : new Accommodation();
+      this.dataToForm.eventType = new EventType();
       this.dataToForm.documents = [];
       this.dataToForm.responsible = new Professional();
       this.dataToForm.procedure = new ProcedureInfo();
     }
     this.loadSectors();
+    this.procedureControl.registerOnChange((value) => {
+      this.dataToForm.procedure.id = value;
+    });
   }
 
 
+  /**
+   * Busca os setores
+   */
   loadSectors() {
     this.sectorService.getPage(this.sectorFilters, this.setorPageSettings).then(response => {
       this.sectors = response.content;
@@ -65,6 +74,11 @@ export class NewEventComponent implements OnInit {
   }
 
 
+  /**
+   * Busca as acomodações à partir do identificador do setor
+   * 
+   * @param event Evento de change do Select
+   */
   loadAccommodations(event: any) {
     var sectorId = event.value;
     if (sectorId) {
@@ -75,4 +89,21 @@ export class NewEventComponent implements OnInit {
       });
     }
   }
+
+  selectAccommodation(id: number) {
+    if (id) {
+      this.dataToForm.accommodation.id = id;
+    }
+  }
+
+  selectEventType(id: number) {
+    if (id) {
+      this.dataToForm.eventType.id = id;
+    }
+  }
+
+  selectProcedure() {
+
+  }
+
 }

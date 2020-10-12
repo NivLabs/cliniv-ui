@@ -3,14 +3,14 @@
  */
 export class ProcedureInfo {
     id: number;
-    description: string;
-    active: boolean;
-    previousAudit: boolean;
-    specialAuthorization: boolean;
-    specialty: boolean;
-    maxAge: string;
-    minAge: string;
-    frequency: string;
+    description: string = "";
+    active: boolean = true;
+    previousAudit: boolean = true;
+    specialAuthorization: boolean = false;
+    specialty: boolean = false;
+    maxAge: string = "Não definida";
+    minAge: string = "Não definida";
+    frequency: string = "Não definida";
 }
 
 /**
