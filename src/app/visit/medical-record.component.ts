@@ -209,9 +209,9 @@ export class MedicalRecordComponent implements OnInit {
     });
   }
 
-  createNewVisit(newVisit: NewAttendance) {
+  createNewVisit(dataToForm: NewAttendance) {
     this.loading = true;
-    this.visitService.initializeVisit(newVisit).then(resp => {
+    this.visitService.initializeVisit(dataToForm).then(resp => {
       this.loading = false;
       this.visit.patientId = resp.patientId;
       this.searchActivedVisitByPatientId();

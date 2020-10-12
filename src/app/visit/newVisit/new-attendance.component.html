@@ -62,17 +62,19 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-2">
+                <div class="col-12">
                     <mat-form-field>
-                        <input matInput placeholder="Motivo do atendimento" name="entryCause"
-                            [(ngModel)]="newVisit.entryCause" #entryCause="ngModel" type="text" />
+                        <mat-label>Motivo do atendimento</mat-label>
+                        <textarea matInput cdkTextareaAutosize="true" cdkAutosizeMinRows="4" name="entryCause"
+                            [(ngModel)]="newVisit.entryCause" #entryCause></textarea>
                     </mat-form-field>
                 </div>
+            </div>
+            <div class="row">
                 <div class="col-md-2">
                     <mat-form-field>
                         <mat-label>Nível de Risco</mat-label>
-                        <mat-select [formControl]="levelControl" (selectionChange)="selectLevel($event.value)"
-                            required>
+                        <mat-select [formControl]="levelControl" (selectionChange)="selectLevel($event.value)" required>
                             <mat-option>
                                 Selecione um nível de risco
                             </mat-option>
@@ -82,7 +84,7 @@
                         </mat-select>
                     </mat-form-field>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-5">
                     <mat-form-field>
                         <mat-label>Especialidade</mat-label>
                         <mat-select [formControl]="specializationControl" (selectionChange)="loadResponsibles($event)"
@@ -99,7 +101,7 @@
                         </mat-select>
                     </mat-form-field>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-5">
                     <mat-form-field>
                         <mat-label>
                             {{responsibles && responsibles.length > 0 ? 'Selecione um profissional' : 'Não há profissional habilitado'}}
@@ -119,11 +121,10 @@
                         </mat-select>
                     </mat-form-field>
                 </div>
-                <button mat-raised-button type="submit"
-                    [disabled]="eventTypeControl.hasError('required') || accommodationControl.hasError('required') || 
+                <button mat-raised-button type="submit" [disabled]="eventTypeControl.hasError('required') || accommodationControl.hasError('required') || 
                                 specializationControl.hasError('required') || levelControl.hasError('required')"
                     class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-success pull-right"
-                    [mat-dialog-close]="newVisit" >Iniciar Atendimento</button>
+                    [mat-dialog-close]="newVisit">Iniciar Atendimento</button>
             </div>
         </form>
     </div>
