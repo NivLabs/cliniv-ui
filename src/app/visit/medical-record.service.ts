@@ -17,9 +17,9 @@ export class MedicalRecordService {
         this.resourceUrl = `${environment.apiUrl}/attendance`;
     }
 
-    initializeVisit(newVisit: NewAttendance) {
+    initializeVisit(dataToForm: NewAttendance) {
         var headers = this.http.getHeadersDefault();
-        return this.http.post<MedicalRecord>(`${this.resourceUrl}`, newVisit, { headers })
+        return this.http.post<MedicalRecord>(`${this.resourceUrl}`, dataToForm, { headers })
             .toPromise();
     }
 

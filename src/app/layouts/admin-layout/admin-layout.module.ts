@@ -49,7 +49,6 @@ import { DocumentSelectorComponent } from 'app/visit/document-selector/document-
 import { NewEventComponent } from 'app/visit/new-event/new-event.component';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-import { NgxLoadingModule } from 'ngx-loading';
 import { IConfig, NgxMaskModule } from 'ngx-mask';
 import { WebcamModule } from 'ngx-webcam';
 import { AttendanceService } from '../../attendance/attendance.service';
@@ -137,7 +136,6 @@ const maskConfig: Partial<IConfig> = {
     FormsModule,
     matModules,
     InfiniteScrollModule,
-    NgxLoadingModule,
     ReactiveFormsModule,
     SecurityModule,
     WebcamModule,
@@ -150,7 +148,6 @@ const maskConfig: Partial<IConfig> = {
     FormsModule,
     matModules,
     InfiniteScrollModule,
-    NgxLoadingModule,
     ReactiveFormsModule,
     SecurityModule,
     LoadingComponent

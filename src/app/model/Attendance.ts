@@ -2,6 +2,9 @@ import { MedicationUsed } from "./Medicine";
 import { Evolution } from "./Evolution";
 import { Document } from "./Document";
 import { Accommodation } from "./Accommodation";
+import { EventType } from "./EventType";
+import { ProcedureInfo } from "./Procedure";
+import { Professional } from "./Professional";
 
 /**
  * Informações do atendimento
@@ -90,4 +93,17 @@ export class PatientHistory {
 export class CloseAttendanceRequest {
     eventTypeId: number = 19;
     observation: string;
+}
+
+/**
+ * Classe que representa Objeto de requisição para criação de novo evento clínico
+ */
+export class NewAttendanceEvent {
+    attendanceId: number;
+    accommodation: Accommodation = new Accommodation();
+    documents: Array<Document> = [];
+    eventType: EventType;
+    observations: string;
+    procedure: ProcedureInfo;
+    responsible: Professional = new Professional();
 }
