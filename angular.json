@@ -24,7 +24,8 @@
               "node_modules/font-awesome/css/font-awesome.css",
               "node_modules/perfect-scrollbar/css/perfect-scrollbar.css",
               "src/assets/scss/material-dashboard.scss",
-              "src/assets/css/styles.css"
+              "src/assets/css/styles.css",
+              "src/assets/css/fontsMaterial.css"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.js",

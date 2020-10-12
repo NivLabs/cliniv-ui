@@ -86,6 +86,7 @@ import { MedicalRecordComponent } from '../../visit/medical-record.component';
 import { MedicalRecordService } from '../../visit/medical-record.service';
 import { NewAttendanceComponent } from '../../visit/newVisit/new-attendance.component';
 import { AdminLayoutRoutes } from './admin-layout.routing';
+import { LoadingComponent } from '../../components/loading/loading.component';
 
 //#endregion
 
@@ -151,7 +152,8 @@ const maskConfig: Partial<IConfig> = {
     InfiniteScrollModule,
     NgxLoadingModule,
     ReactiveFormsModule,
-    SecurityModule
+    SecurityModule,
+    LoadingComponent
   ],
   declarations: [
     DashboardComponent,
@@ -197,7 +199,9 @@ const maskConfig: Partial<IConfig> = {
 
     EvolutionComponent,
 
-    AllergyComponent
+    AllergyComponent,
+
+    LoadingComponent
   ],
   entryComponents: [
     PatientEditComponent,
