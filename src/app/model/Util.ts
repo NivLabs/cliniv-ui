@@ -2,7 +2,7 @@
  * Página para requisições paginadas
  */
 export class Page {
-    content: [];
+    content: Array<any>;
     empty: boolean = true;
     first: boolean = true;
     last: boolean = true;

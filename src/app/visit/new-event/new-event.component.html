@@ -63,7 +63,7 @@
                 <div class="col-12">
                     <mat-form-field>
                         <mat-label>Observações</mat-label>
-                        <textarea matInput cdkTextareaAutosize="true" cdkAutosizeMinRows="4" name="observations"
+                        <textarea matInput cdkTextareaAutosize="true" cdkAutosizeMinRows="10" name="observations"
                             [(ngModel)]="dataToForm.observations" #observations></textarea>
                     </mat-form-field>
                 </div>
@@ -71,24 +71,30 @@
             <div class="row">
                 <div class="col-md-2">
                     <mat-form-field>
-                        <input matInput placeholder="Código do procedimento [ENTER]" name="procedureId" #procedureId="ngModel"
-                            [(ngModel)]="dataToForm.procedure.id" (blur)="searchProcessdureById()" maxlength="10"
-                            type="text" />
+                        <input matInput placeholder="Código do procedimento [ENTER]" name="procedureId"
+                            #procedureId="ngModel" [(ngModel)]="dataToForm.procedure.id" (blur)="searchProcedureById()"
+                            maxlength="10" type="text" />
                     </mat-form-field>
                 </div>
                 <div class="col-md-10">
                     <mat-form-field>
                         <mat-label>Procedimento</mat-label>
                         <input matInput placeholder="Descrição do procedimento"
-                            [value]="dataToForm.procedure.description" type="text" disabled/>
+                            [value]="dataToForm.procedure.description" type="text" disabled />
                     </mat-form-field>
                 </div>
             </div>
             <div class="clearfix"></div>
             <button mat-raised-button type="submit"
                 [disabled]="eventTypeControl.hasError('required') || accommodationControl.hasError('required')"
-                class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-success pull-right"
-                [mat-dialog-close]="newEvent">Criar Evento</button>
+                class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-primary pull-right"
+                [mat-dialog-close]="newEvent">Criar Evento e fechar</button>
+
+            <button mat-raised-button
+                [disabled]="eventTypeControl.hasError('required') || accommodationControl.hasError('required')"
+                class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-success pull-right" (click)="createEvent()">Criar
+                Evento e manter</button>
+
         </form>
     </div>
 </div>

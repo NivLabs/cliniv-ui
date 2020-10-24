@@ -16,7 +16,7 @@ export class SectorComponent implements OnInit {
 
   public loading: boolean;
   public dataNotFound: boolean;
-  datas: [];
+  datas: Array<any>;
   page: Page;
   pageSettings: Pageable;
   filters: SectorFilters;

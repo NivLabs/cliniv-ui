@@ -6,13 +6,13 @@ import { ErrorHandlerService } from 'app/core/error-handler.service';
 import { NotificationsComponent } from 'app/core/notification/notifications.component';
 import { UtilService } from 'app/core/util.service';
 import { Accommodation } from 'app/model/Accommodation';
-import { NewAttendance, NewAttendanceEvent } from 'app/model/Attendance';
+import { NewAttendanceEvent } from 'app/model/Attendance';
 import { EventType } from 'app/model/EventType';
-import { ProcedureInfo } from 'app/model/Procedure';
+import { ProcedureFilters, ProcedureInfo } from 'app/model/Procedure';
 import { Professional } from 'app/model/Professional';
 import { Sector, SectorFilters } from 'app/model/Sector';
-import { Specialization } from 'app/model/Specialization';
 import { Pageable } from 'app/model/Util';
+import { ProcedureService } from 'app/procedure/procedure.service';
 import { SectorService } from 'app/sector/sector.service';
 import { MedicalRecordService } from '../medical-record.service';
 
@@ -43,7 +43,15 @@ export class NewEventComponent implements OnInit {
   setorPageSettings = new Pageable();
 
 
-  constructor(public dialogRef: MatDialogRef<NewEventComponent>, public attendanceService: AttendanceService, public sectorService: SectorService, public notification: NotificationsComponent, public utilService: UtilService, public visitService: MedicalRecordService, private errorHandler: ErrorHandlerService,
+  constructor(
+    public dialogRef: MatDialogRef<NewEventComponent>,
+    public attendanceService: AttendanceService,
+    public sectorService: SectorService,
+    public notification: NotificationsComponent,
+    public utilService: UtilService,
+    public visitService: MedicalRecordService,
+    public procedureService: ProcedureService,
+    private errorHandler: ErrorHandlerService,
     @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit(): void {
@@ -82,20 +90,31 @@ export class NewEventComponent implements OnInit {
   loadAccommodations(event: any) {
     var sectorId = event.value;
     if (sectorId) {
+      this.loading = true;
       this.sectorService.getById(sectorId).then(response => {
         this.accommodations = response.listOfRoomsOrBeds;
       }).catch(e => {
         this.accommodations = [];
-      });
+      }).then(() => this.loading = false);
     }
   }
 
+  /**
+   * Seleciona acomodação para o evento
+   * 
+   * @param id Identificador único da acomodação
+   */
   selectAccommodation(id: number) {
     if (id) {
       this.dataToForm.accommodation.id = id;
     }
   }
 
+  /**
+   * Seleciona o tipo do evento
+   * 
+   * @param id Identificador único do tipo de evento
+   */
   selectEventType(id: number) {
     if (id) {
       this.dataToForm.eventType.id = id;
@@ -105,5 +124,23 @@ export class NewEventComponent implements OnInit {
   selectProcedure() {
 
   }
+
+  searchProcedureById() {
+    var id = this.dataToForm?.procedure?.id;
+    if (id) {
+      var procedureFilter = new ProcedureFilters();
+      procedureFilter.id = id.toString();
+
+
+      this.loading = true;
+      this.procedureService.getPage(procedureFilter, new Pageable()).then(resultPage => {
+        if (resultPage && resultPage.content) {
+          this.dataToForm.procedure = resultPage.content[0];
+        }
+      }).then(() => this.loading = false);
+    }
+  }
+
+
 
 }

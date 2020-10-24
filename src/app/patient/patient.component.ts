@@ -16,7 +16,7 @@ export class PatientComponent implements OnInit {
 
   public loading: boolean;
   public dataNotFound: boolean;
-  datas: [];
+  datas: Array<any>;
   page: Page;
   pageSettings: Pageable;
   filters: PatientFilters;
