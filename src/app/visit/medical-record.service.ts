@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { AppHttp } from '../security/app-http';
-import { PatientHistory, MedicalRecord, NewAttendance } from 'app/model/Attendance';
+import { PatientHistory, MedicalRecord, NewAttendance, CloseAttendanceRequest } from 'app/model/Attendance';
 import { Page, Pageable } from 'app/model/Util';
 import { ResponseAnamnesis } from 'app/model/ResponseAnamnesis';
 import { Allergy, AllergyFilters } from 'app/model/Allergy';
@@ -43,7 +43,7 @@ export class MedicalRecordService {
 
     getPageOfQuestions(pageSettings: Pageable): Promise<Page> {
         var headers = this.http.getHeadersDefault();
-        var queryString;        
+        var queryString;
         if (pageSettings) {
             let params = new URLSearchParams();
             for (let key in pageSettings) {
@@ -96,10 +96,23 @@ export class MedicalRecordService {
 
     saveEvolution(evolution): Promise<any> {
         var headers = this.http.getHeadersDefault().append('Content-Type', "application/json");
-        
+
         if (evolution) {
             return this.http.post<EvolutionInfo>(`${this.resourceUrl}/evolution`, evolution, { headers }).toPromise();
         }
     }
 
+    /**
+     * Requisição de encerramento de atendimento (Alta)
+     * 
+     * @param attendanceId Identificador únio do Atendimento
+     * @param request Requisição de alta
+     */
+    closeAttendance(attendanceId: number, request: CloseAttendanceRequest): Promise<void> {
+        var headers = this.http.getHeadersDefault().append('Content-Type', "application/json");
+
+        if (request) {
+            return this.http.put<void>(`${this.resourceUrl}/${attendanceId}`, request, { headers }).toPromise();
+        }
+    }
 }

@@ -1,6 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { AttendanceService } from 'app/attendance/attendance.service';
+import { ErrorHandlerService } from 'app/core/error-handler.service';
+import { NotificationsComponent } from 'app/core/notification/notifications.component';
 import { CloseAttendanceRequest } from 'app/model/Attendance';
+import { MedicalRecordService } from '../medical-record.service';
 
 @Component({
   selector: 'app-close-event',
@@ -10,9 +14,16 @@ import { CloseAttendanceRequest } from 'app/model/Attendance';
 export class CloseEventComponent implements OnInit {
 
   public dataToForm: CloseAttendanceRequest;
+  public loading: boolean;
   private attendanceId: number;
 
-  constructor(public dialogRef: MatDialogRef<CloseEventComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {
+
+  constructor(
+    public dialogRef: MatDialogRef<CloseEventComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    public medicalRecService: MedicalRecordService,
+    public errorHandler: ErrorHandlerService,
+    public notification: NotificationsComponent) {
     this.dialogRef.disableClose = true;
   }
 
@@ -30,7 +41,14 @@ export class CloseEventComponent implements OnInit {
   }
 
   save() {
-    console.log('id: ', this.attendanceId, 'form: ', this.dataToForm);
+    this.loading = true;
+    this.medicalRecService.closeAttendance(this.attendanceId, this.dataToForm)
+      .then(resp => {
+        this.notification.showSucess("Alta realizada com sucesso!");
+        this.onCancelClick();
+      })
+      .catch(error => this.errorHandler.handle(error, this.dialogRef))
+      .then(() => this.loading = false);
   }
 
 }
