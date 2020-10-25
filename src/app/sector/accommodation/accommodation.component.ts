@@ -29,15 +29,10 @@ export class AccommodationComponent implements OnInit {
     ngOnInit() {
         var data = this.dialogRef.componentInstance.data;
         if (data !== null && data.sectorId !== undefined) {
-            this.loading = true;
             this.sectorId = this.dialogRef.componentInstance.data['sectorId'];
             this.dataForm.sectorId = this.sectorId;
-            this.loading = false;
-        }
-        else {            
-            this.loading = true;
+        } else {
             this.dataForm = this.dialogRef.componentInstance.data['accommodation'];
-            this.loading = false;
         }
     }
 
@@ -47,21 +42,20 @@ export class AccommodationComponent implements OnInit {
 
     save() {
         if (this.dataForm.id) {
+            this.loading = true;
             this.principalService.updateAccommodation(this.dataForm).then(resp => {
                 this.dataForm = resp;
                 this.notification.showSucess("Acomodação alterada com sucesso!");
             }).catch(error => {
-                this.loading = false;
                 this.errorHandler.handle(error, this.dialogRef);
-            });
+            }).then(() => this.loading = false);
         } else {
             this.principalService.createAccommodation(this.dataForm).then(resp => {
                 this.dataForm = resp;
                 this.notification.showSucess("Acomodação cadastrada com sucesso!");
             }).catch(error => {
-                this.loading = false;
                 this.errorHandler.handle(error, this.dialogRef);
-            });
+            }).then(() => this.loading = false);
         }
     }
 
