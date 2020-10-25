@@ -46,7 +46,7 @@
                                     </button>
                                     <button mat-menu-item matTooltip="Adiciona evento"
                                         *ngIf="visit.id && visit.patientId && !visit.exitDateTime"
-                                        (click)="openNewEventDialog(visit.id)">
+                                        (click)="openNewEventDialog()">
                                         <mat-icon>create</mat-icon>
                                         <span>Criar Evento</span>
                                     </button>

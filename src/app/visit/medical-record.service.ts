@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { AppHttp } from '../security/app-http';
-import { PatientHistory, MedicalRecord, NewAttendance, CloseAttendanceRequest } from 'app/model/Attendance';
+import { PatientHistory, MedicalRecord, NewAttendance, CloseAttendanceRequest, NewAttendanceEvent } from 'app/model/Attendance';
 import { Page, Pageable } from 'app/model/Util';
 import { ResponseAnamnesis } from 'app/model/ResponseAnamnesis';
 import { Allergy, AllergyFilters } from 'app/model/Allergy';
 import { EvolutionInfo } from 'app/model/Evolution';
+import { NewEventComponent } from './new-event/new-event.component';
 
 @Injectable()
 export class MedicalRecordService {
@@ -113,6 +114,19 @@ export class MedicalRecordService {
 
         if (request) {
             return this.http.put<void>(`${this.resourceUrl}/${attendanceId}`, request, { headers }).toPromise();
+        }
+    }
+
+    /**
+     * Realiza a requisição de criação de evento de atendimento (Prontuário)
+     * 
+     * @param request Requisição de criação de evento de atendimento (Prontuário)
+     */
+    createAttendanceEvent(request: NewAttendanceEvent): Promise<void> {
+        var headers = this.http.getHeadersDefault().append('Content-Type', "application/json");
+
+        if (request) {
+            return this.http.post<void>(`${this.resourceUrl}/event`, request, { headers }).toPromise();
         }
     }
 }
