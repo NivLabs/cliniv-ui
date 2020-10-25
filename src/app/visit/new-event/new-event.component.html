@@ -72,7 +72,7 @@
                 <div class="col-md-2">
                     <mat-form-field>
                         <input matInput placeholder="Código do procedimento [ENTER]" name="procedureId"
-                            #procedureId="ngModel" [(ngModel)]="dataToForm.procedure.id" (blur)="searchProcedureById()"
+                            #procedureId="ngModel" [(ngModel)]="dataToForm.procedure.id" (keypress)="searchProcedureById($event)"
                             maxlength="10" type="text" />
                     </mat-form-field>
                 </div>

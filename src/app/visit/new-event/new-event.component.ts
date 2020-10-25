@@ -26,9 +26,8 @@ export class NewEventComponent implements OnInit {
 
   loading = false;
 
-  eventTypeControl = new FormControl('', [Validators.required]);
-  levelControl = new FormControl();
-  sectorControl = new FormControl();
+  eventTypeControl = new FormControl('10', [Validators.required]);
+  sectorControl = new FormControl('', [Validators.required]);
   accommodationControl = new FormControl('', [Validators.required]);
   responsibleControl = new FormControl('', [Validators.required]);
   procedureControl = new FormControl('');
@@ -73,11 +72,14 @@ export class NewEventComponent implements OnInit {
 
 
   /**
-   * Busca os setores
+   * Busca os setores e seleciona o primeiro encontrado
    */
   loadSectors() {
     this.sectorService.getPage(this.sectorFilters, this.setorPageSettings).then(response => {
       this.sectors = response.content;
+      this.sectorControl.setValue(this.sectors[0].id);
+      var event = { value: this.sectors[0].id };
+      this.loadAccommodations(event);
     });
   }
 
@@ -93,6 +95,7 @@ export class NewEventComponent implements OnInit {
       this.loading = true;
       this.sectorService.getById(sectorId).then(response => {
         this.accommodations = response.listOfRoomsOrBeds;
+        this.accommodationControl.setValue(this.accommodations[0].id);
       }).catch(e => {
         this.accommodations = [];
       }).then(() => this.loading = false);
@@ -125,19 +128,27 @@ export class NewEventComponent implements OnInit {
 
   }
 
-  searchProcedureById() {
-    var id = this.dataToForm?.procedure?.id;
-    if (id) {
-      var procedureFilter = new ProcedureFilters();
-      procedureFilter.id = id.toString();
+  /**
+   * Busca procedimento por ID
+   */
+  searchProcedureById(event: any) {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      var id = this.dataToForm?.procedure?.id;
+      if (id) {
+        var procedureFilter = new ProcedureFilters();
+        procedureFilter.id = id.toString();
 
 
-      this.loading = true;
-      this.procedureService.getPage(procedureFilter, new Pageable()).then(resultPage => {
-        if (resultPage && resultPage.content) {
-          this.dataToForm.procedure = resultPage.content[0];
-        }
-      }).then(() => this.loading = false);
+        this.loading = true;
+        this.procedureService.getPage(procedureFilter, new Pageable()).then(resultPage => {
+          if (resultPage && resultPage.content.length) {
+            this.dataToForm.procedure = resultPage.content[0];
+          } else {
+            this.notification.showWarning('Procedimento com o código ' + id + ' não encontrado');
+          }
+        }).then(() => this.loading = false);
+      }
     }
   }
 
