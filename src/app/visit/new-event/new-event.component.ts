@@ -6,13 +6,13 @@ import { ErrorHandlerService } from 'app/core/error-handler.service';
 import { NotificationsComponent } from 'app/core/notification/notifications.component';
 import { UtilService } from 'app/core/util.service';
 import { Accommodation } from 'app/model/Accommodation';
-import { NewAttendance, NewAttendanceEvent } from 'app/model/Attendance';
+import { NewAttendanceEvent } from 'app/model/Attendance';
 import { EventType } from 'app/model/EventType';
-import { ProcedureInfo } from 'app/model/Procedure';
+import { ProcedureFilters, ProcedureInfo } from 'app/model/Procedure';
 import { Professional } from 'app/model/Professional';
 import { Sector, SectorFilters } from 'app/model/Sector';
-import { Specialization } from 'app/model/Specialization';
 import { Pageable } from 'app/model/Util';
+import { ProcedureService } from 'app/procedure/procedure.service';
 import { SectorService } from 'app/sector/sector.service';
 import { MedicalRecordService } from '../medical-record.service';
 
@@ -26,9 +26,8 @@ export class NewEventComponent implements OnInit {
 
   loading = false;
 
-  eventTypeControl = new FormControl('', [Validators.required]);
-  levelControl = new FormControl();
-  sectorControl = new FormControl();
+  eventTypeControl = new FormControl('10', [Validators.required]);
+  sectorControl = new FormControl('', [Validators.required]);
   accommodationControl = new FormControl('', [Validators.required]);
   responsibleControl = new FormControl('', [Validators.required]);
   procedureControl = new FormControl('');
@@ -43,7 +42,15 @@ export class NewEventComponent implements OnInit {
   setorPageSettings = new Pageable();
 
 
-  constructor(public dialogRef: MatDialogRef<NewEventComponent>, public attendanceService: AttendanceService, public sectorService: SectorService, public notification: NotificationsComponent, public utilService: UtilService, public visitService: MedicalRecordService, private errorHandler: ErrorHandlerService,
+  constructor(
+    public dialogRef: MatDialogRef<NewEventComponent>,
+    public attendanceService: AttendanceService,
+    public sectorService: SectorService,
+    public notification: NotificationsComponent,
+    public utilService: UtilService,
+    public visitService: MedicalRecordService,
+    public procedureService: ProcedureService,
+    private errorHandler: ErrorHandlerService,
     @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit(): void {
@@ -65,11 +72,14 @@ export class NewEventComponent implements OnInit {
 
 
   /**
-   * Busca os setores
+   * Busca os setores e seleciona o primeiro encontrado
    */
   loadSectors() {
     this.sectorService.getPage(this.sectorFilters, this.setorPageSettings).then(response => {
       this.sectors = response.content;
+      this.sectorControl.setValue(this.sectors[0].id);
+      var event = { value: this.sectors[0].id };
+      this.loadAccommodations(event);
     });
   }
 
@@ -82,20 +92,32 @@ export class NewEventComponent implements OnInit {
   loadAccommodations(event: any) {
     var sectorId = event.value;
     if (sectorId) {
+      this.loading = true;
       this.sectorService.getById(sectorId).then(response => {
         this.accommodations = response.listOfRoomsOrBeds;
+        this.accommodationControl.setValue(this.accommodations[0].id);
       }).catch(e => {
         this.accommodations = [];
-      });
+      }).then(() => this.loading = false);
     }
   }
 
+  /**
+   * Seleciona acomodação para o evento
+   * 
+   * @param id Identificador único da acomodação
+   */
   selectAccommodation(id: number) {
     if (id) {
       this.dataToForm.accommodation.id = id;
     }
   }
 
+  /**
+   * Seleciona o tipo do evento
+   * 
+   * @param id Identificador único do tipo de evento
+   */
   selectEventType(id: number) {
     if (id) {
       this.dataToForm.eventType.id = id;
@@ -105,5 +127,31 @@ export class NewEventComponent implements OnInit {
   selectProcedure() {
 
   }
+
+  /**
+   * Busca procedimento por ID
+   */
+  searchProcedureById(event: any) {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      var id = this.dataToForm?.procedure?.id;
+      if (id) {
+        var procedureFilter = new ProcedureFilters();
+        procedureFilter.id = id.toString();
+
+
+        this.loading = true;
+        this.procedureService.getPage(procedureFilter, new Pageable()).then(resultPage => {
+          if (resultPage && resultPage.content.length) {
+            this.dataToForm.procedure = resultPage.content[0];
+          } else {
+            this.notification.showWarning('Procedimento com o código ' + id + ' não encontrado');
+          }
+        }).then(() => this.loading = false);
+      }
+    }
+  }
+
+
 
 }

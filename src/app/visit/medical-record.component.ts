@@ -283,9 +283,7 @@ export class MedicalRecordComponent implements OnInit {
     });
 
     closeAttendanceDialog.afterClosed().subscribe(result => {
-      if (result !== undefined) {
-        this.ngOnInit();
-      }
+      this.searchVisitById();
     });
   }
 

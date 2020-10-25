@@ -39,3 +39,6 @@
   color: rgb(244, 67, 54) !important;
 }
 
+.mat-input-element:disabled {
+  color: rgba(0,0,0,.87);
+}

@@ -15,7 +15,7 @@ export class HealthOperatorComponent implements OnInit {
 
   public loading: boolean;
   public dataNotFound: boolean;
-  public datas: [];
+  public datas: Array<any>;
   public page: Page;
   public pageSettings: Pageable;
   public filters: HealthOperatorFilter;
