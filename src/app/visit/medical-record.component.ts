@@ -102,7 +102,7 @@ export class MedicalRecordComponent implements OnInit {
                 this.openNewAttendanceDialog(this.visit.patientId);
             });
           } else {
-            this.onServiceException(error)
+            this.onServiceException(error);
           }
         });
     }
@@ -168,7 +168,7 @@ export class MedicalRecordComponent implements OnInit {
 
   onServiceException(error) {
     this.loading = false;
-    this.errorHandler.handle(error, this.dialog);
+    this.errorHandler.handle(error, null);
   }
 
   searchPatientHistory(): void {
@@ -178,7 +178,7 @@ export class MedicalRecordComponent implements OnInit {
         this.loading = false;
         this.openHistoryDialog(result);
       })
-      .catch(error => this.onServiceException(error))
+      .catch(error => this.onServiceException(error));
   }
 
   identifyPatient() {
@@ -339,15 +339,14 @@ export class MedicalRecordComponent implements OnInit {
    * Abre componente de criação de eventos clínicos
    * @param attendanceId Identificador único do atendimento
    */
-  openNewEventDialog(attendanceId) {
+  openNewEventDialog() {
     const dialogNewEvolution = this.dialog.open(NewEventComponent, {
       width: '100%',
-      data: { attendanceId: attendanceId }
+      data: { attendanceId: this.visit.id, lastAccommodation: this.visit.lastAccommodation }
     });
 
     dialogNewEvolution.afterClosed().subscribe(result => {
-      console.log(result);
-      //this.searchActivedVisitByPatientId();
+      this.searchVisitById();
     });
 
   }

@@ -88,11 +88,11 @@
             <button mat-raised-button type="submit"
                 [disabled]="eventTypeControl.hasError('required') || accommodationControl.hasError('required')"
                 class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-primary pull-right"
-                [mat-dialog-close]="newEvent">Criar Evento e fechar</button>
+                (click)="createEvent(true)">Criar Evento e fechar</button>
 
             <button mat-raised-button
                 [disabled]="eventTypeControl.hasError('required') || accommodationControl.hasError('required')"
-                class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-success pull-right" (click)="createEvent()">Criar
+                class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-success pull-right" (click)="createEvent(false)">Criar
                 Evento e manter</button>
 
         </form>

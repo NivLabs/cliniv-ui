@@ -49,6 +49,7 @@ export class NewEventComponent implements OnInit {
     public notification: NotificationsComponent,
     public utilService: UtilService,
     public visitService: MedicalRecordService,
+    public medicalRecService: MedicalRecordService,
     public procedureService: ProcedureService,
     private errorHandler: ErrorHandlerService,
     @Inject(MAT_DIALOG_DATA) public data: any) { }
@@ -57,7 +58,7 @@ export class NewEventComponent implements OnInit {
     const data = this.dialogRef.componentInstance.data;
     if (this.dialogRef.componentInstance.data) {
       this.dataToForm = new NewAttendanceEvent();
-      this.dataToForm.attendanceId = data.id;
+      this.dataToForm.attendanceId = data.attendanceId;
       this.dataToForm.accommodation = data.lastAccommodation ? data.lastAccommodation : new Accommodation();
       this.dataToForm.eventType = new EventType();
       this.dataToForm.documents = [];
@@ -75,12 +76,20 @@ export class NewEventComponent implements OnInit {
    * Busca os setores e seleciona o primeiro encontrado
    */
   loadSectors() {
-    this.sectorService.getPage(this.sectorFilters, this.setorPageSettings).then(response => {
-      this.sectors = response.content;
+    if (this.sectors?.length) {
       this.sectorControl.setValue(this.sectors[0].id);
-      var event = { value: this.sectors[0].id };
+      var event = { value: this.dataToForm.accommodation.sectorId };
       this.loadAccommodations(event);
-    });
+    } else {
+      this.loading = true;
+      this.sectorService.getPage(this.sectorFilters, this.setorPageSettings).then(response => {
+        this.sectors = response.content;
+        this.sectorControl.setValue(this.dataToForm.accommodation.sectorId);
+        var event = { value: this.dataToForm.accommodation.sectorId };
+        this.loadAccommodations(event);
+      }).catch(e => this.errorHandler.handle(e, this.dialogRef))
+        .then(() => this.loading = false);
+    }
   }
 
 
@@ -95,9 +104,11 @@ export class NewEventComponent implements OnInit {
       this.loading = true;
       this.sectorService.getById(sectorId).then(response => {
         this.accommodations = response.listOfRoomsOrBeds;
-        this.accommodationControl.setValue(this.accommodations[0].id);
+        if (this.accommodations.length)
+          this.accommodationControl.setValue(this.accommodations[0].id);
       }).catch(e => {
         this.accommodations = [];
+        this.errorHandler.handle(e, this.dialogRef);
       }).then(() => this.loading = false);
     }
   }
@@ -124,10 +135,6 @@ export class NewEventComponent implements OnInit {
     }
   }
 
-  selectProcedure() {
-
-  }
-
   /**
    * Busca procedimento por ID
    */
@@ -152,6 +159,23 @@ export class NewEventComponent implements OnInit {
     }
   }
 
+  /**
+   * Cria um evento de prontuário
+   * 
+   * @param closeDialog Define se mantém o componente aberto ou fechado após o processo de criação de evento
+   */
+  createEvent(closeDialog: boolean) {
+    this.loading = true;
+    this.medicalRecService.createAttendanceEvent(this.dataToForm).then(resp => {
+      if (closeDialog) {
+        this.dialogRef.close();
+      } else {
+        this.ngOnInit();
+      }
+      this.notification.showSucess("Evento criado com sucesso!");
+    }).catch(e => this.errorHandler.handle(e, null))
+      .then(() => this.loading = false);
 
+  }
 
 }

@@ -46,7 +46,7 @@
                                     </button>
                                     <button mat-menu-item matTooltip="Adiciona evento"
                                         *ngIf="visit.id && visit.patientId && !visit.exitDateTime"
-                                        (click)="openNewEventDialog(visit.id)">
+                                        (click)="openNewEventDialog()">
                                         <mat-icon>create</mat-icon>
                                         <span>Criar Evento</span>
                                     </button>
@@ -305,7 +305,7 @@
 
                             <ng-container matColumnDef="description">
                                 <mat-header-cell *matHeaderCellDef mat-sort-header class="text-primary"
-                                    style="font-size: 0.95rem; font-weight: 500;"> Tipo </mat-header-cell>
+                                    style="font-size: 0.95rem; font-weight: 500;"> Evento </mat-header-cell>
                                 <mat-cell *matCellDef="let element"> {{element.description}} </mat-cell>
                             </ng-container>
 
