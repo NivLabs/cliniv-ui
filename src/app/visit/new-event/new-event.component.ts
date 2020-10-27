@@ -6,7 +6,7 @@ import { ErrorHandlerService } from 'app/core/error-handler.service';
 import { NotificationsComponent } from 'app/core/notification/notifications.component';
 import { UtilService } from 'app/core/util.service';
 import { Accommodation } from 'app/model/Accommodation';
-import { MedicalRecord, NewAttendanceEvent } from 'app/model/Attendance';
+import { NewAttendanceEvent } from 'app/model/Attendance';
 import { EventType } from 'app/model/EventType';
 import { ProcedureFilters, ProcedureInfo } from 'app/model/Procedure';
 import { Professional } from 'app/model/Professional';
