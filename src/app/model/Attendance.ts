@@ -92,7 +92,7 @@ export class PatientHistory {
  */
 export class CloseAttendanceRequest {
     eventTypeId: number = 19;
-    observation: string;
+    observations: string;
 }
 
 /**
