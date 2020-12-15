@@ -8,3 +8,14 @@ img.displayed-log {
     -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
     filter: grayscale(100%);
 }
+span.displayed-log {
+    margin: 0;
+    position: absolute;
+    font-size: 10px;
+    top: 55%;
+    left: 65%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+    filter: grayscale(100%);
+}
