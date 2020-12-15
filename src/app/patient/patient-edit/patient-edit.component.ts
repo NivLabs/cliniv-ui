@@ -218,6 +218,13 @@ export class PatientEditComponent implements OnInit {
         if (!resp.address) {
           this.dataToForm.address = new Address();
         }
+        if (!resp.document) {
+          this.isNewCpf = true;
+          this.dataToForm.document = new Document('CPF');
+        }
+        if (!resp.healthPlan) {
+          this.dataToForm.healthPlan = new HealthPlan();
+        }
         if (resp.attendanceHistory) {
           this.dataToForm.attendanceHistory = resp.attendanceHistory;
           this.attendanceHistoryDataSource = new MatTableDataSource(this.dataToForm.attendanceHistory);
@@ -238,6 +245,13 @@ export class PatientEditComponent implements OnInit {
         this.dataToForm = resp;
         if (!resp.address) {
           this.dataToForm.address = new Address();
+        }
+        if (!resp.document) {
+          this.isNewCpf = true;
+          this.dataToForm.document = new Document('CPF');
+        }
+        if (!resp.healthPlan) {
+          this.dataToForm.healthPlan = new HealthPlan();
         }
         if (resp.attendanceHistory) {
           this.dataToForm.attendanceHistory = resp.attendanceHistory;
