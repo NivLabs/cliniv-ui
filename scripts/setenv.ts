@@ -11,7 +11,7 @@ const isProduction = environment === 'prod';
 if (!process.env.BASE_URL) {
    console.error('A URL da API não foi informada, favor informar a mesma antes de subir a aplicação!');
    process.exit(-1);
- }
+}
 
 const targetPath = isProduction
    ? `./src/environments/environment.prod.ts`
@@ -22,7 +22,9 @@ const targetPath = isProduction
 const environmentFileContent = `
 export const environment = {
    production: ${isProduction},
-   apiUrl: "${process.env.BASE_URL}"
+   apiUrl: "${process.env.BASE_URL}",
+   tokenWhitelistedDomains: [],
+   tokenBlacklistedRoutes: []
 };
 `;
 // write the content to the respective file
