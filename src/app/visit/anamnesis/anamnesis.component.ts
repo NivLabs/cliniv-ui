@@ -22,6 +22,7 @@ export class AnamnesisComponent implements OnInit {
     datas: Array<Response> = [];
     page: Page;
     pageSettings: Pageable;
+    public formTitle: string;
 
     constructor(public principalService: MedicalRecordService, public confirmDialog: MatDialog, public dialog: MatDialog, public dialogRef: MatDialogRef<AnamnesisComponent>,
         @Inject(MAT_DIALOG_DATA) public data: AnamnesisItem, public formBuilder: FormBuilder, private errorHandler: ErrorHandlerService, private notification: NotificationsComponent) {
@@ -29,30 +30,25 @@ export class AnamnesisComponent implements OnInit {
     }
 
     ngOnInit() {
-
-        if (this.dialogRef.componentInstance.data['attendanceId'] !== null) {
-            this.loading = true;
+        if (this.dialogRef.componentInstance.data['attendanceId'] !== null && this.dialogRef.componentInstance.data['form'] !== null) {
             this.page = new Page();
             this.pageSettings = new Pageable();
             this.pageSettings.size = 100;
             this.responseAnamnesis = new ResponseAnamnesis();
             this.responseAnamnesis.attendanceId = this.dialogRef.componentInstance.data['attendanceId'];
 
-            this.principalService.getPageOfQuestions(this.pageSettings).then(resp => {
-                this.loading = false;
-                resp.content.forEach(item => {
-                    var response = new Response();
-                    response.anamnesisItem = item;
-                    this.datas.push(response);
-                })
-                this.responseAnamnesis.listOfResponse = this.datas;
-                this.page = resp;
-                this.dataNotFound = this.datas.length === 0;
-            }).catch(error => {
-                this.dataNotFound = this.datas ? this.datas.length === 0 : true;
-                this.loading = false;
-                this.errorHandler.handle(error, null);
-            });
+            let resp = this.dialogRef.componentInstance.data['form'];
+            this.formTitle = resp.title;
+            resp.questions.forEach(item => {
+                var response = new Response();
+                response.anamnesisItem = item;
+                this.datas.push(response);
+            })
+            this.responseAnamnesis.listOfResponse = this.datas;
+            this.page = resp;
+            this.dataNotFound = this.datas.length === 0;
+        } else {
+            this.onCancelClick();
         }
     }
 
@@ -64,7 +60,7 @@ export class AnamnesisComponent implements OnInit {
         this.responseAnamnesis.listOfResponse = this.responseAnamnesis.listOfResponse.filter(x => x.response != "" && x.response != null);
         this.loading = true;
         this.principalService.createAnamnesis(this.responseAnamnesis).then(resp => {
-            this.loading = false;          
+            this.loading = false;
             this.notification.showSucess("Anamnese inserida com sucesso!");
             this.dialogRef.close();
         }).catch(error => {
@@ -74,7 +70,7 @@ export class AnamnesisComponent implements OnInit {
 
     }
 
-    formValid(){
+    formValid() {
 
         return !this.responseAnamnesis.listOfResponse.some(x => x.response != "" && x.response != null);
 
