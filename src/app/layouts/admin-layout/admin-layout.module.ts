@@ -60,6 +60,7 @@ import { DashboardComponent } from '../../dashboard/dashboard.component';
 import { PatientEditComponent } from '../../patient/patient-edit/patient-edit.component';
 import { PatientComponent } from '../../patient/patient.component';
 import { PatientService } from '../../patient/patient.service';
+import { AnamnesisService } from '../../visit/anamnesis/anamnesis.service';
 import { ProcedureComponent } from '../../procedure/procedure.component';
 import { ProcedureService } from '../../procedure/procedure.service';
 import { ProfessionalEditComponent } from '../../professional/professional-edit/professional-edit.component';
@@ -79,6 +80,7 @@ import { UserComponent } from '../../user/user.component';
 import { UserService } from '../../user/user.service';
 import { AllergyComponent } from '../../visit/allergy/allergy.component';
 import { AnamnesisComponent } from '../../visit/anamnesis/anamnesis.component';
+import { SelectFormComponent } from '../../visit/anamnesis/select-form/select-form.component';
 import { EvolutionComponent } from '../../visit/evolution/evolution.component';
 import { PatientHistoryComponent } from '../../visit/history/patient-history.component';
 import { MedicalRecordComponent } from '../../visit/medical-record.component';
@@ -193,6 +195,7 @@ const maskConfig: Partial<IConfig> = {
     AccommodationComponent,
 
     AnamnesisComponent,
+    SelectFormComponent,
 
     EvolutionComponent,
 
@@ -209,6 +212,7 @@ const maskConfig: Partial<IConfig> = {
     EvolutionComponent,
     ProfessionalEditComponent,
     AnamnesisComponent,
+    SelectFormComponent,
     CloseEventComponent,
     SectorEditComponent,
     AccommodationComponent,
@@ -224,6 +228,7 @@ const maskConfig: Partial<IConfig> = {
   providers: [
     UserProfileService,
     PatientService,
+    AnamnesisService,
     HealthPlanService,
     ProfessionalService,
     UserService,

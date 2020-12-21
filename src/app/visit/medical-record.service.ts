@@ -6,7 +6,6 @@ import { Page, Pageable } from 'app/model/Util';
 import { ResponseAnamnesis } from 'app/model/ResponseAnamnesis';
 import { Allergy, AllergyFilters } from 'app/model/Allergy';
 import { EvolutionInfo } from 'app/model/Evolution';
-import { NewEventComponent } from './new-event/new-event.component';
 
 @Injectable()
 export class MedicalRecordService {

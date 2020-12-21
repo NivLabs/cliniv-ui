@@ -19,6 +19,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { CloseEventComponent } from './close-event/close-event.component';
 import { NewEventComponent } from './new-event/new-event.component';
+import { SelectFormComponent } from './anamnesis/select-form/select-form.component';
 
 @Component({
   selector: 'app-medical-record',
@@ -288,19 +289,17 @@ export class MedicalRecordComponent implements OnInit {
   }
 
   /**
-   * Abre o componente de formulário do paciente
+   * Abre o componente de seleção de formulário do paciente
    * @param attendanceId Identificador único do atendimento
    */
   openAnamnesisDialog(attendanceId) {
-    const dialogNewVisit = this.dialog.open(AnamnesisComponent, {
+    const dialogSelectForm = this.dialog.open(SelectFormComponent, {
       width: '100%',
       data: { attendanceId: attendanceId }
     });
 
-    dialogNewVisit.afterClosed().subscribe(result => {
-      if (result !== undefined) {
-        this.ngOnInit();
-      }
+    dialogSelectForm.afterClosed().subscribe(result => {
+      this.searchVisitById();
     });
   }
 
