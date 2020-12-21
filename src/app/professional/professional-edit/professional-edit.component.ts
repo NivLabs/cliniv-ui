@@ -132,6 +132,14 @@ export class ProfessionalEditComponent implements OnInit {
         if (!resp.address) {
           this.dataToForm.address = new Address();
         }
+        if (!resp.professionalIdentity) {
+          this.dataToForm.professionalIdentity = new ProfessionalIdentity();
+        }
+        if (!resp.document) {
+          this.dataToForm.document = new Document('CPF');
+        }
+        this.form.controls.document.disable();
+
         this.notification.showSucess("Profissional alterado com sucesso!");
       }).catch(error => {
         this.loading = false;
@@ -145,6 +153,14 @@ export class ProfessionalEditComponent implements OnInit {
         if (!resp.address) {
           this.dataToForm.address = new Address();
         }
+        if (!resp.professionalIdentity) {
+          this.dataToForm.professionalIdentity = new ProfessionalIdentity();
+        }
+        if (!resp.document) {
+          this.dataToForm.document = new Document('CPF');
+        }
+        this.form.controls.document.disable();
+
         this.notification.showSucess("Profissional cadastrado com sucesso!");
       }).catch(error => {
         this.loading = false;
@@ -195,6 +211,9 @@ export class ProfessionalEditComponent implements OnInit {
         }
         if (!resp.professionalIdentity) {
           this.dataToForm.professionalIdentity = new ProfessionalIdentity();
+        }
+        if (!resp.document) {
+          this.dataToForm.document = new Document('CPF');
         }
         this.form.controls.document.disable();
         this.loadspecializationsData();
