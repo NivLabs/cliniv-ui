@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 
 import { AppHttp } from '../security/app-http';
 import { environment } from '../../environments/environment';
-import { Professional, ProfessionalFilters } from 'app/model/Professional';
+import { Professional as ProfessionalInfo, ProfessionalFilters } from 'app/model/Professional';
 import { Page, Pageable } from 'app/model/Util';
 
 @Injectable()
@@ -14,10 +14,10 @@ export class ProfessionalService {
         this.baseUrl = `${environment.apiUrl}/responsible`;
     }
 
-    getById(id): Promise<Professional> {
+    getById(id): Promise<ProfessionalInfo> {
         var headers = this.http.getHeadersDefault();
         if (id) {
-            return this.http.get<Professional>(`${this.baseUrl}/${id}`, { headers }).toPromise();
+            return this.http.get<ProfessionalInfo>(`${this.baseUrl}/${id}`, { headers }).toPromise();
         }
     }
 
@@ -45,26 +45,26 @@ export class ProfessionalService {
     }
 
 
-    getByCpf(cpf: string): Promise<Professional> {
+    getByCpf(cpf: string): Promise<ProfessionalInfo> {
         var headers = this.http.getHeadersDefault();
         if (cpf) {
-            return this.http.get<Professional>(`${this.baseUrl}/CPF/${cpf}`, { headers }).toPromise();
+            return this.http.get<ProfessionalInfo>(`${this.baseUrl}/CPF/${cpf}`, { headers }).toPromise();
         }
     }
 
-    create(professional: Professional): Promise<Professional> {
+    create(professional: ProfessionalInfo): Promise<ProfessionalInfo> {
         var headers = this.http.getHeadersDefault()
             .append('Content-Type', "application/json");
         if (professional) {
-            return this.http.post<Professional>(`${this.baseUrl}`, professional, { headers }).toPromise();
+            return this.http.post<ProfessionalInfo>(`${this.baseUrl}`, professional, { headers }).toPromise();
         }
     }
 
-    update(professional: Professional): Promise<Professional> {
+    update(professional: ProfessionalInfo): Promise<ProfessionalInfo> {
         var headers = this.http.getHeadersDefault()
             .append('Content-Type', "application/json");
         if (professional) {
-            return this.http.put<Professional>(`${this.baseUrl}/${professional.id}`, professional, { headers }).toPromise();
+            return this.http.put<ProfessionalInfo>(`${this.baseUrl}/${professional.id}`, professional, { headers }).toPromise();
         }
     }
 }
