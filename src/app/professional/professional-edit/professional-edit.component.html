@@ -186,7 +186,7 @@
                 </mat-tab>
 
 
-                <mat-tab label="Especializações">
+                <mat-tab *ngIf="dataToForm.id" label="Especializações">
                     <br />
                     <div class="row">
                         <small class="col-md-12">Selecione as especializações do profissional</small>
