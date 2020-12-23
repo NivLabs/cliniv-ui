@@ -41,21 +41,25 @@ export class AccommodationComponent implements OnInit {
     }
 
     save() {
+        this.loading = true;
         if (this.dataForm.id) {
-            this.loading = true;
             this.principalService.updateAccommodation(this.dataForm).then(resp => {
                 this.dataForm = resp;
+                this.loading = false;
                 this.notification.showSucess("Acomodação alterada com sucesso!");
             }).catch(error => {
+                this.loading = false;
                 this.errorHandler.handle(error, this.dialogRef);
-            }).then(() => this.loading = false);
+            });
         } else {
             this.principalService.createAccommodation(this.dataForm).then(resp => {
                 this.dataForm = resp;
+                this.loading = false;
                 this.notification.showSucess("Acomodação cadastrada com sucesso!");
             }).catch(error => {
+                this.loading = false;
                 this.errorHandler.handle(error, this.dialogRef);
-            }).then(() => this.loading = false);
+            });
         }
     }
 
