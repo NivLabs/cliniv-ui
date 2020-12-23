@@ -107,3 +107,14 @@ li {
 ul {
     padding: 0;
 }    
+.timer {    
+    position: absolute;
+    top: -30px;
+    right: -10px;
+    background-color: #1ec0d5;
+    color: white;
+    margin: 2px;
+    padding: 10px;
+    border-radius: 5px;
+    font-weight: 400;
+}

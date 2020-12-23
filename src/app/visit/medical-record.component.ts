@@ -20,6 +20,7 @@ import { MatSort } from '@angular/material/sort';
 import { CloseEventComponent } from './close-event/close-event.component';
 import { NewEventComponent } from './new-event/new-event.component';
 import { SelectFormComponent } from './anamnesis/select-form/select-form.component';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-medical-record',
@@ -40,6 +41,7 @@ export class MedicalRecordComponent implements OnInit {
   public displayedColumnsEvolutions: any;
   public dataSourceMedicines: any;
   public displayedColumnsMedicines: any;
+  public timer: string;
 
   constructor(private router: Router, private route: ActivatedRoute, public confirmDialog: MatDialog, public dialog: MatDialog, private visitService: MedicalRecordService, private errorHandler: ErrorHandlerService, private notification: NotificationsComponent) { }
 
@@ -125,6 +127,7 @@ export class MedicalRecordComponent implements OnInit {
   onFindVisitInfo(result) {
     this.loading = false;
     this.visit = result;
+    this.timer = this.getTime();
 
     if (this.visit.medicines.length > 0) {
 
@@ -159,6 +162,14 @@ export class MedicalRecordComponent implements OnInit {
       });
 
       this.dataSourceEvents = new MatTableDataSource(this.visit.events);
+
+      if (!this.visit.exitDateTime)
+        setInterval(() => {
+          this.timer = this.getTime();
+        }, 1000);
+      else {
+        this.getTime();
+      }
 
       setTimeout(() => {
         this.dataSourceEvents.sort = this.sortEvents;
@@ -245,6 +256,16 @@ export class MedicalRecordComponent implements OnInit {
         this.searchVisitById();
       }
     });
+  }
+
+  getTime() {
+
+    var initDate = moment(this.visit.entryDateTime, "YYYY-MM-DD'T'HH:mm:ss")
+    var currentDate = this.visit.exitDateTime ? moment(this.visit.exitDateTime, "YYYY-MM-DD'T'HH:mm:ss") : moment();
+    var ms = currentDate.diff(initDate);
+    var d = moment.duration(ms);
+    return Math.floor(d.asHours()) + moment.utc(ms).format(":mm:ss");
+
   }
 
   /**

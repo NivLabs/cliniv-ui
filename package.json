@@ -48,7 +48,7 @@
     "googleapis": "^61.0.0",
     "hammerjs": "2.0.8",
     "jquery": "3.5.0",
-    "moment": "2.24.0",
+    "moment": "^2.24.0",
     "ng-inline-svg": "^10.1.0",
     "ng2-pdf-viewer": "^6.3.2",
     "ngx-infinite-scroll": "^8.0.2",

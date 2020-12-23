@@ -30,6 +30,7 @@
                                             <mat-option>Ambos</mat-option>
                                             <mat-option value="CLINICAL">Ambulatório</mat-option>
                                             <mat-option value="EMERGENCY">Emergência</mat-option>
+                                            <mat-option value="REMOTE">Remoto</mat-option>
                                         </mat-select>
                                     </mat-form-field>
                                 </div>
@@ -60,22 +61,22 @@
                                 </div>
                                 <div class="col-md-2">
                                     <mat-form-field>
-                                        <input matInput placeholder="Nome do paciente [ENTER]"
-                                            name="fullName" [(ngModel)]="filters.fullName" #fullName type="text"
+                                        <input matInput placeholder="Nome do paciente [ENTER]" name="fullName"
+                                            [(ngModel)]="filters.fullName" #fullName type="text"
                                             (keypress)="enterKeyPress($event)" />
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-2">
                                     <mat-form-field>
-                                        <input matInput placeholder="Nome Social do paciente [ENTER]"
-                                            name="socialName" [(ngModel)]="filters.socialName" #socialName type="text"
+                                        <input matInput placeholder="Nome Social do paciente [ENTER]" name="socialName"
+                                            [(ngModel)]="filters.socialName" #socialName type="text"
                                             (keypress)="enterKeyPress($event)" />
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-2">
                                     <mat-form-field>
-                                        <input matInput placeholder="CPF do paciente [ENTER]"
-                                            name="cpf" [(ngModel)]="filters.cpf" #cpf type="text"
+                                        <input matInput placeholder="CPF do paciente [ENTER]" name="cpf"
+                                            [(ngModel)]="filters.cpf" #cpf type="text"
                                             (keypress)="enterKeyPress($event)" mask="000.000.000-00" />
                                     </mat-form-field>
                                 </div>
@@ -103,7 +104,8 @@
                             <ul>
                                 <li class="patient-name"
                                     [ngClass]="{'name-not-identified' : attendance.patientType === 'NOT_IDENTIFIED'}">
-                                    {{attendance.fullName + (attendance.patientType === 'NOT_IDENTIFIED' ? ' [Não Identificado]' : '')}}
+                                    {{attendance.fullName + (attendance.patientType === 'NOT_IDENTIFIED' ? ' [Não
+                                    Identificado]' : '')}}
                                 </li>
 
                                 <li><span class="fa fa-user patient-info"> Matrícula: </span> {{attendance.patientId}}
@@ -128,6 +130,7 @@
 
                             </ul>
                         </div>
+                        <div class="timer"><i class="fa fa-clock-o"></i> {{ getTime(attendance.entryDatetime) }}</div>
                     </div>
                 </div>
             </div>
