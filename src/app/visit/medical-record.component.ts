@@ -129,6 +129,10 @@ export class MedicalRecordComponent implements OnInit {
     this.visit = result;
     this.timer = this.getTime();
 
+    if (!this.visit.lastAccommodation) {
+      this.visit.lastAccommodation = new Accommodation();
+    }
+
     if (this.visit.medicines.length > 0) {
 
       this.visit.medicines = this.visit.medicines.sort(function (a, b) {
