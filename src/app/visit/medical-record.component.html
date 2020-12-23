@@ -11,6 +11,7 @@
                         <div class="card-title">
                             <h4>Atendimento <span *ngIf="visit.allergies.length > 0">(Paciente
                                     Alérgico)</span>
+                                <span *ngIf="visit.id && visit.patientId && timer" class="timer"><i class="fa fa-clock-o"></i> {{timer}}</span>
                                 <button matTooltip="Ações do prontuário" mat-icon-button [matMenuTriggerFor]="menu"
                                     style="float: right;" *ngIf="visit.id && visit.patientId">
                                     <mat-icon>menu</mat-icon>
@@ -155,8 +156,7 @@
                                     <mat-form-field>
                                         <input [disabled]="true" matInput placeholder="Data de nascimento"
                                             [ngClass]="{'patient-not-identified' : patientNotIdentified()}"
-                                            name="bornDate" [(ngModel)]="visit.bornDate" #bornDate
-                                            type="date" />
+                                            name="bornDate" [(ngModel)]="visit.bornDate" #bornDate type="date" />
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-4">
@@ -198,7 +198,8 @@
                                 <mat-header-cell *matHeaderCellDef mat-sort-header class="text-primary"
                                     style="font-size: 0.95rem; font-weight: 500;"> Data - Hora </mat-header-cell>
                                 <mat-cell *matCellDef="let element">
-                                    {{element.datetime != 'Sem Registro' ? (element.datetime  | date: 'dd/MM/yyyy HH:mm') : element.datetime}}
+                                    {{element.datetime != 'Sem Registro' ? (element.datetime | date: 'dd/MM/yyyy HH:mm')
+                                    : element.datetime}}
                                 </mat-cell>
                             </ng-container>
 
@@ -253,7 +254,8 @@
                                 <mat-header-cell *matHeaderCellDef mat-sort-header class="text-primary"
                                     style="font-size: 0.95rem; font-weight: 500;"> Data - Hora </mat-header-cell>
                                 <mat-cell *matCellDef="let element">
-                                    {{element.datetime != 'Sem Registro' ? (element.datetime  | date: 'dd/MM/yyyy HH:mm') : element.datetime}}
+                                    {{element.datetime != 'Sem Registro' ? (element.datetime | date: 'dd/MM/yyyy HH:mm')
+                                    : element.datetime}}
                                 </mat-cell>
                             </ng-container>
 
@@ -299,7 +301,8 @@
                                 <mat-header-cell *matHeaderCellDef mat-sort-header class="text-primary"
                                     style="font-size: 0.95rem; font-weight: 500;"> Data - Hora </mat-header-cell>
                                 <mat-cell *matCellDef="let element">
-                                    {{element.datetime != 'Sem Registro' ? (element.datetime  | date: 'dd/MM/yyyy HH:mm') : element.datetime}}
+                                    {{element.datetime != 'Sem Registro' ? (element.datetime | date: 'dd/MM/yyyy HH:mm')
+                                    : element.datetime}}
                                 </mat-cell>
                             </ng-container>
 

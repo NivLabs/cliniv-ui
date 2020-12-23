@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { SectorFilters } from 'app/model/Sector';
 import { debounceTime, map, distinctUntilChanged, filter } from "rxjs/operators";
 import { fromEvent } from 'rxjs';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-attendance',
@@ -53,7 +54,7 @@ export class AttendanceComponent implements OnInit {
       , filter(res => res.length >= 0)
 
       , debounceTime(500)
-  
+
       , distinctUntilChanged()
 
     ).subscribe((text: string) => {
@@ -181,4 +182,15 @@ export class AttendanceComponent implements OnInit {
     }
   }
 
+  getTime(entryDateTime) {
+
+    var initDate = moment(entryDateTime, "YYYY-MM-DD'T'HH:mm:ss")
+    var currentDate = moment();
+    var ms = currentDate.diff(initDate);
+    var d = moment.duration(ms);
+    var s = Math.floor(d.asHours()) + moment.utc(ms).format(":mm");
+    var hh = parseInt(s.split(":")[0]);
+    var mm = new Number(s.split(":")[1]);
+    return (hh ? hh + "h(s) e " : "") + mm + "min(s)";
+  }
 }

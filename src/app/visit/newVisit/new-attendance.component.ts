@@ -67,21 +67,30 @@ export class NewAttendanceComponent implements OnInit {
     }
 
     loadspecializationsData() {
+        this.loading = true;
         this.utilService.getSpecialization().then(specs => {
+            this.loading = false;
             specs.forEach(spec => {
                 this.specializationsData.push(spec);
 
             });
-        });
+        }).catch(ex => this.loading = false);
     }
 
     loadAccommodations(event: any) {
         var sectorId = event.value;
         if (sectorId) {
+            this.loading = true;
             this.sectorService.getById(sectorId).then(response => {
+                this.loading = false;
                 this.accommodations = response.listOfRoomsOrBeds;
+                if (!this.accommodations || !this.accommodations.length) {
+                    this.notification.showError("Nenhuma acomodação cadastrada para este setor/leito, realize o cadastro antes de continuar.");
+                }
             }).catch(e => {
-                this.accommodations = [];
+                this.loading = false
+                this.errorHandler.handle(e, null);
+                this.accommodations
             });
         }
     }
@@ -89,9 +98,15 @@ export class NewAttendanceComponent implements OnInit {
     loadResponsibles(event: any) {
         this.newVisit.specialityId = event.value;
         if (this.newVisit.specialityId) {
+            this.loading = true;
             this.utilService.getSpecializationById(this.newVisit.specialityId).then(response => {
+                this.loading = false;
+                if (!response.responsibles || !response.responsibles.length) {
+                    this.notification.showWarning("Nenhum profissional encontrado com a especialidade selecionada");
+                }
                 this.responsibles = response.responsibles;
             }).catch(e => {
+                this.loading = false;
                 this.responsibles = [];
             });
         }
