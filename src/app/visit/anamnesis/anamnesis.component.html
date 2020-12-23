@@ -9,10 +9,10 @@
                 <div class="row">
 
                     <div class="col-md-12" *ngIf="item.anamnesisItem.metaType === 'STRING'">
-                        <div class="col-md-6 pull-left">
+                        <div class="col-md-12">
                             <mat-label>{{item.anamnesisItem.question}}</mat-label>
                         </div>
-                        <div class="col-md-6 pull-right">
+                        <div class="col-md-12">
                             <mat-form-field>
                                 <input matInput type="text" [(ngModel)]="item.response" name="question{{i}}" />
                             </mat-form-field>
@@ -20,10 +20,10 @@
                     </div>
 
                     <div class="col-md-12" *ngIf="item.anamnesisItem.metaType === 'NUMBER'">
-                        <div class="col-md-6 pull-left">
+                        <div class="col-md-12">
                             <mat-label>{{item.anamnesisItem.question}}</mat-label>
                         </div>
-                        <div class="col-md-6 pull-right">
+                        <div class="col-md-12">
                             <mat-form-field>
                                 <input matInput type="number" [(ngModel)]="item.response" name="question{{i}}" />
                             </mat-form-field>
@@ -31,10 +31,10 @@
                     </div>
 
                     <div class="col-md-12 mt-3 mb-3" *ngIf="item.anamnesisItem.metaType === 'BOOL'">
-                        <div class="col-md-6 pull-left">
+                        <div class="col-md-12">
                             <mat-label>{{item.anamnesisItem.question}}</mat-label>
                         </div>
-                        <div class="col-md-6 pull-right mt-4">
+                        <div class="col-md-12 mt-4">
                             <mat-radio-group [(ngModel)]="item.response" name="question{{i}}">
                                 <mat-radio-button [value]="'true'" class="mr-3">Sim</mat-radio-button>
                                 <mat-radio-button [value]="'false'">Não</mat-radio-button>
