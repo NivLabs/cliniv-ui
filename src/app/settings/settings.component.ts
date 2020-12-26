@@ -87,7 +87,7 @@ export class SettingsComponent implements OnInit {
         this.notification.showWarning("Não foi possível realizar a busca do CEP, verifique se o mesmo está correto.")
       });
     }
-    
+
   }
 
   updateParameter(parameterId: number, value: any, element: any) {
@@ -120,23 +120,23 @@ export class SettingsComponent implements OnInit {
 
   saveLogo(fileInputEvent: any) {
 
-        var t = this;
-        var file = fileInputEvent.target.files[0];
+    var t = this;
+    var file = fileInputEvent.target.files[0];
 
-        var fileInfo = new FileInfo();
-        var reader  = new FileReader();
+    var fileInfo = new FileInfo();
+    var reader = new FileReader();
 
-        reader.onload = function(readerEvt) {
-          var binaryString = readerEvt.target.result.toString();
-          fileInfo.base64 = btoa(binaryString);
-          t.principalService.saveLogo(fileInfo);
-          t.ngOnInit();
-        };
+    reader.onload = function (readerEvt) {
+      var binaryString = readerEvt.target.result.toString();
+      fileInfo.base64 = btoa(binaryString);
+      t.principalService.saveLogo(fileInfo);
+      t.ngOnInit();
+    };
 
-        reader.readAsBinaryString(file);
+    reader.readAsBinaryString(file);
 
   }
-    
-  
+
+
 
 }

@@ -1,0 +1,20 @@
+.item-attached-line {  
+    padding-bottom: 5px;
+}
+
+.item-attached {
+    padding: 10px;
+    border-top: 2px solid #11b8cc;
+    border-bottom: 2px solid #11b8cc;
+    border-left: 60px solid #11b8cc;
+    border-right: 2px solid #11b8cc;
+    border-radius: 5px;
+}
+
+.item-attached .icon {
+    position: absolute;
+    left: 30px;
+    font-size: 30px;
+    top: 10px;
+    color: #FFF;
+}

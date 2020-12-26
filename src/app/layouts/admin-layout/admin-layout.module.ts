@@ -52,6 +52,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { IConfig, NgxMaskModule } from 'ngx-mask';
 import { WebcamModule } from 'ngx-webcam';
 import { AttendanceService } from '../../attendance/attendance.service';
+import { LoadingComponent } from '../../components/loading/loading.component';
 //#endregion
 //#region Componentes da aplicação
 import { ConfirmDialogComponent } from '../../core/confirm-dialog/confirm-dialog.component';
@@ -60,7 +61,6 @@ import { DashboardComponent } from '../../dashboard/dashboard.component';
 import { PatientEditComponent } from '../../patient/patient-edit/patient-edit.component';
 import { PatientComponent } from '../../patient/patient.component';
 import { PatientService } from '../../patient/patient.service';
-import { AnamnesisService } from '../../visit/anamnesis/anamnesis.service';
 import { ProcedureComponent } from '../../procedure/procedure.component';
 import { ProcedureService } from '../../procedure/procedure.service';
 import { ProfessionalEditComponent } from '../../professional/professional-edit/professional-edit.component';
@@ -80,6 +80,7 @@ import { UserComponent } from '../../user/user.component';
 import { UserService } from '../../user/user.service';
 import { AllergyComponent } from '../../visit/allergy/allergy.component';
 import { AnamnesisComponent } from '../../visit/anamnesis/anamnesis.component';
+import { AnamnesisService } from '../../visit/anamnesis/anamnesis.service';
 import { SelectFormComponent } from '../../visit/anamnesis/select-form/select-form.component';
 import { EvolutionComponent } from '../../visit/evolution/evolution.component';
 import { PatientHistoryComponent } from '../../visit/history/patient-history.component';
@@ -87,7 +88,6 @@ import { MedicalRecordComponent } from '../../visit/medical-record.component';
 import { MedicalRecordService } from '../../visit/medical-record.service';
 import { NewAttendanceComponent } from '../../visit/newVisit/new-attendance.component';
 import { AdminLayoutRoutes } from './admin-layout.routing';
-import { LoadingComponent } from '../../components/loading/loading.component';
 
 //#endregion
 
@@ -143,7 +143,7 @@ const maskConfig: Partial<IConfig> = {
     WebcamModule,
     NgxMaskModule.forRoot(maskConfig),
     PdfViewerModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule 
   ],
   exports: [
     CommonModule,

@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AttendanceService } from 'app/attendance/attendance.service';
@@ -8,6 +8,7 @@ import { UtilService } from 'app/core/util.service';
 import { Accommodation } from 'app/model/Accommodation';
 import { NewAttendanceEvent } from 'app/model/Attendance';
 import { EventType } from 'app/model/EventType';
+import { FileInfo } from 'app/model/File';
 import { ProcedureFilters, ProcedureInfo } from 'app/model/Procedure';
 import { Professional } from 'app/model/Professional';
 import { Sector, SectorFilters } from 'app/model/Sector';
@@ -40,6 +41,9 @@ export class NewEventComponent implements OnInit {
 
   sectorFilters = new SectorFilters();
   setorPageSettings = new Pageable();
+
+  @ViewChild('inputFile')
+  inputFile: ElementRef;
 
 
   constructor(
@@ -169,13 +173,38 @@ export class NewEventComponent implements OnInit {
     this.medicalRecService.createAttendanceEvent(this.dataToForm).then(resp => {
       if (closeDialog) {
         this.dialogRef.close();
-      } else {
         this.ngOnInit();
       }
       this.notification.showSucess("Evento criado com sucesso!");
     }).catch(e => this.errorHandler.handle(e, null))
       .then(() => this.loading = false);
 
+  }
+
+  addFile(fileInputEvent: any) {
+    var t = this;
+    var file = fileInputEvent.target.files[0];
+
+    var reader = new FileReader();
+
+
+    reader.onload = function (readerEvt) {
+      var binaryString = readerEvt.target.result.toString();
+      var fileInfo = new FileInfo();
+      fileInfo.base64 = btoa(binaryString);
+      fileInfo.name = file.name;
+      t.dataToForm.documents.push(fileInfo);
+      t.inputFile.nativeElement.value = '';
+      t.loading = false;
+    };
+
+    this.loading = true;
+    reader.readAsBinaryString(file);
+
+  }
+
+  cleanAttacheds() {
+    this.dataToForm.documents = [];
   }
 
 }

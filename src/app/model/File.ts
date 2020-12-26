@@ -4,14 +4,12 @@
 export class FileInfo {
     constructor() {
         this.base64 = '';
-        this.id = '';
+        this.id = null;
         this.name = '';
         this.type = 'PDF';
-        this.url = '';
-     }
+    }
     base64: string;
     id: string;
     name: string;
     type: string;
-    url: string;
 }
