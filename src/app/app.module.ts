@@ -1,6 +1,7 @@
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
@@ -11,6 +12,7 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
 import { AdminLayoutModule } from './layouts/admin-layout/admin-layout.module';
 import { SecurityRoutingModule } from './security/security-routing.module';
 import { SecurityModule } from './security/security.module';
+
 
 @NgModule({
    imports: [
@@ -30,7 +32,7 @@ import { SecurityModule } from './security/security.module';
       AppComponent,
       AdminLayoutComponent
    ],
-   providers: [],
+   providers: [{ provide: MAT_DATE_LOCALE, useValue: 'pt-BR' }],
    bootstrap: [
       AppComponent
    ]

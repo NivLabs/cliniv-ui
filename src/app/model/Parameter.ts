@@ -1,3 +1,8 @@
+export class ParameterByGroup {
+    group: string;
+    parameters: Array<Parameter>;
+}
+
 /**
  * Classe que representa as informações do parâmetro
  */

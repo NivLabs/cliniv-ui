@@ -1,4 +1,3 @@
-//#region Componentes de terceiros
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -9,7 +8,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatNativeDateModule, MatPseudoCheckboxModule, MatRippleModule } from '@angular/material/core';
-import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatCalendar, MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatExpansionModule } from '@angular/material/expansion';
@@ -55,8 +54,6 @@ import { IConfig, NgxMaskModule } from 'ngx-mask';
 import { WebcamModule } from 'ngx-webcam';
 import { AttendanceService } from '../../attendance/attendance.service';
 import { LoadingComponent } from '../../components/loading/loading.component';
-//#endregion
-//#region Componentes da aplicação
 import { ConfirmDialogComponent } from '../../core/confirm-dialog/confirm-dialog.component';
 import { NotificationsComponent } from '../../core/notification/notifications.component';
 import { DashboardComponent } from '../../dashboard/dashboard.component';
@@ -91,7 +88,6 @@ import { MedicalRecordService } from '../../visit/medical-record.service';
 import { NewAttendanceComponent } from '../../visit/newVisit/new-attendance.component';
 import { AdminLayoutRoutes } from './admin-layout.routing';
 
-//#endregion
 
 const matModules = [
   MatAutocompleteModule,
