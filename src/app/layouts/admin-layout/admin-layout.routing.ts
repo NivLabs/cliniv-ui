@@ -11,12 +11,14 @@ import { UserComponent } from '../../user/user.component';
 import { UserProfileComponent } from '../../user-profile/user-profile.component';
 import { SettingsComponent } from '../../settings/settings.component';
 import { HealthOperatorComponent } from 'app/healthOperator/health-operator.component';
+import { ScheduleComponent } from 'app/schedule/schedule.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard', component: DashboardComponent },
     { path: 'patient', component: PatientComponent },
     { path: 'visit', component: MedicalRecordComponent },
     { path: 'attendance', component: AttendanceComponent },
+    { path: 'schedule', component: ScheduleComponent },
     { path: 'procedure', component: ProcedureComponent },
     { path: 'professional', component: ProfessionalComponent },
     { path: 'sector', component: SectorComponent },

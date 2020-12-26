@@ -40,9 +40,11 @@ import { CameraDialogComponent } from 'app/component/camera/dialog/camera-dialog
 import { DocumentViewerComponent } from 'app/component/document-viewer/document-viewer.component';
 import { CameraComponent } from 'app/core/camera/camera.component';
 import { HealthOperatorEditComponent } from 'app/healthOperator/health-operator-edit/health-operator-edit.component';
+import { HealthOperatorComponent } from 'app/healthOperator/health-operator.component';
 import { HealthOperatorService } from 'app/healthOperator/health-operator.service';
 import { HealthPlanService } from 'app/healthOperator/health-plan.service';
 import { HealthPlanComponent } from 'app/healthOperator/health-plan/health-plan.component';
+import { ScheduleComponent } from 'app/schedule/schedule.component';
 import { SettingsComponent } from 'app/settings/settings.component';
 import { CloseEventComponent } from 'app/visit/close-event/close-event.component';
 import { DocumentSelectorComponent } from 'app/visit/document-selector/document-selector.component';
@@ -143,7 +145,7 @@ const maskConfig: Partial<IConfig> = {
     WebcamModule,
     NgxMaskModule.forRoot(maskConfig),
     PdfViewerModule,
-    BrowserAnimationsModule 
+    BrowserAnimationsModule
   ],
   exports: [
     CommonModule,
@@ -201,7 +203,12 @@ const maskConfig: Partial<IConfig> = {
 
     AllergyComponent,
 
-    LoadingComponent
+    LoadingComponent,
+
+    HealthOperatorComponent,
+    HealthOperatorEditComponent,
+    HealthPlanComponent,
+    ScheduleComponent
   ],
   entryComponents: [
     PatientEditComponent,

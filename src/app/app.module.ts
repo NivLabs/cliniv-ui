@@ -7,13 +7,10 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
 import { CoreModule } from './core/core.module';
-import { HealthOperatorEditComponent } from './healthOperator/health-operator-edit/health-operator-edit.component';
-import { HealthOperatorComponent } from './healthOperator/health-operator.component';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { AdminLayoutModule } from './layouts/admin-layout/admin-layout.module';
 import { SecurityRoutingModule } from './security/security-routing.module';
 import { SecurityModule } from './security/security.module';
-import { HealthPlanComponent } from './healthOperator/health-plan/health-plan.component';
 
 @NgModule({
    imports: [
@@ -31,10 +28,7 @@ import { HealthPlanComponent } from './healthOperator/health-plan/health-plan.co
    ],
    declarations: [
       AppComponent,
-      AdminLayoutComponent,
-      HealthOperatorComponent,
-      HealthOperatorEditComponent,
-      HealthPlanComponent
+      AdminLayoutComponent
    ],
    providers: [],
    bootstrap: [
