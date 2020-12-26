@@ -5,6 +5,7 @@ import { Accommodation } from "./Accommodation";
 import { EventType } from "./EventType";
 import { ProcedureInfo } from "./Procedure";
 import { Professional } from "./Professional";
+import { FileInfo } from "./File";
 
 /**
  * Informações do atendimento
@@ -101,7 +102,7 @@ export class CloseAttendanceRequest {
 export class NewAttendanceEvent {
     attendanceId: number;
     accommodation: Accommodation = new Accommodation();
-    documents: Array<Document> = [];
+    documents: Array<FileInfo> = [];
     eventType: EventType;
     observations: string;
     procedure: ProcedureInfo;

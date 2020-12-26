@@ -41,7 +41,8 @@
                 <div class="col-md-4">
                     <mat-form-field>
                         <mat-label>
-                            {{accommodations && accommodations.length > 0 ? 'Selecione uma acomodação' : 'Não há acomodação habilitada'}}
+                            {{accommodations && accommodations.length > 0 ? 'Selecione uma acomodação' : 'Não há
+                            acomodação habilitada'}}
                         </mat-label>
                         <mat-select [formControl]="accommodationControl"
                             (selectionChange)="selectAccommodation($event.value)"
@@ -72,8 +73,8 @@
                 <div class="col-md-2">
                     <mat-form-field>
                         <input matInput placeholder="Código do procedimento [ENTER]" name="procedureId"
-                            #procedureId="ngModel" [(ngModel)]="dataToForm.procedure.id" (keypress)="searchProcedureById($event)"
-                            maxlength="10" type="text" />
+                            #procedureId="ngModel" [(ngModel)]="dataToForm.procedure.id"
+                            (keypress)="searchProcedureById($event)" maxlength="10" type="text" />
                     </mat-form-field>
                 </div>
                 <div class="col-md-10">
@@ -84,11 +85,33 @@
                     </mat-form-field>
                 </div>
             </div>
+            <hr />
+            <div class="row" *ngFor="let file of dataToForm.documents">
+                <div class="col-md-12 item-attached-line">
+                    <div class="item-attached">
+                        <i class="fa fa-paperclip icon"></i> {{file.name}}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <input hidden #inputFile id="inputFile" name="inputFile" (change)="addFile($event)" type="file"
+                        accept=".pdf">
+                    <label for="inputFile" class="col-md-12 btn btn-info"><i class="fa fa-plus"></i>
+                        Anexar arquivo</label>
+                </div>
+                <div class="col-md-6">
+                    <button class="col-md-12 btn btn-warning" (click)="cleanAttacheds()"><i class="fa fa-eraser"></i>
+                        Apagar anexos</button>
+                </div>
+            </div>
+            <br />
+            <hr />
             <div class="clearfix"></div>
             <button mat-raised-button type="submit"
                 [disabled]="eventTypeControl.hasError('required') || accommodationControl.hasError('required')"
-                class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-primary pull-right"
-                (click)="createEvent(true)">Criar Evento e fechar</button>
+                class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-primary pull-right" (click)="createEvent(true)">Criar
+                Evento e fechar</button>
 
             <button mat-raised-button
                 [disabled]="eventTypeControl.hasError('required') || accommodationControl.hasError('required')"
