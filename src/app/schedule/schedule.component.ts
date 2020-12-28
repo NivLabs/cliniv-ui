@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { ErrorHandlerService } from 'app/core/error-handler.service';
 import { NotificationsComponent } from 'app/core/notification/notifications.component';
 import { PatientInfo } from 'app/model/Patient';
 import { Professional } from 'app/model/Professional';
 import { Pageable } from 'app/model/Util';
 import { ProfessionalService } from 'app/professional/professional.service';
 import { ScheduleFilter, ScheduleInfo, ScheduleParameters } from '../model/Schedule';
+import { ScheduleService } from './schedule.service';
 
 @Component({
   selector: 'app-schedule',
@@ -25,7 +27,7 @@ export class ScheduleComponent implements OnInit {
   public selectedDate: any;
   public schedulerParams: ScheduleParameters = new ScheduleParameters();
 
-  constructor(private professionalService: ProfessionalService, private notification: NotificationsComponent) { }
+  constructor(private errorHandler: ErrorHandlerService, private principalService: ScheduleService, private professionalService: ProfessionalService, private notification: NotificationsComponent) { }
 
   ngOnInit(): void {
     this.selectedDate = new Date();
@@ -34,6 +36,9 @@ export class ScheduleComponent implements OnInit {
     this.mountSchedule();
   }
 
+  /**
+   * Monta a agenda com a estrutura carregada da API
+   */
   mountSchedule() {
 
     var initHour = this.schedulerParams.initialAttendanceTime.split(":")[0];
@@ -42,7 +47,7 @@ export class ScheduleComponent implements OnInit {
     var scheduleTime = new Date();
     scheduleTime.setHours(Number.parseInt(initHour));
     scheduleTime.setMinutes(Number.parseInt(initMinute));
-    if (this.schedules && this.schedules[0].schedulingDateAndTime < scheduleTime) {
+    if (this.schedules && this.schedules.length > 0 && this.schedules[0].schedulingDateAndTime < scheduleTime) {
       scheduleTime = this.schedules[0].schedulingDateAndTime;
     }
 
@@ -52,7 +57,7 @@ export class ScheduleComponent implements OnInit {
     var endScheduleTime = new Date();
     endScheduleTime.setHours(Number.parseInt(endHour));
     endScheduleTime.setMinutes(Number.parseInt(endMinute));
-    if (this.schedules && this.schedules[this.schedules.length - 1].schedulingDateAndTime > endScheduleTime) {
+    if (this.schedules && this.schedules.length > 0 && this.schedules[this.schedules.length - 1].schedulingDateAndTime > endScheduleTime) {
       endScheduleTime = this.schedules[this.schedules.length - 1].schedulingDateAndTime;
     }
 
@@ -75,26 +80,25 @@ export class ScheduleComponent implements OnInit {
 
   }
 
+  /**
+   * Carrega as informações necessárias para a Agenda
+   */
   loadScheduleByDate() {
-    var schedule = new ScheduleInfo();
-    schedule.id = 1;
-    schedule.isConfirmed = true;
-    schedule.schedulingDateAndTime = new Date();
-
-    schedule.patient = new PatientInfo();
-    schedule.patient.id = 1;
-    schedule.patient.fullName = 'Vinícios de Araújo Rodrigues';
-
-    schedule.professional = new Professional();
-    schedule.professional.id = 1;
-    schedule.professional.fullName = "Dra Marcella Amorim";
-
-    this.schedules.push(schedule);
-
-    this.schedules.sort((a, b) => a.schedulingDateAndTime.getTime() - b.schedulingDateAndTime.getTime());
+    this.loading = true;
+    this.principalService.getByFilter(this.filters).then(resp => {
+      this.loading = false;
+      this.schedules = resp;
+      this.schedules.sort((a, b) => a.schedulingDateAndTime.getTime() - b.schedulingDateAndTime.getTime());
+    }).catch(error => {
+      this.schedules = [];
+      this.loading = false;
+      this.errorHandler.handle(error, null);
+    })
   }
 
-
+  /**
+   * Carrega os profissionais para o atendimento
+   */
   loadResponsibles() {
     this.loading = true;
     var pageSettings = new Pageable();
@@ -111,6 +115,10 @@ export class ScheduleComponent implements OnInit {
     });
   }
 
+  /**
+   * 
+   * @param event Evento de seleção de data no datapicker
+   */
   onSelect(event) {
     console.log(event);
     this.selectedDate = event;
@@ -118,6 +126,9 @@ export class ScheduleComponent implements OnInit {
 
 }
 
+/**
+ * Objeto padrão da Agenda
+ */
 export class ScheduleInterval {
   id: Date;
   timeInterval: number;

@@ -8,7 +8,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatNativeDateModule, MatPseudoCheckboxModule, MatRippleModule } from '@angular/material/core';
-import { MatCalendar, MatDatepickerModule } from '@angular/material/datepicker';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatExpansionModule } from '@angular/material/expansion';
@@ -65,6 +65,7 @@ import { ProcedureService } from '../../procedure/procedure.service';
 import { ProfessionalEditComponent } from '../../professional/professional-edit/professional-edit.component';
 import { ProfessionalComponent } from '../../professional/professional.component';
 import { ProfessionalService } from '../../professional/professional.service';
+import { ScheduleService } from '../../schedule/schedule.service';
 import { AccommodationComponent } from '../../sector/accommodation/accommodation.component';
 import { SectorEditComponent } from '../../sector/sector-edit/sector-edit.component';
 import { SectorComponent } from '../../sector/sector.component';
@@ -231,6 +232,7 @@ const maskConfig: Partial<IConfig> = {
   providers: [
     UserProfileService,
     PatientService,
+    ScheduleService,
     AnamnesisService,
     HealthPlanService,
     ProfessionalService,

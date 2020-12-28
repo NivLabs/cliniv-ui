@@ -20,6 +20,7 @@ export class ScheduleFilter {
     selectedDate: Date;
     isConfirmed: boolean;
     isMissed: boolean;
+    isCanceled: boolean;
 }
 
 export class ScheduleParameters {
