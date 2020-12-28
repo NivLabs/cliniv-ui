@@ -78,61 +78,40 @@
                     <h3>{{ selectedDate | date:'dd/MM/yyyy' }}</h3>
                 </div>
                 <hr />
-                <div *ngFor="let time of availableScheduleTimes">
-                    <h3>{{time | date:'HH:mm'}} <button class="fa fa-plus btn btn-info schedule-button-plus"></button>
+                <div *ngFor="let interval of availableScheduleTimes">
+                    <h3>{{interval.id | date:'HH:mm'}} <button
+                            class="fa fa-plus btn btn-info schedule-button-plus"></button>
                     </h3>
                     <hr />
-                    <div class="schedule-item link-card">
+                    <span *ngIf="interval.times.length == 0">Nenhum agendamento para este intervalo de horário
+                        encontrado</span>
+                    <div *ngFor="let scheduleItem of interval.times" class="schedule-item link-card"
+                        [ngClass]="{'canceled': scheduleItem.isCanceled}">
                         <div class="row">
                             <div class="col-md-6 col-lg-3">
-                                <div class="description-prop">Código:</div> 1
+                                <div class="description-prop">Código:</div> {{scheduleItem.id}}
                             </div>
                             <div class="col-md-6 col-lg-9">
-                                <div class="description-prop">Paciente:</div> Vinícios de Araújo Rodrigues
+                                <div class="description-prop">Paciente:</div> {{scheduleItem.patient.fullName}}
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6 col-lg-3">
-                                <div class="description-prop">Hora agendada:</div> 08:55
+                                <div class="description-prop">Hora agendada:</div> {{scheduleItem.schedulingDateAndTime
+                                | date:'HH:mm'}}
                             </div>
                             <div class="col-md-6 col-lg-9">
-                                <div class="description-prop">Profissional:</div> Dr. José Carlos Aguiar
-                            </div>
-                        </div>
-                    </div>
-                    <div class="schedule-item link-card">
-                        <div class="row">
-                            <div class="col-md-6 col-lg-3">
-                                <div class="description-prop">Código:</div> 1
-                            </div>
-                            <div class="col-md-6 col-lg-9">
-                                <div class="description-prop">Paciente:</div> Vinícios de Araújo Rodrigues
+                                <div class="description-prop">Profissional:</div> {{scheduleItem.professional.fullName}}
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6 col-lg-3">
-                                <div class="description-prop">Hora agendada:</div> 08:55
+                                <div class="description-prop">Confirmado:</div> {{scheduleItem.isConfirmed ? 'SIM' :
+                                'NÃO' }}
                             </div>
                             <div class="col-md-6 col-lg-9">
-                                <div class="description-prop">Profissional:</div> Dr. José Carlos Aguiar
-                            </div>
-                        </div>
-                    </div>
-                    <div class="schedule-item link-card">
-                        <div class="row">
-                            <div class="col-md-6 col-lg-3">
-                                <div class="description-prop">Código:</div> 1
-                            </div>
-                            <div class="col-md-6 col-lg-9">
-                                <div class="description-prop">Paciente:</div> Vinícios de Araújo Rodrigues
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 col-lg-3">
-                                <div class="description-prop">Hora agendada:</div> 08:55
-                            </div>
-                            <div class="col-md-6 col-lg-9">
-                                <div class="description-prop">Profissional:</div> Dr. José Carlos Aguiar
+                                <div class="description-prop">Desmarcado:</div> {{scheduleItem.isCanceled ? 'SIM' :
+                                'NÃO'}}
                             </div>
                         </div>
                     </div>

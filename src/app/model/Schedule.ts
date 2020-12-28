@@ -12,6 +12,7 @@ export class ScheduleInfo {
     annotation: string;
     isConfirmed: boolean = false;
     isMissed: boolean = false;
+    isCanceled: boolean = true;
 }
 
 export class ScheduleFilter {
