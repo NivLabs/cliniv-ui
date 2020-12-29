@@ -10,17 +10,13 @@ export class ScheduleInfo {
     professional: Professional;
     schedulingDateAndTime: Date;
     annotation: string;
-    isConfirmed: boolean = false;
-    isMissed: boolean = false;
-    isCanceled: boolean = true;
+    status: string;
 }
 
 export class ScheduleFilter {
     professionalId: number;
     selectedDate: Date;
-    isConfirmed: boolean;
-    isMissed: boolean;
-    isCanceled: boolean;
+    status: string;
 }
 
 export class ScheduleParameters {

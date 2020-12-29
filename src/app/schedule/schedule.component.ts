@@ -33,7 +33,6 @@ export class ScheduleComponent implements OnInit {
     this.selectedDate = new Date();
     this.loadResponsibles();
     this.loadScheduleByDate();
-    this.mountSchedule();
   }
 
   /**
@@ -69,15 +68,34 @@ export class ScheduleComponent implements OnInit {
       var timeWithInterval = new Date(scheduleTime);
       timeWithInterval.setMinutes(scheduleTime.getMinutes() + this.schedulerParams.timeIntervalInMinutes);
       this.schedules.forEach(schedule => {
-        if (schedule.schedulingDateAndTime > interval.id && schedule.schedulingDateAndTime < timeWithInterval)
+        if (new Date(schedule.schedulingDateAndTime) > interval.id && new Date(schedule.schedulingDateAndTime) < timeWithInterval)
           interval.times.push(schedule);
       });
 
       this.availableScheduleTimes.push(interval);
       scheduleTime = new Date(scheduleTime.setMinutes(scheduleTime.getMinutes() + this.schedulerParams.timeIntervalInMinutes));
     }
+  }
 
-
+  /**
+   * 
+   * @param status 
+   */
+  getStatusDesc(status) {
+    switch (status) {
+      case 'CONFIRMED':
+        return 'Paciente confirmado';
+      case 'COMPLETED':
+        return 'O paciente compareceu';
+      case 'CANCELED':
+        return 'O paciente cancelou';
+      case 'MISSED':
+        return 'O paciente faltou';
+      case 'RESCHEDULED':
+        return 'O paciente reagendou';
+      default:
+        return 'Sem infomações...';
+    }
   }
 
   /**
@@ -89,11 +107,13 @@ export class ScheduleComponent implements OnInit {
       this.loading = false;
       this.schedules = resp;
       this.schedules.sort((a, b) => a.schedulingDateAndTime.getTime() - b.schedulingDateAndTime.getTime());
+      this.mountSchedule();
     }).catch(error => {
       this.schedules = [];
       this.loading = false;
+      this.mountSchedule();
       this.errorHandler.handle(error, null);
-    })
+    });
   }
 
   /**

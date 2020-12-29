@@ -86,7 +86,7 @@
                     <span *ngIf="interval.times.length == 0">Nenhum agendamento para este intervalo de horário
                         encontrado</span>
                     <div *ngFor="let scheduleItem of interval.times" class="schedule-item link-card"
-                        [ngClass]="{'canceled': scheduleItem.isCanceled}">
+                        [ngClass]="{'canceled': scheduleItem.status === 'CANCELED'}">
                         <div class="row">
                             <div class="col-md-6 col-lg-3">
                                 <div class="description-prop">Código:</div> {{scheduleItem.id}}
@@ -106,12 +106,8 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6 col-lg-3">
-                                <div class="description-prop">Confirmado:</div> {{scheduleItem.isConfirmed ? 'SIM' :
-                                'NÃO' }}
-                            </div>
-                            <div class="col-md-6 col-lg-9">
-                                <div class="description-prop">Desmarcado:</div> {{scheduleItem.isCanceled ? 'SIM' :
-                                'NÃO'}}
+                                <div class="description-prop">Situação atual:</div> {{getStatusDesc(scheduleItem.status)
+                                }}
                             </div>
                         </div>
                     </div>
