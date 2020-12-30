@@ -49,3 +49,7 @@
 	display: contents;
 	font-weight: 400;
 }
+
+.mat-calendar-period-button {
+	display: none !important;
+}

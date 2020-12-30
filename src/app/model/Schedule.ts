@@ -15,7 +15,7 @@ export class ScheduleInfo {
 
 export class ScheduleFilter {
     professionalId: number;
-    selectedDate: Date;
+    selectedDate: string;
     status: string;
 }
 

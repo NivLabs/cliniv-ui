@@ -1,11 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { DateAdapter, MatDateFormats, MAT_DATE_FORMATS } from '@angular/material/core';
+import { MatCalendar } from '@angular/material/datepicker';
+import { throwToolbarMixedModesError } from '@angular/material/toolbar';
 import { ErrorHandlerService } from 'app/core/error-handler.service';
 import { NotificationsComponent } from 'app/core/notification/notifications.component';
 import { PatientInfo } from 'app/model/Patient';
 import { Professional } from 'app/model/Professional';
 import { Pageable } from 'app/model/Util';
 import { ProfessionalService } from 'app/professional/professional.service';
+import { EventEmitter } from 'events';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { ScheduleFilter, ScheduleInfo, ScheduleParameters } from '../model/Schedule';
 import { ScheduleService } from './schedule.service';
 
@@ -19,7 +25,7 @@ export class ScheduleComponent implements OnInit {
   public filters: ScheduleFilter = new ScheduleFilter();
   responsibleControl = new FormControl();
   confirmationSelectControl = new FormControl();
-  attendedSelectControl = new FormControl();
+  statusSelectControl = new FormControl();
   availableScheduleTimes: ScheduleInterval[] = [];
   public schedules: ScheduleInfo[] = [];
   public responsibles: any;
@@ -31,8 +37,14 @@ export class ScheduleComponent implements OnInit {
 
   ngOnInit(): void {
     this.selectedDate = new Date();
+    this.filters.selectedDate = this.formatDate(this.selectedDate);
     this.loadResponsibles();
-    this.loadScheduleByDate();
+    this.loadScheduleByFilters();
+
+  }
+
+  selectMonth(event) {
+    console.log(event);
   }
 
   /**
@@ -101,12 +113,12 @@ export class ScheduleComponent implements OnInit {
   /**
    * Carrega as informações necessárias para a Agenda
    */
-  loadScheduleByDate() {
+  loadScheduleByFilters() {
     this.loading = true;
     this.principalService.getByFilter(this.filters).then(resp => {
       this.loading = false;
       this.schedules = resp;
-      this.schedules.sort((a, b) => a.schedulingDateAndTime.getTime() - b.schedulingDateAndTime.getTime());
+      this.schedules.sort((a, b) => new Date(a.schedulingDateAndTime).getTime() - new Date(b.schedulingDateAndTime).getTime());
       this.mountSchedule();
     }).catch(error => {
       this.schedules = [];
@@ -140,8 +152,33 @@ export class ScheduleComponent implements OnInit {
    * @param event Evento de seleção de data no datapicker
    */
   onSelect(event) {
-    console.log(event);
+    this.filters.selectedDate = this.formatDate((event));
     this.selectedDate = event;
+    this.loadScheduleByFilters();
+  }
+
+  selectResponsible(id) {
+    this.filters.professionalId = id ? id : null;
+    this.loadScheduleByFilters();
+  }
+
+  selectStatus(status) {
+    this.filters.status = status ? status : null;
+    this.loadScheduleByFilters();
+  }
+
+  formatDate(date) {
+    var d = new Date(date),
+      month = '' + (d.getMonth() + 1),
+      day = '' + d.getDate(),
+      year = d.getFullYear();
+
+    if (month.length < 2)
+      month = '0' + month;
+    if (day.length < 2)
+      day = '0' + day;
+
+    return [year, month, day].join('-');
   }
 
 }
