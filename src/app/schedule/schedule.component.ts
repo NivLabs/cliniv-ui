@@ -117,14 +117,14 @@ export class ScheduleComponent implements OnInit {
   loadScheduleByFilters() {
     this.loading = true;
     this.principalService.getByFilter(this.filters).then(resp => {
-      this.loading = false;
       this.schedules = resp;
       this.schedules.sort((a, b) => new Date(a.schedulingDateAndTime).getTime() - new Date(b.schedulingDateAndTime).getTime());
       this.mountSchedule();
+      this.loading = false;
     }).catch(error => {
       this.schedules = [];
-      this.loading = false;
       this.mountSchedule();
+      this.loading = false;
       this.errorHandler.handle(error, null);
     });
   }
