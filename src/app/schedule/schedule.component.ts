@@ -51,11 +51,12 @@ export class ScheduleComponent implements OnInit {
    * Monta a agenda com a estrutura carregada da API
    */
   mountSchedule() {
+    this.availableScheduleTimes = [];
 
     var initHour = this.schedulerParams.initialAttendanceTime.split(":")[0];
     var initMinute = this.schedulerParams.initialAttendanceTime.split(":")[1];
 
-    var scheduleTime = new Date();
+    var scheduleTime = new Date(this.selectedDate);
     scheduleTime.setHours(Number.parseInt(initHour));
     scheduleTime.setMinutes(Number.parseInt(initMinute));
     if (this.schedules && this.schedules.length > 0 && this.schedules[0].schedulingDateAndTime < scheduleTime) {
@@ -65,7 +66,7 @@ export class ScheduleComponent implements OnInit {
 
     var endHour = this.schedulerParams.endAttendanceTime.split(":")[0];
     var endMinute = this.schedulerParams.endAttendanceTime.split(":")[1];
-    var endScheduleTime = new Date();
+    var endScheduleTime = new Date(this.selectedDate);
     endScheduleTime.setHours(Number.parseInt(endHour));
     endScheduleTime.setMinutes(Number.parseInt(endMinute));
     if (this.schedules && this.schedules.length > 0 && this.schedules[this.schedules.length - 1].schedulingDateAndTime > endScheduleTime) {
