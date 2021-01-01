@@ -6,8 +6,8 @@ import { Professional } from "./Professional";
  */
 export class ScheduleInfo {
     id: number;
-    patient: PatientInfo;
-    professional: Professional;
+    patient: PatientInfo = new PatientInfo();
+    professional: Professional = new Professional();
     schedulingDateAndTime: Date;
     annotation: string;
     status: string;

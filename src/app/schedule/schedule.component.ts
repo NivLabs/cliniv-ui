@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, Inject, OnDestroy, OnInit, Output } from 
 import { FormControl } from '@angular/forms';
 import { DateAdapter, MatDateFormats, MAT_DATE_FORMATS } from '@angular/material/core';
 import { MatCalendar } from '@angular/material/datepicker';
+import { MatDialog } from '@angular/material/dialog';
 import { throwToolbarMixedModesError } from '@angular/material/toolbar';
 import { ErrorHandlerService } from 'app/core/error-handler.service';
 import { NotificationsComponent } from 'app/core/notification/notifications.component';
@@ -13,6 +14,7 @@ import { EventEmitter } from 'events';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ScheduleFilter, ScheduleInfo, ScheduleParameters } from '../model/Schedule';
+import { ScheduleEditComponent } from './schedule-edit/schedule-edit.component';
 import { ScheduleService } from './schedule.service';
 
 @Component({
@@ -33,7 +35,7 @@ export class ScheduleComponent implements OnInit {
   public selectedDate: any;
   public schedulerParams: ScheduleParameters = new ScheduleParameters();
 
-  constructor(private errorHandler: ErrorHandlerService, private principalService: ScheduleService, private professionalService: ProfessionalService, private notification: NotificationsComponent) { }
+  constructor(private dialog: MatDialog, private errorHandler: ErrorHandlerService, private principalService: ScheduleService, private professionalService: ProfessionalService, private notification: NotificationsComponent) { }
 
   ngOnInit(): void {
     this.selectedDate = new Date();
@@ -180,6 +182,23 @@ export class ScheduleComponent implements OnInit {
       day = '0' + day;
 
     return [year, month, day].join('-');
+  }
+
+
+  /**
+   * 
+   * @param schedule Item de agendamento
+   */
+  openDialog(schedule): void {
+    const dialogRef = this.dialog.open(ScheduleEditComponent, {
+      width: '100%',
+      height: 'auto',
+      data: { schedule }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.loadScheduleByFilters();
+    });
   }
 
 }

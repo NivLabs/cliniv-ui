@@ -58,8 +58,9 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <button mat-raised-button type="button" (click)="openDialog(null)"
-                                    matTooltip="Adiciona paciente" class="btn btn-info btn-block"><span
+                                <button mat-raised-button type="button" (click)="openDialog(null
+                                )"
+                                    matTooltip="Adiciona agendamento" class="btn btn-info btn-block"><span
                                         class="fa fa-plus"></span> Novo
                                     Agendamento</button>
                             </div>
@@ -80,7 +81,7 @@
                     <span *ngIf="interval.times.length == 0">Nenhum agendamento para este intervalo de horário
                         encontrado</span>
                     <div *ngFor="let scheduleItem of interval.times" class="schedule-item link-card"
-                        [ngClass]="{'canceled': scheduleItem.status === 'CANCELED'}">
+                        [ngClass]="{'canceled': scheduleItem.status === 'CANCELED'}" (click)="openDialog(scheduleItem)">
                         <div class="row">
                             <div class="col-md-6 col-lg-3">
                                 <div class="description-prop">Código:</div> {{scheduleItem.id}}
