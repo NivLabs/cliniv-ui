@@ -42,7 +42,7 @@ export class ScheduleEditComponent implements OnInit {
 
   }
 
-  selectResponsible() {
+  selectResponsible(id) {
 
   }
 }
