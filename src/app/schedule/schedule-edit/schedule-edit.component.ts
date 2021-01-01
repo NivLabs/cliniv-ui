@@ -17,6 +17,8 @@ export class ScheduleEditComponent implements OnInit {
   public dateSelectControl: FormControl = new FormControl('', [Validators.required]);
   public timeSelectControl: FormControl = new FormControl('', [Validators.required]);
 
+  public loading = false;
+
   public responsibles = [];
   constructor(
     public dialogRef: MatDialogRef<ScheduleEditComponent>
@@ -30,5 +32,17 @@ export class ScheduleEditComponent implements OnInit {
 
   onCancelClick(): void {
     this.dialogRef.close();
+  }
+
+  enterKeyPress(event, type) {
+
+  }
+
+  save() {
+
+  }
+
+  selectResponsible() {
+
   }
 }
