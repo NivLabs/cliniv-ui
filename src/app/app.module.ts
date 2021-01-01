@@ -1,19 +1,18 @@
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
 import { CoreModule } from './core/core.module';
-import { HealthOperatorEditComponent } from './healthOperator/health-operator-edit/health-operator-edit.component';
-import { HealthOperatorComponent } from './healthOperator/health-operator.component';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { AdminLayoutModule } from './layouts/admin-layout/admin-layout.module';
 import { SecurityRoutingModule } from './security/security-routing.module';
 import { SecurityModule } from './security/security.module';
-import { HealthPlanComponent } from './healthOperator/health-plan/health-plan.component';
+
 
 @NgModule({
    imports: [
@@ -31,12 +30,9 @@ import { HealthPlanComponent } from './healthOperator/health-plan/health-plan.co
    ],
    declarations: [
       AppComponent,
-      AdminLayoutComponent,
-      HealthOperatorComponent,
-      HealthOperatorEditComponent,
-      HealthPlanComponent
+      AdminLayoutComponent
    ],
-   providers: [],
+   providers: [{ provide: MAT_DATE_LOCALE, useValue: 'pt-BR' }],
    bootstrap: [
       AppComponent
    ]

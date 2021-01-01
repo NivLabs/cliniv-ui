@@ -1,4 +1,3 @@
-//#region Componentes de terceiros
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -9,7 +8,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatNativeDateModule, MatPseudoCheckboxModule, MatRippleModule } from '@angular/material/core';
-import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatDatepickerModule, MatCalendarHeader } from '@angular/material/datepicker';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatExpansionModule } from '@angular/material/expansion';
@@ -40,9 +39,12 @@ import { CameraDialogComponent } from 'app/component/camera/dialog/camera-dialog
 import { DocumentViewerComponent } from 'app/component/document-viewer/document-viewer.component';
 import { CameraComponent } from 'app/core/camera/camera.component';
 import { HealthOperatorEditComponent } from 'app/healthOperator/health-operator-edit/health-operator-edit.component';
+import { HealthOperatorComponent } from 'app/healthOperator/health-operator.component';
 import { HealthOperatorService } from 'app/healthOperator/health-operator.service';
 import { HealthPlanService } from 'app/healthOperator/health-plan.service';
 import { HealthPlanComponent } from 'app/healthOperator/health-plan/health-plan.component';
+import { ScheduleComponent } from 'app/schedule/schedule.component';
+import { ScheduleEditComponent } from 'app/schedule/schedule-edit/schedule-edit.component';
 import { SettingsComponent } from 'app/settings/settings.component';
 import { CloseEventComponent } from 'app/visit/close-event/close-event.component';
 import { DocumentSelectorComponent } from 'app/visit/document-selector/document-selector.component';
@@ -53,8 +55,6 @@ import { IConfig, NgxMaskModule } from 'ngx-mask';
 import { WebcamModule } from 'ngx-webcam';
 import { AttendanceService } from '../../attendance/attendance.service';
 import { LoadingComponent } from '../../components/loading/loading.component';
-//#endregion
-//#region Componentes da aplicação
 import { ConfirmDialogComponent } from '../../core/confirm-dialog/confirm-dialog.component';
 import { NotificationsComponent } from '../../core/notification/notifications.component';
 import { DashboardComponent } from '../../dashboard/dashboard.component';
@@ -66,6 +66,7 @@ import { ProcedureService } from '../../procedure/procedure.service';
 import { ProfessionalEditComponent } from '../../professional/professional-edit/professional-edit.component';
 import { ProfessionalComponent } from '../../professional/professional.component';
 import { ProfessionalService } from '../../professional/professional.service';
+import { ScheduleService } from '../../schedule/schedule.service';
 import { AccommodationComponent } from '../../sector/accommodation/accommodation.component';
 import { SectorEditComponent } from '../../sector/sector-edit/sector-edit.component';
 import { SectorComponent } from '../../sector/sector.component';
@@ -89,7 +90,6 @@ import { MedicalRecordService } from '../../visit/medical-record.service';
 import { NewAttendanceComponent } from '../../visit/newVisit/new-attendance.component';
 import { AdminLayoutRoutes } from './admin-layout.routing';
 
-//#endregion
 
 const matModules = [
   MatAutocompleteModule,
@@ -143,7 +143,7 @@ const maskConfig: Partial<IConfig> = {
     WebcamModule,
     NgxMaskModule.forRoot(maskConfig),
     PdfViewerModule,
-    BrowserAnimationsModule 
+    BrowserAnimationsModule
   ],
   exports: [
     CommonModule,
@@ -201,7 +201,14 @@ const maskConfig: Partial<IConfig> = {
 
     AllergyComponent,
 
-    LoadingComponent
+    LoadingComponent,
+
+    HealthOperatorComponent,
+    HealthOperatorEditComponent,
+    HealthPlanComponent,
+
+    ScheduleComponent,
+    ScheduleEditComponent
   ],
   entryComponents: [
     PatientEditComponent,
@@ -212,6 +219,7 @@ const maskConfig: Partial<IConfig> = {
     EvolutionComponent,
     ProfessionalEditComponent,
     AnamnesisComponent,
+    ScheduleEditComponent,
     SelectFormComponent,
     CloseEventComponent,
     SectorEditComponent,
@@ -228,6 +236,7 @@ const maskConfig: Partial<IConfig> = {
   providers: [
     UserProfileService,
     PatientService,
+    ScheduleService,
     AnamnesisService,
     HealthPlanService,
     ProfessionalService,

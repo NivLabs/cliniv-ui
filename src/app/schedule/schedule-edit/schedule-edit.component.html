@@ -1,0 +1,180 @@
+<div class="card card-profile">
+    <div class="card-avatar">
+        <img class="img"
+            src="{{dataToForm.patient.profilePhoto ? dataToForm.patient.profilePhoto : './assets/img/upload.png'}}" />
+    </div>
+    <div class="card-header card-header-info">
+        <h4 class="card-title">Dados do agendamento</h4>
+        <p class="card-category">Dados completos do agendamento
+            {{dataToForm.id ? 'criado em ' + (dataToForm.createdAt | date: 'dd/MM/yyyy') : ''}}</p>
+    </div>
+    <div class="card-body">
+        <form #form="ngForm" autocomplete="off">
+            <br />
+            <mat-list>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4>Informações do paciente</h4>
+                    </div>
+                </div>
+                <mat-divider></mat-divider>
+                <br />
+                <div class="row">
+                    <div class="col-md-3">
+                        <mat-form-field>
+                            <mat-label>Matrícula do paciente [ENTER]</mat-label>
+                            <input matInput type="text" placeholder="Matrícula do Paciente [ENTER]" name="patientId"
+                                (keypress)="enterKeyPress($event, 'SearchById')" [(ngModel)]="dataToForm.patient.id"
+                                #patientId required />
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-3">
+                        <mat-form-field>
+                            <mat-label>CPF do Paciente [ENTER]</mat-label>
+                            <input matInput type="text" placeholder="CPF do paciente [ENTER]" name="patientDocument"
+                                (keypress)="enterKeyPress($event, 'searchCPF')"
+                                [(ngModel)]="dataToForm.patient.document.value" #patientDocument required />
+                        </mat-form-field>
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-md-6">
+                        <mat-form-field>
+                            <input matInput placeholder="Nome Completo" name="fullName"
+                                [(ngModel)]="dataToForm.patient.fullName" #fullName="ngModel" type="text" disabled />
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-6">
+                        <mat-form-field>
+                            <input matInput placeholder="Nome Social" name="socialName"
+                                [(ngModel)]="dataToForm.patient.socialName" #socialName="ngModel" type="text"
+                                disabled />
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <mat-form-field>
+                            <input matInput placeholder="Nome Completo da Mãe" name="motherName"
+                                [(ngModel)]="dataToForm.patient.motherName" #motherName="ngModel" type="text"
+                                disabled />
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <mat-form-field>
+                            <input matInput placeholder="Nome Completo do Pai" name="fatherName"
+                                [(ngModel)]="dataToForm.patient.fatherName" #fatherName type="text" disabled />
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <mat-form-field>
+                            <input matInput placeholder="Telefone principal (Apenas números)" name="principalNumber"
+                                [(ngModel)]="dataToForm.patient.principalNumber" #principalNumber type="text" disabled
+                                mask="(00) 0000-00000" />
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-3">
+                        <mat-form-field>
+                            <input matInput placeholder="Data de nascimento" name="bornDate"
+                                [(ngModel)]="dataToForm.patient.bornDate" #bornDate type="date" disabled />
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-3">
+                        <mat-form-field>
+                            <mat-label>Sexo</mat-label>
+                            <mat-select matNativeControl name="gender" (change)="selectGender($event.target.value)"
+                                [(ngModel)]="dataToForm.patient.gender" #gender disabled>
+                                <mat-option value="M">Masculino</mat-option>
+                                <mat-option value="F">Feminino</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-3">
+                        <mat-form-field>
+                            <mat-label>Identidade de Gênero</mat-label>
+                            <mat-select matNativeControl name="genderIdentity"
+                                (change)="selectGenderIdeology($event.target.value)"
+                                [(ngModel)]="dataToForm.patient.genderIdentity" #genderIdentity disabled>
+                                <mat-option value="HETERO" selected>Heterosexual</mat-option>
+                                <mat-option value="HOMO">Homossexual</mat-option>
+                                <mat-option value="TRANS">Transexual</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4>Informações do agendamento</h4>
+                    </div>
+                </div>
+                <mat-divider></mat-divider>
+                <br />
+                <div class="row">
+                    <div class="col-sm-6 col-md-3 col-lg-2">
+                        <mat-form-field>
+                            <mat-label>Data do atendimento</mat-label>
+                            <input type="date" matInput [formControl]="dateSelectControl" name="dateSelected"
+                                [value]="dateSelected" #dateSelected>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-sm-6 col-md-3 col-lg-2">
+                        <mat-form-field>
+                            <mat-label>Hora do atendimento</mat-label>
+                            <input type="time" matInput [formControl]="timeSelectControl" name="timeSelected"
+                                [value]="timeSelected" #timeSelected>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-sm-12 col-md-6 col-lg-8">
+                        <mat-form-field>
+                            <mat-label>
+                                {{responsibles && responsibles.length > 0 ? 'Selecione um profissional' :
+                                'Não
+                                há
+                                profissional habilitado'}}
+                            </mat-label>
+                            <mat-select [formControl]="responsibleControl"
+                                (selectionChange)="selectResponsible($event.value)"
+                                [disabled]="!responsibles || responsibles.length === 0">
+                                <mat-option *ngIf="responsibles && responsibles.length > 0">
+                                    Todos
+                                </mat-option>
+                                <mat-option *ngIf="!responsibles || responsibles.length === 0">
+                                    Não há profissional cadastrado
+                                </mat-option>
+                                <mat-option *ngFor="let responsible of responsibles" [value]="responsible.id">
+                                    {{responsible.fullName}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <mat-form-field>
+                            <mat-label>Anotações</mat-label>
+                            <textarea matInput cdkTextareaAutosize="true" cdkAutosizeMinRows="10" name="annotation"
+                                [(ngModel)]="dataToForm.annotation" #annotation></textarea>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <mat-divider></mat-divider>
+            </mat-list>
+            <div class="clearfix"></div>
+            <button mat-raised-button class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-danger pull-right"
+                (click)="onCancelClick()">Fechar</button>
+            <button mat-raised-button type="submit"
+                [disabled]="timeSelectControl.hasError('required') || dateSelectControl.hasError('required') || responsibleControl.hasError('required') || !dataToForm.patient.id"
+                class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-success pull-right" (click)="save(true)">{{
+                dataToForm.id ? 'Salvar' : 'Agendar' }}</button>
+
+
+        </form>
+    </div>
+</div>
+<app-loading [show]="loading"></app-loading>
