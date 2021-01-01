@@ -11,6 +11,7 @@ export class ScheduleInfo {
     schedulingDateAndTime: Date;
     annotation: string;
     status: string;
+    createdAt: Date;
 }
 
 export class ScheduleFilter {
