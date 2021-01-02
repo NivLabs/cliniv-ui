@@ -58,9 +58,9 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <button mat-raised-button type="button" (click)="openDialog(null
-                                )"
-                                    matTooltip="Adiciona agendamento" class="btn btn-info btn-block"><span
+                                <button mat-raised-button type="button" (click)="openDialog(null)"
+                                    matTooltip="Adiciona agendamento" class="btn btn-info btn-block"
+                                    [disabled]="!responsibles || responsibles.length == 0"><span
                                         class="fa fa-plus"></span> Novo
                                     Agendamento</button>
                             </div>
@@ -74,7 +74,8 @@
                 </div>
                 <hr />
                 <div *ngFor="let interval of availableScheduleTimes">
-                    <h3>{{interval.id | date:'HH:mm'}} <button
+                    <h3>{{interval.id | date:'HH:mm'}} <button [disabled]="!responsibles || responsibles.length == 0"
+                            (click)="openDialog(selectedDate, interval.id)" matTooltip="Adiciona agendamento neste intervalo"
                             class="fa fa-plus btn btn-info schedule-button-plus"></button>
                     </h3>
                     <hr />
