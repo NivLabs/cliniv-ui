@@ -115,18 +115,12 @@
                 <mat-divider></mat-divider>
                 <br />
                 <div class="row">
-                    <div class="col-sm-6 col-md-3 col-lg-2">
+                    <div class="col-sm-12 col-md-6 col-lg-4">
                         <mat-form-field>
-                            <mat-label>Data do atendimento</mat-label>
-                            <input type="date" matInput [formControl]="dateSelectControl" name="dateSelected"
-                                [value]="dateSelected" #dateSelected>
-                        </mat-form-field>
-                    </div>
-                    <div class="col-sm-6 col-md-3 col-lg-2">
-                        <mat-form-field>
-                            <mat-label>Hora do atendimento</mat-label>
-                            <input type="time" matInput [formControl]="timeSelectControl" name="timeSelected"
-                                [value]="timeSelected" #timeSelected>
+                            <mat-label>Data/hora do atendimento</mat-label>
+                            <input matInput placeholder="Data/Hora do atendimento" type="datetime-local"
+                                [(ngModel)]="dataToForm.schedulingDateAndTime" name="schedulingDateAndTime"
+                                #schedulingDateAndTime="ngModel" required>
                         </mat-form-field>
                     </div>
                     <div class="col-sm-12 col-md-6 col-lg-8">
@@ -168,7 +162,7 @@
             <button mat-raised-button class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-danger pull-right"
                 (click)="onCancelClick()">Fechar</button>
             <button mat-raised-button type="submit"
-                [disabled]="timeSelectControl.hasError('required') || dateSelectControl.hasError('required') || responsibleControl.hasError('required') || !dataToForm.patient.id"
+                [disabled]="responsibleControl.hasError('required') || !dataToForm.patient.id"
                 class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-success pull-right" (click)="save()">{{
                 dataToForm.id ? 'Salvar' : 'Agendar' }}</button>
 

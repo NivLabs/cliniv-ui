@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { DatePipe } from '@angular/common';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { NotificationsComponent } from 'app/core/notification/notifications.component';
 import { ScheduleInfo } from 'app/model/Schedule';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-schedule-edit',
@@ -11,21 +14,27 @@ import { ScheduleInfo } from 'app/model/Schedule';
 export class ScheduleEditComponent implements OnInit {
 
   public dataToForm: ScheduleInfo;
-  public dateSelected: Date;
-  public timeSelected: Date;
   public responsibleControl: FormControl = new FormControl('', [Validators.required]);
-  public dateSelectControl: FormControl = new FormControl('', [Validators.required]);
-  public timeSelectControl: FormControl = new FormControl('', [Validators.required]);
 
   public loading = false;
 
   public responsibles = [];
   constructor(
-    public dialogRef: MatDialogRef<ScheduleEditComponent>
+    private dialogRef: MatDialogRef<ScheduleEditComponent>,
+    private notification: NotificationsComponent,
+    @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
 
   ngOnInit(): void {
-    this.dataToForm = new ScheduleInfo();
+    this.responsibles = this.dialogRef.componentInstance.data['responsibles'];
+    this.dataToForm = this.dialogRef.componentInstance.data['schedule'];
+    if (!this.dataToForm) {
+      this.dataToForm = new ScheduleInfo();
+    }
+    if (!this.responsibles || this.responsibles.length == 0) {
+      this.onCancelClick();
+      this.notification.showWarning('Nenhum profissional habilitado para realizar atendimento');
+    }
     console.log(this.dataToForm);
   }
 
@@ -39,7 +48,7 @@ export class ScheduleEditComponent implements OnInit {
   }
 
   save() {
-
+    console.log(this.dataToForm);
   }
 
   selectResponsible(id) {

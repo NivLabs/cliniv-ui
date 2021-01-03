@@ -8,9 +8,10 @@ export class ScheduleInfo {
     id: number;
     patient: PatientInfo = new PatientInfo();
     professional: Professional = new Professional();
-    schedulingDateAndTime: Date;
+    schedulingDateAndTime: string;
     annotation: string;
     status: string;
+    attendanceEvent
     createdAt: Date;
 }
 

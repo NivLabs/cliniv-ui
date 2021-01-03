@@ -1,18 +1,10 @@
 import { ChangeDetectorRef, Component, Inject, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { DateAdapter, MatDateFormats, MAT_DATE_FORMATS } from '@angular/material/core';
-import { MatCalendar } from '@angular/material/datepicker';
 import { MatDialog } from '@angular/material/dialog';
-import { throwToolbarMixedModesError } from '@angular/material/toolbar';
 import { ErrorHandlerService } from 'app/core/error-handler.service';
 import { NotificationsComponent } from 'app/core/notification/notifications.component';
-import { PatientInfo } from 'app/model/Patient';
-import { Professional } from 'app/model/Professional';
 import { Pageable } from 'app/model/Util';
 import { ProfessionalService } from 'app/professional/professional.service';
-import { EventEmitter } from 'events';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
 import { ScheduleFilter, ScheduleInfo, ScheduleParameters } from '../model/Schedule';
 import { ScheduleEditComponent } from './schedule-edit/schedule-edit.component';
 import { ScheduleService } from './schedule.service';
@@ -40,8 +32,8 @@ export class ScheduleComponent implements OnInit {
   ngOnInit(): void {
     this.selectedDate = new Date();
     this.filters.selectedDate = this.formatDate(this.selectedDate);
-    this.loadResponsibles();
-    this.loadScheduleByFilters();
+    this.loadResponsibles()
+      .then(() => this.loadScheduleByFilters());
 
   }
 
@@ -61,8 +53,8 @@ export class ScheduleComponent implements OnInit {
     var scheduleTime = new Date(this.selectedDate);
     scheduleTime.setHours(Number.parseInt(initHour));
     scheduleTime.setMinutes(Number.parseInt(initMinute));
-    if (this.schedules && this.schedules.length > 0 && this.schedules[0].schedulingDateAndTime < scheduleTime) {
-      scheduleTime = this.schedules[0].schedulingDateAndTime;
+    if (this.schedules && this.schedules.length > 0 && new Date(this.schedules[0].schedulingDateAndTime) < scheduleTime) {
+      scheduleTime = new Date(this.schedules[0].schedulingDateAndTime);
     }
 
 
@@ -71,8 +63,8 @@ export class ScheduleComponent implements OnInit {
     var endScheduleTime = new Date(this.selectedDate);
     endScheduleTime.setHours(Number.parseInt(endHour));
     endScheduleTime.setMinutes(Number.parseInt(endMinute));
-    if (this.schedules && this.schedules.length > 0 && this.schedules[this.schedules.length - 1].schedulingDateAndTime > endScheduleTime) {
-      endScheduleTime = this.schedules[this.schedules.length - 1].schedulingDateAndTime;
+    if (this.schedules && this.schedules.length > 0 && new Date(this.schedules[this.schedules.length - 1].schedulingDateAndTime) > endScheduleTime) {
+      endScheduleTime = new Date(this.schedules[this.schedules.length - 1].schedulingDateAndTime);
     }
 
     while (scheduleTime < endScheduleTime) {
@@ -118,7 +110,7 @@ export class ScheduleComponent implements OnInit {
    */
   loadScheduleByFilters() {
     this.loading = true;
-    this.principalService.getByFilter(this.filters).then(resp => {
+    return this.principalService.getByFilter(this.filters).then(resp => {
       this.schedules = resp;
       this.schedules.sort((a, b) => new Date(a.schedulingDateAndTime).getTime() - new Date(b.schedulingDateAndTime).getTime());
       this.mountSchedule();
@@ -138,14 +130,12 @@ export class ScheduleComponent implements OnInit {
     this.loading = true;
     var pageSettings = new Pageable();
     pageSettings.size = 50;
-    this.professionalService.getPage(null, pageSettings).then(response => {
-      this.loading = false;
+    return this.professionalService.getPage(null, pageSettings).then(response => {
       if (!response.content || !response.content.length) {
-        this.notification.showWarning("Nenhum profissional encontrado com a especialidade selecionada");
+        this.notification.showWarning("Nenhum profissional encontrado, favor realizar o cadastro antes de agendar");
       }
       this.responsibles = response.content;
     }).catch(e => {
-      this.loading = false;
       this.responsibles = [];
     });
   }
@@ -189,11 +179,20 @@ export class ScheduleComponent implements OnInit {
    * 
    * @param schedule Item de agendamento
    */
-  openDialog(schedule): void {
+  openDialog(selectedDate: Date, selectedTime: Date): void {
+    if (selectedDate && selectedDate) {
+      var selectedDate = new Date();
+      selectedDate.setDate(selectedDate.getDate());
+      selectedDate.setTime(selectedTime.getTime());
+      // GMT -3
+      selectedTime.setHours(selectedTime.getHours() - 3);
+      var schedule = new ScheduleInfo();
+      schedule.schedulingDateAndTime = selectedTime.toISOString().slice(0, 16);
+    }
     const dialogRef = this.dialog.open(ScheduleEditComponent, {
       width: '100%',
       height: 'auto',
-      data: { schedule }
+      data: { schedule, responsibles: this.responsibles }
     });
 
     dialogRef.afterClosed().subscribe(result => {
