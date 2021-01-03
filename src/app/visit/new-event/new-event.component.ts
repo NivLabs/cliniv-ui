@@ -64,7 +64,6 @@ export class NewEventComponent implements OnInit {
       this.dataToForm = new NewAttendanceEvent();
       this.dataToForm.attendanceId = data.attendanceId;
       this.dataToForm.accommodation = data.lastAccommodation ? data.lastAccommodation : new Accommodation();
-      this.dataToForm.eventType = new EventType();
       this.dataToForm.documents = [];
       this.dataToForm.responsible = new Professional();
       this.dataToForm.procedure = new ProcedureInfo();
@@ -133,9 +132,9 @@ export class NewEventComponent implements OnInit {
    * 
    * @param id Identificador único do tipo de evento
    */
-  selectEventType(id: number) {
-    if (id) {
-      this.dataToForm.eventType.id = id;
+  selectEventType(eventyType: string) {
+    if (eventyType) {
+      this.dataToForm.eventType = eventyType;
     }
   }
 

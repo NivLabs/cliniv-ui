@@ -8,21 +8,6 @@
             <div class="row">
                 <div class="col-12">
                     <mat-form-field>
-                        <mat-label>Tipo de alta</mat-label>
-                        <mat-select matNativeControl name="eventTypeId" [(ngModel)]="dataToForm.eventTypeId"
-                            #eventTypeId required>
-                            <mat-option [value]="19">ALTA HOSPITALAR (PEDIDO, ADMINISTRATIVA, FULGA) </mat-option>
-                            <mat-option [value]="18">ALTA POR ÓBITO</mat-option>
-                            <mat-option [value]="20">ALTA POR TRANSFERÊNCIA (PACIENTE PARA OUTRO HOSPITAL/CLÍNICA)
-                            </mat-option>
-                            <mat-option [value]="17">ALTA RESIDENCIAL (CONTINUIDADE DO TRATAMENTO EM CASA) </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-12">
-                    <mat-form-field>
                         <mat-label>Parecer (Médico | Clínico)</mat-label>
                         <textarea matInput cdkTextareaAutosize="true" cdkAutosizeMinRows="10" name="observations"
                             [(ngModel)]="dataToForm.observations" #observations></textarea>

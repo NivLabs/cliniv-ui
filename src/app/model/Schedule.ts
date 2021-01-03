@@ -11,6 +11,7 @@ export class ScheduleInfo {
     schedulingDateAndTime: string;
     annotation: string;
     status: string;
+    attendanceEvent
     createdAt: Date;
 }
 

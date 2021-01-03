@@ -4,12 +4,10 @@ import { AppHttp } from "app/security/app-http";
 import { Specialization, SpecializationInfo } from "app/model/Specialization";
 import { EventType } from "app/model/EventType";
 import { DigitalDocument } from "app/model/DigitalDocument";
-import { Parameter, ParameterByGroup } from "app/model/Parameter";
+import {  ParameterByGroup } from "app/model/Parameter";
 
 @Injectable()
 export class UtilService {
-
-    private eventTypes: Array<EventType>;
 
     constructor(private http: AppHttp) {
     }

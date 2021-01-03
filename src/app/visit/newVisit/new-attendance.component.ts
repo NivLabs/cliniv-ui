@@ -50,7 +50,7 @@ export class NewAttendanceComponent implements OnInit {
             this.newVisit.entryCause = '';
             this.newVisit.level = 'LOW';
             this.newVisit.responsibleId = null;
-            this.newVisit.eventTypeId = null;
+            this.newVisit.eventType = "ENTRY";
             this.newVisit.accommodationId = null;
             this.newVisit.specialityId = null;
         }
@@ -112,8 +112,8 @@ export class NewAttendanceComponent implements OnInit {
         }
     }
 
-    selectEventType(newValue) {
-        this.newVisit.eventTypeId = newValue;
+    selectEventType(newValue: string) {
+        this.newVisit.eventType = newValue;
     }
 
     selectLevel(newValue) {
