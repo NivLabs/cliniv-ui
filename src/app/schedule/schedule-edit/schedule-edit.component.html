@@ -160,6 +160,10 @@
                 <mat-divider></mat-divider>
             </mat-list>
             <div class="clearfix"></div>
+            <button mat-raised-button
+                *ngIf="(dataToForm.patient.id && dataToForm.patient.document.value && dataToForm.patient.fullName) || dataToForm.id" type="button"
+                class="col-12 col-sm-12 col-md-4 col-lg-3 pull-left ml-0 mr-0 btn btn-warning" (click)="resetForm()"
+                matTooltip="Limpar formulário"><span class="fa fa-eraser"></span> Limpar formulário</button>
             <button mat-raised-button class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-danger pull-right"
                 (click)="onCancelClick()">Fechar</button>
             <button mat-raised-button type="submit"

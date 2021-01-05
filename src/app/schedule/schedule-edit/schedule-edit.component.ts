@@ -1,7 +1,9 @@
 import { DatePipe } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from 'app/core/confirm-dialog/confirm-dialog.component';
 import { ErrorHandlerService } from 'app/core/error-handler.service';
 import { NotificationsComponent } from 'app/core/notification/notifications.component';
 import { UtilService } from 'app/core/util.service';
@@ -28,6 +30,7 @@ export class ScheduleEditComponent implements OnInit {
   constructor(
     private dialogRef: MatDialogRef<ScheduleEditComponent>,
     private notification: NotificationsComponent,
+    private confirmDialog: MatDialog,
     private utilService: UtilService,
     private patientService: PatientService,
     private errorHandler: ErrorHandlerService,
@@ -67,7 +70,6 @@ export class ScheduleEditComponent implements OnInit {
           break;
       }
     }
-
   }
 
 
@@ -94,28 +96,50 @@ export class ScheduleEditComponent implements OnInit {
         }
       }).catch(error => {
         this.loading = false;
-        this.dataToForm.patient.document = new Document('CPF');
-        this.errorHandler.handle(error, this.dialogRef);
+        this.ngOnInit();
+        if (error instanceof HttpErrorResponse && error.status == 404) {
+          this.notification.showWarning('Cadastro não encontrado, realize o cadastro do paciente antes de iniciar o agendamento');
+        } else {
+          this.errorHandler.handle(error, this.dialogRef);
+        }
       });
     }
   }
 
-  searchPatientById() {
-    this.loading = true;
-    this.patientService.getById(this.dataToForm.patient.id).then(resp => {
-      this.loading = false;
-      this.dataToForm.patient = resp;
-      if (!resp.address) {
-        this.dataToForm.patient.address = new Address();
-      }
-      if (!resp.document) {
-        this.dataToForm.patient.document = new Document('CPF');
-      }
-    }).catch(error => {
-      this.loading = false;
-      this.dataToForm.patient = new PatientInfo();
-      this.errorHandler.handle(error, this.dialogRef);
+  resetForm() {
+    const confirmDialogRef = this.confirmDialog.open(ConfirmDialogComponent, {
+      data: { title: 'Confirmação', message: 'Você confirma a limpeza do formulário?' }
     });
+
+    confirmDialogRef.afterClosed().subscribe(result => {
+      if (result !== undefined && result.isConfirmed) {
+        this.ngOnInit();
+      }
+    });
+  }
+
+  searchPatientById() {
+    if (this.dataToForm.patient.id) {
+      this.loading = true;
+      this.patientService.getById(this.dataToForm.patient.id).then(resp => {
+        this.loading = false;
+        this.dataToForm.patient = resp;
+        if (!resp.address) {
+          this.dataToForm.patient.address = new Address();
+        }
+        if (!resp.document) {
+          this.dataToForm.patient.document = new Document('CPF');
+        }
+      }).catch(error => {
+        this.loading = false;
+        this.ngOnInit();
+        if (error instanceof HttpErrorResponse && error.status == 404) {
+          this.notification.showWarning('Cadastro não encontrado, realize o cadastro do paciente antes de iniciar o agendamento');
+        } else {
+          this.errorHandler.handle(error, this.dialogRef);
+        }
+      });
+    }
   }
 
   save() {
