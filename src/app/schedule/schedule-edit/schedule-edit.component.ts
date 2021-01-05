@@ -96,7 +96,7 @@ export class ScheduleEditComponent implements OnInit {
         }
       }).catch(error => {
         this.loading = false;
-        this.ngOnInit();
+        this.doResetForm();
         if (error instanceof HttpErrorResponse && error.status == 404) {
           this.notification.showWarning('Cadastro não encontrado, realize o cadastro do paciente antes de iniciar o agendamento');
         } else {
@@ -104,18 +104,6 @@ export class ScheduleEditComponent implements OnInit {
         }
       });
     }
-  }
-
-  resetForm() {
-    const confirmDialogRef = this.confirmDialog.open(ConfirmDialogComponent, {
-      data: { title: 'Confirmação', message: 'Você confirma a limpeza do formulário?' }
-    });
-
-    confirmDialogRef.afterClosed().subscribe(result => {
-      if (result !== undefined && result.isConfirmed) {
-        this.ngOnInit();
-      }
-    });
   }
 
   searchPatientById() {
@@ -132,7 +120,7 @@ export class ScheduleEditComponent implements OnInit {
         }
       }).catch(error => {
         this.loading = false;
-        this.ngOnInit();
+        this.doResetForm();
         if (error instanceof HttpErrorResponse && error.status == 404) {
           this.notification.showWarning('Cadastro não encontrado, realize o cadastro do paciente antes de iniciar o agendamento');
         } else {
@@ -141,6 +129,31 @@ export class ScheduleEditComponent implements OnInit {
       });
     }
   }
+
+  resetForm() {
+    const confirmDialogRef = this.confirmDialog.open(ConfirmDialogComponent, {
+      data: { title: 'Confirmação', message: 'Você confirma a limpeza do formulário?' }
+    });
+
+    confirmDialogRef.afterClosed().subscribe(result => {
+      if (result !== undefined && result.isConfirmed) {
+        this.doResetForm();
+      }
+    });
+  }
+
+  doResetForm() {
+    if (!this.dataToForm.id) {
+      var schedulingDateAndTime = this.dataToForm.schedulingDateAndTime;
+      var professional = this.dataToForm.professional;
+      this.dataToForm = new ScheduleInfo();
+      this.dataToForm.schedulingDateAndTime = schedulingDateAndTime;
+      this.dataToForm.professional = professional;
+    } else {
+      this.dataToForm = new ScheduleInfo();
+    }
+  }
+
 
   save() {
     console.log(this.dataToForm);
