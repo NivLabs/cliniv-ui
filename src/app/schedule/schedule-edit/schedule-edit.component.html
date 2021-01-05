@@ -24,16 +24,19 @@
                         <mat-form-field>
                             <mat-label>Matrícula do paciente [ENTER]</mat-label>
                             <input matInput type="text" placeholder="Matrícula do Paciente [ENTER]" name="patientId"
-                                (keypress)="enterKeyPress($event, 'SearchById')" [(ngModel)]="dataToForm.patient.id"
-                                #patientId required />
+                                (keypress)="enterKeyPress($event, 'ID')" [(ngModel)]="dataToForm.patient.id" #patientId
+                                required
+                                [disabled]="(dataToForm.patient.id && dataToForm.patient.document.value && dataToForm.patient.fullName) || dataToForm.id" />
                         </mat-form-field>
                     </div>
                     <div class="col-md-3">
                         <mat-form-field>
                             <mat-label>CPF do Paciente [ENTER]</mat-label>
                             <input matInput type="text" placeholder="CPF do paciente [ENTER]" name="patientDocument"
-                                (keypress)="enterKeyPress($event, 'searchCPF')"
-                                [(ngModel)]="dataToForm.patient.document.value" #patientDocument required />
+                                (keypress)="enterKeyPress($event, 'CPF')"
+                                [(ngModel)]="dataToForm.patient.document.value" #patientDocument required maxlength="14"
+                                mask="000.000.000-00"
+                                [disabled]="(dataToForm.patient.id && dataToForm.patient.document.value && dataToForm.patient.fullName) || dataToForm.id" />
                         </mat-form-field>
                     </div>
                 </div>
@@ -159,6 +162,11 @@
                 <mat-divider></mat-divider>
             </mat-list>
             <div class="clearfix"></div>
+            <button mat-raised-button
+                *ngIf="(dataToForm.patient.id && dataToForm.patient.document.value && dataToForm.patient.fullName) || dataToForm.id"
+                type="button" class="col-12 col-sm-12 col-md-4 col-lg-3 pull-left ml-0 mr-0 btn btn-warning"
+                (click)="resetForm()" matTooltip="Limpar formulário"><span class="fa fa-eraser"></span> Limpar
+                formulário</button>
             <button mat-raised-button class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-danger pull-right"
                 (click)="onCancelClick()">Fechar</button>
             <button mat-raised-button type="submit"
