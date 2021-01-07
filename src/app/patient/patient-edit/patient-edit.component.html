@@ -37,7 +37,7 @@
                                 <input matInput placeholder="Cadastro de Pessoa Física (CPF)  [ENTER]" name="document"
                                     [(ngModel)]="dataToForm.document.value"
                                     (keypress)="enterKeyPress($event, 'searchCPF')" #document type="text" maxlength="14"
-                                    mask="000.000.000-00" />
+                                    mask="000.000.000-00" required />
                             </mat-form-field>
                         </div>
                         <div class="col-md-4">
@@ -112,6 +112,9 @@
                                 <mat-label>Anotações sobre o paciente</mat-label>
                                 <textarea matInput cdkTextareaAutosize="true" cdkAutosizeMinRows="8" name="annotations"
                                     [(ngModel)]="dataToForm.annotations" #annotations></textarea>
+                                <span style="color:red" *ngIf="dataToForm.annotations.length > 10000">
+                                    10 max
+                                </span>
                             </mat-form-field>
                         </div>
                     </div>
@@ -363,8 +366,8 @@
                     </div>
                     <div class="col-12 col-sm-12 col-md-4 col-lg-3 pull-right ml-0 mr-0">
                         <button mat-raised-button type="submit" class="btn btn-success col-12"
-                            [disabled]="!form.valid || !cpfIsValid()" matTooltip="Salva informações do formulário"><span
-                                class="fa fa-check"></span>
+                            [disabled]="!form.valid || !cpfIsValid() || dataToForm.annotations.length > 10000"
+                            matTooltip="Salva informações do formulário"><span class="fa fa-check"></span>
                             Salvar</button>
                     </div>
                 </div>
