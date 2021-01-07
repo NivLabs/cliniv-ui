@@ -39,6 +39,17 @@
                                 [disabled]="(dataToForm.patient.id && dataToForm.patient.document.value && dataToForm.patient.fullName) || dataToForm.id" />
                         </mat-form-field>
                     </div>
+                    <div *ngIf="dataToForm.patient?.principalNumber && dataToForm.professional?.fullName && dataToForm.schedulingDateAndTime"
+                        class="col-md-3">
+                        <a class="btn btn-success btn-block"
+                            [href]="'https://api.whatsapp.com/send?phone=55' + dataToForm.patient?.principalNumber + '&text=Olá ' + dataToForm.patient?.fullName + ' estou passando para lembrar do seu compromisso com ' + dataToForm.professional?.fullName + ' data/hora ' + dataToForm.schedulingDateAndTime"><span
+                                class="fa fa-whatsapp"></span>
+                            WhatsApp</a>
+                    </div>
+                    <div *ngIf="dataToForm.patient?.principalNumber" class="col-md-3">
+                        <a class="btn btn-success btn-block" [href]="'tel:' + dataToForm.patient?.principalNumber"><span
+                                class="fa fa-phone"></span> {{dataToForm.patient.principalNumber}}</a>
+                    </div>
                 </div>
                 <hr />
                 <div class="row">
