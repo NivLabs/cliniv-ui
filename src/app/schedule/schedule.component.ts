@@ -174,6 +174,25 @@ export class ScheduleComponent implements OnInit {
     return [year, month, day].join('-');
   }
 
+  openDialogWithSchedule(id) {
+    this.loading = true;
+    this.principalService.findById(id).then(schedule => {
+      this.loading = false;
+      const dialogRef = this.dialog.open(ScheduleEditComponent, {
+        width: '100%',
+        height: 'auto',
+        data: { schedule, responsibles: this.responsibles }
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        this.loadScheduleByFilters();
+      });
+    }).catch(error => {
+      this.loading = false;
+      this.errorHandler.handle(error, null);
+    });
+  }
+
 
   /**
    * 

@@ -12,6 +12,15 @@ export class ScheduleService {
     }
 
     /**
+     * Busca informações detalhadas de um agendamento
+     * @param id Idenditicador único do agendamento
+     */
+    findById(id: number): Promise<ScheduleInfo> {
+        var headers = this.http.getHeadersDefault();
+        return this.http.get<ScheduleInfo>(`${this.baseUrl}/${id}`, { headers }).toPromise();
+    }
+
+    /**
      * Busca as informações da agenda utilizando o filtro
      * @param scheduleFilter Filtro da Agenda
      */
@@ -29,7 +38,5 @@ export class ScheduleService {
         }
 
         return this.http.get<ScheduleInfo[]>(`${this.baseUrl}?${queryString}`, { headers }).toPromise();
-
-
     }
 }
