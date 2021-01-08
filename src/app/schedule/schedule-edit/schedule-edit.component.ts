@@ -9,7 +9,6 @@ import { NotificationsComponent } from 'app/core/notification/notifications.comp
 import { UtilService } from 'app/core/util.service';
 import { Address } from 'app/model/Address';
 import { Document } from 'app/model/Document';
-import { PatientInfo } from 'app/model/Patient';
 import { ScheduleInfo } from 'app/model/Schedule';
 import { PatientService } from 'app/patient/patient.service';
 import * as moment from 'moment';
@@ -154,12 +153,10 @@ export class ScheduleEditComponent implements OnInit {
     }
   }
 
-
   save() {
-    console.log(this.dataToForm);
+    this.notification.showInfo('NivLabs-GP! Melhorando dia após dia!');
+    this.notification.showInfo('A Versão 1 da agenda só estará disponível à partir do dia 10 de Janeiro!');
+    this.notification.showInfo('Contamos com a sua compreensão...');
   }
 
-  selectResponsible(id) {
-
-  }
 }

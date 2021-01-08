@@ -39,7 +39,7 @@
                                 [disabled]="(dataToForm.patient.id && dataToForm.patient.document.value && dataToForm.patient.fullName) || dataToForm.id" />
                         </mat-form-field>
                     </div>
-                    <div *ngIf="dataToForm.patient?.principalNumber && dataToForm.professional?.fullName && dataToForm.schedulingDateAndTime"
+                    <div *ngIf="dataToForm.patient?.principalNumber && !dataToForm.professional?.fullName && dataToForm.schedulingDateAndTime"
                         class="col-md-3">
                         <a class="btn btn-success btn-block"
                             [href]="'https://api.whatsapp.com/send?phone=55' + dataToForm.patient?.principalNumber + '&text=Olá ' + dataToForm.patient?.fullName + ' estou passando para lembrar do seu compromisso com ' + dataToForm.professional?.fullName + ' data/hora ' + dataToForm.schedulingDateAndTime"><span
@@ -145,12 +145,8 @@
                                 há
                                 profissional habilitado'}}
                             </mat-label>
-                            <mat-select [formControl]="responsibleControl"
-                                (selectionChange)="selectResponsible($event.value)"
+                            <mat-select [formControl]="responsibleControl" [(ngModel)]="dataToForm.professional.id"
                                 [disabled]="!responsibles || responsibles.length === 0">
-                                <mat-option *ngIf="responsibles && responsibles.length > 0">
-                                    Todos
-                                </mat-option>
                                 <mat-option *ngIf="!responsibles || responsibles.length === 0">
                                     Não há profissional cadastrado
                                 </mat-option>
@@ -181,7 +177,7 @@
             <button mat-raised-button class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-danger pull-right"
                 (click)="onCancelClick()">Fechar</button>
             <button mat-raised-button type="submit"
-                [disabled]="responsibleControl.hasError('required') || !dataToForm.patient.id"
+                [disabled]="responsibleControl.hasError('required') || !dataToForm.patient.id || !dataToForm.professional.id || !dataToForm.schedulingDateAndTime"
                 class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-success pull-right" (click)="save()">{{
                 dataToForm.id ? 'Salvar' : 'Agendar' }}</button>
 

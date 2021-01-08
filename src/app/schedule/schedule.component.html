@@ -82,7 +82,7 @@
                     <span *ngIf="interval.times.length == 0">Nenhum agendamento para este intervalo de horário
                         encontrado</span>
                     <div *ngFor="let scheduleItem of interval.times" class="schedule-item link-card"
-                        [ngClass]="{'canceled': scheduleItem.status === 'CANCELED'}" (click)="openDialog(scheduleItem)">
+                        [ngClass]="{'canceled': scheduleItem.status === 'CANCELED'}" (click)="openDialogWithSchedule(scheduleItem.id)">
                         <div class="row">
                             <div class="col-md-6 col-lg-3">
                                 <div class="description-prop">Código:</div> {{scheduleItem.id}}
