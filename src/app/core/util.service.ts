@@ -4,11 +4,10 @@ import { AppHttp } from "app/security/app-http";
 import { Specialization, SpecializationInfo } from "app/model/Specialization";
 import { EventType } from "app/model/EventType";
 import { DigitalDocument } from "app/model/DigitalDocument";
+import {  ParameterByGroup } from "app/model/Parameter";
 
 @Injectable()
 export class UtilService {
-
-    private eventTypes: Array<EventType>;
 
     constructor(private http: AppHttp) {
     }
@@ -32,6 +31,12 @@ export class UtilService {
 
         return this.http.get<SpecializationInfo>(`${environment.apiUrl}/speciality/${id}`, { headers })
             .toPromise();
+    }
+
+    getParametersByGroup(groupNane: string): Promise<ParameterByGroup> {
+        var headers = this.http.getHeadersDefault();
+
+        return this.http.get<ParameterByGroup>(`${environment.apiUrl}/speciality/${groupNane}`, { headers }).toPromise();
     }
 
     cpfIsValid(strCPF) {

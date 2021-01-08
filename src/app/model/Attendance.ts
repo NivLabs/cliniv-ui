@@ -71,7 +71,7 @@ export class AttendanceEvent {
 export class NewAttendance {
     patientId: number;
     accommodationId: number;
-    eventTypeId: number;
+    eventType: string;
     responsibleId: number;
     specialityId: number;
     entryCause: string;
@@ -92,7 +92,7 @@ export class PatientHistory {
  * Classe que representa Objeto de requisição de alta médicaz
  */
 export class CloseAttendanceRequest {
-    eventTypeId: number = 19;
+    eventType: string = "EXIT";
     observations: string;
 }
 
@@ -103,7 +103,7 @@ export class NewAttendanceEvent {
     attendanceId: number;
     accommodation: Accommodation = new Accommodation();
     documents: Array<FileInfo> = [];
-    eventType: EventType;
+    eventType: string = "MEDICAL_CONTROL";
     observations: string;
     procedure: ProcedureInfo;
     responsible: Professional = new Professional();
