@@ -168,18 +168,25 @@
                     </div>
                     <div class="col-md-4">
                         <mat-label>Situação do agendamento</mat-label>
-                        <mat-radio-group class="custom-radio-group" [(ngModel)]="dataToForm.status" name="status" #status>
-                            <mat-radio-button class="custom-radio-button" value="WAITING_CONFIRMATION">Aguardando confirmação do paciente
+                        <mat-radio-group class="custom-radio-group" [(ngModel)]="dataToForm.status" name="status"
+                            #status>
+                            <mat-radio-button class="custom-radio-button" value="WAITING_CONFIRMATION">Aguardando
+                                confirmação do paciente
                             </mat-radio-button>
-                            <mat-radio-button class="custom-radio-button" value="CONFIRMED">Paciente confirmado (Paciente confirmou presença)
+                            <mat-radio-button class="custom-radio-button" value="CONFIRMED">Paciente confirmado(Paciente
+                                confirmoupresença)
                             </mat-radio-button>
-                            <mat-radio-button class="custom-radio-button" value="COMPLETED">Atendimento realizado (Paciente compareceu)
+                            <mat-radio-button class="custom-radio-button" value="COMPLETED">Atendimento realizado
+                                (Paciente compareceu)
                             </mat-radio-button>
-                            <mat-radio-button class="custom-radio-button" value="CANCELED">Agendamento cancelado (Paciente cancelou)
+                            <mat-radio-button class="custom-radio-button" value="CANCELED">Agendamento cancelado
+                                (Paciente cancelou)
                             </mat-radio-button>
-                            <mat-radio-button class="custom-radio-button" value="MISSED">Agendamento perdido (Paciente faltou)
+                            <mat-radio-button class="custom-radio-button" value="MISSED">Agendamento perdido (Paciente
+                                faltou)
                             </mat-radio-button>
-                            <mat-radio-button class="custom-radio-button" value="RESCHEDULED">Remarcado (Paciente remarcou)</mat-radio-button>
+                            <mat-radio-button class="custom-radio-button" value="RESCHEDULED">Remarcado (Paciente
+                                remarcou)</mat-radio-button>
                         </mat-radio-group>
                     </div>
                 </div>

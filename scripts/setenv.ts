@@ -22,7 +22,7 @@ const targetPath = isProduction
 const environmentFileContent = `
 export const environment = {
    production: ${isProduction},
-   apiUrl: "${process.env.BASE_URL}",
+   apiUrl: "${ isProduction ? process.env.BASE_URL : 'http://localhost:8080'}",
    tokenWhitelistedDomains: [],
    tokenBlacklistedRoutes: []
 };

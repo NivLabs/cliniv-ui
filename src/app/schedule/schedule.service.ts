@@ -21,6 +21,21 @@ export class ScheduleService {
     }
 
     /**
+     * Cria ou atualiza as informações de um agendamento
+     * @param request Requisição de Criação ou Atualização
+     */
+    createOrUpdate(request: ScheduleInfo): Promise<ScheduleInfo> {
+        var headers = this.http.getHeadersDefault()
+            .append('Content-Type', "application/json");
+        if (request.id) {
+            return this.http.put<ScheduleInfo>(`${this.baseUrl}/${request.id}`, request, { headers }).toPromise();
+        } else {
+            return this.http.post<ScheduleInfo>(`${this.baseUrl}`, request, { headers }).toPromise();
+        }
+    }
+
+
+    /**
      * Busca as informações da agenda utilizando o filtro
      * @param scheduleFilter Filtro da Agenda
      */

@@ -1,6 +1,7 @@
 .mat-input-element:disabled, .mat-form-field-type-mat-native-select.mat-form-field-disabled .mat-form-field-infix::after {
     color: rgb(0 0 0) !important;
 }
+
 .mat-select-disabled .mat-select-value {
     color: rgb(0 0 0) !important;
 }
@@ -10,6 +11,13 @@
     flex-direction: column;
     margin: 15px 0;
 }
+
 .custom-radio-button {
     margin: 5px;
+}
+
+.mat-radio-label-content {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
