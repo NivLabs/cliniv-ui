@@ -64,7 +64,7 @@ video {
   }
 }
 
-.cdk-overlay-connected-position-bounding-box > div[id^="cdk-overlay"]{
+.cdk-overlay-connected-position-bounding-box>div[id^="cdk-overlay"] {
   overflow: visible;
 }
 
