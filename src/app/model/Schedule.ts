@@ -10,7 +10,7 @@ export class ScheduleInfo {
     professional: Professional = new Professional();
     schedulingDateAndTime: string;
     annotation: string;
-    status: string;
+    status: string = "WAITING_CONFIRMATION";
     attendanceEvent
     createdAt: Date;
 }

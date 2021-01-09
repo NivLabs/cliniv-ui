@@ -22,6 +22,7 @@ export class ScheduleEditComponent implements OnInit {
 
   public dataToForm: ScheduleInfo;
   public responsibleControl: FormControl = new FormControl('', [Validators.required]);
+  public statusControl: FormControl = new FormControl('', [Validators.required]);
 
   public loading = false;
 

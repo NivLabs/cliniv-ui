@@ -12,6 +12,7 @@
         <form #form="ngForm" autocomplete="off">
             <br />
             <mat-list>
+                <br />
                 <div class="row">
                     <div class="col-md-12">
                         <h4>Informações do paciente</h4>
@@ -158,12 +159,28 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-12">
+                    <div class="col-md-8">
                         <mat-form-field>
                             <mat-label>Anotações</mat-label>
-                            <textarea matInput cdkTextareaAutosize="true" cdkAutosizeMinRows="10" name="annotation"
+                            <textarea matInput cdkTextareaAutosize="true" cdkAutosizeMinRows="12" name="annotation"
                                 [(ngModel)]="dataToForm.annotation" #annotation></textarea>
                         </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                        <mat-label>Situação do agendamento</mat-label>
+                        <mat-radio-group class="custom-radio-group" [(ngModel)]="dataToForm.status" name="status" #status>
+                            <mat-radio-button class="custom-radio-button" value="WAITING_CONFIRMATION">Aguardando confirmação do paciente
+                            </mat-radio-button>
+                            <mat-radio-button class="custom-radio-button" value="CONFIRMED">Paciente confirmado (Paciente confirmou presença)
+                            </mat-radio-button>
+                            <mat-radio-button class="custom-radio-button" value="COMPLETED">Atendimento realizado (Paciente compareceu)
+                            </mat-radio-button>
+                            <mat-radio-button class="custom-radio-button" value="CANCELED">Agendamento cancelado (Paciente cancelou)
+                            </mat-radio-button>
+                            <mat-radio-button class="custom-radio-button" value="MISSED">Agendamento perdido (Paciente faltou)
+                            </mat-radio-button>
+                            <mat-radio-button class="custom-radio-button" value="RESCHEDULED">Remarcado (Paciente remarcou)</mat-radio-button>
+                        </mat-radio-group>
                     </div>
                 </div>
                 <mat-divider></mat-divider>
