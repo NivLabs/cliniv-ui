@@ -47,8 +47,7 @@
                                     <mat-select [formControl]="statusSelectControl"
                                         (selectionChange)="selectStatus($event.value)">
                                         <mat-option>Todos</mat-option>
-                                        <mat-option valuse="WAITING_CONFIRMATION">Aguardando confirmação do paciente
-                                        </mat-option>
+                                        <mat-option value="WAITING_CONFIRMATION">Aguardando confirmação do paciente</mat-option>
                                         <mat-option value="CONFIRMED">Agendamentos confirmados</mat-option>
                                         <mat-option value="COMPLETED">Agendamentos concluídos</mat-option>
                                         <mat-option value="CANCELED">Agendamentos cancelados</mat-option>
@@ -85,7 +84,7 @@
                     <span *ngIf="interval.times.length == 0">Nenhum agendamento para este intervalo de horário
                         encontrado</span>
                     <div *ngFor="let scheduleItem of interval.times" class="schedule-item link-card"
-                        [ngClass]="{'canceled': scheduleItem.status === 'CANCELED'}"
+                        [ngClass]="{'canceled': scheduleItem.status === 'CANCELED', 'waiting' : scheduleItem.status === 'WAITING_CONFIRMATION', 'completed' : (scheduleItem.status === 'COMPLETED' || scheduleItem.status === 'CONFIRMED')}"
                         (click)="openDialogWithSchedule(scheduleItem.id)">
                         <div class="row">
                             <div class="col-md-6 col-lg-3">
