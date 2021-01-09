@@ -75,7 +75,7 @@ export class ScheduleComponent implements OnInit {
       var timeWithInterval = new Date(scheduleTime);
       timeWithInterval.setMinutes(scheduleTime.getMinutes() + this.schedulerParams.timeIntervalInMinutes);
       this.schedules.forEach(schedule => {
-        if (new Date(schedule.schedulingDateAndTime) > interval.id && new Date(schedule.schedulingDateAndTime) < timeWithInterval)
+        if (new Date(schedule.schedulingDateAndTime) >= interval.id && new Date(schedule.schedulingDateAndTime) <= timeWithInterval)
           interval.times.push(schedule);
       });
 
