@@ -4,8 +4,9 @@
             <div class="card-avatar">
                 <a href="javascript:void(0)">
                     <img class="img" (click)="logoInput.click()"
-                        src="{{settings.customerInfo.logoBase64 ? settings.customerInfo.logoBase64 : './assets/img/upload.png'}}" />
-                <input #logoInput hidden="true" type="file" onclick="this.value=null" (change)="saveLogo($event)" accept=".png" />
+                        [src]="settings?.customerInfo?.logoBase64 ? settings?.customerInfo?.logoBase64 : './assets/img/upload.png'" />
+                    <input #logoInput hidden="true" type="file" onclick="this.value=null" (change)="saveLogo($event)"
+                        accept=".png" />
                 </a>
             </div>
             <div class="card-header card-header-info">
@@ -28,31 +29,34 @@
                         </div>
                         <div class="col-md-3">
                             <mat-form-field>
-                                <input matInput placeholder="CNPJ" name="cnpj"  mask="00.000.000/0000-00" [(ngModel)]="settings.customerInfo.cnpj" #cnpj />
+                                <input matInput placeholder="CNPJ" name="cnpj" mask="00.000.000/0000-00"
+                                    [(ngModel)]="settings.customerInfo.cnpj" #cnpj required />
                             </mat-form-field>
                         </div>
                         <div class="col-md-3">
                             <mat-form-field>
-                                <input matInput placeholder="CNES" name="cnes" [(ngModel)]="settings.customerInfo.cnes" #cnes />
+                                <input matInput placeholder="CNES" name="cnes" [(ngModel)]="settings.customerInfo.cnes"
+                                    #cnes />
                             </mat-form-field>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-4">
                             <mat-form-field>
-                                <input matInput placeholder="Nome Completo" name="name" [(ngModel)]="settings.customerInfo.name" type="text" #name />
+                                <input matInput placeholder="Nome Completo" name="name"
+                                    [(ngModel)]="settings.customerInfo.name" type="text" #name required />
                             </mat-form-field>
                         </div>
                         <div class="col-md-4">
                             <mat-form-field>
                                 <input matInput placeholder="Nome corporativo" name="corporativeName" #corporativeName
-                                    [(ngModel)]="settings.customerInfo.corporativeName" />
+                                    [(ngModel)]="settings.customerInfo.corporativeName" required />
                             </mat-form-field>
                         </div>
                         <div class="col-md-4">
                             <mat-form-field>
-                                <input matInput placeholder="Natureza Legal" name="legalNature" #legalNature
-                                    [(ngModel)]="settings.customerInfo.legalNature"  />
+                                <input matInput placeholder="Telefone principal da instituição" name="phone" #phone
+                                    [(ngModel)]="settings.customerInfo.phone" mask="(00) 0 0000-0000" required />
                             </mat-form-field>
                         </div>
                     </div>
@@ -65,15 +69,14 @@
                         </div>
                         <div class="col-md-4">
                             <mat-form-field>
-                                <input matInput placeholder="Data de Início" name="startDate" type="datetime-local" #startDate
-                                    [(ngModel)]="settings.customerInfo.license.startDate"
-                                    disabled />
+                                <input matInput placeholder="Data de Início" name="startDate" type="datetime-local"
+                                    #startDate [(ngModel)]="settings.customerInfo.license.startDate" disabled />
                             </mat-form-field>
                         </div>
                         <div class="col-md-4">
                             <mat-form-field>
-                                <input matInput placeholder="Data de Término" name="endDate" type="datetime-local" #endDate
-                                    [(ngModel)]="settings.customerInfo.license.endDate" disabled />
+                                <input matInput placeholder="Data de Término" name="endDate" type="datetime-local"
+                                    #endDate [(ngModel)]="settings.customerInfo.license.endDate" disabled />
                             </mat-form-field>
                         </div>
                     </div>
@@ -82,19 +85,19 @@
                             <mat-form-field>
                                 <input matInput placeholder="Código Postal (CEP)" name="cep"
                                     (blur)="searchAddressByCEP()" [(ngModel)]="settings.customerInfo.address.postalCode"
-                                    size="10" maxlength="10" #cep type="text" mask="00.000-000" />
+                                    size="10" maxlength="10" #cep type="text" mask="00.000-000" required />
                             </mat-form-field>
                         </div>
                         <div class="col-md-4">
                             <mat-form-field>
                                 <input matInput placeholder="Rua" name="street"
-                                    [(ngModel)]="settings.customerInfo.address.street" #street type="text" />
+                                    [(ngModel)]="settings.customerInfo.address.street" #street type="text" required />
                             </mat-form-field>
                         </div>
                         <div class="col-md-2">
                             <mat-form-field>
                                 <input matInput placeholder="Número" name="addressNumber"
-                                    [(ngModel)]="settings.customerInfo.address.addressNumber" #addressNumber
+                                    [(ngModel)]="settings.customerInfo.address.addressNumber" #addressNumber required
                                     type="text" />
                             </mat-form-field>
                         </div>
@@ -109,19 +112,19 @@
                         <div class="col-md-4">
                             <mat-form-field>
                                 <input matInput placeholder="Bairro" name="neighborhood"
-                                    [(ngModel)]="settings.customerInfo.address.neighborhood" #neighborhood
+                                    [(ngModel)]="settings.customerInfo.address.neighborhood" #neighborhood required
                                     type="text" />
                             </mat-form-field>
                         </div>
                         <div class="col-md-4">
                             <mat-form-field>
                                 <input matInput placeholder="Cidade" name="city"
-                                    [(ngModel)]="settings.customerInfo.address.city" #city type="text" />
+                                    [(ngModel)]="settings.customerInfo.address.city" #city type="text" required />
                             </mat-form-field>
                         </div>
                         <div class="col-md-4">
                             <mat-form-field>
-                                <select matNativeControl placeholder="Estado" name="state"
+                                <select matNativeControl placeholder="Estado" name="state" required
                                     [(ngModel)]="settings.customerInfo.address.state" #state>
                                     <option value="AC">Acre</option>
                                     <option value="AL">Alagoas</option>
@@ -153,6 +156,36 @@
                                     <option value="EX">Estrangeiro</option>
                                 </select>
                             </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <mat-form-field>
+                                <input matInput placeholder="Responsável pela clínica" name="managerName"
+                                    [(ngModel)]="settings.customerInfo.managerName" #managerName type="text" required />
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-4">
+                            <mat-form-field>
+                                <input matInput placeholder="E-mail do responsável" name="managerMail"
+                                    [(ngModel)]="settings.customerInfo.managerMail" #managerMail type="email"
+                                    required />
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-4">
+                            <mat-form-field>
+                                <input matInput placeholder="Celular do responsável pela clínica" name="managerPhone"
+                                    [(ngModel)]="settings.customerInfo.managerPhone" mask="(00) 0 0000-0000" required
+                                    #managerPhone type="text" />
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-sm-12 col-md-4 col-lg-3 ml-0 mr-0">
+                            <button mat-raised-button type="button" (click)="save()" class="btn btn-success col-12"
+                                [disabled]="!form.valid" matTooltip="Salva informações do formulário"><span
+                                    class="fa fa-check"></span>
+                                Salvar</button>
                         </div>
                     </div>
                 </form>
@@ -192,32 +225,35 @@
                             <span *ngIf="element.metaType === 'STRING'">
                                 <mat-form-field>
                                     <input matInput [(ngModel)]="element.value" type="text"
-                                    (keypress)="enterKeyPress($event, element.id, element.value)" />
+                                        (keypress)="enterKeyPress($event, element.id, element.value)" />
                                 </mat-form-field>
                             </span>
 
                             <span *ngIf="element.metaType === 'NUMBER'">
                                 <mat-form-field>
                                     <input matInput [(ngModel)]="element.value" type="number"
-                                    (keypress)="enterKeyPress($event, element.id, element.value)" />
+                                        (keypress)="enterKeyPress($event, element.id, element.value)" />
                                 </mat-form-field>
                             </span>
 
                             <span *ngIf="element.metaType === 'BOOL'">
-                                <mat-slide-toggle checked="{{element.value}}" (change)="changeToggleParameter($event, element.id)"></mat-slide-toggle>
+                                <mat-slide-toggle checked="{{element.value}}"
+                                    (change)="changeToggleParameter($event, element.id)"></mat-slide-toggle>
                             </span>
 
                             <span *ngIf="element.metaType === 'PASSWORD'">
                                 <mat-form-field>
                                     <input matInput [(ngModel)]="element.value" type="password"
-                                    (keypress)="enterKeyPress($event, element.id, element.value)" />
+                                        (keypress)="enterKeyPress($event, element.id, element.value)" />
                                 </mat-form-field>
                             </span>
 
                             <span *ngIf="element.metaType === 'GROUP'">
                                 <mat-form-field>
-                                    <mat-select [value]="element.value" (change)="changeSelectParameter(element.id, element.value)">
-                                        <mat-option *ngFor="let option of element.groupValues" [value]="option">{{option}}</mat-option>
+                                    <mat-select [value]="element.value"
+                                        (change)="changeSelectParameter(element.id, element.value)">
+                                        <mat-option *ngFor="let option of element.groupValues" [value]="option">
+                                            {{option}}</mat-option>
                                     </mat-select>
                                 </mat-form-field>
                             </span>
