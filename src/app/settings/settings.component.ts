@@ -36,7 +36,6 @@ export class SettingsComponent implements OnInit {
     this.principalService.getSettings().then(resp => {
       this.loading = false;
       this.settings = resp;
-      this.settings.customerInfo.logoBase64 = 'data:image/png;base64,' + this.settings.customerInfo.logoBase64;
       if (!resp.customerInfo) {
         this.settings.customerInfo = new Customer();
       }
@@ -97,25 +96,25 @@ export class SettingsComponent implements OnInit {
     confirmDialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.loading = true;
-        this.principalService.update(parameterId, value).then(() => {
+        this.principalService.updateParameter(parameterId, value).then(() => {
           this.loading = false;
           this.notification.showSucess("Parâmetro alterado com sucesso!");
         }).catch(error => {
           this.loading = false;
           this.errorHandler.handle(error, confirmDialogRef);
         });
-      }
-      else {
-
-        if (element.checked == true) {
-          element.checked = false;
-        }
-        else {
-          element.checked = true;
-        }
-
+      } else {
+        element.checked = !element.checked;
       }
     });
+  }
+
+  save() {
+    this.loading = true;
+    this.principalService.updateInstitute(this.settings.customerInfo)
+      .then(() => this.notification.showSucess("Alterações cadastrais realizadas com sucesso!"))
+      .catch(error => this.errorHandler.handle(error, null))
+      .then(() => this.loading = false);
   }
 
   saveLogo(fileInputEvent: any) {
@@ -134,9 +133,6 @@ export class SettingsComponent implements OnInit {
     };
 
     reader.readAsBinaryString(file);
-
   }
-
-
 
 }

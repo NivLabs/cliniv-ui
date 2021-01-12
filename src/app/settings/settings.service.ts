@@ -21,15 +21,21 @@ export class SettingsService {
 
   }
 
-  update(parameterId: number, value: any): Promise<void>{
-    
+  updateInstitute(request: any): Promise<any> {
+    var headers = this.http.getHeadersDefault().append('Content-Type', "application/json");
+
+    return this.http.post<FileInfo>(`${this.baseUrl}`, request, { headers }).toPromise();
+  }
+
+  updateParameter(parameterId: number, value: any): Promise<void> {
+
     var headers = this.http.getHeadersDefault();
 
-    return this.http.put<void>(`${environment.apiUrl}/parameter/${parameterId}`, {"newValue": value}, { headers }).toPromise();
+    return this.http.put<void>(`${environment.apiUrl}/parameter/${parameterId}`, { "newValue": value }, { headers }).toPromise();
 
   }
 
-  saveLogo(file: FileInfo): Promise<FileInfo>{
+  saveLogo(file: FileInfo): Promise<FileInfo> {
 
     var headers = this.http.getHeadersDefault().append('Content-Type', "application/json");
 
