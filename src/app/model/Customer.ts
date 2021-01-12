@@ -7,7 +7,9 @@ import { Address } from "./Address";
 export class Customer {
     id: number;
     name: string;
-    management: string;
+    managerName: string;
+    managerMail: string;
+    managerPhone: string;
     phone: string;
     cnes: number;
     cnpj: number;
