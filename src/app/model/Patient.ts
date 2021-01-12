@@ -10,7 +10,8 @@ export class PatientInfo extends Person {
     type: string;
     healthPlan?: HealthPlan = new HealthPlan();
     annotations: string;
-    attendanceHistory: Array<PatientHistory>;
+    attendanceHistory: Array<PatientHistory> = [];
+    allergies: Array<any> = [];
 }
 
 export class PatientFilters {

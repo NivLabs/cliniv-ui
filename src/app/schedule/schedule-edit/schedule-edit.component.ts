@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from 'app/core/confirm-dialog/confirm-dialog.component';
 import { ErrorHandlerService } from 'app/core/error-handler.service';
@@ -12,6 +12,7 @@ import { Document } from 'app/model/Document';
 import { ScheduleInfo } from 'app/model/Schedule';
 import { PatientService } from 'app/patient/patient.service';
 import * as moment from 'moment';
+import { ScheduleService } from '../schedule.service';
 
 @Component({
   selector: 'app-schedule-edit',
@@ -33,6 +34,7 @@ export class ScheduleEditComponent implements OnInit {
     private utilService: UtilService,
     private patientService: PatientService,
     private errorHandler: ErrorHandlerService,
+    private scheduleService: ScheduleService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
 
@@ -154,9 +156,15 @@ export class ScheduleEditComponent implements OnInit {
   }
 
   save() {
-    this.notification.showInfo('NivLabs-GP! Melhorando dia após dia!');
-    this.notification.showInfo('A Versão 1 da agenda só estará disponível à partir do dia 10 de Janeiro!');
-    this.notification.showInfo('Contamos com a sua compreensão...');
+    this.loading = true;
+    this.scheduleService.createOrUpdate(this.dataToForm).then(response => {
+      this.loading = false;
+      this.dataToForm = response;
+      this.notification.showSucess("Agendamento salvo com sucesso!");
+    }).catch(error => {
+      this.loading = false;
+      this.errorHandler.handle(error, this.dialogRef);
+    });
   }
 
 }
