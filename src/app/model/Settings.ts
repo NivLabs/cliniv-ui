@@ -7,6 +7,6 @@ import { Parameter } from "./Parameter";
 export class SeetingsInfo {
     appName: string;
     version: string;
-    customerInfo?: Customer = new Customer();
-    parameters?: Array<Parameter> = new Array<Parameter>();
+    customerInfo: Customer = new Customer();
+    parameters: Array<Parameter> = new Array<Parameter>();
 }
