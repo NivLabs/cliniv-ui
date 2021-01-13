@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-3">
-                <div class="card">
+                <div class="card" style="height: 91%;">
                     <div class="card-header card-header-info">
                         <h4 class="card-title">Perfil</h4>
                     </div>
@@ -13,12 +13,16 @@
                                     <img class="img-profile"
                                         src="{{userInfo.profilePhoto ? userInfo.profilePhoto : './assets/img/upload.png'}}" />
                                 </div>
+                                <button mat-raised-button (click)="logoInput.click()" matTooltip="Adicionar arquivo"
+                                    class="btn btn-info btn-block"><span class="fa fa-cloud-upload"></span>  Adicionar
+                                    arquivo</button>
+                                <input #logoInput hidden="true" type="file" onclick="this.value=null" (change)="saveImagem($event)" accept=".png" />
                                 <button mat-raised-button (click)="openWebCam()" matTooltip="Abrir câmera"
-                                    class="btn btn-info btn-block"><span class="fa fa-camera"></span> Abrir
+                                    class="btn btn-info btn-block"><span class="fa fa-camera"></span>  Abrir
                                     câmera</button>
                                 <button mat-raised-button type="button" (click)="openChangePasswordDialog()"
                                     class="btn btn-warning btn-block" matTooltip="Altera a senha atual"><span
-                                        class="fa fa-lock"></span> Trocar
+                                        class="fa fa-lock"></span>  Trocar
                                     senha</button>
                                 <div class="clearfix">
                                 </div>

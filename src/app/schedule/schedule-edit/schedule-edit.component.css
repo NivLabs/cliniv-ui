@@ -16,7 +16,7 @@
     margin: 5px;
 }
 
-.mat-radio-label-content {
+:host /deep/ .mat-radio-label-content {
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
