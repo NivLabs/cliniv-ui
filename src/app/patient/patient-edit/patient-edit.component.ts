@@ -47,7 +47,6 @@ export class PatientEditComponent implements OnInit {
 
   }
 
-
   openWebCam() {
     const dialogRef = this.confirmDialog.open(CameraDialogComponent, {
       width: '500px',
@@ -59,6 +58,22 @@ export class PatientEditComponent implements OnInit {
         this.dataToForm.profilePhoto = webCamImage.imageAsDataUrl;
       }
     });
+  }
+
+  saveImagem(fileInputEvent: any) {
+
+    var t = this;
+    var file = fileInputEvent.target.files[0];
+
+    var reader = new FileReader();
+
+    reader.onload = function (readerEvt) {
+      var binaryString = readerEvt.target.result.toString();
+      var base64 = btoa(binaryString);
+      t.dataToForm.profilePhoto = 'data:image/png;base64,' + base64;
+    };
+
+    reader.readAsBinaryString(file);
   }
 
   resetForm() {

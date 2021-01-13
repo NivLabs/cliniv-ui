@@ -10,6 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 import { Customer } from 'app/model/Customer';
 import { FileInfo } from 'app/model/File';
+import { CameraDialogComponent } from 'app/component/camera/dialog/camera-dialog.component';
 
 @Component({
   selector: 'app-settings',
@@ -127,12 +128,39 @@ export class SettingsComponent implements OnInit {
 
     reader.onload = function (readerEvt) {
       var binaryString = readerEvt.target.result.toString();
-      fileInfo.base64 = btoa(binaryString);
-      t.principalService.saveLogo(fileInfo);
-      t.ngOnInit();
+      fileInfo.base64 = 'data:image/png;base64,' + btoa(binaryString);
+      t.loading = true;
+      t.principalService.saveLogo(fileInfo).then(resp => {
+
+        t.ngOnInit();
+
+      });      
+      
     };
 
     reader.readAsBinaryString(file);
+  }
+
+  openWebCam() {
+    const dialogRef = this.confirmDialog.open(CameraDialogComponent, {
+      width: '500px',
+      height: '548px',
+    });
+
+    dialogRef.afterClosed().subscribe(webCamImage => {
+      if (webCamImage !== undefined) {
+
+        var fileInfo = new FileInfo();
+        fileInfo.base64 = webCamImage.imageAsDataUrl;
+        this.loading = true;
+        this.principalService.saveLogo(fileInfo).then(resp => {
+
+          this.ngOnInit();
+  
+        });      
+
+      }
+    });
   }
 
 }

@@ -61,3 +61,7 @@
 .mat-calendar-period-button {
 	display: none !important;
 }
+
+:host /deep/ .spinner-three-bounce {	
+	position: fixed !important;
+  }
