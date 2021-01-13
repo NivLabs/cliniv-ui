@@ -72,7 +72,7 @@
     "@types/googlemaps": "^3.40.0",
     "@types/jasmine": "^3.5.14",
     "@types/jquery": "^3.5.2",
-    "@types/node": "^12.12.67",
+    "@types/node": "^12.19.12",
     "codelyzer": "^5.2.2",
     "dotenv": "^8.2.0",
     "jasmine-core": "^3.6.0",

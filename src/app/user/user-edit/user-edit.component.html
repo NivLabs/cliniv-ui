@@ -1,11 +1,19 @@
 <div class="card card-profile">
     <div class="card-avatar">
         <a href="javascript:void(0)">
-            <img class="img" (click)="openWebCam()"
-                src="{{dataToForm.profilePhoto ? dataToForm.profilePhoto : './assets/img/upload.png'}}" />
+            <img class="img" src="{{dataToForm.profilePhoto ? dataToForm.profilePhoto : './assets/img/upload.png'}}" />
         </a>
     </div>
     <div class="card-header card-header-info">
+        <div>
+            <a href="javascript:void(0)" style="padding: 10px;">
+                <i class="material-icons" (click)="logoInput.click()" style="color: white;">cloud_upload</i>
+            </a>
+            <input #logoInput hidden="true" type="file" onclick="this.value=null" (change)="saveImagem($event)" accept=".png" />
+            <a href="javascript:void(0)" style="padding: 10px;">
+                <i class="material-icons" (click)="openWebCam()" style="color: white;">camera_alt</i>
+            </a>
+        </div>
         <h4 class="card-title">Dados do usuário</h4>
         <p class="card-category">Dados completos do usuário
             {{dataToForm.id ? 'criado em ' + (dataToForm.createdAt | date: 'dd/MM/yyyy') : ''}}</p>

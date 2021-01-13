@@ -58,6 +58,22 @@ export class UserProfileComponent implements OnInit {
     });
   }
 
+  saveImagem(fileInputEvent: any) {
+
+    var t = this;
+    var file = fileInputEvent.target.files[0];
+
+    var reader = new FileReader();
+
+    reader.onload = function (readerEvt) {
+      var binaryString = readerEvt.target.result.toString();
+      var base64 = btoa(binaryString);
+      t.userInfo.profilePhoto = 'data:image/png;base64,' + base64;
+    };
+
+    reader.readAsBinaryString(file);
+  }
+
   openChangePasswordDialog() {
     const dialogRef = this.confirmDialog.open(ChangePasswordComponent, {
       width: '500px',
