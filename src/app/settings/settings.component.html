@@ -3,15 +3,17 @@
         <div class="card card-profile" style="text-align: left;">
             <div class="card-avatar">
                 <a href="javascript:void(0)">
-                    <img class="img" [src]="settings?.customerInfo?.logoBase64 ? settings?.customerInfo?.logoBase64 : './assets/img/upload.png'" />
+                    <img class="img"
+                        [src]="settings?.customerInfo?.logoBase64 ? 'data:image/png;base64,' + settings?.customerInfo?.logoBase64 : './assets/img/upload.png'" />
                 </a>
             </div>
             <div class="card-header card-header-info">
                 <div style="text-align: center;">
                     <a href="javascript:void(0)" style="padding: 10px;">
                         <i class="material-icons" (click)="logoInput.click()" style="color: white;">cloud_upload</i>
-                    </a>                    
-                    <input #logoInput hidden="true" type="file" onclick="this.value=null" (change)="saveLogo($event)" accept=".png" />
+                    </a>
+                    <input #logoInput hidden="true" type="file" onclick="this.value=null" (change)="saveLogo($event)"
+                        accept=".png" />
                     <a href="javascript:void(0)" style="padding: 10px;">
                         <i class="material-icons" (click)="openWebCam()" style="color: white;">camera_alt</i>
                     </a>

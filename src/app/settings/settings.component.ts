@@ -128,14 +128,14 @@ export class SettingsComponent implements OnInit {
 
     reader.onload = function (readerEvt) {
       var binaryString = readerEvt.target.result.toString();
-      fileInfo.base64 = 'data:image/png;base64,' + btoa(binaryString);
+      fileInfo.base64 = btoa(binaryString);
       t.loading = true;
       t.principalService.saveLogo(fileInfo).then(resp => {
 
         t.ngOnInit();
 
-      });      
-      
+      });
+
     };
 
     reader.readAsBinaryString(file);
@@ -156,8 +156,8 @@ export class SettingsComponent implements OnInit {
         this.principalService.saveLogo(fileInfo).then(resp => {
 
           this.ngOnInit();
-  
-        });      
+
+        });
 
       }
     });
