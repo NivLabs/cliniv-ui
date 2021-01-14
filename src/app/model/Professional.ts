@@ -1,5 +1,3 @@
-import { Document } from "./Document";
-import { Address } from "./Address";
 import { ProfessionalIdentity } from "./ProfessionalIdentity";
 import { Person } from "./Person";
 
