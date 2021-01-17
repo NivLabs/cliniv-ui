@@ -34,7 +34,7 @@
                                             Não há profissional cadastrado
                                         </mat-option>
                                         <mat-option *ngFor="let responsible of responsibles" [value]="responsible.id">
-                                            {{responsible.fullName}}
+                                            {{responsible.professionalName}}
                                         </mat-option>
                                     </mat-select>
                                 </mat-form-field>
@@ -47,7 +47,8 @@
                                     <mat-select [formControl]="statusSelectControl"
                                         (selectionChange)="selectStatus($event.value)">
                                         <mat-option>Todos</mat-option>
-                                        <mat-option value="WAITING_CONFIRMATION">Aguardando confirmação do paciente</mat-option>
+                                        <mat-option value="WAITING_CONFIRMATION">Aguardando confirmação do paciente
+                                        </mat-option>
                                         <mat-option value="CONFIRMED">Agendamentos confirmados</mat-option>
                                         <mat-option value="COMPLETED">Agendamentos concluídos</mat-option>
                                         <mat-option value="CANCELED">Agendamentos cancelados</mat-option>
@@ -91,7 +92,7 @@
                                 <div class="description-prop">Código:</div> {{scheduleItem.id}}
                             </div>
                             <div class="col-md-6 col-lg-9">
-                                <div class="description-prop">Paciente:</div> {{scheduleItem.patient.fullName}}
+                                <div class="description-prop">Paciente:</div> {{scheduleItem.patientName}}
                             </div>
                         </div>
                         <div class="row">
@@ -100,7 +101,7 @@
                                 | date:'HH:mm'}}
                             </div>
                             <div class="col-md-6 col-lg-9">
-                                <div class="description-prop">Profissional:</div> {{scheduleItem.professional.fullName}}
+                                <div class="description-prop">Profissional:</div> {{scheduleItem.professionalName}}
                             </div>
                         </div>
                         <div class="row">

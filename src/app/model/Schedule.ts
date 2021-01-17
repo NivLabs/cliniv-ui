@@ -15,6 +15,19 @@ export class ScheduleInfo {
     createdAt: Date;
 }
 
+/**
+ * Informações resumidas de agenda
+ */
+export class Schedule {
+    id: number;
+    patientName: string;
+    patientCpf: string;
+    professionalId: number;
+    professionalName: string;
+    schedulingDateAndTime: string;
+    status: string = 'WAITING_CONFIRMATION';
+}
+
 export class ScheduleFilter {
     professionalId: number;
     selectedDate: string;
