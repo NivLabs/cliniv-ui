@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { ScheduleFilter, ScheduleInfo } from "app/model/Schedule";
+import { Schedule, ScheduleFilter, ScheduleInfo } from "app/model/Schedule";
 import { AppHttp } from "app/security/app-http";
 import { environment } from '../../environments/environment';
 
@@ -39,7 +39,7 @@ export class ScheduleService {
      * Busca as informações da agenda utilizando o filtro
      * @param scheduleFilter Filtro da Agenda
      */
-    getByFilter(scheduleFilter: ScheduleFilter): Promise<ScheduleInfo[]> {
+    getByFilter(scheduleFilter: ScheduleFilter): Promise<Schedule[]> {
         var headers = this.http.getHeadersDefault();
         var queryString;
         if (scheduleFilter) {
@@ -52,6 +52,6 @@ export class ScheduleService {
             queryString = params.toString();
         }
 
-        return this.http.get<ScheduleInfo[]>(`${this.baseUrl}?${queryString}`, { headers }).toPromise();
+        return this.http.get<Schedule[]>(`${this.baseUrl}?${queryString}`, { headers }).toPromise();
     }
 }

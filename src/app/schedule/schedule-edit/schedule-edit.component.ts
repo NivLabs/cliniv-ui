@@ -11,7 +11,6 @@ import { Address } from 'app/model/Address';
 import { Document } from 'app/model/Document';
 import { ScheduleInfo } from 'app/model/Schedule';
 import { PatientService } from 'app/patient/patient.service';
-import * as moment from 'moment';
 import { ScheduleService } from '../schedule.service';
 
 @Component({
