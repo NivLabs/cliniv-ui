@@ -5,7 +5,7 @@ import { ErrorHandlerService } from 'app/core/error-handler.service';
 import { NotificationsComponent } from 'app/core/notification/notifications.component';
 import { Pageable } from 'app/model/Util';
 import { ProfessionalService } from 'app/professional/professional.service';
-import { ScheduleFilter, ScheduleInfo, ScheduleParameters } from '../model/Schedule';
+import { Schedule, ScheduleFilter, ScheduleInfo, ScheduleParameters } from '../model/Schedule';
 import { ScheduleEditComponent } from './schedule-edit/schedule-edit.component';
 import { ScheduleService } from './schedule.service';
 
@@ -21,7 +21,7 @@ export class ScheduleComponent implements OnInit {
   confirmationSelectControl = new FormControl();
   statusSelectControl = new FormControl();
   availableScheduleTimes: ScheduleInterval[] = [];
-  public schedules: ScheduleInfo[] = [];
+  public schedules: Schedule[] = [];
   public responsibles: any;
   public loading = false;
   public selectedDate: any;
@@ -229,5 +229,5 @@ export class ScheduleComponent implements OnInit {
 export class ScheduleInterval {
   id: Date;
   timeInterval: number;
-  times: ScheduleInfo[] = [];
+  times: Schedule[] = [];
 }
