@@ -70,10 +70,7 @@ export class NewAttendanceComponent implements OnInit {
         this.loading = true;
         this.utilService.getSpecialization().then(specs => {
             this.loading = false;
-            specs.forEach(spec => {
-                this.specializationsData.push(spec);
-
-            });
+            this.specializationsData = specs.content
         }).catch(ex => this.loading = false);
     }
 

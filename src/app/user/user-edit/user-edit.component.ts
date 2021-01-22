@@ -42,6 +42,7 @@ export class UserEditComponent implements OnInit {
         this.dataToForm = new UserInfo();
         this.roles = [
           { id: 1, name: 'ROLE_ADMIN', description: 'Administrador', checked: false },
+          { id: 20, name: 'ROLE_ATENDIMENTO_ALTA', description: 'Permissão de criar evento de alta clínica (Prontuário)', checked: false },
 
           { id: 2, name: 'ROLE_ATENDIMENTO_LEITURA', description: 'Permissão de leitura em prontuário', checked: false },
           { id: 3, name: 'ROLE_ATENDIMENTO_ESCRITA', description: 'Permissão de escrita em prontuário', checked: false },
@@ -68,7 +69,13 @@ export class UserEditComponent implements OnInit {
           { id: 17, name: 'ROLE_PARAMETRO_ESCRITA', description: 'Permissão de escrita em parâmetros da aplicação', checked: false },
 
           { id: 18, name: 'ROLE_OPERADORA_LEITURA', description: 'Permissão de leitura em operadoras de planos', checked: false },
-          { id: 19, name: 'ROLE_OPERADORA_ESCRITA', description: 'Permissão de escrita em operadoras de planos', checked: false }
+          { id: 19, name: 'ROLE_OPERADORA_ESCRITA', description: 'Permissão de escrita em operadoras de planos', checked: false },
+          
+          { id: 21, name: 'ROLE_AGENDA_LEITURA', description: 'Permissão de leitura em agenda', checked: false },
+          { id: 22, name: 'ROLE_AGENDA_ESCRITA', description: 'Permissão de escrita em agenda', checked: false },
+
+          { id: 23, name: 'ROLE_AGENDA_LEITURA', description: 'Permissão de leitura em agenda', checked: false },
+          { id: 24, name: 'ROLE_AGENDA_ESCRITA', description: 'Permissão de escrita em agenda', checked: false }
 
         ];
       }
@@ -219,7 +226,8 @@ export class UserEditComponent implements OnInit {
   checkRoles() {
     this.roles = [
       { id: 1, name: 'ROLE_ADMIN', description: 'Administrador', checked: false },
-
+      { id: 20, name: 'ROLE_ATENDIMENTO_ALTA', description: 'Permissão de criar evento de alta clínica (Prontuário)', checked: false },
+      
       { id: 2, name: 'ROLE_ATENDIMENTO_LEITURA', description: 'Permissão de leitura em prontuário', checked: false },
       { id: 3, name: 'ROLE_ATENDIMENTO_ESCRITA', description: 'Permissão de escrita em prontuário', checked: false },
 
@@ -245,7 +253,13 @@ export class UserEditComponent implements OnInit {
       { id: 17, name: 'ROLE_PARAMETRO_ESCRITA', description: 'Permissão de escrita em parâmetros da aplicação', checked: false },
 
       { id: 18, name: 'ROLE_OPERADORA_LEITURA', description: 'Permissão de leitura em operadoras de planos', checked: false },
-      { id: 19, name: 'ROLE_OPERADORA_ESCRITA', description: 'Permissão de escrita em operadoras de planos', checked: false }
+      { id: 19, name: 'ROLE_OPERADORA_ESCRITA', description: 'Permissão de escrita em operadoras de planos', checked: false },
+      
+      { id: 21, name: 'ROLE_AGENDA_LEITURA', description: 'Permissão de leitura em agenda', checked: false },
+      { id: 22, name: 'ROLE_AGENDA_ESCRITA', description: 'Permissão de escrita em agenda', checked: false },
+
+      { id: 23, name: 'ROLE_AGENDA_LEITURA', description: 'Permissão de leitura em agenda', checked: false },
+      { id: 24, name: 'ROLE_AGENDA_ESCRITA', description: 'Permissão de escrita em agenda', checked: false }
     ];
     if (this.dataToForm && this.dataToForm.roles) {
       this.dataToForm.roles.forEach(role => {

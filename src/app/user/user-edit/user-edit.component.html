@@ -9,7 +9,8 @@
             <a href="javascript:void(0)" style="padding: 10px;">
                 <i class="material-icons" (click)="logoInput.click()" style="color: white;">cloud_upload</i>
             </a>
-            <input #logoInput hidden="true" type="file" onclick="this.value=null" (change)="saveImagem($event)" accept=".png" />
+            <input #logoInput hidden="true" type="file" onclick="this.value=null" (change)="saveImagem($event)"
+                accept=".png" />
             <a href="javascript:void(0)" style="padding: 10px;">
                 <i class="material-icons" (click)="openWebCam()" style="color: white;">camera_alt</i>
             </a>
@@ -49,8 +50,8 @@
                         </div>
                         <div class="col-md-4">
                             <mat-form-field>
-                                <input matInput placeholder="Nome Completo" name="fullName" [(ngModel)]="dataToForm.fullName"
-                                    #fullName="ngModel" type="text" required />
+                                <input matInput placeholder="Nome Completo" name="fullName"
+                                    [(ngModel)]="dataToForm.fullName" #fullName="ngModel" type="text" required />
                             </mat-form-field>
                         </div>
                         <div class="col-md-4">
@@ -113,13 +114,13 @@
                     <div class="row">
                         <mat-checkbox hidden></mat-checkbox>
                         <div *ngFor="let role of roles" class="col-sm-12 col-md-6 col-lg-6 underline-class"
-                            [ngClass]="{'col-md-12' : role.id === 1, 'col-lg-12' : role.id === 1}"
                             style="text-align: left;">
                             <div>
                                 <label class="mat-checkbox-layout" for="{{role.id}}">
                                     <div class="mat-checkbox-inner-container">
                                         <input type="checkbox" class="mat-checkbox-input" name="roles"
-                                            [checked]="role.checked" (change)="checkItem(role)" value="{{role.name}}" id="{{role.id}}">
+                                            [checked]="role.checked" (change)="checkItem(role)" value="{{role.name}}"
+                                            id="{{role.id}}">
                                         <div matripple="" class="mat-ripple mat-checkbox-ripple">
                                             <div class="mat-ripple-element mat-checkbox-persistent-ripple"></div>
                                         </div>
