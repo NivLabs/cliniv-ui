@@ -114,7 +114,7 @@ export class ProfessionalEditComponent implements OnInit {
   loadspecializationsData() {
     this.specializationsData = [];
     this.utilService.getSpecialization().then(specs => {
-      this.specializationsData = specs;
+      this.specializationsData = specs.content;
       this.checkSpecializations();
     });
   }
