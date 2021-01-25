@@ -15,6 +15,7 @@ export class Specialization {
  */
 export class SpecializationInfo {
     id: number;
+    name: string;
     description: string;
     responsibles: Array<Professional>;
 }

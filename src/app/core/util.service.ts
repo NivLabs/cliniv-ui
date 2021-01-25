@@ -4,7 +4,8 @@ import { AppHttp } from "app/security/app-http";
 import { Specialization, SpecializationInfo } from "app/model/Specialization";
 import { EventType } from "app/model/EventType";
 import { DigitalDocument } from "app/model/DigitalDocument";
-import {  ParameterByGroup } from "app/model/Parameter";
+import { ParameterByGroup } from "app/model/Parameter";
+import { Page } from "app/model/Util";
 
 @Injectable()
 export class UtilService {
@@ -19,10 +20,10 @@ export class UtilService {
             .toPromise();
     }
 
-    getSpecialization(): Promise<Array<Specialization>> {
+    getSpecialization(): Promise<Page> {
         var headers = this.http.getHeadersDefault();
 
-        return this.http.get<Array<Specialization>>(`${environment.apiUrl}/speciality`, { headers })
+        return this.http.get<Page>(`${environment.apiUrl}/speciality?size=100`, { headers })
             .toPromise();
     }
 
