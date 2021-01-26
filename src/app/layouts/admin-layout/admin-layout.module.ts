@@ -89,6 +89,9 @@ import { MedicalRecordComponent } from '../../visit/medical-record.component';
 import { MedicalRecordService } from '../../visit/medical-record.service';
 import { NewAttendanceComponent } from '../../visit/newVisit/new-attendance.component';
 import { AdminLayoutRoutes } from './admin-layout.routing';
+import { SpecialityComponent } from '../../speciality/speciality.component';
+import { SpecialityService } from '../../speciality/speciality.service';
+import { SpecialityEditComponent } from '../../speciality/speciality-edit/speciality-edit.component';
 
 
 const matModules = [
@@ -208,7 +211,10 @@ const maskConfig: Partial<IConfig> = {
     HealthPlanComponent,
 
     ScheduleComponent,
-    ScheduleEditComponent
+    ScheduleEditComponent,
+
+    SpecialityComponent,
+    SpecialityEditComponent
   ],
   entryComponents: [
     PatientEditComponent,
@@ -246,7 +252,8 @@ const maskConfig: Partial<IConfig> = {
     MedicalRecordService,
     AttendanceService,
     SettingsService,
-    ProcedureService
+    ProcedureService,
+    SpecialityService
   ]
 })
 
