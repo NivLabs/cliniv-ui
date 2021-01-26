@@ -26,7 +26,7 @@ export class ChangePasswordComponent implements OnInit {
     this.service.changePassword(this.dataToForm)
       .then(this.onSuccess.bind(this))
       .catch(this.onError.bind(this))
-      .finally(() => this.loading = false);
+      .then(() => this.loading = false);
   }
 
   onSuccess() {

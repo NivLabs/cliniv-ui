@@ -218,7 +218,7 @@ export class UserEditComponent implements OnInit {
     }).catch(error => {
       this.loading = false;
       this.errorHandler.handle(error, this.dialogRef);
-    }).finally(() => this.loading = false);
+    }).then(() => this.loading = false);
   }
 
   /**
