@@ -15,12 +15,17 @@
 
 .margin-color-active {
     border-left: 10px solid #00BCD4;
-    height: 200px;
+    height: 180px;
+}
+
+.margin-color-danger {
+    border-left: 10px solid #F44336 !important;
+    height: 180px;
 }
 
 .link-card {
     cursor: pointer;
-    height: 200px;
+    height: 95px;
 }
 
 .link-card:hover {
@@ -42,3 +47,18 @@ li {
 ul {
     padding: 0;
 }
+
+.card-header-default {
+    background: linear-gradient(60deg, #696d69, #4d524d);
+}
+
+.margin-color-active {
+    border-left: 10px solid #00BCD4;
+    height: 180px;
+}
+
+.margin-color-danger {
+    border-left: 10px solid #F44336 !important;
+    height: 180px;
+}
+

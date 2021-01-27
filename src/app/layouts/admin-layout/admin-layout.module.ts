@@ -237,7 +237,8 @@ const maskConfig: Partial<IConfig> = {
     NewEventComponent,
     ConfirmDialogComponent,
     CameraDialogComponent,
-    DocumentViewerComponent
+    DocumentViewerComponent,
+    SpecialityEditComponent
   ],
   providers: [
     UserProfileService,

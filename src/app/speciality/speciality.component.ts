@@ -9,7 +9,7 @@ import { SpecialityEditComponent } from '../speciality/speciality-edit/specialit
 @Component({
   selector: 'app-speciality',
   templateUrl: './speciality.component.html',
-  styleUrls: ['./speciality.component.scss']
+  styleUrls: ['./speciality.component.css']
 })
 export class SpecialityComponent implements OnInit {
 

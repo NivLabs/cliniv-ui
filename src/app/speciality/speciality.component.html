@@ -16,17 +16,10 @@
                                             [(ngModel)]="filters.id" #id (keypress)="enterKeyPress($event)" />
                                     </mat-form-field>
                                 </div>
-                                <div class="col-md-2">
+                                <div class="col-md-3">
                                     <mat-form-field>
                                         <input matInput placeholder="Nome da especialidade [ENTER]"
                                             name="name" [(ngModel)]="filters.name" #name
-                                            type="text" (keypress)="enterKeyPress($event)" />
-                                    </mat-form-field>
-                                </div>
-                                <div class="col-md-4">
-                                    <mat-form-field>
-                                        <input matInput placeholder="Descrição da especialidade [ENTER]"
-                                            name="description" [(ngModel)]="filters.description" #description
                                             type="text" (keypress)="enterKeyPress($event)" />
                                     </mat-form-field>
                                 </div>
@@ -56,8 +49,7 @@
                         <div class="card-body margin-color-active">
                             <ul>
                                 <li><span class="fa fa-key speciality-info"> Identificador:</span> {{speciality.id}}</li>
-                                <li><span class="fa fa-map speciality-name"> Nome:{{speciality.name}}</span></li>
-                                <li><span class="fa fa-map speciality-name"> Descrição:{{speciality.description}}</span></li>
+                                <li><span class="fa fa-pencil-square-o speciality-info"> Nome:</span> {{speciality.name}}</li>
                             </ul>
                         </div>
                     </div>

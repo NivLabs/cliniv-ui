@@ -13,5 +13,4 @@ export class Speciality {
 export class SpecialityFilters {
     id: string;
     name: string;
-    description: string;
 }
