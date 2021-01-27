@@ -20,7 +20,7 @@ export class UserEditComponent implements OnInit {
 
 
   public dataToForm: UserInfo;
-  public loading: boolean;
+  public loading: boolean = false;
   public roles: Array<any>;
 
   constructor(public confirmDialog: MatDialog,
@@ -70,12 +70,12 @@ export class UserEditComponent implements OnInit {
 
           { id: 18, name: 'ROLE_OPERADORA_LEITURA', description: 'Permissão de leitura em operadoras de planos', checked: false },
           { id: 19, name: 'ROLE_OPERADORA_ESCRITA', description: 'Permissão de escrita em operadoras de planos', checked: false },
-          
+
           { id: 21, name: 'ROLE_AGENDA_LEITURA', description: 'Permissão de leitura em agenda', checked: false },
           { id: 22, name: 'ROLE_AGENDA_ESCRITA', description: 'Permissão de escrita em agenda', checked: false },
 
-          { id: 23, name: 'ROLE_AGENDA_LEITURA', description: 'Permissão de leitura em agenda', checked: false },
-          { id: 24, name: 'ROLE_AGENDA_ESCRITA', description: 'Permissão de escrita em agenda', checked: false }
+          { id: 23, name: 'ROLE_ESPECIALIDADE_LEITURA', description: 'Permissão de leitura em especialidade', checked: false },
+          { id: 24, name: 'ROLE_ESPECIALIDADE_ESCRITA', description: 'Permissão de escrita em especialidade', checked: false }
 
         ];
       }
@@ -130,7 +130,7 @@ export class UserEditComponent implements OnInit {
           this.dataToForm.address = new Address();
         }
         this.loading = false;
-        this.notification.showSucess("Paciente alterado com sucesso!");
+        this.notification.showSucess("Usuário alterado com sucesso!");
       }).catch(error => {
         this.loading = false;
         this.errorHandler.handle(error, this.dialogRef);
@@ -143,7 +143,7 @@ export class UserEditComponent implements OnInit {
           this.dataToForm.address = new Address();
         }
         this.loading = false;
-        this.notification.showSucess("Paciente cadastrado com sucesso!");
+        this.notification.showSucess("Usuário cadastrado com sucesso!");
       }).catch(error => {
         this.loading = false;
         this.errorHandler.handle(error, this.dialogRef);
@@ -212,12 +212,13 @@ export class UserEditComponent implements OnInit {
   }
 
   resetPassword() {
+    this.loading = true;
     this.userService.resertPassword(this.dataToForm.id).then(() => {
       this.notification.showSucess("Senha alterada com sucesso!");
     }).catch(error => {
       this.loading = false;
       this.errorHandler.handle(error, this.dialogRef);
-    })
+    }).then(() => this.loading = false);
   }
 
   /**
@@ -227,7 +228,7 @@ export class UserEditComponent implements OnInit {
     this.roles = [
       { id: 1, name: 'ROLE_ADMIN', description: 'Administrador', checked: false },
       { id: 20, name: 'ROLE_ATENDIMENTO_ALTA', description: 'Permissão de criar evento de alta clínica (Prontuário)', checked: false },
-      
+
       { id: 2, name: 'ROLE_ATENDIMENTO_LEITURA', description: 'Permissão de leitura em prontuário', checked: false },
       { id: 3, name: 'ROLE_ATENDIMENTO_ESCRITA', description: 'Permissão de escrita em prontuário', checked: false },
 
@@ -254,12 +255,12 @@ export class UserEditComponent implements OnInit {
 
       { id: 18, name: 'ROLE_OPERADORA_LEITURA', description: 'Permissão de leitura em operadoras de planos', checked: false },
       { id: 19, name: 'ROLE_OPERADORA_ESCRITA', description: 'Permissão de escrita em operadoras de planos', checked: false },
-      
+
       { id: 21, name: 'ROLE_AGENDA_LEITURA', description: 'Permissão de leitura em agenda', checked: false },
       { id: 22, name: 'ROLE_AGENDA_ESCRITA', description: 'Permissão de escrita em agenda', checked: false },
 
-      { id: 23, name: 'ROLE_AGENDA_LEITURA', description: 'Permissão de leitura em agenda', checked: false },
-      { id: 24, name: 'ROLE_AGENDA_ESCRITA', description: 'Permissão de escrita em agenda', checked: false }
+      { id: 23, name: 'ROLE_ESPECIALIDADE_LEITURA', description: 'Permissão de leitura em especialidade', checked: false },
+      { id: 24, name: 'ROLE_ESPECIALIDADE_ESCRITA', description: 'Permissão de escrita em especialidade', checked: false }
     ];
     if (this.dataToForm && this.dataToForm.roles) {
       this.dataToForm.roles.forEach(role => {
@@ -285,7 +286,7 @@ export class UserEditComponent implements OnInit {
     if (exists) {
       this.dataToForm.roles = this.dataToForm.roles.filter(role => role.id != checked['id']);
     } else {
-      this.dataToForm.roles.push({id: checked['id'], name: checked['name'], description: checked['description']});
+      this.dataToForm.roles.push({ id: checked['id'], name: checked['name'], description: checked['description'] });
     }
   }
 
