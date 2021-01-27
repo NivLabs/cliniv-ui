@@ -61,6 +61,7 @@ import { DashboardComponent } from '../../dashboard/dashboard.component';
 import { PatientEditComponent } from '../../patient/patient-edit/patient-edit.component';
 import { PatientComponent } from '../../patient/patient.component';
 import { PatientService } from '../../patient/patient.service';
+import { DashboardService } from '../../dashboard/dashboard.service';
 import { ProcedureComponent } from '../../procedure/procedure.component';
 import { ProcedureService } from '../../procedure/procedure.service';
 import { ProfessionalEditComponent } from '../../professional/professional-edit/professional-edit.component';
@@ -243,6 +244,7 @@ const maskConfig: Partial<IConfig> = {
   providers: [
     UserProfileService,
     PatientService,
+    DashboardService,
     ScheduleService,
     AnamnesisService,
     HealthPlanService,
