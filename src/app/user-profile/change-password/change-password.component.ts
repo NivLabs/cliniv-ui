@@ -13,6 +13,7 @@ import { NotificationsComponent } from 'app/core/notification/notifications.comp
 export class ChangePasswordComponent implements OnInit {
 
   dataToForm: UpdatePassword;
+  public loading: boolean = false;
 
   constructor(public dialogRef: MatDialogRef<ChangePasswordComponent>, private service: UserProfileService, public errorHandler: ErrorHandlerService, private notification: NotificationsComponent) { }
 
@@ -21,9 +22,11 @@ export class ChangePasswordComponent implements OnInit {
   }
 
   onChangePassword() {
+    this.loading = true;
     this.service.changePassword(this.dataToForm)
       .then(this.onSuccess.bind(this))
-      .catch(this.onError.bind(this));
+      .catch(this.onError.bind(this))
+      .then(() => this.loading = false);
   }
 
   onSuccess() {
