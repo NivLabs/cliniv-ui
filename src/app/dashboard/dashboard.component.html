@@ -1,7 +1,7 @@
 <div class="main-content">
     <img class="displayed-log" alt="NLGP Logo" src="../../assets/img/logo.png" width="35%" />
     <span class="displayed-log">Vesão 1.0.0</span>
-    <div *ngIf="false" class="container-fluid">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class="card card-stats">
@@ -9,14 +9,13 @@
                         <div class="card-icon">
                             <i class="material-icons">person_add</i>
                         </div>
-                        <p class="card-category">Pacientes na fila</p>
-                        <h3 class="card-title">49
+                        <p class="card-category">Novos pacientes</p>
+                        <h3 class="card-title">{{data.newPatients}}
                         </h3>
                     </div>
                     <div class="card-footer">
                         <div class="stats">
-                            <i class="material-icons text-danger">warning</i>
-                            <a href="javascript:void(0)">Mais info...</a>
+                            <i class="material-icons">date_range</i> Hoje
                         </div>
                     </div>
                 </div>
@@ -25,14 +24,14 @@
                 <div class="card card-stats">
                     <div class="card-header card-header-success card-header-icon">
                         <div class="card-icon">
-                            <i class="material-icons">store</i>
+                            <i class="material-icons">check</i>
                         </div>
                         <p class="card-category">Pacientes Atendidos</p>
-                        <h3 class="card-title">12</h3>
+                        <h3 class="card-title">{{data.medicalCareProvided}}</h3>
                     </div>
                     <div class="card-footer">
                         <div class="stats">
-                            <i class="material-icons">date_range</i> Últimas 24 Horas
+                            <i class="material-icons">date_range</i> Hoje
                         </div>
                     </div>
                 </div>
@@ -41,14 +40,14 @@
                 <div class="card card-stats">
                     <div class="card-header card-header-danger card-header-icon">
                         <div class="card-icon">
-                            <i class="material-icons">add</i>
+                            <i class="material-icons">trending_down</i>
                         </div>
-                        <p class="card-category">Emergência</p>
-                        <h3 class="card-title">75</h3>
+                        <p class="card-category">Pacs. Cancelados</p>
+                        <h3 class="card-title">{{data.canceled}}</h3>
                     </div>
                     <div class="card-footer">
                         <div class="stats">
-                            <i class="material-icons">local_offer</i> Por Hora
+                            <i class="material-icons">date_range</i> Hoje
                         </div>
                     </div>
                 </div>
@@ -57,18 +56,19 @@
                 <div class="card card-stats">
                     <div class="card-header card-header-info card-header-icon">
                         <div class="card-icon">
-                            <i class="fa fa-twitter"></i>
+                            <i class="material-icons">trending_up</i>
                         </div>
-                        <p class="card-category">Leitos Livres</p>
-                        <h3 class="card-title">+245</h3>
+                        <p class="card-category">Pacs. Confirmados</p>
+                        <h3 class="card-title">{{data.confirmed}}</h3>
                     </div>
                     <div class="card-footer">
                         <div class="stats">
-                            <i class="material-icons">update</i> Agora
+                            <i class="material-icons">date_range</i> Hoje
                         </div>
                     </div>
                 </div>
             </div>
-        </div>        
+        </div>
     </div>
 </div>
+<app-loading [show]="loading"></app-loading>
