@@ -17,5 +17,8 @@ export class DashboardService {
 }
 
 export class Dashboard {
-    
+    newPatients: Number = 0;
+    medicalCareProvided: Number = 0;
+    canceled: Number = 0;
+    confirmed: Number = 0;
 }
