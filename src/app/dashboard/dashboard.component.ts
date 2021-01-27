@@ -25,7 +25,7 @@ export class DashboardComponent implements OnInit {
     this.dashboardService.getDashboardInfo().then((resp) => {
       this.data = resp;
       this.loading = false;
-    });
+    }).catch((err) => this.loading = false);
 
   }
 }
