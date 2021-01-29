@@ -1,23 +1,36 @@
 import { Injectable } from '@angular/core';
 import { AppHttp } from '../security/app-http';
 import { environment } from '../../environments/environment';
-import { SeetingsInfo } from 'app/model/Settings';
+import { SetingsInfo as SetingsInfo } from 'app/model/Settings';
 import { FileInfo } from 'app/model/File';
+import { Parameter } from 'app/model/Parameter';
 
 @Injectable()
 export class SettingsService {
 
   baseUrl: string;
+  private parameters: Array<Parameter> = [];
 
   constructor(private http: AppHttp) {
     this.baseUrl = `${environment.apiUrl}/institute`;
   }
 
-  getSettings(): Promise<SeetingsInfo> {
+  getParameters() {
+    if (this.parameters.length == 0) {
+      this.getSettings().then(resp => {
+        this.parameters = resp.parameters;
+      }).catch(erro => {
+        this.parameters = [];
+      });
+    }
+    return this.parameters;
+  }
+
+  getSettings(): Promise<SetingsInfo> {
 
     var headers = this.http.getHeadersDefault();
 
-    return this.http.get<SeetingsInfo>(`${this.baseUrl}`, { headers }).toPromise();
+    return this.http.get<SetingsInfo>(`${this.baseUrl}`, { headers }).toPromise();
 
   }
 
