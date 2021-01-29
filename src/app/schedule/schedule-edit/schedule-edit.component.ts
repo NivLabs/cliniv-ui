@@ -9,7 +9,7 @@ import { NotificationsComponent } from 'app/core/notification/notifications.comp
 import { UtilService } from 'app/core/util.service';
 import { Address } from 'app/model/Address';
 import { Document } from 'app/model/Document';
-import { ScheduleInfo } from 'app/model/Schedule';
+import { ScheduleInfo, ScheduleParameters } from 'app/model/Schedule';
 import { PatientService } from 'app/patient/patient.service';
 import { ScheduleService } from '../schedule.service';
 
@@ -34,12 +34,17 @@ export class ScheduleEditComponent implements OnInit {
     private patientService: PatientService,
     private errorHandler: ErrorHandlerService,
     private scheduleService: ScheduleService,
+    private scheduleParameters: ScheduleParameters,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
 
   ngOnInit(): void {
     this.responsibles = this.dialogRef.componentInstance.data['responsibles'];
     this.dataToForm = this.dialogRef.componentInstance.data['schedule'];
+    this.scheduleParameters = this.dialogRef.componentInstance.data['scheduleParameters'];
+    if (!this.scheduleParameters) {
+      this.scheduleParameters = new ScheduleParameters();
+    }
     if (!this.dataToForm) {
       this.dataToForm = new ScheduleInfo();
     }
@@ -156,6 +161,7 @@ export class ScheduleEditComponent implements OnInit {
 
   save() {
     this.loading = true;
+
     this.scheduleService.createOrUpdate(this.dataToForm).then(response => {
       this.loading = false;
       this.dataToForm = response;

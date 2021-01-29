@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ErrorHandlerService } from 'app/core/error-handler.service';
-import { SeetingsInfo } from 'app/model/Settings';
+import { SetingsInfo } from 'app/model/Settings';
 import { SettingsService } from 'app/settings/settings.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { NotificationsComponent } from 'app/core/notification/notifications.component';
@@ -23,7 +23,7 @@ export class SettingsComponent implements OnInit {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   public loading: boolean;
-  public settings: SeetingsInfo;
+  public settings: SetingsInfo;
   public dataSource: any;
   public displayedColumns: any;
 
@@ -31,7 +31,7 @@ export class SettingsComponent implements OnInit {
     private notification: NotificationsComponent, public confirmDialog: MatDialog) { }
 
   ngOnInit() {
-    this.settings = new SeetingsInfo();
+    this.settings = new SetingsInfo();
     this.loading = true;
 
     this.principalService.getSettings().then(resp => {
