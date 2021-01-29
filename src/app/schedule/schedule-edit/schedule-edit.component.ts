@@ -21,6 +21,7 @@ import { ScheduleService } from '../schedule.service';
 export class ScheduleEditComponent implements OnInit {
 
   public dataToForm: ScheduleInfo;
+  public scheduleParameters: ScheduleParameters;
   public responsibleControl: FormControl = new FormControl('', [Validators.required]);
 
   public loading = false;
@@ -34,7 +35,6 @@ export class ScheduleEditComponent implements OnInit {
     private patientService: PatientService,
     private errorHandler: ErrorHandlerService,
     private scheduleService: ScheduleService,
-    private scheduleParameters: ScheduleParameters,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
 
