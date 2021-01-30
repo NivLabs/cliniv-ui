@@ -5,6 +5,8 @@ import { ErrorHandlerService } from 'app/core/error-handler.service';
 import { NotificationsComponent } from 'app/core/notification/notifications.component';
 import { Pageable } from 'app/model/Util';
 import { ProfessionalService } from 'app/professional/professional.service';
+import { SettingsService } from 'app/settings/settings.service';
+import { INITIAL_CONFIG } from 'ngx-mask';
 import { Schedule, ScheduleFilter, ScheduleInfo, ScheduleParameters } from '../model/Schedule';
 import { ScheduleEditComponent } from './schedule-edit/schedule-edit.component';
 import { ScheduleService } from './schedule.service';
@@ -15,6 +17,15 @@ import { ScheduleService } from './schedule.service';
   styleUrls: ['./schedule.component.css']
 })
 export class ScheduleComponent implements OnInit {
+
+  /**Hora início */
+  public static INIT_SCHEDULE_PARAM_ID: number = 6;
+  /** Hora fim */
+  public static END_SCHEDULE_PARAM_ID: number = 7;
+  /** Intervalo da agenda */
+  public static INTERVAL_SCHEDULE_PARAM_ID: number = 7;
+  private INIT_HOUR_DEFAULT: string = "08:00";
+  private END_HOUR_DEFAULT: string = "18:00";
 
   public filters: ScheduleFilter = new ScheduleFilter();
   responsibleControl = new FormControl();
@@ -27,14 +38,85 @@ export class ScheduleComponent implements OnInit {
   public selectedDate: any;
   public schedulerParams: ScheduleParameters = new ScheduleParameters();
 
-  constructor(private dialog: MatDialog, private errorHandler: ErrorHandlerService, private principalService: ScheduleService, private professionalService: ProfessionalService, private notification: NotificationsComponent) { }
+  constructor(private dialog: MatDialog,
+    private errorHandler: ErrorHandlerService,
+    private principalService: ScheduleService,
+    private settingsService: SettingsService,
+    private professionalService: ProfessionalService,
+    private notification: NotificationsComponent) { }
 
   ngOnInit(): void {
     this.selectedDate = new Date();
     this.filters.selectedDate = this.formatDate(this.selectedDate);
+    this.initScheduleSettingsByParameters();
     this.loadResponsibles()
       .then(() => this.loadScheduleByFilters());
 
+  }
+
+  /**
+   * Inicializa as configurações da agenda baseadas nas configurações da aplicação
+   */
+  private initScheduleSettingsByParameters() {
+    var initialAttendanceTime = this.settingsService.getParameters().find(param => param.id == ScheduleComponent.INIT_SCHEDULE_PARAM_ID);
+    this.schedulerParams.initialAttendanceTime = initialAttendanceTime ? initialAttendanceTime.value : this.INIT_HOUR_DEFAULT;;
+
+    var endAttendanceTime = this.settingsService.getParameters().find(param => param.id == ScheduleComponent.END_SCHEDULE_PARAM_ID);
+    this.schedulerParams.endAttendanceTime = endAttendanceTime ? endAttendanceTime.value : this.END_HOUR_DEFAULT;
+
+    var timeIntervalInMinutes = this.settingsService.getParameters().find(param => param.id == ScheduleComponent.INTERVAL_SCHEDULE_PARAM_ID);
+    this.schedulerParams.timeIntervalInMinutes = timeIntervalInMinutes && Number.parseInt(timeIntervalInMinutes.value) > 0 ? timeIntervalInMinutes.value : 30;
+
+    this.validateScheduleSettings();
+  }
+
+  /**
+   * Valida parâmetros de configuração da agenda
+   */
+  validateScheduleSettings() {
+    try {
+      var initScheduleTime = this.getDateWithTime(this.schedulerParams.initialAttendanceTime);
+      if (Object.prototype.toString.call(initScheduleTime) === "[object Date]") {
+        if (isNaN(initScheduleTime.getTime())) {
+          this.schedulerParams.initialAttendanceTime = this.INIT_HOUR_DEFAULT;
+          initScheduleTime = this.getDateWithTime(this.schedulerParams.initialAttendanceTime);
+        }
+      } else {
+        this.schedulerParams.initialAttendanceTime = this.INIT_HOUR_DEFAULT;
+        initScheduleTime = this.getDateWithTime(this.schedulerParams.initialAttendanceTime);
+      }
+
+      var endScheduleTime = this.getDateWithTime(this.schedulerParams.endAttendanceTime);
+      if (Object.prototype.toString.call(endScheduleTime) === "[object Date]") {
+        if (isNaN(endScheduleTime.getTime())) {
+          this.schedulerParams.endAttendanceTime = this.END_HOUR_DEFAULT;
+          endScheduleTime = this.getDateWithTime(this.schedulerParams.endAttendanceTime);
+        }
+      } else {
+        this.schedulerParams.endAttendanceTime = this.END_HOUR_DEFAULT;
+        endScheduleTime = this.getDateWithTime(this.schedulerParams.endAttendanceTime);
+      }
+
+      if (initScheduleTime > endScheduleTime) {
+        this.schedulerParams = new ScheduleParameters();
+      }
+    } catch (error) {
+      this.schedulerParams = new ScheduleParameters();
+    }
+  }
+
+  /**
+   * 
+   * @param time Data/Hora Selecionada
+   */
+  private getDateWithTime(time: string): Date {
+    var hour = time.split(":")[0];
+    var minute = time.split(":")[1];
+
+    var datetime = new Date(this.selectedDate);
+    datetime.setHours(Number.parseInt(hour));
+    datetime.setMinutes(Number.parseInt(minute));
+    return datetime;
   }
 
   selectMonth(event) {
@@ -47,22 +129,12 @@ export class ScheduleComponent implements OnInit {
   mountSchedule() {
     this.availableScheduleTimes = [];
 
-    var initHour = this.schedulerParams.initialAttendanceTime.split(":")[0];
-    var initMinute = this.schedulerParams.initialAttendanceTime.split(":")[1];
-
-    var scheduleTime = new Date(this.selectedDate);
-    scheduleTime.setHours(Number.parseInt(initHour));
-    scheduleTime.setMinutes(Number.parseInt(initMinute));
+    var scheduleTime = this.getDateWithTime(this.schedulerParams.initialAttendanceTime);
     if (this.schedules && this.schedules.length > 0 && new Date(this.schedules[0].schedulingDateAndTime) < scheduleTime) {
       scheduleTime = new Date(this.schedules[0].schedulingDateAndTime);
     }
 
-
-    var endHour = this.schedulerParams.endAttendanceTime.split(":")[0];
-    var endMinute = this.schedulerParams.endAttendanceTime.split(":")[1];
-    var endScheduleTime = new Date(this.selectedDate);
-    endScheduleTime.setHours(Number.parseInt(endHour));
-    endScheduleTime.setMinutes(Number.parseInt(endMinute));
+    var endScheduleTime = this.getDateWithTime(this.schedulerParams.endAttendanceTime);
     if (this.schedules && this.schedules.length > 0 && new Date(this.schedules[this.schedules.length - 1].schedulingDateAndTime) > endScheduleTime) {
       endScheduleTime = new Date(this.schedules[this.schedules.length - 1].schedulingDateAndTime);
     }
@@ -183,7 +255,7 @@ export class ScheduleComponent implements OnInit {
       const dialogRef = this.dialog.open(ScheduleEditComponent, {
         width: '100%',
         height: 'auto',
-        data: { schedule, responsibles: this.responsibles }
+        data: { schedule, responsibles: this.responsibles, schedulerParams: this.schedulerParams }
       });
 
       dialogRef.afterClosed().subscribe(result => {

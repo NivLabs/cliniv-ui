@@ -43,7 +43,7 @@
                     <div *ngIf="dataToForm.patient?.principalNumber && dataToForm.professional?.fullName && dataToForm.schedulingDateAndTime"
                         class="col-md-3">
                         <a class="btn btn-success btn-block" target="_blank"
-                            [href]="'https://api.whatsapp.com/send?phone=55' + dataToForm.patient?.principalNumber + '&text=Olá ' + dataToForm.patient?.fullName + ', estou passando para lembrar do seu compromisso com *' + dataToForm.professional?.fullName + '* | Data e hora agendada: *' + (dataToForm.schedulingDateAndTime | date: 'dd/MM/yyyy HH:mm:ss') + '*'"><span
+                            [href]="'https://api.whatsapp.com/send?phone=55' + dataToForm.patient?.principalNumber + '&text=Olá ' + dataToForm.patient?.fullName + ', estou passando para lembrar do seu compromisso com *' + dataToForm.professional?.fullName + '*%0aData: *' + (dataToForm.schedulingDateAndTime | date: 'dd/MM/yyyy') + '*%0aHora: *' + (dataToForm.schedulingDateAndTime | date: 'HH:mm:ss') + '*'"><span
                                 class="fa fa-whatsapp"></span>
                             WhatsApp</a>
                     </div>

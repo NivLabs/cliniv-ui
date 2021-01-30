@@ -4,7 +4,7 @@ import { Parameter } from "./Parameter";
 /**
  * Classe que representa as configurações
  */
-export class SeetingsInfo {
+export class SetingsInfo {
     appName: string;
     version: string;
     customerInfo: Customer = new Customer();
