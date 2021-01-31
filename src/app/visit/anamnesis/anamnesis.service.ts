@@ -11,7 +11,7 @@ export class AnamnesisService {
     token: string;
 
     constructor(private http: AppHttp) {
-        this.resourceUrl = `${environment.apiUrl}/attendance/anamnesis`;
+        this.resourceUrl = `${environment.apiUrl}/anamnesis`;
     }
 
     /**
