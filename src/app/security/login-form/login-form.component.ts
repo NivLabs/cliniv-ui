@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { ErrorHandlerService } from './../../core/error-handler.service';
 import { AuthService } from './../auth.service';
+import { SettingsService } from 'app/settings/settings.service';
 
 @Component({
   selector: 'app-login-form',
@@ -15,10 +16,11 @@ export class LoginFormComponent {
 
   constructor(
     private auth: AuthService,
+    private settingsService: SettingsService,
     private errorHandler: ErrorHandlerService,
     private router: Router
   ) {
-    if(!this.auth.isInvalidAccessToken()){
+    if (!this.auth.isInvalidAccessToken()) {
       this.router.navigate(['/dashboard']);
     } else {
       this.auth.removeAccessToken();
