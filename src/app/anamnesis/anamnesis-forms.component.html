@@ -17,8 +17,8 @@
                                 </div>
                                 <div class="col-md-4">
                                     <mat-form-field>
-                                        <input matInput placeholder="Descrição do formulário [ENTER]" name="description"
-                                            [(ngModel)]="filters.description" #description type="text"
+                                        <input matInput placeholder="Título do formulário [ENTER]" name="title"
+                                            [(ngModel)]="filters.title" #title type="text"
                                             (keypress)="enterKeyPress($event)" />
                                     </mat-form-field>
                                 </div>
@@ -47,8 +47,8 @@
                     <div class="card link-card" (click)="openDialog(anamnesisForm.id)">
                         <div class="card-body margin-color-active">
                             <ul>
-                                <li><span class="fa fa-key anamnesisForm-info"> Identificador:</span> {{anamnesisForm.id}}</li>
-                                <li><span class="fa fa-map anamnesisForm-info"> {{anamnesisForm.description}}</span></li>
+                                <li><span class="fa fa-key anamnesis-info"> Identificador:</span> {{anamnesisForm.id}}</li>
+                                <li><span class="fa fa-map anamnesis-info"> {{anamnesisForm.title}}</span></li>
                             </ul>
                         </div>
                     </div>
