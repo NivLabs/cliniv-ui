@@ -19,8 +19,18 @@ export class AnamnesisService {
      * @param pageSettings Configurações de paginação
      */
     getPageOfForms(filters: AnamnesisFormFilter, pageSettings: Pageable): Promise<Page> {
-        var headers = this.http.getHeadersDefault();
+        
         var queryString;
+        var headers = this.http.getHeadersDefault();
+        if (filters) {
+            let params = new URLSearchParams();
+            for (let key in filters) {
+                if (filters[key]) {
+                    params.set(key, filters[key])
+                }
+            }
+            queryString = params.toString();
+        }
         if (pageSettings) {
             let params = new URLSearchParams();
             for (let key in pageSettings) {

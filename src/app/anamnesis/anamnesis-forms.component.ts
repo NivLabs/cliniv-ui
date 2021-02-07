@@ -40,4 +40,27 @@ export class AnamnesisFormsComponent implements OnInit {
     });
   }
 
+  enterKeyPress(event: any) {
+    if (event.key === "Enter") {
+      this.applyFilter();
+    }
+  }
+
+  applyFilter() {
+    if (this.filters) {
+      this.loading = true;
+      this.pageSettings = new Pageable();
+      this.principalService.getPageOfForms(this.filters, this.pageSettings).then(response => {
+        this.loading = false;
+        this.datas = response.content;
+        this.page = response;
+        this.dataNotFound = this.datas.length === 0;
+      }).catch(error => {
+        this.dataNotFound = this.datas ? this.datas.length === 0 : true;
+        this.loading = false;
+        this.errorHandler.handle(error, null);
+      });
+    }
+  }
+
 }
