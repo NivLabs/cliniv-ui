@@ -63,6 +63,24 @@ export class AnamnesisFormsComponent implements OnInit {
     }
   }
 
+  loadNextPage() {
+    if (this.page && !this.page.last) {
+      this.loading = true;
+      this.pageSettings.page = this.pageSettings.page + 1;
+      this.principalService.getPageOfForms(this.filters, this.pageSettings).then(response => {
+        this.loading = false;
+        response.content.forEach(newItem => {
+          this.datas.push(newItem);
+        })
+        this.page = response;
+      }).catch(error => {
+        this.loading = false;
+        this.errorHandler.handle(error, null);
+      })
+    }
+  }
+
+
   openDialog(id) {
 
   }
