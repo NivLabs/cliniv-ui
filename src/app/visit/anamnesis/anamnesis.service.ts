@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { AppHttp } from '../../security/app-http';
 import { Page, Pageable } from 'app/model/Util';
-import { AnamnesisForm } from 'app/model/AnamnesisForm';
+import { AnamnesisForm, AnamnesisFormFilter } from 'app/model/AnamnesisForm';
 
 @Injectable()
 export class AnamnesisService {
@@ -18,9 +18,19 @@ export class AnamnesisService {
      * Busca uma página de formulários de anamnese
      * @param pageSettings Configurações de paginação
      */
-    getPageOfForms(pageSettings: Pageable): Promise<Page> {
-        var headers = this.http.getHeadersDefault();
+    getPageOfForms(filters: AnamnesisFormFilter, pageSettings: Pageable): Promise<Page> {
+        
         var queryString;
+        var headers = this.http.getHeadersDefault();
+        if (filters) {
+            let params = new URLSearchParams();
+            for (let key in filters) {
+                if (filters[key]) {
+                    params.set(key, filters[key])
+                }
+            }
+            queryString = params.toString();
+        }
         if (pageSettings) {
             let params = new URLSearchParams();
             for (let key in pageSettings) {

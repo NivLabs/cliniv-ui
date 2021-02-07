@@ -42,7 +42,7 @@ export class SelectFormComponent implements OnInit {
       this.pageSettings = new Pageable();
       this.pageSettings.size = 100;
 
-      this.principalService.getPageOfForms(this.pageSettings).then(resp => {
+      this.principalService.getPageOfForms(null, this.pageSettings).then(resp => {
         this.loading = false;
         this.datas = resp.content;
         this.page = resp;

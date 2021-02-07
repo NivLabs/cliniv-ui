@@ -83,6 +83,7 @@ import { UserService } from '../../user/user.service';
 import { AllergyComponent } from '../../visit/allergy/allergy.component';
 import { AnamnesisComponent } from '../../visit/anamnesis/anamnesis.component';
 import { AnamnesisService } from '../../visit/anamnesis/anamnesis.service';
+import { AnamnesisFormsComponent } from '../../anamnesis/anamnesis-forms.component';
 import { SelectFormComponent } from '../../visit/anamnesis/select-form/select-form.component';
 import { EvolutionComponent } from '../../visit/evolution/evolution.component';
 import { PatientHistoryComponent } from '../../visit/history/patient-history.component';
@@ -160,6 +161,8 @@ const maskConfig: Partial<IConfig> = {
   ],
   declarations: [
     DashboardComponent,
+
+    AnamnesisFormsComponent,
 
     PatientComponent,
     PatientEditComponent,

@@ -20,6 +20,7 @@ export const ROUTES: RouteInfo[] = [
   { path: '/professional', title: 'Profissionais', icon: 'bubble_chart', class: '' },
   { path: '/sector', title: 'Setores', icon: 'location_on', class: '' },
   { path: '/speciality', title: 'Especialidades', icon: 'format_list_bulleted', class: '' },
+  { path: '/anamnesis-forms', title: "Anamnese Conf.", icon: 'content_paste', class: '' },
   { path: '/health-operator', title: 'Operadoras', icon: 'credit_card', class: '' },
   { path: '/user', title: 'Usuários', icon: 'lock', class: '' },
   { path: '/procedure', title: 'Procedimentos', icon: 'assignment_turned_in', class: '' },
