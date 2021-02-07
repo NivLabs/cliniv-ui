@@ -63,4 +63,8 @@ export class AnamnesisFormsComponent implements OnInit {
     }
   }
 
+  openDialog(id) {
+
+  }
+
 }
