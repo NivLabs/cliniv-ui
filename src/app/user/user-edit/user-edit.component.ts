@@ -75,7 +75,10 @@ export class UserEditComponent implements OnInit {
           { id: 22, name: 'ROLE_AGENDA_ESCRITA', description: 'Permissão de escrita em agenda', checked: false },
 
           { id: 23, name: 'ROLE_ESPECIALIDADE_LEITURA', description: 'Permissão de leitura em especialidade', checked: false },
-          { id: 24, name: 'ROLE_ESPECIALIDADE_ESCRITA', description: 'Permissão de escrita em especialidade', checked: false }
+          { id: 24, name: 'ROLE_ESPECIALIDADE_ESCRITA', description: 'Permissão de escrita em especialidade', checked: false },
+
+          { id: 25, name: 'ROLE_RELATORIO_LEITURA', description: 'Permissão de leitura em relatórios', checked: false },
+          { id: 26, name: 'ROLE_RELATORIO_ESCRITA', description: 'Permissão de escrita em relatórios', checked: false }
 
         ];
       }
@@ -260,7 +263,10 @@ export class UserEditComponent implements OnInit {
       { id: 22, name: 'ROLE_AGENDA_ESCRITA', description: 'Permissão de escrita em agenda', checked: false },
 
       { id: 23, name: 'ROLE_ESPECIALIDADE_LEITURA', description: 'Permissão de leitura em especialidade', checked: false },
-      { id: 24, name: 'ROLE_ESPECIALIDADE_ESCRITA', description: 'Permissão de escrita em especialidade', checked: false }
+      { id: 24, name: 'ROLE_ESPECIALIDADE_ESCRITA', description: 'Permissão de escrita em especialidade', checked: false },
+
+      { id: 25, name: 'ROLE_RELATORIO_LEITURA', description: 'Permissão de leitura em relatórios', checked: false },
+      { id: 26, name: 'ROLE_RELATORIO_ESCRITA', description: 'Permissão de escrita em relatórios', checked: false }
     ];
     if (this.dataToForm && this.dataToForm.roles) {
       this.dataToForm.roles.forEach(role => {

@@ -13,6 +13,7 @@ import { SettingsComponent } from '../../settings/settings.component';
 import { HealthOperatorComponent } from 'app/healthOperator/health-operator.component';
 import { ScheduleComponent } from 'app/schedule/schedule.component';
 import { SpecialityComponent } from 'app/speciality/speciality.component';
+import { AnamnesisFormsComponent } from 'app/anamnesis/anamnesis-forms.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard', component: DashboardComponent },
@@ -23,6 +24,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'procedure', component: ProcedureComponent },
     { path: 'professional', component: ProfessionalComponent },
     { path: 'sector', component: SectorComponent },
+    { path: 'anamnesis-forms', component: AnamnesisFormsComponent },
     { path: 'speciality', component: SpecialityComponent },
     { path: 'health-operator', component: HealthOperatorComponent },
     { path: 'user', component: UserComponent },

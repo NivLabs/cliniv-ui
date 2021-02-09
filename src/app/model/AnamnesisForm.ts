@@ -5,3 +5,8 @@ export class AnamnesisForm {
     title: string;
     questions: Array<AnamnesisItem>;
 }
+
+export class AnamnesisFormFilter {
+    id: number;
+    title: string;
+}

@@ -13,6 +13,7 @@ declare interface RouteInfo {
   routes: RouteInfo[]
 }
 export const ROUTES: RouteInfo[] = [
+
   { path: '/dashboard', title: 'Dashboard', icon: 'dashboard', class: '', collapse: false, routes: null },
   { path: '/schedule', title: 'Agenda', icon: 'schedule', class: '', collapse: false, routes: null },
   { path: '/user-profile', title: 'Perfil', icon: 'person', class: '', collapse: false, routes: null },
@@ -20,6 +21,7 @@ export const ROUTES: RouteInfo[] = [
   { path: '/visit', title: 'Prontuário', icon: 'content_paste', class: '', collapse: false, routes: null },
   { path: '/attendance', title: 'Atendimentos', icon: 'assignment_ind', class: '', collapse: false, routes: null }, 
   { path: '/speciality', title: 'Especialidades', icon: 'format_list_bulleted', class: '', collapse: false, routes: null },
+  { path: '/anamnesis-forms', title: "Anamnese Conf.", icon: 'content_paste', class: '', collapse: false, routes: null },
   { path: '/health-operator', title: 'Operadoras', icon: 'credit_card', class: '', collapse: false, routes: null },  
   { path: '/procedure', title: 'Procedimentos', icon: 'assignment_turned_in', class: '', collapse: false, routes: null},
 
@@ -31,7 +33,6 @@ export const ROUTES: RouteInfo[] = [
     { path: '/settings', title: 'Instituição', icon: 'business', class: '', collapse: false, routes: null }
 
   ]}
-  
 ];
 
 @Component({
