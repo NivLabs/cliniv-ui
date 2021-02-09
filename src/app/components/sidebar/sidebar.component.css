@@ -50,3 +50,11 @@
 .logoff {
   color: #ea4541 !important;
 }
+
+.submenu {
+  padding-left: 15px;
+}
+.submenu.nav-link {
+  padding-top: 0;
+  padding-bottom: 0;
+}

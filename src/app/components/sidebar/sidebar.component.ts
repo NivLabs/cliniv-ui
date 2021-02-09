@@ -16,23 +16,28 @@ export const ROUTES: RouteInfo[] = [
 
   { path: '/dashboard', title: 'Dashboard', icon: 'dashboard', class: '', collapse: false, routes: null },
   { path: '/schedule', title: 'Agenda', icon: 'schedule', class: '', collapse: false, routes: null },
-  { path: '/user-profile', title: 'Perfil', icon: 'person', class: '', collapse: false, routes: null },
-  { path: '/patient', title: 'Pacientes', icon: 'people', class: '', collapse: false , routes: null},
+  { path: '/patient', title: 'Pacientes', icon: 'people', class: '', collapse: false, routes: null },
   { path: '/visit', title: 'Prontuário', icon: 'content_paste', class: '', collapse: false, routes: null },
-  { path: '/attendance', title: 'Atendimentos', icon: 'assignment_ind', class: '', collapse: false, routes: null }, 
-  { path: '/speciality', title: 'Especialidades', icon: 'format_list_bulleted', class: '', collapse: false, routes: null },
-  { path: '/anamnesis-forms', title: "Anamnese Conf.", icon: 'content_paste', class: '', collapse: false, routes: null },
-  { path: '/health-operator', title: 'Operadoras', icon: 'credit_card', class: '', collapse: false, routes: null },  
-  { path: '/procedure', title: 'Procedimentos', icon: 'assignment_turned_in', class: '', collapse: false, routes: null},
+  { path: '/attendance', title: 'Atendimentos', icon: 'assignment_ind', class: '', collapse: false, routes: null },
+  {
+    path: '', title: 'Outros Cadastros', icon: 'format_list_bulleted', class: '', collapse: true, routes: [
+      { path: '/speciality', title: 'Especialidades', icon: 'label_important', class: '', collapse: false, routes: null },
+      { path: '/anamnesis-forms', title: "Formulários", icon: 'label_important', class: '', collapse: false, routes: null },
+      { path: '/health-operator', title: 'Operadoras', icon: 'label_important', class: '', collapse: false, routes: null },
+      { path: '/procedure', title: 'Procedimentos', icon: 'label_important', class: '', collapse: false, routes: null },
+      { path: '/professional', title: 'Profissionais', icon: 'label_important', class: '', collapse: false, routes: null },
+      { path: '/sector', title: 'Setores', icon: 'label_important', class: '', collapse: false, routes: null }
+    ]
+  },
 
-  { path: '', title: 'Configurações', icon: 'settings', class: '', collapse: true, routes: [
-    
-    { path: '/professional', title: 'Profissionais', icon: 'bubble_chart', class: '', collapse: false, routes: null },
-    { path: '/sector', title: 'Setores', icon: 'location_on', class: '', collapse: false, routes: null },
-    { path: '/user', title: 'Usuários', icon: 'lock', class: '', collapse: false, routes: null },  
-    { path: '/settings', title: 'Instituição', icon: 'business', class: '', collapse: false, routes: null }
+  {
+    path: '', title: 'Configurações', icon: 'settings', class: '', collapse: true, routes: [
+      { path: '/user-profile', title: 'Perfil', icon: 'label_important', class: '', collapse: false, routes: null },
+      { path: '/user', title: 'Usuários', icon: 'label_important', class: '', collapse: false, routes: null },
+      { path: '/settings', title: 'Instituição', icon: 'label_important', class: '', collapse: false, routes: null }
 
-  ]}
+    ]
+  }
 ];
 
 @Component({
@@ -42,7 +47,7 @@ export const ROUTES: RouteInfo[] = [
 })
 export class SidebarComponent implements OnInit {
   menuItems: any[];
-  personName: string;  
+  personName: string;
 
   constructor(
     private auth: AuthService,
@@ -69,66 +74,66 @@ export class SidebarComponent implements OnInit {
     this.router.navigate(['/login'])
   }
 
-  toggle(id){
+  toggle(id) {
 
-    const collapse = document.getElementById(id);    
+    const collapse = document.getElementById(id);
     const caret = document.getElementById('caret_' + id);
 
-    if(collapse.classList.contains('show')){
+    if (collapse.classList.contains('show')) {
       collapse.classList.remove('show');
-      caret.style.cssText = '';  
+      caret.style.cssText = '';
     }
-    else{
+    else {
 
       collapse.classList.add('show');
-      caret.style.cssText = 'transform: rotate(180deg)';  
+      caret.style.cssText = 'transform: rotate(180deg)';
     }
   }
 
-  active(element){    
+  active(element) {
 
     const lis = document.getElementsByClassName('active');
 
-    if(lis){
+    if (lis) {
 
-      if(lis.length > 1){
+      if (lis.length > 1) {
 
-        for(let li in lis) {
-          if(lis.length != 0){
+        for (let li in lis) {
+          if (lis.length != 0) {
             lis[0].classList.remove('active');
           }
         }
       }
-      else{
+      else {
         lis[0].classList.remove('active');
       }
-      
+
     }
-      
+
     element.parentElement.parentElement.classList.add('active');
 
   }
 
-  activeToggle(element){    
+  activeToggle(element) {
 
     const lis = document.getElementsByClassName('active');
 
-    if(lis){
+    if (lis) {
 
-      if(lis.length > 1){
+      if (lis.length > 1) {
 
-        for(let li in lis) {
-          if(lis.length != 0){
+        for (let li in lis) {
+          if (lis.length != 0) {
             lis[0].classList.remove('active');
           }
         }
       }
-      else{
+      else {
         lis[0].classList.remove('active');
       }
-      
+
     }
-      
+
     element.parentElement.parentElement.parentElement.classList.add('active');
 
   }
