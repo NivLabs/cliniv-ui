@@ -11,17 +11,18 @@
                         <div class="card-title">
                             <h4>Atendimento <span *ngIf="visit.allergies.length > 0">(Paciente
                                     Alérgico)</span>
-                                <span *ngIf="visit.id && visit.patientId && timer" class="timer"><i class="fa fa-clock-o"></i> {{timer}}</span>
+                                <span *ngIf="visit.id && visit.patientId && timer" class="timer"><i
+                                        class="fa fa-clock-o"></i> {{timer}}</span>
                                 <button matTooltip="Ações do prontuário" mat-icon-button [matMenuTriggerFor]="menu"
                                     style="float: right;" *ngIf="visit.id && visit.patientId">
                                     <mat-icon>menu</mat-icon>
                                 </button>
                                 <mat-menu #menu="matMenu">
-                                    <button mat-menu-item matTooltip="Realiza questionário de Anamnese"
+                                    <button mat-menu-item matTooltip="Realiza questionário (Formulário Clínico)"
                                         *ngIf="visit.id && visit.patientId && !visit.exitDateTime"
                                         (click)="openAnamnesisDialog(visit.id)">
                                         <mat-icon>ballot</mat-icon>
-                                        <span>Anamnese</span>
+                                        <span>Formulário</span>
                                     </button>
                                     <button mat-menu-item matTooltip="Adiciona prescrição"
                                         *ngIf="visit.id && visit.patientId && !visit.exitDateTime">
