@@ -71,11 +71,11 @@
                                 </mat-header-cell>
                                 <mat-cell *matCellDef="let element" style="justify-content: center;">
                                     <button mat-raised-button type="button" class="btn-info"
-                                        (click)="openQuetionEdit(element)" style="margin-right: 10px;">
+                                        (click)="openQuetionEdit(dataToForm.id, element)" style="margin-right: 10px;">
                                         <mat-icon>edit</mat-icon>
                                     </button>
                                     <button mat-raised-button type="button" class="btn-danger"
-                                        (click)="deleteQuestion(dataToForm.id, element.id)">
+                                        (click)="deleteQuestion(element.id)">
                                         <mat-icon>delete</mat-icon>
                                     </button>
                                 </mat-cell>

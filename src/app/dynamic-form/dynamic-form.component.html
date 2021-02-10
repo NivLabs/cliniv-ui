@@ -4,7 +4,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header card-header-info">
-                        <h4 class="card-title">Formulários de Anamnese</h4>
+                        <h4 class="card-title">Formulários dinâmicos</h4>
                     </div>
                     <div class="card-body">
                         <form #form="ngForm" autocomplete="off">
@@ -47,7 +47,8 @@
                     <div class="card link-card" (click)="openDialog(anamnesisForm.id)">
                         <div class="card-body margin-color-active">
                             <ul>
-                                <li><span class="fa fa-key anamnesis-info"> Identificador:</span> {{anamnesisForm.id}}</li>
+                                <li><span class="fa fa-key anamnesis-info"> Identificador:</span> {{anamnesisForm.id}}
+                                </li>
                                 <li><span class="fa fa-map anamnesis-info"> {{anamnesisForm.title}}</span></li>
                             </ul>
                         </div>

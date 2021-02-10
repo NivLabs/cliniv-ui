@@ -10,7 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MedicalRecord, NewAttendance } from 'app/model/Attendance';
 import { Document } from 'app/model/Document';
 import { DocumentViewerComponent } from 'app/component/document-viewer/document-viewer.component';
-import { AnamnesisComponent } from './anamnesis/anamnesis.component';
+import { AnamnesisComponent } from './anamnesis/att-dynamic-form.component';
 import { AllergyComponent } from './allergy/allergy.component';
 import { EvolutionComponent } from './evolution/evolution.component';
 import { Accommodation } from 'app/model/Accommodation';
