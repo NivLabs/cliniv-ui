@@ -86,7 +86,11 @@ export class DynamicFormEditComponent implements OnInit {
     this.errorHandler.handle(error, this.dialogRef);
   }
 
-  save() {
+  save() { }
 
-  }
+  openQuetionEdit(formId, question) { }
+
+  deleteQuestion(questionId) { }
+
+  resetForm() { }
 }
