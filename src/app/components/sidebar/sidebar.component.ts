@@ -22,7 +22,7 @@ export const ROUTES: RouteInfo[] = [
   {
     path: '', title: 'Outros Cadastros', icon: 'format_list_bulleted', class: '', collapse: true, routes: [
       { path: '/speciality', title: 'Especialidades', icon: 'label_important', class: '', collapse: false, routes: null },
-      { path: '/anamnesis-forms', title: "Formulários", icon: 'label_important', class: '', collapse: false, routes: null },
+      { path: '/dynamic-form', title: "Formulários", icon: 'label_important', class: '', collapse: false, routes: null },
       { path: '/health-operator', title: 'Operadoras', icon: 'label_important', class: '', collapse: false, routes: null },
       { path: '/procedure', title: 'Procedimentos', icon: 'label_important', class: '', collapse: false, routes: null },
       { path: '/professional', title: 'Profissionais', icon: 'label_important', class: '', collapse: false, routes: null },

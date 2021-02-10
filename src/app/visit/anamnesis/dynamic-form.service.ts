@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { AppHttp } from '../../security/app-http';
 import { Page, Pageable } from 'app/model/Util';
-import { AnamnesisForm, AnamnesisFormFilter } from 'app/model/AnamnesisForm';
+import { DynamicForm, DynamicFormFilter } from 'app/model/AnamnesisForm';
 
 @Injectable()
-export class AnamnesisService {
+export class DynamicFormService {
 
     resourceUrl: string;
     token: string;
@@ -18,8 +18,8 @@ export class AnamnesisService {
      * Busca uma página de formulários de anamnese
      * @param pageSettings Configurações de paginação
      */
-    getPageOfForms(filters: AnamnesisFormFilter, pageSettings: Pageable): Promise<Page> {
-        
+    getPageOfForms(filters: DynamicFormFilter, pageSettings: Pageable): Promise<Page> {
+
         var queryString;
         var headers = this.http.getHeadersDefault();
         if (filters) {
@@ -46,10 +46,10 @@ export class AnamnesisService {
      * 
      * @param id Busca um formulário de anamnese com as questões
      */
-    findById(id: number): Promise<AnamnesisForm> {
+    findById(id: number): Promise<DynamicForm> {
         if (id) {
             var headers = this.http.getHeadersDefault();
-            return this.http.get<AnamnesisForm>(`${this.resourceUrl}/form/${id}`, { headers }).toPromise();
+            return this.http.get<DynamicForm>(`${this.resourceUrl}/form/${id}`, { headers }).toPromise();
         }
     }
 

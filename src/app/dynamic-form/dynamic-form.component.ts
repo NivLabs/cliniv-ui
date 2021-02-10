@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ErrorHandlerService } from 'app/core/error-handler.service';
-import { AnamnesisForm, AnamnesisFormFilter } from 'app/model/AnamnesisForm';
+import { DynamicFormFilter } from 'app/model/AnamnesisForm';
 import { Page, Pageable } from 'app/model/Util';
-import { AnamnesisService } from 'app/visit/anamnesis/anamnesis.service';
-import { AnamnesisEditComponent } from './anamnesis-edit/anamnesis-edit.component';
+import { DynamicFormService } from 'app/visit/anamnesis/dynamic-form.service';
+import { DynamicFormEditComponent } from './dynamic-form-edit/dynamic-form-edit.component';
 
 @Component({
-  selector: 'app-anamnesis-forms',
-  templateUrl: './anamnesis-forms.component.html',
-  styleUrls: ['./anamnesis-forms.component.css']
+  selector: 'app-dynamic-form',
+  templateUrl: './dynamic-form.component.html',
+  styleUrls: ['./dynamic-form.component.css']
 })
-export class AnamnesisFormsComponent implements OnInit {
+export class DynamicFormComponent implements OnInit {
 
 
   public loading: boolean;
@@ -19,16 +19,16 @@ export class AnamnesisFormsComponent implements OnInit {
   datas: Array<any>;
   page: Page;
   pageSettings: Pageable;
-  filters: AnamnesisFormFilter;
+  filters: DynamicFormFilter;
 
-  constructor(private principalService: AnamnesisService,
+  constructor(private principalService: DynamicFormService,
     private errorHandler: ErrorHandlerService,
     private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.loading = true;
     this.page = new Page();
-    this.filters = new AnamnesisFormFilter();
+    this.filters = new DynamicFormFilter();
     this.pageSettings = new Pageable();
     this.principalService.getPageOfForms(this.filters, this.pageSettings).then(response => {
       this.loading = false;
@@ -85,7 +85,7 @@ export class AnamnesisFormsComponent implements OnInit {
 
 
   openDialog(id) {
-    const dialogRef = this.dialog.open(AnamnesisEditComponent, {
+    const dialogRef = this.dialog.open(DynamicFormEditComponent, {
       width: '100%',
       height: 'auto',
       data: { anamnesisSelectedId: id }

@@ -10,8 +10,8 @@ import { Response } from 'app/model/Response';
 import { ResponseAnamnesis } from 'app/model/ResponseAnamnesis';
 
 @Component({
-    selector: 'app-anamnesis',
-    templateUrl: './anamnesis.component.html'
+    selector: 'app-att-dynamic-form',
+    templateUrl: './att-dynamic-form.component.html'
 })
 
 export class AnamnesisComponent implements OnInit {

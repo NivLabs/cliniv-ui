@@ -4,10 +4,10 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { Router } from '@angular/router';
 import { ErrorHandlerService } from 'app/core/error-handler.service';
 import { NotificationsComponent } from 'app/core/notification/notifications.component';
-import { AnamnesisForm } from 'app/model/AnamnesisForm';
+import { DynamicForm } from 'app/model/AnamnesisForm';
 import { Page, Pageable } from 'app/model/Util';
-import { AnamnesisComponent } from '../anamnesis.component';
-import { AnamnesisService } from '../anamnesis.service';
+import { AnamnesisComponent } from '../att-dynamic-form.component';
+import { DynamicFormService } from '../dynamic-form.service';
 
 @Component({
   selector: 'app-select-form',
@@ -17,16 +17,16 @@ import { AnamnesisService } from '../anamnesis.service';
 export class SelectFormComponent implements OnInit {
 
   constructor(
-    private principalService: AnamnesisService,
+    private principalService: DynamicFormService,
     private dialogRef: MatDialogRef<SelectFormComponent>,
     private errorHandler: ErrorHandlerService,
     private notification: NotificationsComponent,
     public dialog: MatDialog,
-    @Inject(MAT_DIALOG_DATA) public data: AnamnesisForm,
+    @Inject(MAT_DIALOG_DATA) public data: DynamicForm,
     private router: Router) { }
 
-  public datas: Array<AnamnesisForm>;
-  public selectedForm: AnamnesisForm;
+  public datas: Array<DynamicForm>;
+  public selectedForm: DynamicForm;
   public loading: boolean = false;
   public page: Page;
   public pageSettings: Pageable;
@@ -62,7 +62,7 @@ export class SelectFormComponent implements OnInit {
    */
   selectData(id) {
     if (id) {
-      this.selectedForm = new AnamnesisForm();
+      this.selectedForm = new DynamicForm();
       this.selectedForm.id = id;
     } else {
       this.selectedForm = null;

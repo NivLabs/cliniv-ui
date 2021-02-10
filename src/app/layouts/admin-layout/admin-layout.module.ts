@@ -81,9 +81,9 @@ import { UserEditComponent } from '../../user/user-edit/user-edit.component';
 import { UserComponent } from '../../user/user.component';
 import { UserService } from '../../user/user.service';
 import { AllergyComponent } from '../../visit/allergy/allergy.component';
-import { AnamnesisComponent } from '../../visit/anamnesis/anamnesis.component';
-import { AnamnesisService } from '../../visit/anamnesis/anamnesis.service';
-import { AnamnesisFormsComponent } from '../../anamnesis/anamnesis-forms.component';
+import { AnamnesisComponent } from '../../visit/anamnesis/att-dynamic-form.component';
+import { DynamicFormService } from '../../visit/anamnesis/dynamic-form.service';
+import { DynamicFormComponent } from '../../dynamic-form/dynamic-form.component';
 import { SelectFormComponent } from '../../visit/anamnesis/select-form/select-form.component';
 import { EvolutionComponent } from '../../visit/evolution/evolution.component';
 import { PatientHistoryComponent } from '../../visit/history/patient-history.component';
@@ -94,7 +94,7 @@ import { AdminLayoutRoutes } from './admin-layout.routing';
 import { SpecialityComponent } from '../../speciality/speciality.component';
 import { SpecialityService } from '../../speciality/speciality.service';
 import { SpecialityEditComponent } from '../../speciality/speciality-edit/speciality-edit.component';
-import { AnamnesisEditComponent } from 'app/anamnesis/anamnesis-edit/anamnesis-edit.component';
+import { DynamicFormEditComponent } from 'app/dynamic-form/dynamic-form-edit/dynamic-form-edit.component';
 
 
 const matModules = [
@@ -163,8 +163,8 @@ const maskConfig: Partial<IConfig> = {
   declarations: [
     DashboardComponent,
 
-    AnamnesisFormsComponent,
-    AnamnesisEditComponent,
+    DynamicFormComponent,
+    DynamicFormEditComponent,
 
     PatientComponent,
     PatientEditComponent,
@@ -245,14 +245,14 @@ const maskConfig: Partial<IConfig> = {
     CameraDialogComponent,
     DocumentViewerComponent,
     SpecialityEditComponent,
-    AnamnesisEditComponent
+    DynamicFormEditComponent
   ],
   providers: [
     UserProfileService,
     PatientService,
     DashboardService,
     ScheduleService,
-    AnamnesisService,
+    DynamicFormService,
     HealthPlanService,
     ProfessionalService,
     UserService,

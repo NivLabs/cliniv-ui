@@ -5,35 +5,35 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ErrorHandlerService } from 'app/core/error-handler.service';
 import { NotificationsComponent } from 'app/core/notification/notifications.component';
-import { AnamnesisForm } from 'app/model/AnamnesisForm';
-import { AnamnesisService } from 'app/visit/anamnesis/anamnesis.service';
+import { DynamicForm } from 'app/model/AnamnesisForm';
+import { DynamicFormService } from 'app/visit/anamnesis/dynamic-form.service';
 
 @Component({
-  selector: 'app-anamnesis-edit',
-  templateUrl: './anamnesis-edit.component.html',
-  styleUrls: ['./anamnesis-edit.component.css']
+  selector: 'app-dynamic-form-edit',
+  templateUrl: './dynamic-form-edit.component.html',
+  styleUrls: ['./dynamic-form-edit.component.css']
 })
-export class AnamnesisEditComponent implements OnInit {
+export class DynamicFormEditComponent implements OnInit {
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   public loading = false;
-  public dataToForm: AnamnesisForm;
+  public dataToForm: DynamicForm;
   public dataSource: any;
   public displayedColumns: any;
   public anamnesisSelectedId: number = 0;
 
 
-  constructor(public principalService: AnamnesisService,
+  constructor(public principalService: DynamicFormService,
     public confirmDialog: MatDialog,
     public dialog: MatDialog,
-    public dialogRef: MatDialogRef<AnamnesisEditComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: AnamnesisForm,
+    public dialogRef: MatDialogRef<DynamicFormEditComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: DynamicForm,
     public formBuilder: FormBuilder,
     private errorHandler: ErrorHandlerService,
     private notification: NotificationsComponent) {
     this.dialogRef.disableClose = true;
-    this.dataToForm = new AnamnesisForm();
+    this.dataToForm = new DynamicForm();
   }
 
   ngOnInit(): void {
@@ -51,7 +51,7 @@ export class AnamnesisEditComponent implements OnInit {
           this.dataSource.sort = this.sort;
         });
       }).catch(error => {
-        this.dataToForm = new AnamnesisForm();
+        this.dataToForm = new DynamicForm();
         this.handlerException(error);
       });
 
@@ -86,4 +86,7 @@ export class AnamnesisEditComponent implements OnInit {
     this.errorHandler.handle(error, this.dialogRef);
   }
 
+  save() {
+
+  }
 }
