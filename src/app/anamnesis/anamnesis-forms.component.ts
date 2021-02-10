@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ErrorHandlerService } from 'app/core/error-handler.service';
-import { AnamnesisFormFilter } from 'app/model/AnamnesisForm';
+import { AnamnesisForm, AnamnesisFormFilter } from 'app/model/AnamnesisForm';
 import { Page, Pageable } from 'app/model/Util';
 import { AnamnesisService } from 'app/visit/anamnesis/anamnesis.service';
+import { AnamnesisEditComponent } from './anamnesis-edit/anamnesis-edit.component';
 
 @Component({
   selector: 'app-anamnesis-forms',
@@ -20,7 +22,8 @@ export class AnamnesisFormsComponent implements OnInit {
   filters: AnamnesisFormFilter;
 
   constructor(private principalService: AnamnesisService,
-    private errorHandler: ErrorHandlerService) { }
+    private errorHandler: ErrorHandlerService,
+    private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.loading = true;
@@ -82,7 +85,15 @@ export class AnamnesisFormsComponent implements OnInit {
 
 
   openDialog(id) {
+    const dialogRef = this.dialog.open(AnamnesisEditComponent, {
+      width: '100%',
+      height: 'auto',
+      data: { anamnesisSelectedId: id }
+    });
 
+    dialogRef.afterClosed().subscribe(result => {
+      this.ngOnInit();
+    });
   }
-
 }
+

@@ -94,6 +94,7 @@ import { AdminLayoutRoutes } from './admin-layout.routing';
 import { SpecialityComponent } from '../../speciality/speciality.component';
 import { SpecialityService } from '../../speciality/speciality.service';
 import { SpecialityEditComponent } from '../../speciality/speciality-edit/speciality-edit.component';
+import { AnamnesisEditComponent } from 'app/anamnesis/anamnesis-edit/anamnesis-edit.component';
 
 
 const matModules = [
@@ -163,6 +164,7 @@ const maskConfig: Partial<IConfig> = {
     DashboardComponent,
 
     AnamnesisFormsComponent,
+    AnamnesisEditComponent,
 
     PatientComponent,
     PatientEditComponent,
@@ -242,7 +244,8 @@ const maskConfig: Partial<IConfig> = {
     ConfirmDialogComponent,
     CameraDialogComponent,
     DocumentViewerComponent,
-    SpecialityEditComponent
+    SpecialityEditComponent,
+    AnamnesisEditComponent
   ],
   providers: [
     UserProfileService,
