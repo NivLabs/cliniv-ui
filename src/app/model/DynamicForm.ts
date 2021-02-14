@@ -1,9 +1,9 @@
-import { DynamicFormItem } from "./DynamicFormItem";
+import { DynamicFormQuestion } from "./DynamicFormQuestion";
 
 export class DynamicForm {
     id: number;
     title: string;
-    questions: Array<DynamicFormItem>;
+    questions: Array<DynamicFormQuestion>;
 }
 
 export class DynamicFormFilter {

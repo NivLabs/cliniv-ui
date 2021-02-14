@@ -3,7 +3,7 @@ import { environment } from '../../environments/environment';
 import { AppHttp } from '../security/app-http';
 import { PatientHistory, MedicalRecord, NewAttendance, CloseAttendanceRequest, NewAttendanceEvent } from 'app/model/Attendance';
 import { Page, Pageable } from 'app/model/Util';
-import { DynamicFormResponse } from 'app/model/DynamicFormResponse';
+import { DynamicFormAnswered } from 'app/model/DynamicFormAnswered';
 import { Allergy, AllergyFilters } from 'app/model/Allergy';
 import { EvolutionInfo } from 'app/model/Evolution';
 
@@ -41,25 +41,11 @@ export class MedicalRecordService {
             .toPromise();
     }
 
-    getPageOfQuestions(pageSettings: Pageable): Promise<Page> {
-        var headers = this.http.getHeadersDefault();
-        var queryString;
-        if (pageSettings) {
-            let params = new URLSearchParams();
-            for (let key in pageSettings) {
-                params.set(key, pageSettings[key])
-            }
-            queryString = queryString ? queryString + '&' + params.toString() : params.toString();
-
-        }
-        return this.http.get<Page>(`${this.resourceUrl}/dynamic-form-item?${queryString}`, { headers }).toPromise();
-    }
-
-    createDyanmicForm(dynamicFormResponse): Promise<DynamicFormResponse> {
+    createDyanmicFormResponse(dynamicFormResponse, attendanceId): Promise<DynamicFormAnswered> {
         var headers = this.http.getHeadersDefault();
 
         if (dynamicFormResponse) {
-            return this.http.post<DynamicFormResponse>(`${this.resourceUrl}/dynamic-form`, dynamicFormResponse, { headers }).toPromise();
+            return this.http.post<DynamicFormAnswered>(`${this.resourceUrl}/${attendanceId}/dynamic-form`, dynamicFormResponse, { headers }).toPromise();
         }
     }
 

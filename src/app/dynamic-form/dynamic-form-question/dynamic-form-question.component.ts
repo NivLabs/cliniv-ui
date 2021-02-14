@@ -6,7 +6,7 @@ import { UtilService } from 'app/core/util.service';
 import { FormBuilder } from '@angular/forms';
 import { MatDialogRef, MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from 'app/core/confirm-dialog/confirm-dialog.component';
-import { DynamicFormItem } from 'app/model/DynamicFormItem';
+import { DynamicFormQuestion } from 'app/model/DynamicFormQuestion';
 
 @Component({
     selector: 'app-dynamic-form-question',
@@ -16,11 +16,11 @@ import { DynamicFormItem } from 'app/model/DynamicFormItem';
 export class DynamicFormQuestionComponent implements OnInit {
 
     public loading = false;
-    public dataForm: DynamicFormItem;
+    public dataForm: DynamicFormQuestion;
     public dynamicFormId: number;
 
     constructor(public principalService: DynamicFormService, public confirmDialog: MatDialog, public dialog: MatDialog, public dialogRef: MatDialogRef<DynamicFormQuestionComponent>,
-        @Inject(MAT_DIALOG_DATA) public data: DynamicFormItem, public formBuilder: FormBuilder, private utilService: UtilService, private errorHandler: ErrorHandlerService,
+        @Inject(MAT_DIALOG_DATA) public data: DynamicFormQuestion, public formBuilder: FormBuilder, private utilService: UtilService, private errorHandler: ErrorHandlerService,
         private notification: NotificationsComponent) {
         this.dialogRef.disableClose = true;
     }
@@ -32,7 +32,7 @@ export class DynamicFormQuestionComponent implements OnInit {
             this.dataForm = this.dialogRef.componentInstance.data['dynamicFormQuestion'];
         }
         if (!this.dataForm) {
-            this.dataForm = new DynamicFormItem();
+            this.dataForm = new DynamicFormQuestion();
         }
     }
 
@@ -70,7 +70,7 @@ export class DynamicFormQuestionComponent implements OnInit {
 
         confirmDialogRef.afterClosed().subscribe(result => {
             if (result !== undefined && result.isConfirmed) {
-                this.dataForm = new DynamicFormItem();
+                this.dataForm = new DynamicFormQuestion();
             }
         });
     }
