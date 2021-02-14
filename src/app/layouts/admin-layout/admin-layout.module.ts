@@ -167,6 +167,7 @@ const maskConfig: Partial<IConfig> = {
     DynamicFormComponent,
     DynamicFormEditComponent,
     DynamicFormQuestionComponent,
+    AttDynamicFormComponent,
 
     PatientComponent,
     PatientEditComponent,
@@ -248,7 +249,8 @@ const maskConfig: Partial<IConfig> = {
     DocumentViewerComponent,
     SpecialityEditComponent,
     DynamicFormEditComponent,
-    DynamicFormQuestionComponent
+    DynamicFormQuestionComponent,
+    AttDynamicFormComponent
   ],
   providers: [
     UserProfileService,

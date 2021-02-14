@@ -6,7 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ErrorHandlerService } from 'app/core/error-handler.service';
 import { NotificationsComponent } from 'app/core/notification/notifications.component';
 import { DynamicForm } from 'app/model/DynamicForm';
-import { DynamicFormItem } from 'app/model/DynamicFormItem';
+import { DynamicFormQuestion } from 'app/model/DynamicFormQuestion';
 import { DynamicFormService } from 'app/visit/dynamicForm/dynamic-form.service';
 import { ConfirmDialogComponent } from 'app/core/confirm-dialog/confirm-dialog.component';
 import { DynamicFormQuestionComponent } from '../dynamic-form-question/dynamic-form-question.component';
@@ -72,12 +72,14 @@ export class DynamicFormEditComponent implements OnInit {
         return 'Texto'
       case 'NUMBER':
         return 'Numérico'
-      case 'GROUP':
-        return 'Agrupado'
+      /* case 'GROUP':
+        return 'Agrupado' */
       case 'BOOL':
         return 'Sim ou Não'
       case 'DATE':
         return 'Data'
+      case 'TEXTAREA':
+        return 'Área de Texto'
       default:
         this.notification.showError('Tipo de metadado não mapeado!');
         break;
@@ -157,8 +159,9 @@ export class DynamicFormEditComponent implements OnInit {
     confirmDialogRef.afterClosed().subscribe(result => {
       if (result !== undefined && result.isConfirmed) {
         this.dataToForm = new DynamicForm();
-        this.dataToForm.questions = new Array<DynamicFormItem>();
+        this.dataToForm.questions = new Array<DynamicFormQuestion>();
       }
     });
   }
+
 }

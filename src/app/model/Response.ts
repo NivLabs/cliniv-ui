@@ -1,4 +1,4 @@
-import { DynamicFormItem } from "./DynamicFormItem";
+import { DynamicFormQuestion } from "./DynamicFormQuestion";
 
 /**
  * Classe que representa as respostas
@@ -6,8 +6,8 @@ import { DynamicFormItem } from "./DynamicFormItem";
 export class Response {
     constructor() { 
         this.response = "";
-        this.dynamicFormItem = new DynamicFormItem();
+        this.dynamicFormQuestion = new DynamicFormQuestion();
     }
     response: string;
-    dynamicFormItem: DynamicFormItem;
+    dynamicFormQuestion: DynamicFormQuestion;
 }

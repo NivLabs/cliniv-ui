@@ -3,7 +3,7 @@ import { environment } from '../../../environments/environment';
 import { AppHttp } from '../../security/app-http';
 import { Page, Pageable } from 'app/model/Util';
 import { DynamicForm, DynamicFormFilter } from 'app/model/DynamicForm';
-import { DynamicFormItem } from 'app/model/DynamicFormItem';
+import { DynamicFormQuestion } from 'app/model/DynamicFormQuestion';
 
 @Injectable()
 export class DynamicFormService {
@@ -78,19 +78,19 @@ export class DynamicFormService {
         }
     }
 
-    createDynamicFormQuestion(dynamicFormQuestion, dynamicFormId): Promise<DynamicFormItem> {
+    createDynamicFormQuestion(dynamicFormQuestion, dynamicFormId): Promise<DynamicFormQuestion> {
         var headers = this.http.getHeadersDefault();
 
         if (dynamicFormQuestion) {
-            return this.http.post<DynamicFormItem>(`${this.resourceUrl}/${dynamicFormId}/question`, dynamicFormQuestion, { headers }).toPromise();
+            return this.http.post<DynamicFormQuestion>(`${this.resourceUrl}/${dynamicFormId}/question`, dynamicFormQuestion, { headers }).toPromise();
         }
     }
 
-    updateDynamicFormQuestion(dynamicFormQuestion): Promise<DynamicFormItem> {
+    updateDynamicFormQuestion(dynamicFormQuestion): Promise<DynamicFormQuestion> {
         var headers = this.http.getHeadersDefault();
 
         if (dynamicFormQuestion) {
-            return this.http.put<DynamicFormItem>(`${this.resourceUrl}/question/${dynamicFormQuestion.id}`, dynamicFormQuestion, { headers }).toPromise();
+            return this.http.put<DynamicFormQuestion>(`${this.resourceUrl}/question/${dynamicFormQuestion.id}`, dynamicFormQuestion, { headers }).toPromise();
         }
     }
 

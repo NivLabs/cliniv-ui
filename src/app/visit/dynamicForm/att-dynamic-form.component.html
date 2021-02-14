@@ -8,9 +8,9 @@
             <div *ngFor="let item of datas; let i = index">
                 <div class="row">
 
-                    <div class="col-md-12" *ngIf="item.dynamicFormItem.metaType === 'STRING'">
+                    <div class="col-md-12" *ngIf="item.dynamicFormQuestion.metaType === 'STRING'">
                         <div class="col-md-12">
-                            <mat-label>{{item.dynamicFormItem.question}}</mat-label>
+                            <mat-label>{{item.dynamicFormQuestion.question}}</mat-label>
                         </div>
                         <div class="col-md-12">
                             <mat-form-field>
@@ -19,9 +19,9 @@
                         </div>
                     </div>
 
-                    <div class="col-md-12" *ngIf="item.dynamicFormItem.metaType === 'NUMBER'">
+                    <div class="col-md-12" *ngIf="item.dynamicFormQuestion.metaType === 'NUMBER'">
                         <div class="col-md-12">
-                            <mat-label>{{item.dynamicFormItem.question}}</mat-label>
+                            <mat-label>{{item.dynamicFormQuestion.question}}</mat-label>
                         </div>
                         <div class="col-md-12">
                             <mat-form-field>
@@ -30,15 +30,37 @@
                         </div>
                     </div>
 
-                    <div class="col-md-12 mt-3 mb-3" *ngIf="item.dynamicFormItem.metaType === 'BOOL'">
+                    <div class="col-md-12 mt-3 mb-3" *ngIf="item.dynamicFormQuestion.metaType === 'BOOL'">
                         <div class="col-md-12">
-                            <mat-label>{{item.dynamicFormItem.question}}</mat-label>
+                            <mat-label>{{item.dynamicFormQuestion.question}}</mat-label>
                         </div>
                         <div class="col-md-12 mt-4">
                             <mat-radio-group [(ngModel)]="item.response" name="question{{i}}">
                                 <mat-radio-button [value]="'true'" class="mr-3">Sim</mat-radio-button>
                                 <mat-radio-button [value]="'false'">Não</mat-radio-button>
                             </mat-radio-group>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12" *ngIf="item.dynamicFormQuestion.metaType === 'DATE'">
+                        <div class="col-md-12">
+                            <mat-label>{{item.dynamicFormQuestion.question}}</mat-label>
+                        </div>
+                        <div class="col-md-12">
+                            <mat-form-field>
+                                <input matInput type="date" [(ngModel)]="item.response" name="question{{i}}" />
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12" *ngIf="item.dynamicFormQuestion.metaType === 'TEXTAREA'">
+                        <div class="col-md-12">
+                            <mat-label>{{item.dynamicFormQuestion.question}}</mat-label>
+                        </div>
+                        <div class="col-12">
+                            <mat-form-field>
+                                <textarea matInput cdkTextareaAutosize="true" cdkAutosizeMinRows="8" name="question{{i}}" [(ngModel)]="item.response"></textarea>
+                            </mat-form-field>
                         </div>
                     </div>
 
