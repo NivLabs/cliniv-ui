@@ -23,14 +23,16 @@ export class DynamicFormQuestionComponent implements OnInit {
         @Inject(MAT_DIALOG_DATA) public data: DynamicFormItem, public formBuilder: FormBuilder, private utilService: UtilService, private errorHandler: ErrorHandlerService,
         private notification: NotificationsComponent) {
         this.dialogRef.disableClose = true;
-        this.dataForm = new DynamicFormItem();
     }
 
     ngOnInit() {
         var data = this.dialogRef.componentInstance.data;
         if (data !== null && data !== undefined) {
-            this.dynamicFormId = this.dialogRef.componentInstance.data['dynamicFormId'];  
+            this.dynamicFormId = this.dialogRef.componentInstance.data['dynamicFormId'];
             this.dataForm = this.dialogRef.componentInstance.data['dynamicFormQuestion'];
+        }
+        if (!this.dataForm) {
+            this.dataForm = new DynamicFormItem();
         }
     }
 
