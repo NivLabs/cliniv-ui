@@ -3,7 +3,7 @@ import { environment } from '../../environments/environment';
 import { AppHttp } from '../security/app-http';
 import { PatientHistory, MedicalRecord, NewAttendance, CloseAttendanceRequest, NewAttendanceEvent } from 'app/model/Attendance';
 import { Page, Pageable } from 'app/model/Util';
-import { ResponseAnamnesis } from 'app/model/ResponseAnamnesis';
+import { DynamicFormResponse } from 'app/model/DynamicFormResponse';
 import { Allergy, AllergyFilters } from 'app/model/Allergy';
 import { EvolutionInfo } from 'app/model/Evolution';
 
@@ -52,14 +52,14 @@ export class MedicalRecordService {
             queryString = queryString ? queryString + '&' + params.toString() : params.toString();
 
         }
-        return this.http.get<Page>(`${this.resourceUrl}/anamnese-item?${queryString}`, { headers }).toPromise();
+        return this.http.get<Page>(`${this.resourceUrl}/dynamic-form-item?${queryString}`, { headers }).toPromise();
     }
 
-    createAnamnesis(responseAnamnesis): Promise<ResponseAnamnesis> {
+    createDyanmicForm(dynamicFormResponse): Promise<DynamicFormResponse> {
         var headers = this.http.getHeadersDefault();
 
-        if (responseAnamnesis) {
-            return this.http.post<ResponseAnamnesis>(`${this.resourceUrl}/anamnesis`, responseAnamnesis, { headers }).toPromise();
+        if (dynamicFormResponse) {
+            return this.http.post<DynamicFormResponse>(`${this.resourceUrl}/dynamic-form`, dynamicFormResponse, { headers }).toPromise();
         }
     }
 

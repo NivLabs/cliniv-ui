@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ErrorHandlerService } from 'app/core/error-handler.service';
-import { DynamicFormFilter } from 'app/model/AnamnesisForm';
+import { DynamicFormFilter } from 'app/model/DynamicForm';
 import { Page, Pageable } from 'app/model/Util';
-import { DynamicFormService } from 'app/visit/anamnesis/dynamic-form.service';
+import { DynamicFormService } from 'app/visit/dynamicForm/dynamic-form.service';
 import { DynamicFormEditComponent } from './dynamic-form-edit/dynamic-form-edit.component';
+import { ConfirmDialogComponent } from 'app/core/confirm-dialog/confirm-dialog.component';
+import { NotificationsComponent } from 'app/core/notification/notifications.component';
 
 @Component({
   selector: 'app-dynamic-form',
@@ -20,12 +22,15 @@ export class DynamicFormComponent implements OnInit {
   page: Page;
   pageSettings: Pageable;
   filters: DynamicFormFilter;
+  card: boolean;
 
   constructor(private principalService: DynamicFormService,
     private errorHandler: ErrorHandlerService,
-    private dialog: MatDialog) { }
+    private dialog: MatDialog, 
+    private notification: NotificationsComponent) { }
 
   ngOnInit(): void {
+    this.card = true;
     this.loading = true;
     this.page = new Page();
     this.filters = new DynamicFormFilter();
@@ -85,15 +90,40 @@ export class DynamicFormComponent implements OnInit {
 
 
   openDialog(id) {
-    const dialogRef = this.dialog.open(DynamicFormEditComponent, {
-      width: '100%',
-      height: 'auto',
-      data: { anamnesisSelectedId: id }
+
+    if(this.card){
+      const dialogRef = this.dialog.open(DynamicFormEditComponent, {
+        width: '100%',
+        height: 'auto',
+        data: { dynamicFormSelectedId: id }
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        this.ngOnInit();
+      });
+    }
+  }
+
+  openDeleteDynamicFormDialog(id) {
+    this.card = false;
+    const confirmDialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: { title: 'Confirmação', message: 'Você confirma a exclusão do formulário?' }
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      this.ngOnInit();
+    confirmDialogRef.afterClosed().subscribe(result => {
+      if (result !== undefined && result.isConfirmed) {
+        this.principalService.delete(id).then(resp => {
+          this.ngOnInit();
+          this.notification.showSucess("Formulário excluído com sucesso!");
+        }).catch((error) => this.handlerException(error));
+      }
+      this.card = true;
     });
   }
-}
 
+  handlerException(error) {
+    this.loading = false;
+    this.errorHandler.handle(error, this.dialog);
+  }
+
+}

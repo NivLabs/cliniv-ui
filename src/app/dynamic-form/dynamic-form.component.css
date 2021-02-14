@@ -1,10 +1,10 @@
-.anamnesis-name {
+.dynamic-form-name {
     color: #00BCD4;
     font-weight: 400;
     font-size: 14px;
 }
 
-.anamnesis-info {
+.dynamic-form-info {
     color: rgb(20, 59, 65);
     font-weight: 400;
 }
@@ -25,7 +25,7 @@
 
 .link-card {
     cursor: pointer;
-    height: 95px;
+    height: 133px;
 }
 
 .link-card:hover {

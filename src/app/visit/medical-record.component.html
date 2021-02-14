@@ -20,7 +20,7 @@
                                 <mat-menu #menu="matMenu">
                                     <button mat-menu-item matTooltip="Realiza questionário (Formulário Clínico)"
                                         *ngIf="visit.id && visit.patientId && !visit.exitDateTime"
-                                        (click)="openAnamnesisDialog(visit.id)">
+                                        (click)="openDynamicFormDialog(visit.id)">
                                         <mat-icon>ballot</mat-icon>
                                         <span>Formulário</span>
                                     </button>

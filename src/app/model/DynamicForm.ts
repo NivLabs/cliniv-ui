@@ -1,9 +1,9 @@
-import { AnamnesisItem } from "./AnamnesisItem";
+import { DynamicFormItem } from "./DynamicFormItem";
 
 export class DynamicForm {
     id: number;
     title: string;
-    questions: Array<AnamnesisItem>;
+    questions: Array<DynamicFormItem>;
 }
 
 export class DynamicFormFilter {

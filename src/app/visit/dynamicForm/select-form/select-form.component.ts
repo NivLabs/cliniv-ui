@@ -4,9 +4,9 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { Router } from '@angular/router';
 import { ErrorHandlerService } from 'app/core/error-handler.service';
 import { NotificationsComponent } from 'app/core/notification/notifications.component';
-import { DynamicForm } from 'app/model/AnamnesisForm';
+import { DynamicForm } from 'app/model/DynamicForm';
 import { Page, Pageable } from 'app/model/Util';
-import { AnamnesisComponent } from '../att-dynamic-form.component';
+import { AttDynamicFormComponent } from '../att-dynamic-form.component';
 import { DynamicFormService } from '../dynamic-form.service';
 
 @Component({
@@ -57,7 +57,7 @@ export class SelectFormComponent implements OnInit {
   }
 
   /**
-   * Seleciona formulário de anamnese
+   * Seleciona formulário
    * @param id Idenfificador do formulário
    */
   selectData(id) {
@@ -83,7 +83,7 @@ export class SelectFormComponent implements OnInit {
   }
 
   /**
-   * Confirma a seleção de um formulário de anamnese
+   * Confirma a seleção de um formulário
    */
   save() {
     if (this.selectedForm) {
@@ -91,7 +91,7 @@ export class SelectFormComponent implements OnInit {
       this.principalService.findById(this.selectedForm.id)
         .then(resp => {
           this.loading = false;
-          this.dialog.open(AnamnesisComponent, {
+          this.dialog.open(AttDynamicFormComponent, {
             width: '100%',
             data: { attendanceId: this.attendanceId, form: resp }
           });
