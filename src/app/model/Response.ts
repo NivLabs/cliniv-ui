@@ -1,4 +1,4 @@
-import { AnamnesisItem } from "./AnamnesisItem";
+import { DynamicFormQuestion } from "./DynamicFormQuestion";
 
 /**
  * Classe que representa as respostas
@@ -6,8 +6,8 @@ import { AnamnesisItem } from "./AnamnesisItem";
 export class Response {
     constructor() { 
         this.response = "";
-        this.anamnesisItem = new AnamnesisItem();
+        this.dynamicFormQuestion = new DynamicFormQuestion();
     }
     response: string;
-    anamnesisItem: AnamnesisItem;
+    dynamicFormQuestion: DynamicFormQuestion;
 }

@@ -81,9 +81,10 @@ import { UserEditComponent } from '../../user/user-edit/user-edit.component';
 import { UserComponent } from '../../user/user.component';
 import { UserService } from '../../user/user.service';
 import { AllergyComponent } from '../../visit/allergy/allergy.component';
-import { AnamnesisComponent } from '../../visit/anamnesis/anamnesis.component';
-import { AnamnesisService } from '../../visit/anamnesis/anamnesis.service';
-import { SelectFormComponent } from '../../visit/anamnesis/select-form/select-form.component';
+import { AttDynamicFormComponent } from '../../visit/dynamicForm/att-dynamic-form.component';
+import { DynamicFormService } from '../../visit/dynamicForm/dynamic-form.service';
+import { DynamicFormComponent } from '../../dynamic-form/dynamic-form.component';
+import { SelectFormComponent } from '../../visit/dynamicForm/select-form/select-form.component';
 import { EvolutionComponent } from '../../visit/evolution/evolution.component';
 import { PatientHistoryComponent } from '../../visit/history/patient-history.component';
 import { MedicalRecordComponent } from '../../visit/medical-record.component';
@@ -93,6 +94,8 @@ import { AdminLayoutRoutes } from './admin-layout.routing';
 import { SpecialityComponent } from '../../speciality/speciality.component';
 import { SpecialityService } from '../../speciality/speciality.service';
 import { SpecialityEditComponent } from '../../speciality/speciality-edit/speciality-edit.component';
+import { DynamicFormEditComponent } from 'app/dynamic-form/dynamic-form-edit/dynamic-form-edit.component';
+import { DynamicFormQuestionComponent } from 'app/dynamic-form/dynamic-form-question/dynamic-form-question.component';
 
 
 const matModules = [
@@ -161,6 +164,11 @@ const maskConfig: Partial<IConfig> = {
   declarations: [
     DashboardComponent,
 
+    DynamicFormComponent,
+    DynamicFormEditComponent,
+    DynamicFormQuestionComponent,
+    AttDynamicFormComponent,
+
     PatientComponent,
     PatientEditComponent,
 
@@ -198,7 +206,7 @@ const maskConfig: Partial<IConfig> = {
 
     AccommodationComponent,
 
-    AnamnesisComponent,
+    DynamicFormComponent,
     SelectFormComponent,
 
     EvolutionComponent,
@@ -225,7 +233,7 @@ const maskConfig: Partial<IConfig> = {
     AllergyComponent,
     EvolutionComponent,
     ProfessionalEditComponent,
-    AnamnesisComponent,
+    DynamicFormComponent,
     ScheduleEditComponent,
     SelectFormComponent,
     CloseEventComponent,
@@ -239,14 +247,17 @@ const maskConfig: Partial<IConfig> = {
     ConfirmDialogComponent,
     CameraDialogComponent,
     DocumentViewerComponent,
-    SpecialityEditComponent
+    SpecialityEditComponent,
+    DynamicFormEditComponent,
+    DynamicFormQuestionComponent,
+    AttDynamicFormComponent
   ],
   providers: [
     UserProfileService,
     PatientService,
     DashboardService,
     ScheduleService,
-    AnamnesisService,
+    DynamicFormService,
     HealthPlanService,
     ProfessionalService,
     UserService,

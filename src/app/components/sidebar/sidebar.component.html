@@ -6,23 +6,48 @@
     </a>
 </div>
 <div class="sidebar-wrapper">
-    <ul class="nav">
-        <li class="nav-item welcome-message">
-            <a class="nav-link">
-                <p>Bem vindo, {{personName}}</p>
-            </a>
-        </li>
-        <li routerLinkActive="active" *ngFor="let menuItem of menuItems" class="{{menuItem.class}} nav-item">
-            <a class="nav-link" [routerLink]="[menuItem.path]">
-                <i class="material-icons">{{menuItem.icon}}</i>
-                <p>{{menuItem.title}}</p>
-            </a>
-        </li>
-        <li routerLinkActive="active" class="nav-item">
-            <a class="nav-link" href="#" (click)="logoff()">
-                <i class="material-icons logoff">toggle_off</i>
-                <p>Desconectar</p>
-            </a>
-        </li>
-    </ul>
+    <div class="nav-container">
+        <ul class="nav">
+
+            <li class="nav-item welcome-message">
+                <a class="nav-link">
+                    <p>Bem vindo, {{personName}}</p>
+                </a>
+            </li>
+
+            <li routerLinkActive="active" *ngFor="let menuItem of menuItems" class="{{menuItem.class}} nav-item">
+
+                <a *ngIf="menuItem.collapse" data-toggle="collapse" class="nav-link"
+                    (click)="toggle(menuItem.icon, $event.target)" style="cursor: pointer;" aria-expanded="false">
+                    <i class="material-icons">{{menuItem.icon}}</i>
+                    <p>{{menuItem.title}}<b class="caret" id="caret_{{menuItem.icon}}"></b></p>
+                </a>
+
+                <div *ngIf="menuItem.collapse" class="collapse" id="{{menuItem.icon}}">
+                    <ul class="nav">
+                        <li routerlinkactive="active" *ngFor="let route of menuItem.routes" class="nav-item submenu">
+                            <a class="nav-link" [routerLink]="[route.path]" (click)="activeToggle($event.target)">
+                                <span class="sidebar-mini"><i class="material-icons">{{route.icon}}</i></span>
+                                <span class="sidebar-normal">
+                                    <p>{{route.title}}</p>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <a *ngIf="!menuItem.collapse" class="nav-link" [routerLink]="[menuItem.path]"
+                    (click)="active($event.target)">
+                    <i class="material-icons">{{menuItem.icon}}</i>
+                    <p>{{menuItem.title}}</p>
+                </a>
+            </li>
+            <li routerLinkActive="active" class="nav-item">
+                <a class="nav-link" href="#" (click)="logoff()">
+                    <i class="material-icons logoff">power_settings_new</i>
+                    <p>Desconectar</p>
+                </a>
+            </li>
+        </ul>
+    </div>
 </div>

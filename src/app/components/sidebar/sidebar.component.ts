@@ -9,21 +9,35 @@ declare interface RouteInfo {
   title: string;
   icon: string;
   class: string;
+  collapse: boolean;
+  routes: RouteInfo[]
 }
 export const ROUTES: RouteInfo[] = [
-  { path: '/dashboard', title: 'Dashboard', icon: 'dashboard', class: '' },
-  { path: '/schedule', title: 'Agenda', icon: 'schedule', class: '' },
-  { path: '/user-profile', title: 'Perfil', icon: 'person', class: '' },
-  { path: '/patient', title: 'Pacientes', icon: 'people', class: '' },
-  { path: '/visit', title: 'Prontuário', icon: 'content_paste', class: '' },
-  { path: '/attendance', title: 'Atendimentos', icon: 'assignment_ind', class: '' },
-  { path: '/professional', title: 'Profissionais', icon: 'bubble_chart', class: '' },
-  { path: '/sector', title: 'Setores', icon: 'location_on', class: '' },
-  { path: '/speciality', title: 'Especialidades', icon: 'format_list_bulleted', class: '' },
-  { path: '/health-operator', title: 'Operadoras', icon: 'credit_card', class: '' },
-  { path: '/user', title: 'Usuários', icon: 'lock', class: '' },
-  { path: '/procedure', title: 'Procedimentos', icon: 'assignment_turned_in', class: '' },
-  { path: '/settings', title: 'Configurações', icon: 'settings', class: '' }
+
+  { path: '/dashboard', title: 'Dashboard', icon: 'dashboard', class: '', collapse: false, routes: null },
+  { path: '/schedule', title: 'Agenda', icon: 'schedule', class: '', collapse: false, routes: null },
+  { path: '/patient', title: 'Pacientes', icon: 'people', class: '', collapse: false, routes: null },
+  { path: '/visit', title: 'Prontuário', icon: 'content_paste', class: '', collapse: false, routes: null },
+  { path: '/attendance', title: 'Atendimentos', icon: 'assignment_ind', class: '', collapse: false, routes: null },
+  {
+    path: '', title: 'Outros Cadastros', icon: 'format_list_bulleted', class: '', collapse: true, routes: [
+      { path: '/speciality', title: 'Especialidades', icon: 'label_important', class: '', collapse: false, routes: null },
+      { path: '/dynamic-form', title: "Formulários", icon: 'label_important', class: '', collapse: false, routes: null },
+      { path: '/health-operator', title: 'Operadoras', icon: 'label_important', class: '', collapse: false, routes: null },
+      { path: '/procedure', title: 'Procedimentos', icon: 'label_important', class: '', collapse: false, routes: null },
+      { path: '/professional', title: 'Profissionais', icon: 'label_important', class: '', collapse: false, routes: null },
+      { path: '/sector', title: 'Setores', icon: 'label_important', class: '', collapse: false, routes: null }
+    ]
+  },
+
+  {
+    path: '', title: 'Configurações', icon: 'settings', class: '', collapse: true, routes: [
+      { path: '/user-profile', title: 'Perfil', icon: 'label_important', class: '', collapse: false, routes: null },
+      { path: '/user', title: 'Usuários', icon: 'label_important', class: '', collapse: false, routes: null },
+      { path: '/settings', title: 'Instituição', icon: 'label_important', class: '', collapse: false, routes: null }
+
+    ]
+  }
 ];
 
 @Component({
@@ -34,7 +48,6 @@ export const ROUTES: RouteInfo[] = [
 export class SidebarComponent implements OnInit {
   menuItems: any[];
   personName: string;
-
 
   constructor(
     private auth: AuthService,
@@ -48,6 +61,7 @@ export class SidebarComponent implements OnInit {
   ngOnInit() {
     this.menuItems = ROUTES.filter(menuItem => menuItem);
   }
+
   isMobileMenu() {
     if ($(window).width() > 991) {
       return false;
@@ -59,4 +73,69 @@ export class SidebarComponent implements OnInit {
     this.auth.removeAccessToken();
     this.router.navigate(['/login'])
   }
+
+  toggle(id) {
+
+    const collapse = document.getElementById(id);
+    const caret = document.getElementById('caret_' + id);
+
+    if (collapse.classList.contains('show')) {
+      collapse.classList.remove('show');
+      caret.style.cssText = '';
+    }
+    else {
+
+      collapse.classList.add('show');
+      caret.style.cssText = 'transform: rotate(180deg)';
+    }
+  }
+
+  active(element) {
+
+    const lis = document.getElementsByClassName('active');
+
+    if (lis) {
+
+      if (lis.length > 1) {
+
+        for (let li in lis) {
+          if (lis.length != 0) {
+            lis[0].classList.remove('active');
+          }
+        }
+      }
+      else {
+        lis[0].classList.remove('active');
+      }
+
+    }
+
+    element.parentElement.parentElement.classList.add('active');
+
+  }
+
+  activeToggle(element) {
+
+    const lis = document.getElementsByClassName('active');
+
+    if (lis) {
+
+      if (lis.length > 1) {
+
+        for (let li in lis) {
+          if (lis.length != 0) {
+            lis[0].classList.remove('active');
+          }
+        }
+      }
+      else {
+        lis[0].classList.remove('active');
+      }
+
+    }
+
+    element.parentElement.parentElement.parentElement.classList.add('active');
+
+  }
+
 }

@@ -1,57 +1,61 @@
 @media all and (max-height: 719px) {
-
-    .logoff-layout {
-        bottom: 0;
-        width: 260px;
-    }
-
+  .logoff-layout {
+    bottom: 0;
+    width: 260px;
+  }
 }
 
 @media all and (min-height: 720px) {
-
-    .logoff-layout {
-        bottom: 0;
-        position: fixed;
-        width: 260px;
-    }
-
+  .logoff-layout {
+    bottom: 0;
+    position: fixed;
+    width: 260px;
+  }
 }
 
 .logoff-layout .btn {
-    border-radius: 0px;
-    margin-right: 0px;
-    margin-left: 0px;
+  border-radius: 0px;
+  margin-right: 0px;
+  margin-left: 0px;
 }
 
 .logo {
-    margin: 0;
-    display: block;
-    position: relative;
-    z-index: 4;
+  margin: 0;
+  display: block;
+  position: relative;
+  z-index: 4;
 }
 
 .logo-img {
-    width: 100%;
-    display: block;
-    max-height: 80px;
-    margin-left: 0px;
-    margin-right: 0px;
+  width: 100%;
+  display: block;
+  max-height: 80px;
+  margin-left: 0px;
+  margin-right: 0px;
 }
 
 .logo-img img {
-    width: 50%;
-    position: unset;
-    top: 0px;
+  width: 50%;
+  position: unset;
+  top: 0px;
 }
 
-
 .welcome-message {
-    background-color: #F4F4F4;
+  background-color: #f4f4f4;
 }
 
 .welcome-message .nav-link:hover {
-    background-color: #F4F4F4;
+  background-color: #f4f4f4;
 }
+
 .logoff {
-    color: #EA4541 !important;
+  color: #ea4541 !important;
+}
+
+.submenu {
+  padding-left: 15px;
+}
+.submenu.nav-link {
+  padding-top: 0;
+  padding-bottom: 0;
 }

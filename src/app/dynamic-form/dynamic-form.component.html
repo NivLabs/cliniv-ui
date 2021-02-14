@@ -1,0 +1,62 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-info">
+                        <h4 class="card-title">Formulários dinâmicos</h4>
+                    </div>
+                    <div class="card-body">
+                        <form #form="ngForm" autocomplete="off">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <mat-form-field>
+                                        <input matInput type="number" placeholder="Código do formulário [ENTER]"
+                                            name="id" [(ngModel)]="filters.id" #id (keypress)="enterKeyPress($event)" />
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-4">
+                                    <mat-form-field>
+                                        <input matInput placeholder="Título do formulário [ENTER]" name="title"
+                                            [(ngModel)]="filters.title" #title type="text"
+                                            (keypress)="enterKeyPress($event)" />
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <button mat-raised-button type="button" (click)="applyFilter()"
+                                class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-danger pull-right"
+                                matTooltip="Aplica Filtro">
+                                <span class="fa fa-search"></span> Filtrar</button>
+                            <button mat-raised-button type="button" (click)="openDialog(null)"
+                                matTooltip="Adiciona setor"
+                                class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-info pull-right"><span
+                                    class="fa fa-plus"></span> Novo Formulário</button>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="search-results" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50"
+            (scrolled)="loadNextPage()">
+            <div class="row">
+                <div class="center" *ngIf="!loading && dataNotFound">
+                    <h1>Nenhum formulário encontrado...</h1>
+                </div>
+                <div *ngFor="let dynamicForm of datas" class="col-12 col-sm-12 col-md-4 col-lg-4">
+                    <div class="card link-card" (click)="openDialog(dynamicForm.id)">
+                        <div class="card-body margin-color-active">
+                            <div class="card-title text-right" style="margin-bottom: 0px; z-index: 1000;"><i class="fa fa-trash-o" aria-hidden="true"  (click)="openDeleteDynamicFormDialog(dynamicForm.id)"></i></div>
+                            <ul>
+                                <li><span class="fa fa-key dynamic-form-info"> Identificador:</span> {{dynamicForm.id}}
+                                </li>
+                                <li><span class="fa fa-map dynamic-form-info"> {{dynamicForm.title}}</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-loading [show]="loading"></app-loading>
