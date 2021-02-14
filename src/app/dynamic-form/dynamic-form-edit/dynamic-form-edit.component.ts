@@ -5,8 +5,11 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ErrorHandlerService } from 'app/core/error-handler.service';
 import { NotificationsComponent } from 'app/core/notification/notifications.component';
-import { DynamicForm } from 'app/model/AnamnesisForm';
-import { DynamicFormService } from 'app/visit/anamnesis/dynamic-form.service';
+import { DynamicForm } from 'app/model/DynamicForm';
+import { DynamicFormItem } from 'app/model/DynamicFormItem';
+import { DynamicFormService } from 'app/visit/dynamicForm/dynamic-form.service';
+import { ConfirmDialogComponent } from 'app/core/confirm-dialog/confirm-dialog.component';
+import { DynamicFormQuestionComponent } from '../dynamic-form-question/dynamic-form-question.component';
 
 @Component({
   selector: 'app-dynamic-form-edit',
@@ -21,7 +24,7 @@ export class DynamicFormEditComponent implements OnInit {
   public dataToForm: DynamicForm;
   public dataSource: any;
   public displayedColumns: any;
-  public anamnesisSelectedId: number = 0;
+  public dynamicFormSelectedId: number = 0;
 
 
   constructor(public principalService: DynamicFormService,
@@ -37,10 +40,10 @@ export class DynamicFormEditComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.dialogRef.componentInstance.data['anamnesisSelectedId'] !== null || this.anamnesisSelectedId !== 0) {
+    if (this.dialogRef.componentInstance.data['dynamicFormSelectedId'] !== null || this.dynamicFormSelectedId !== 0) {
       this.loading = true;
-      this.anamnesisSelectedId = this.dialogRef.componentInstance.data['anamnesisSelectedId'];
-      this.principalService.findById(this.anamnesisSelectedId).then(resp => {
+      this.dynamicFormSelectedId = this.dialogRef.componentInstance.data['dynamicFormSelectedId'];
+      this.principalService.findById(this.dynamicFormSelectedId).then(resp => {
         this.loading = false;
         this.dataToForm = resp;
         this.dataToForm.questions = this.dataToForm.questions.sort(function (a, b) {
@@ -86,11 +89,76 @@ export class DynamicFormEditComponent implements OnInit {
     this.errorHandler.handle(error, this.dialogRef);
   }
 
-  save() { }
+  save() { 
+    this.loading = true;
+    if (this.dataToForm.id) {
+      this.principalService.update(this.dataToForm).then(resp => {
+        this.loading = false;
+        this.notification.showSucess("Fornulário alterado com sucesso!");
+        this.dataToForm = resp;
+      }).catch((error) => this.handlerException(error));
+    } else {
+      this.principalService.create(this.dataToForm).then(resp => {
+        this.loading = false;
+        this.dataToForm = resp;
+        this.notification.showSucess("Fornulário cadastrado com sucesso!");
+      }).catch((error) => this.handlerException(error));
+    }
+  }
 
-  openQuetionEdit(formId, question) { }
+  openDynamicFormQuestionDialog(dynamicFormId): void {
 
-  deleteQuestion(questionId) { }
+    const dialogRef = this.dialog.open(DynamicFormQuestionComponent, {
+      width: '100%',
+      height: 'auto',
+      data: { dynamicFormId: dynamicFormId }
+    });
 
-  resetForm() { }
+    dialogRef.afterClosed().subscribe(result => {
+      this.ngOnInit();
+    });
+
+  }
+
+  openEditDynamicFormQuestionDialog(dynamicFormQuestion): void {
+
+    const dialogRef = this.dialog.open(DynamicFormQuestionComponent, {
+      width: '100%',
+      height: 'auto',
+      data: { dynamicFormQuestion: dynamicFormQuestion }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.ngOnInit();
+    });
+
+  }
+
+  openDeleteAccommodationDialog(id) {
+    const confirmDialogRef = this.confirmDialog.open(ConfirmDialogComponent, {
+      data: { title: 'Confirmação', message: 'Você confirma a exclusão da questão?' }
+    });
+
+    confirmDialogRef.afterClosed().subscribe(result => {
+      if (result !== undefined && result.isConfirmed) {
+        this.principalService.deleteDynamicFormQuestion(id).then(resp => {
+          this.ngOnInit();
+          this.notification.showSucess("Questão excluída com sucesso!");
+        }).catch((error) => this.handlerException(error));
+      }
+    });
+  }
+
+  resetForm() {
+    const confirmDialogRef = this.confirmDialog.open(ConfirmDialogComponent, {
+      data: { title: 'Confirmação', message: 'Você confirma a limpeza do formulário?' }
+    });
+
+    confirmDialogRef.afterClosed().subscribe(result => {
+      if (result !== undefined && result.isConfirmed) {
+        this.dataToForm = new DynamicForm();
+        this.dataToForm.questions = new Array<DynamicFormItem>();
+      }
+    });
+  }
 }

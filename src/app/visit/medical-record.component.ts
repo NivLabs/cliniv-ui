@@ -10,7 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MedicalRecord, NewAttendance } from 'app/model/Attendance';
 import { Document } from 'app/model/Document';
 import { DocumentViewerComponent } from 'app/component/document-viewer/document-viewer.component';
-import { AnamnesisComponent } from './anamnesis/att-dynamic-form.component';
+import { AttDynamicFormComponent } from './dynamicForm/att-dynamic-form.component';
 import { AllergyComponent } from './allergy/allergy.component';
 import { EvolutionComponent } from './evolution/evolution.component';
 import { Accommodation } from 'app/model/Accommodation';
@@ -19,7 +19,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { CloseEventComponent } from './close-event/close-event.component';
 import { NewEventComponent } from './new-event/new-event.component';
-import { SelectFormComponent } from './anamnesis/select-form/select-form.component';
+import { SelectFormComponent } from './dynamicForm/select-form/select-form.component';
 import * as moment from 'moment';
 
 @Component({
@@ -317,7 +317,7 @@ export class MedicalRecordComponent implements OnInit {
    * Abre o componente de seleção de formulário do paciente
    * @param attendanceId Identificador único do atendimento
    */
-  openAnamnesisDialog(attendanceId) {
+  openDynamicFormDialog(attendanceId) {
     const dialogSelectForm = this.dialog.open(SelectFormComponent, {
       width: '100%',
       data: { attendanceId: attendanceId }

@@ -1,17 +1,17 @@
 <div class="card">
     <div class="card-header card-header-info">
-        <h4 class="card-title">Dados do Formulário de Anamnese</h4>
-        <p class="card-category">Dados completos do Formulário de Anamnese</p>
+        <h4 class="card-title">Dados do Formulário</h4>
+        <p class="card-category">Dados completos do Formulário</p>
     </div>
     <div class="card-body">
         <mat-tab-group>
-            <mat-tab label="Informações do Formulário de Anamnese *">
+            <mat-tab label="Informações do Formulário *">
                 <br />
                 <form #form="ngForm" autocomplete="off">
                     <div class="row">
                         <div class="col-md-3">
                             <mat-form-field>
-                                <input matInput placeholder="Código do Formulário de Anamnese" name="id"
+                                <input matInput placeholder="Código do Formulário" name="id"
                                     [(ngModel)]="dataToForm.id" #id disabled />
                             </mat-form-field>
                         </div>
@@ -71,11 +71,11 @@
                                 </mat-header-cell>
                                 <mat-cell *matCellDef="let element" style="justify-content: center;">
                                     <button mat-raised-button type="button" class="btn-info"
-                                        (click)="openQuetionEdit(dataToForm.id, element)" style="margin-right: 10px;">
+                                        (click)="openEditDynamicFormQuestionDialog(element)" style="margin-right: 10px;">
                                         <mat-icon>edit</mat-icon>
                                     </button>
                                     <button mat-raised-button type="button" class="btn-danger"
-                                        (click)="deleteQuestion(element.id)">
+                                        (click)="openDeleteAccommodationDialog(element.id)">
                                         <mat-icon>delete</mat-icon>
                                     </button>
                                 </mat-cell>
@@ -90,7 +90,7 @@
                 <div class="row">
                     <div *ngIf="dataToForm.id" class="col-12 col-sm-12 col-md-4 col-lg-3 pull-left ml-0 mr-0">
                         <button mat-raised-button type="button" class="btn btn-warning col-12"
-                            matTooltip="Adiciona Questão" (click)="openQuetionEdit(dataToForm.id, null)"><span
+                            matTooltip="Adiciona Questão" (click)="openDynamicFormQuestionDialog(dataToForm.id)"><span
                                 class="fa fa-plus"></span>
                             Nova Questão</button>
                     </div>
