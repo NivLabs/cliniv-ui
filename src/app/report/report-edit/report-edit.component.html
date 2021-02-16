@@ -1,0 +1,63 @@
+<div class="card">
+    <div class="card-header card-header-info">
+        <h4 class="card-title">Dados do relatório</h4>
+        <p class="card-category">Dados completos do relatório</p>
+    </div>
+    <div class="card-body">
+        <mat-tab-group>
+            <mat-tab label="Informações do relatório *">
+                <br />
+                <form #form="ngForm" autocomplete="off">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <mat-form-field>
+                                <input matInput placeholder="Código do relatório" name="id" [(ngModel)]="dataToForm.id"
+                                    #id disabled />
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <mat-form-field>
+                                <input matInput placeholder="Nome" name="name" [(ngModel)]="dataToForm.name" #name
+                                    required />
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-4">
+                            <button mat-raised-button type="button" class="btn btn-primary col-12"
+                                (click)="base64.click()" matTooltip="Escolha um arquivo"><span
+                                    class="fa fa-file-image-o"></span> Escolha um arquivo</button>
+
+                            <input #base64 name="base64" hidden="true" type="file" onclick="this.value=null" 
+                                (change)="saveImagem($event)" accept=".jrxml" required />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div style="overflow:hidden; width: 100%;">
+                            <div *ngIf="dataToForm.id" class="col-12 col-sm-12 col-md-4 col-lg-3 pull-left ml-0 mr-0">
+                                <button mat-raised-button type="button" class="btn btn-info col-12"
+                                    (click)="resetForm()" matTooltip="Adiciona relatório"><span
+                                        class="fa fa-plus"></span>
+                                    Novo Relatório</button>
+                            </div>
+
+                            <div class="col-12 col-sm-12 col-md-4 col-lg-3 pull-right ml-0 mr-0">
+                                <button mat-raised-button type="button" class="btn btn-danger col-12"
+                                    (click)="onCancelClick()" matTooltip="Fecha formulário"><span
+                                        class="fa fa-close"></span> Fechar</button>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-4 col-lg-3 pull-right ml-0 mr-0">
+                                <button mat-raised-button type="submit" class="btn btn-success col-12"
+                                    matTooltip="Salvar informações do formulário" [disabled]="!formValid()"
+                                    (click)="save()"><span class="fa fa-check"></span>Salvar</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </form>
+
+            </mat-tab>
+        </mat-tab-group>
+    </div>
+</div>
+<app-loading [show]="loading"></app-loading>
