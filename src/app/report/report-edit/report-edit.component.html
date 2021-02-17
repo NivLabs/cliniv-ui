@@ -29,7 +29,7 @@
                                     class="fa fa-file-image-o"></span> Escolha um arquivo</button>
 
                             <input #base64 name="base64" hidden="true" type="file" onclick="this.value=null" 
-                                (change)="saveImagem($event)" accept=".jrxml" required />
+                                (change)="saveImagem($event)" accept=".jrxml,.xml" required />
                         </div>
                     </div>
                     <div class="row">
@@ -56,6 +56,38 @@
                     <div class="clearfix"></div>
                 </form>
 
+            </mat-tab>
+            <mat-tab *ngIf="dataToForm.id" label="Parâmetros do relatório">
+                <div class="row">
+                    <div class="col-md-12">
+                        <mat-table [dataSource]="dataSource" matSort>
+                            <ng-container matColumnDef="name">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header> Parâmetro </mat-header-cell>
+                                <mat-cell *matCellDef="let element">
+                                    {{element.name}}
+                                </mat-cell>
+                            </ng-container>
+
+                            <ng-container matColumnDef="type">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header> Tipo do parâmetro </mat-header-cell>
+                                <mat-cell *matCellDef="let element"> {{getTypeDescription(element.type)}}
+                                </mat-cell>
+                            </ng-container>
+
+                            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+                        </mat-table>
+                    </div>
+                </div>
+                <div class="row">
+                    <div *ngIf="dataToForm.id" class="col-12 col-sm-12 col-md-4 col-lg-3 pull-left ml-0 mr-0">
+                        <button mat-raised-button type="button" class="btn btn-info col-12"
+                            (click)="resetForm()" matTooltip="Adiciona relatório"><span
+                                class="fa fa-plus"></span>
+                            Novo Relatório</button>
+                    </div>
+                </div>
             </mat-tab>
         </mat-tab-group>
     </div>

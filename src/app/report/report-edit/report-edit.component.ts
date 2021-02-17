@@ -7,12 +7,16 @@ import { FormBuilder } from '@angular/forms';
 import { Report } from 'app/model/Report';
 import { MatDialogRef, MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from 'app/core/confirm-dialog/confirm-dialog.component';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-report-edit',
   templateUrl: './report-edit.component.html'
 })
 export class ReportEditComponent implements OnInit {
+
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   public loading = false;
   public dataToForm: Report;
@@ -34,11 +38,23 @@ export class ReportEditComponent implements OnInit {
       this.selectedReportId = this.dialogRef.componentInstance.data['selectedReport'];
       this.principalService.getById(this.selectedReportId).then(resp => {
         this.loading = false;
-        this.dataToForm = resp;        
+        this.dataToForm.id = resp.id;        
+        this.dataToForm.name = resp.name;            
+        this.dataToForm.params = resp.params;            
+        this.dataToForm.params = this.dataToForm.params.sort(function (a, b) {
+            return a.id < b.id ? -1 : a.id > b.id ? 1 : 0;
+        });
+        this.dataSource = new MatTableDataSource(this.dataToForm.params);
+        setTimeout(() => {
+        this.dataSource.sort = this.sort;
+        });
+        
       }).catch(error => {
         this.dataToForm = new Report();
         this.handlerException(error);
       });
+
+      this.displayedColumns = ['name', 'type'];
 
     }
 
@@ -115,6 +131,26 @@ export class ReportEditComponent implements OnInit {
 
     return this.dataToForm && this.dataToForm.base64 != "" && this.dataToForm.base64 != undefined && this.dataToForm.name != "" && this.dataToForm.name != undefined;
 
-}
+  }
+
+  getTypeDescription(type: string) {
+    switch (type) {
+      case 'STRING':
+        return 'Texto'
+      case 'NUMBER':
+        return 'Numérico'
+      /* case 'GROUP':
+        return 'Agrupado' */
+      case 'BOOL':
+        return 'Sim ou Não'
+      case 'DATE':
+        return 'Data'
+      case 'TEXTAREA':
+        return 'Área de Texto'
+      default:
+        this.notification.showError('Tipo de metadado não mapeado!');
+        break;
+    }
+  }
 
 }
