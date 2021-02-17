@@ -96,6 +96,9 @@ import { SpecialityService } from '../../speciality/speciality.service';
 import { SpecialityEditComponent } from '../../speciality/speciality-edit/speciality-edit.component';
 import { DynamicFormEditComponent } from 'app/dynamic-form/dynamic-form-edit/dynamic-form-edit.component';
 import { DynamicFormQuestionComponent } from 'app/dynamic-form/dynamic-form-question/dynamic-form-question.component';
+import { ReportComponent } from 'app/report/report.component';
+import { ReportEditComponent } from 'app/report/report-edit/report-edit.component';
+import { ReportService } from 'app/report/report.service';
 
 
 const matModules = [
@@ -223,7 +226,10 @@ const maskConfig: Partial<IConfig> = {
     ScheduleEditComponent,
 
     SpecialityComponent,
-    SpecialityEditComponent
+    SpecialityEditComponent,
+
+    ReportComponent,
+    ReportEditComponent
   ],
   entryComponents: [
     PatientEditComponent,
@@ -250,7 +256,9 @@ const maskConfig: Partial<IConfig> = {
     SpecialityEditComponent,
     DynamicFormEditComponent,
     DynamicFormQuestionComponent,
-    AttDynamicFormComponent
+    AttDynamicFormComponent,
+    ReportComponent,
+    ReportEditComponent
   ],
   providers: [
     UserProfileService,
@@ -267,7 +275,8 @@ const maskConfig: Partial<IConfig> = {
     AttendanceService,
     SettingsService,
     ProcedureService,
-    SpecialityService
+    SpecialityService,
+    ReportService
   ]
 })
 
