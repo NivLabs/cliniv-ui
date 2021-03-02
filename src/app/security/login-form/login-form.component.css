@@ -53,7 +53,6 @@
     left: 0;
 }
 
-
 .login-page .footer .copyright, .login-page .footer a {
     color: #fff;
 }
@@ -66,4 +65,23 @@
     align-items: center;
     align-content: center;
     text-align: center;
+}
+
+small.link {
+    color: #07B0C5;
+    cursor: pointer;
+}
+
+.card-footer.justify-content-center.link {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.save-info {
+    padding-top: 20px;
+    padding-left: 20px;
+}
+
+.save-info, span {
+    margin-left: 5px;
 }
