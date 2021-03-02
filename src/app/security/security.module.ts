@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatTabsModule } from '@angular/material/tabs';
 import { JwtModule } from '@auth0/angular-jwt';
+import { IConfig, NgxMaskModule } from 'ngx-mask';
 import { environment } from '../../environments/environment';
 import { AppHttp } from './app-http';
 import { AuthGuard } from './auth.guard';
@@ -14,6 +15,10 @@ import { SecurityRoutingModule } from './security-routing.module';
 
 
 
+
+const maskConfig: Partial<IConfig> = {
+  validation: true,
+};
 
 
 export function tokenGetter() {
@@ -34,6 +39,7 @@ export function tokenGetter() {
         blacklistedRoutes: environment.tokenBlacklistedRoutes
       }
     }),
+    NgxMaskModule.forRoot(maskConfig),
     SecurityRoutingModule
   ],
   declarations: [
