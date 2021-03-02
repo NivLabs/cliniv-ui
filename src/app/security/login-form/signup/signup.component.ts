@@ -22,5 +22,7 @@ export class SignupComponent implements OnInit {
     this.dialogRef.close();
   }
 
+  createNewUser(): void {
 
+  }
 }
