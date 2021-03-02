@@ -6,16 +6,18 @@ import { AuthService } from './../auth.service';
 import { SettingsService } from 'app/settings/settings.service';
 import { SignupComponent } from './signup/signup.component';
 import { MatDialog } from '@angular/material/dialog';
+import { UserInfo } from 'app/model/User';
 
 @Component({
   selector: 'app-login-form',
   templateUrl: './login-form.component.html',
   styleUrls: ['./login-form.component.css']
 })
-export class LoginFormComponent {
+export class LoginFormComponent implements OnInit {
 
   hasResponse = true;
-  user: any;
+  user: UserInfo;
+  saveInfoFlag: boolean = false;
 
   constructor(
     private auth: AuthService,
@@ -31,15 +33,21 @@ export class LoginFormComponent {
       this.router.navigate(['/login'])
     }
   }
+  ngOnInit(): void {
+    this.user = new UserInfo();
+    this.user.userName = localStorage.getItem('__saved_user');
+    this.saveInfoFlag = localStorage.getItem('__saveInfo') == 'checked' ? true : false;
+  }
 
   /**
    * Realiza o login na aplicação
-   * @param username Nome de usuário
+   * @param userName Nome de usuário
    * @param password Senha do usuário
    */
-  login(username: string, password: string) {
+  login() {
     this.hasResponse = false;
-    this.auth.login(username, password)
+    this.updateSaveInfo();
+    this.auth.login(this.user.userName, this.user.password)
       .then(() => {
         this.hasResponse = true;
         this.router.navigate(['/dashboard']);
@@ -49,7 +57,6 @@ export class LoginFormComponent {
         this.errorHandler.handle(erro, null);
       });
   }
-
 
   /**
    * Abre a tela de cadastro de novos usuários
@@ -63,4 +70,17 @@ export class LoginFormComponent {
     });
   }
 
+  updateSaveInfo() {
+    if (this.saveInfoFlag) {
+      localStorage.setItem('__saveInfo', 'checked');
+      localStorage.setItem("__saved_user", this.user.userName);
+    } else {
+      localStorage.removeItem("__saved_user");
+      localStorage.removeItem('__saveInfo');
+    }
+  }
+
+  checkSaveInfo() {
+    this.saveInfoFlag = !this.saveInfoFlag;
+  }
 }

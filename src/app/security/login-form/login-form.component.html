@@ -4,7 +4,7 @@
       <div class="container">
          <div class="row">
             <div class="col-lg-4 col-md-6 col-sm-6 ml-auto mr-auto">
-               <form class="form ng-untouched ng-pristine ng-valid" #form="ngForm">
+               <form class="form ng-untouched ng-pristine ng-valid" #form="ngForm" (ngSubmit)="login()">
                   <div class="card card-login">
                      <div class="card-header card-header-info text-center">
                         <h4 class="card-title">LOGIN</h4>
@@ -18,22 +18,22 @@
                            <div class="input-group">
                               <div class="input-group-prepend"><span class="input-group-text"><i
                                        class="material-icons">face</i></span></div>
-                              <input class="form-control" placeholder="E-mail..." type="email" required id="username"
-                                 ngModel #username [ngModelOptions]="{standalone: true}" />
+                              <input class="form-control" placeholder="Usuário" type="text" required id="userName"
+                                 name="userName" [(ngModel)]="user.userName" #userName="ngModel" />
                            </div>
                         </span>
                         <span class="bmd-form-group">
                            <div class="input-group">
                               <div class="input-group-prepend"><span class="input-group-text"><i
                                        class="material-icons">lock_outline</i></span></div>
-                              <input class="form-control" placeholder="Senha..." type="password" id="password" required
-                                 ngModel #password [ngModelOptions]="{standalone: true}" />
+                              <input class="form-control" placeholder="Senha..." type="password" id="password"
+                                 name="password" required [(ngModel)]="user.password" #password="ngModel" />
                            </div>
                         </span>
                         <div class="save-info">
                            <div class="mat-checkbox-inner-container">
-                              <input type="checkbox" class="mat-checkbox-input" name="saveInfo" [checked]="saveInfo"
-                                 (change)="saveInfo()" id="saveInfo">
+                              <input type="checkbox" class="mat-checkbox-input" name="saveInfo" [checked]="saveInfoFlag"
+                                 (change)="checkSaveInfo()" id="saveInfo">
                               <label class="mat-checkbox-label" for="saveInfo"><span>Lembre o meu login neste
                                     computador</span></label>
                            </div>
@@ -41,8 +41,8 @@
                      </div>
                      <div class="card-footer justify-content-center">
                         <button class="btn btn-info btn-lg"
-                           [disabled]="!hasResponse || (!username.value || !password.value || !form.valid)"
-                           (click)="login(username.value, password.value)">{{hasResponse ? 'Entrar' :
+                           [disabled]="!hasResponse || (!user.userName || !user.password || !form.valid)"
+                           type="submit">{{hasResponse ? 'Entrar' :
                            'Entrando...'}}</button>
                      </div>
 
