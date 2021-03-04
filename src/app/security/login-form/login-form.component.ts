@@ -7,6 +7,7 @@ import { SettingsService } from 'app/settings/settings.service';
 import { SignupComponent } from './signup/signup.component';
 import { MatDialog } from '@angular/material/dialog';
 import { UserInfo } from 'app/model/User';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 @Component({
   selector: 'app-login-form',
@@ -67,6 +68,17 @@ export class LoginFormComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
+    });
+  }
+
+  /**
+   * Abre a tela de resgate de senha
+   */
+  openForgotPasswordDialog(): void {
+    const dialogRef = this.dialog.open(ForgotPasswordComponent, {
+      data: this.user.userName
+    });
+    dialogRef.afterClosed.arguments(result => {
     });
   }
 

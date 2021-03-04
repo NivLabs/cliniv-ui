@@ -22,7 +22,7 @@ const targetPath = isProduction
 const environmentFileContent = `
 export const environment = {
    production: ${isProduction},
-   apiUrl: "${ isProduction ? process.env.BASE_URL : 'http://localhost:8080'}",
+   apiUrl: "${ isProduction ? process.env.BASE_URL : 'https://gestao-prontuario.herokuapp.com'}",
    tokenWhitelistedDomains: [],
    tokenBlacklistedRoutes: []
 };
