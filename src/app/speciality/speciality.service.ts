@@ -3,6 +3,7 @@ import { AppHttp } from '../security/app-http';
 import { environment } from '../../environments/environment';
 import { Page, Pageable } from 'app/model/Util';
 import { Speciality, SpecialityFilters } from 'app/model/Speciality';
+import { HttpHeaders } from '@angular/common/http';
 
 @Injectable()
 export class SpecialityService {
@@ -10,17 +11,15 @@ export class SpecialityService {
 
     constructor(private http: AppHttp) {
         this.baseUrl = `${environment.apiUrl}/speciality`;
-    }   
-    
+    }
+
     getById(id): Promise<Speciality> {
-      var headers = this.http.getHeadersDefault();
-      if (id) {
-          return this.http.get<Speciality>(`${this.baseUrl}/${id}`, { headers }).toPromise();
-      }
+        if (id) {
+            return this.http.get<Speciality>(`${this.baseUrl}/${id}`).toPromise();
+        }
     }
 
     getPage(filter: SpecialityFilters, pageSettings: Pageable): Promise<Page> {
-        var headers = this.http.getHeadersDefault();
         var queryString;
         if (filter) {
             let params = new URLSearchParams();
@@ -39,11 +38,11 @@ export class SpecialityService {
             queryString = queryString ? queryString + '&' + params.toString() : params.toString();
 
         }
-        return this.http.get<Page>(`${this.baseUrl}?${queryString}`, { headers }).toPromise();
+        return this.http.get<Page>(`${this.baseUrl}?${queryString}`).toPromise();
     }
 
     create(speciality: Speciality): Promise<Speciality> {
-        var headers = this.http.getHeadersDefault()
+        var headers = new HttpHeaders()
             .append('Content-Type', "application/json");
         if (speciality) {
             return this.http.post<Speciality>(`${this.baseUrl}`, speciality, { headers }).toPromise();
@@ -51,7 +50,7 @@ export class SpecialityService {
     }
 
     update(speciality: Speciality): Promise<Speciality> {
-        var headers = this.http.getHeadersDefault()
+        var headers = new HttpHeaders()
             .append('Content-Type', "application/json");
         if (speciality) {
             return this.http.put<Speciality>(`${this.baseUrl}/${speciality.id}`, speciality, { headers }).toPromise();

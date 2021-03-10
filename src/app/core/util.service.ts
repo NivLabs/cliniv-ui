@@ -14,30 +14,22 @@ export class UtilService {
     }
 
     getEventTypes(): Promise<Array<EventType>> {
-        var headers = this.http.getHeadersDefault();
-
-        return this.http.get<Array<EventType>>(`${environment.apiUrl}/event-type`, { headers })
+        return this.http.get<Array<EventType>>(`${environment.apiUrl}/event-type`)
             .toPromise();
     }
 
     getSpecialization(): Promise<Page> {
-        var headers = this.http.getHeadersDefault();
-
-        return this.http.get<Page>(`${environment.apiUrl}/speciality?size=100`, { headers })
+        return this.http.get<Page>(`${environment.apiUrl}/speciality?size=100`)
             .toPromise();
     }
 
     getSpecializationById(id: number): Promise<SpecializationInfo> {
-        var headers = this.http.getHeadersDefault();
-
-        return this.http.get<SpecializationInfo>(`${environment.apiUrl}/speciality/${id}`, { headers })
+        return this.http.get<SpecializationInfo>(`${environment.apiUrl}/speciality/${id}`)
             .toPromise();
     }
 
     getParametersByGroup(groupNane: string): Promise<ParameterByGroup> {
-        var headers = this.http.getHeadersDefault();
-
-        return this.http.get<ParameterByGroup>(`${environment.apiUrl}/speciality/${groupNane}`, { headers }).toPromise();
+        return this.http.get<ParameterByGroup>(`${environment.apiUrl}/speciality/${groupNane}`).toPromise();
     }
 
     cpfIsValid(strCPF) {
@@ -64,9 +56,7 @@ export class UtilService {
     }
 
     getDigitalDocumentById(id: number): Promise<DigitalDocument> {
-        var headers = this.http.getHeadersDefault();
-
-        return this.http.get<DigitalDocument>(`${environment.apiUrl}/digital-document/${id}`, { headers })
+        return this.http.get<DigitalDocument>(`${environment.apiUrl}/digital-document/${id}`)
             .toPromise();
     }
 }

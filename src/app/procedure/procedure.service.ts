@@ -14,7 +14,6 @@ export class ProcedureService {
   }
 
   getPage(filter: ProcedureFilters, pageSettings: Pageable): Promise<Page> {
-    var headers = this.http.getHeadersDefault();
     var queryString;
     if (filter) {
       let params = new URLSearchParams();
@@ -33,15 +32,11 @@ export class ProcedureService {
       queryString = queryString ? queryString + '&' + params.toString() : params.toString();
 
     }
-    return this.http.get<Page>(`${this.baseUrl}?${queryString}`, { headers }).toPromise();
+    return this.http.get<Page>(`${this.baseUrl}?${queryString}`).toPromise();
   }
 
-  update(procedureId: number): Promise<void>{
-    
-    var headers = this.http.getHeadersDefault();
-
-    return this.http.put<void>(`${this.baseUrl}/${procedureId}`, {}, { headers }).toPromise();
-
+  update(procedureId: number): Promise<void> {
+    return this.http.put<void>(`${this.baseUrl}/${procedureId}`, {}).toPromise();
   }
 
 }

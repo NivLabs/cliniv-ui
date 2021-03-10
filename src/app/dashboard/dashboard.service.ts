@@ -9,10 +9,7 @@ export class DashboardService {
     }
 
     getDashboardInfo(): Promise<Dashboard> {
-        var headers = this.http.getHeadersDefault();
-
-        return this.http.get<Dashboard>(`${environment.apiUrl}/dashboard`, { headers })
-            .toPromise();
+        return this.http.get<Dashboard>(`${environment.apiUrl}/dashboard`).toPromise();
     }
 }
 
