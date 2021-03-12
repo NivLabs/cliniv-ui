@@ -106,6 +106,7 @@ export class ReportComponent implements OnInit {
     });
 
     confirmDialogRef.afterClosed().subscribe(result => {
+      this.loading = true;
       if (result !== undefined && result.isConfirmed) {
         this.principalService.delete(id).then(resp => {
           this.ngOnInit();

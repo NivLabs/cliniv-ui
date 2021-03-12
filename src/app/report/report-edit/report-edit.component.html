@@ -1,17 +1,17 @@
 <div class="card">
     <div class="card-header card-header-info">
-        <h4 class="card-title">Dados do relatório</h4>
-        <p class="card-category">Dados completos do relatório</p>
+        <h4 class="card-title">Dados do layout</h4>
+        <p class="card-category">Dados completos do layout</p>
     </div>
     <div class="card-body">
         <mat-tab-group>
-            <mat-tab label="Informações do relatório *">
+            <mat-tab label="Informações do layout *">
                 <br />
                 <form #form="ngForm" autocomplete="off">
                     <div class="row">
                         <div class="col-md-3">
                             <mat-form-field>
-                                <input matInput placeholder="Código do relatório" name="id" [(ngModel)]="dataToForm.id"
+                                <input matInput placeholder="Código do layout" name="id" [(ngModel)]="dataToForm.id"
                                     #id disabled />
                             </mat-form-field>
                         </div>
@@ -36,9 +36,9 @@
                         <div style="overflow:hidden; width: 100%;">
                             <div *ngIf="dataToForm.id" class="col-12 col-sm-12 col-md-4 col-lg-3 pull-left ml-0 mr-0">
                                 <button mat-raised-button type="button" class="btn btn-info col-12"
-                                    (click)="resetForm()" matTooltip="Adiciona relatório"><span
+                                    (click)="resetForm()" matTooltip="Adiciona layout"><span
                                         class="fa fa-plus"></span>
-                                    Novo Relatório</button>
+                                    Novo Layout</button>
                             </div>
 
                             <div class="col-12 col-sm-12 col-md-4 col-lg-3 pull-right ml-0 mr-0">
@@ -57,7 +57,7 @@
                 </form>
 
             </mat-tab>
-            <mat-tab *ngIf="dataToForm.id" label="Parâmetros do relatório">
+            <mat-tab *ngIf="dataToForm.id" label="Parâmetros do layout">
                 <div class="row">
                     <div class="col-md-12">
                         <mat-table [dataSource]="dataSource" matSort>
@@ -74,6 +74,46 @@
                                 </mat-cell>
                             </ng-container>
 
+                            <ng-container matColumnDef="value">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header> Valor do parâmetro </mat-header-cell>
+                                <mat-cell *matCellDef="let element"> 
+
+                                    <span *ngIf="element.type === 'STRING'" style="width: 100%;">
+                                        <mat-form-field>
+                                            <input matInput type="text" [(ngModel)]="element.value" />
+                                        </mat-form-field>
+                                    </span>
+
+                                    <span *ngIf="element.type === 'NUMBER'" style="width: 100%;">
+                                        <mat-form-field>
+                                            <input matInput type="number" [(ngModel)]="element.value" />
+                                        </mat-form-field>
+                                    </span>
+
+                                    <span *ngIf="element.type === 'BOOL'" style="width: 100%;">
+                                        <mat-form-field>
+                                            <mat-radio-group [(ngModel)]="element.value">
+                                                <mat-radio-button [value]="'true'" class="mr-3">Sim</mat-radio-button>
+                                                <mat-radio-button [value]="'false'">Não</mat-radio-button>
+                                            </mat-radio-group>
+                                        </mat-form-field>
+                                    </span>
+
+                                    <span *ngIf="element.type === 'DATE'" style="width: 100%;">
+                                        <mat-form-field>
+                                            <input matInput type="datetime-local" [(ngModel)]="element.value" />
+                                        </mat-form-field>
+                                    </span>
+
+                                    <span *ngIf="element.type === 'TEXTAREA'" style="width: 100%;">
+                                        <mat-form-field>
+                                            <textarea matInput cdkTextareaAutosize="true" cdkAutosizeMinRows="8" [(ngModel)]="element.value"></textarea>
+                                        </mat-form-field>
+                                    </span>
+
+                                </mat-cell>
+                            </ng-container>
+
                             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
                             <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
 
@@ -83,9 +123,9 @@
                 <div class="row">
                     <div *ngIf="dataToForm.id" class="col-12 col-sm-12 col-md-4 col-lg-3 pull-left ml-0 mr-0">
                         <button mat-raised-button type="button" class="btn btn-info col-12"
-                            (click)="resetForm()" matTooltip="Adiciona relatório"><span
-                                class="fa fa-plus"></span>
-                            Novo Relatório</button>
+                            (click)="createReport()" matTooltip="Gera relatório"><span
+                                class="fa fa-file"></span>
+                            Gerar Relatório</button>
                     </div>
                 </div>
             </mat-tab>

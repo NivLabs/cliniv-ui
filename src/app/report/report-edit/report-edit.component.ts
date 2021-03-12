@@ -9,6 +9,7 @@ import { MatDialogRef, MatDialog, MAT_DIALOG_DATA } from '@angular/material/dial
 import { ConfirmDialogComponent } from 'app/core/confirm-dialog/confirm-dialog.component';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { DocumentViewerComponent } from '../../component/document-viewer/document-viewer.component';
 
 @Component({
   selector: 'app-report-edit',
@@ -23,6 +24,7 @@ export class ReportEditComponent implements OnInit {
   public dataSource: any;
   public displayedColumns: any;
   public selectedReportId: number = 0;
+  public document: any;
 
   constructor(public principalService: ReportService, public confirmDialog: MatDialog, public dialog: MatDialog, public dialogRef: MatDialogRef<ReportEditComponent>, 
               @Inject(MAT_DIALOG_DATA) public data: Report, public formBuilder: FormBuilder, private utilService: UtilService, private errorHandler: ErrorHandlerService, 
@@ -54,35 +56,40 @@ export class ReportEditComponent implements OnInit {
         this.handlerException(error);
       });
 
-      this.displayedColumns = ['name', 'type'];
+      this.displayedColumns = ['name', 'type', 'value'];
 
     }
 
   }
 
   /**
-   * Fecha o dialog de edição de relatório
+   * Fecha o dialog de edição de Layout
    */
   onCancelClick(): void {
     this.dialogRef.close();
   }
 
   /**
-   * Cria ou atualiza um relatório
+   * Cria ou atualiza um Layout
    */
   save() {
     this.loading = true;
     if (this.dataToForm.id) {
+
       this.principalService.update(this.dataToForm).then(resp => {
         this.loading = false;
-        this.notification.showSucess("Relatório alterado com sucesso!");
-        this.dataToForm = resp;
+        this.notification.showSucess("Layout alterado com sucesso!");
+        this.dataToForm.id = resp.id;        
+        this.dataToForm.name = resp.name;            
+        this.dataToForm.params = resp.params;
       }).catch((error) => this.handlerException(error));
     } else {
       this.principalService.create(this.dataToForm).then(resp => {
         this.loading = false;
-        this.dataToForm = resp;
-        this.notification.showSucess("Relatório cadastrado com sucesso!");
+        this.dataToForm.id = resp.id;        
+        this.dataToForm.name = resp.name;            
+        this.dataToForm.params = resp.params;
+        this.notification.showSucess("Layout cadastrado com sucesso!");
       }).catch((error) => this.handlerException(error));
     }
   }
@@ -151,6 +158,35 @@ export class ReportEditComponent implements OnInit {
         this.notification.showError('Tipo de metadado não mapeado!');
         break;
     }
+  }
+
+  createReport(){
+    this.loading = true;
+    
+    var params = new Object();
+
+    this.dataToForm.params.forEach(element => {
+        params[element.name] = element.value;
+    });
+
+    var report = { params: params};
+
+    this.principalService.createReport(report, this.dataToForm.id).then(resp => {
+        this.loading = false;
+        this.document = resp;
+        this.notification.showSucess("Relatório gerado com sucesso!");
+      }).catch((error) => this.handlerException(error));
+
+  }
+
+  openDocumentViewerDialog(): void {
+    
+      this.dialog.open(DocumentViewerComponent, {
+        width: '100%',
+        height: 'auto',
+        data: { selectedDigitalDocumentId: 0, document: this.document }
+      });
+    
   }
 
 }

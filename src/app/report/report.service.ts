@@ -51,10 +51,18 @@ export class ReportService {
     }
 
     update(report): Promise<Report> {
+
+        var object = {
+            id: report.id,
+            base64: report.base64,
+            name: report.name,
+            type: report.type
+        };
+
         var headers = this.http.getHeadersDefault()
             .append('Content-Type', "application/json");
         if (report) {
-            return this.http.put<Report>(`${this.baseUrl}/${report.id}`, report, { headers }).toPromise();
+            return this.http.put<Report>(`${this.baseUrl}/${report.id}`, object, { headers }).toPromise();
         }
     }
 
@@ -63,6 +71,14 @@ export class ReportService {
 
         if (reportId) {
             return this.http.delete<void>(`${this.baseUrl}/${reportId}`, { headers }).toPromise();
+        }
+    }
+
+    createReport(report, layoutId): Promise<any> {
+        var headers = this.http.getHeadersDefault();
+
+        if (report) {
+            return this.http.post<any>(`${this.baseUrl}/${layoutId}`, report, { headers }).toPromise();
         }
     }
 
