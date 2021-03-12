@@ -14,6 +14,7 @@ import { HealthOperatorComponent } from 'app/healthOperator/health-operator.comp
 import { ScheduleComponent } from 'app/schedule/schedule.component';
 import { SpecialityComponent } from 'app/speciality/speciality.component';
 import { DynamicFormComponent } from 'app/dynamic-form/dynamic-form.component';
+import { ReportComponent } from 'app/report/report.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard', component: DashboardComponent },
@@ -29,5 +30,6 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'health-operator', component: HealthOperatorComponent },
     { path: 'user', component: UserComponent },
     { path: 'user-profile', component: UserProfileComponent },
-    { path: 'settings', component: SettingsComponent }
+    { path: 'settings', component: SettingsComponent },
+    { path: 'report', component: ReportComponent }
 ];
