@@ -3,6 +3,7 @@ import { environment } from "environments/environment";
 import { AppHttp } from "app/security/app-http";
 import { Report, ReportFilters } from 'app/model/Report';
 import { Page, Pageable } from 'app/model/Util';
+import { HttpHeaders } from "@angular/common/http";
 
 @Injectable()
 export class ReportService {
@@ -13,14 +14,12 @@ export class ReportService {
     }
 
     getById(id): Promise<Report> {
-        var headers = this.http.getHeadersDefault();
         if (id) {
-            return this.http.get<Report>(`${this.baseUrl}/${id}`, { headers }).toPromise();
+            return this.http.get<Report>(`${this.baseUrl}/${id}`).toPromise();
         }
     }
 
     getPage(filter: ReportFilters, pageSettings: Pageable): Promise<Page> {
-        var headers = this.http.getHeadersDefault();
         var queryString;
         if (filter) {
             let params = new URLSearchParams();
@@ -39,11 +38,11 @@ export class ReportService {
             queryString = queryString ? queryString + '&' + params.toString() : params.toString();
 
         }
-        return this.http.get<Page>(`${this.baseUrl}?${queryString}`, { headers }).toPromise();
+        return this.http.get<Page>(`${this.baseUrl}?${queryString}`).toPromise();
     }
 
     create(report): Promise<Report> {
-        var headers = this.http.getHeadersDefault()
+        var headers = new HttpHeaders()
             .append('Content-Type', "application/json");
         if (report) {
             return this.http.post<Report>(this.baseUrl, report, { headers }).toPromise();
@@ -59,7 +58,7 @@ export class ReportService {
             type: report.type
         };
 
-        var headers = this.http.getHeadersDefault()
+        var headers = new HttpHeaders()
             .append('Content-Type', "application/json");
         if (report) {
             return this.http.put<Report>(`${this.baseUrl}/${report.id}`, object, { headers }).toPromise();
@@ -67,18 +66,14 @@ export class ReportService {
     }
 
     delete(reportId): Promise<void> {
-        var headers = this.http.getHeadersDefault();
-
         if (reportId) {
-            return this.http.delete<void>(`${this.baseUrl}/${reportId}`, { headers }).toPromise();
+            return this.http.delete<void>(`${this.baseUrl}/${reportId}`).toPromise();
         }
     }
 
     createReport(report, layoutId): Promise<any> {
-        var headers = this.http.getHeadersDefault();
-
         if (report) {
-            return this.http.post<any>(`${this.baseUrl}/${layoutId}`, report, { headers }).toPromise();
+            return this.http.post<any>(`${this.baseUrl}/${layoutId}`, report).toPromise();
         }
     }
 

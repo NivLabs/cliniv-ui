@@ -9,6 +9,7 @@ import {
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
 import { tap } from 'rxjs/operators';
+import { environment } from 'environments/environment';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -21,8 +22,7 @@ export class AuthInterceptor implements HttpInterceptor {
         req: HttpRequest<unknown>,
         next: HttpHandler
     ): Observable<HttpEvent<unknown>> {
-        if (req.url.startsWith('http')
-            && req.url.includes('gestao-prontuario')) {
+        if (req.url.includes(environment.apiUrl)) {
             return next.handle(req.clone({
                 headers: this.authheaders(req)
             }))

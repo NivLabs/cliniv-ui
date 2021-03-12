@@ -26,9 +26,9 @@ export class ReportEditComponent implements OnInit {
   public selectedReportId: number = 0;
   public document: any;
 
-  constructor(public principalService: ReportService, public confirmDialog: MatDialog, public dialog: MatDialog, public dialogRef: MatDialogRef<ReportEditComponent>, 
-              @Inject(MAT_DIALOG_DATA) public data: Report, public formBuilder: FormBuilder, private utilService: UtilService, private errorHandler: ErrorHandlerService, 
-              private notification: NotificationsComponent) {
+  constructor(public principalService: ReportService, public confirmDialog: MatDialog, public dialog: MatDialog, public dialogRef: MatDialogRef<ReportEditComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: Report, public formBuilder: FormBuilder, private utilService: UtilService, private errorHandler: ErrorHandlerService,
+    private notification: NotificationsComponent) {
     this.dialogRef.disableClose = true;
     this.dataToForm = new Report();
   }
@@ -40,17 +40,18 @@ export class ReportEditComponent implements OnInit {
       this.selectedReportId = this.dialogRef.componentInstance.data['selectedReport'];
       this.principalService.getById(this.selectedReportId).then(resp => {
         this.loading = false;
-        this.dataToForm.id = resp.id;        
-        this.dataToForm.name = resp.name;            
-        this.dataToForm.params = resp.params;            
+        this.dataToForm.id = resp.id;
+        this.dataToForm.name = resp.name;
+        this.dataToForm.base64 = resp.base64;
+        this.dataToForm.params = resp.params;
         this.dataToForm.params = this.dataToForm.params.sort(function (a, b) {
-            return a.id < b.id ? -1 : a.id > b.id ? 1 : 0;
+          return a.id < b.id ? -1 : a.id > b.id ? 1 : 0;
         });
         this.dataSource = new MatTableDataSource(this.dataToForm.params);
         setTimeout(() => {
-        this.dataSource.sort = this.sort;
+          this.dataSource.sort = this.sort;
         });
-        
+
       }).catch(error => {
         this.dataToForm = new Report();
         this.handlerException(error);
@@ -75,20 +76,35 @@ export class ReportEditComponent implements OnInit {
   save() {
     this.loading = true;
     if (this.dataToForm.id) {
-
       this.principalService.update(this.dataToForm).then(resp => {
-        this.loading = false;
-        this.notification.showSucess("Layout alterado com sucesso!");
-        this.dataToForm.id = resp.id;        
-        this.dataToForm.name = resp.name;            
+        this.dataToForm.id = resp.id;
+        this.dataToForm.name = resp.name;
+        this.dataToForm.base64 = resp.base64;
         this.dataToForm.params = resp.params;
+        this.dataToForm.params = this.dataToForm.params.sort(function (a, b) {
+          return a.id < b.id ? -1 : a.id > b.id ? 1 : 0;
+        });
+        this.dataSource = new MatTableDataSource(this.dataToForm.params);
+        setTimeout(() => {
+          this.dataSource.sort = this.sort;
+        });
+        this.loading = false;
       }).catch((error) => this.handlerException(error));
+      this.notification.showSucess("Layout alterado com sucesso!");
     } else {
       this.principalService.create(this.dataToForm).then(resp => {
-        this.loading = false;
-        this.dataToForm.id = resp.id;        
-        this.dataToForm.name = resp.name;            
+        this.dataToForm.id = resp.id;
+        this.dataToForm.name = resp.name;
+        this.dataToForm.base64 = resp.base64;
         this.dataToForm.params = resp.params;
+        this.dataToForm.params = this.dataToForm.params.sort(function (a, b) {
+          return a.id < b.id ? -1 : a.id > b.id ? 1 : 0;
+        });
+        this.dataSource = new MatTableDataSource(this.dataToForm.params);
+        setTimeout(() => {
+          this.dataSource.sort = this.sort;
+        });
+        this.loading = false;
         this.notification.showSucess("Layout cadastrado com sucesso!");
       }).catch((error) => this.handlerException(error));
     }
@@ -160,33 +176,33 @@ export class ReportEditComponent implements OnInit {
     }
   }
 
-  createReport(){
+  createReport() {
     this.loading = true;
-    
+
     var params = new Object();
 
     this.dataToForm.params.forEach(element => {
-        params[element.name] = element.value;
+      params[element.name] = element.value;
     });
 
-    var report = { params: params};
+    var report = { params: params };
 
     this.principalService.createReport(report, this.dataToForm.id).then(resp => {
-        this.loading = false;
-        this.document = resp;
-        this.notification.showSucess("Relatório gerado com sucesso!");
-      }).catch((error) => this.handlerException(error));
+      this.loading = false;
+      this.document = resp;
+      this.notification.showSucess("Relatório gerado com sucesso!");
+    }).catch((error) => this.handlerException(error));
 
   }
 
   openDocumentViewerDialog(): void {
-    
-      this.dialog.open(DocumentViewerComponent, {
-        width: '100%',
-        height: 'auto',
-        data: { selectedDigitalDocumentId: 0, document: this.document }
-      });
-    
+
+    this.dialog.open(DocumentViewerComponent, {
+      width: '100%',
+      height: 'auto',
+      data: { selectedDigitalDocumentId: 0, document: this.document }
+    });
+
   }
 
 }
