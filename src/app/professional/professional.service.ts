@@ -15,14 +15,12 @@ export class ProfessionalService {
     }
 
     getById(id): Promise<ProfessionalInfo> {
-        var headers = this.http.getHeadersDefault();
         if (id) {
-            return this.http.get<ProfessionalInfo>(`${this.baseUrl}/${id}`, { headers }).toPromise();
+            return this.http.get<ProfessionalInfo>(`${this.baseUrl}/${id}`).toPromise();
         }
     }
 
     getPage(filter: ProfessionalFilters, pageSettings: Pageable): Promise<Page> {
-        var headers = this.http.getHeadersDefault();
         var queryString;
         if (filter) {
             let params = new URLSearchParams();
@@ -41,19 +39,18 @@ export class ProfessionalService {
             queryString = queryString ? queryString + '&' + params.toString() : params.toString();
 
         }
-        return this.http.get<Page>(`${this.baseUrl}?${queryString}`, { headers }).toPromise();
+        return this.http.get<Page>(`${this.baseUrl}?${queryString}`).toPromise();
     }
 
 
     getByCpf(cpf: string): Promise<ProfessionalInfo> {
-        var headers = this.http.getHeadersDefault();
         if (cpf) {
-            return this.http.get<ProfessionalInfo>(`${this.baseUrl}/CPF/${cpf}`, { headers }).toPromise();
+            return this.http.get<ProfessionalInfo>(`${this.baseUrl}/CPF/${cpf}`).toPromise();
         }
     }
 
     create(professional: ProfessionalInfo): Promise<ProfessionalInfo> {
-        var headers = this.http.getHeadersDefault()
+        var headers = new HttpHeaders()
             .append('Content-Type', "application/json");
         if (professional) {
             return this.http.post<ProfessionalInfo>(`${this.baseUrl}`, professional, { headers }).toPromise();
@@ -61,7 +58,7 @@ export class ProfessionalService {
     }
 
     update(professional: ProfessionalInfo): Promise<ProfessionalInfo> {
-        var headers = this.http.getHeadersDefault()
+        var headers = new HttpHeaders()
             .append('Content-Type', "application/json");
         if (professional) {
             return this.http.put<ProfessionalInfo>(`${this.baseUrl}/${professional.id}`, professional, { headers }).toPromise();

@@ -46,9 +46,10 @@
                            'Entrando...'}}</button>
                      </div>
 
-                     <div class="card-footer justify-content-center link"><small class="link">Esqueci a senha</small>
+                     <div hidden="hidden" class="card-footer justify-content-center link"><small class="link"
+                           (click)="openForgotPasswordDialog()">Esqueci a senha</small>
                      </div>
-                     <div class="card-footer justify-content-center link"><small class="link"
+                     <div hidden="hidden" class="card-footer justify-content-center link"><small class="link"
                            (click)="openNewUserDialog()">Criar uma nova
                            conta</small></div>
                   </div>

@@ -12,6 +12,9 @@ import { AuthService } from './auth.service';
 import { LoginFormComponent } from './login-form/login-form.component';
 import { SignupComponent } from './login-form/signup/signup.component';
 import { SecurityRoutingModule } from './security-routing.module';
+import { ForgotPasswordComponent } from './login-form/forgot-password/forgot-password.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './auth.interceptor';
 
 
 
@@ -44,13 +47,22 @@ export function tokenGetter() {
   ],
   declarations: [
     LoginFormComponent,
-    SignupComponent
+    SignupComponent,
+    ForgotPasswordComponent
   ],
   entryComponents: [
-    SignupComponent
+    SignupComponent,
+    ForgotPasswordComponent
   ],
   providers: [
-    AuthGuard, AuthService, AppHttp
+    AuthGuard,
+    AuthService,
+    AppHttp,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
   ]
 })
 export class SecurityModule { }

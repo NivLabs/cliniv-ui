@@ -11,7 +11,7 @@ export class AuthService {
 
   resourceUrl: string;
   jwtPayload: any;
-  
+
   constructor(
     private http: HttpClient,
     private jwtHelper: JwtHelperService,
@@ -22,10 +22,10 @@ export class AuthService {
 
   login(username: string, password: string): Promise<void> {
     var headers = new HttpHeaders()
-        .append('Content-Type', 'application/json');
+      .append('Content-Type', 'application/json');
     const body = `{"username": "${username}", "password": "${password}"}`;
     return this.http.post<any>(this.resourceUrl, body,
-        { headers, withCredentials: true, responseType: 'json', observe: 'response' })
+      { headers, withCredentials: true, responseType: 'json', observe: 'response' })
       .toPromise()
       .then(response => {
         this.removeAccessToken();
@@ -33,7 +33,7 @@ export class AuthService {
       })
       .catch(response => {
         if (response.status === 401) {
-            return Promise.reject('Usuário ou senha inválida!');
+          return Promise.reject('Usuário ou senha inválida!');
         }
         return Promise.reject(response);
       });
@@ -64,10 +64,14 @@ export class AuthService {
     return false;
   }
 
-  private saveToken(token: string) {
+  saveToken(token: string) {
     token = token.replace('Bearer ', '');
     this.jwtPayload = this.jwtHelper.decodeToken(token);
     localStorage.setItem('token', token);
+  }
+
+  getToken() {
+    return localStorage.getItem('token');
   }
 
   private loadToken() {

@@ -11,8 +11,8 @@
                     <div class="row">
                         <div class="col-md-3">
                             <mat-form-field>
-                                <input matInput placeholder="Código do layout" name="id" [(ngModel)]="dataToForm.id"
-                                    #id disabled />
+                                <input matInput placeholder="Código do layout" name="id" [(ngModel)]="dataToForm.id" #id
+                                    disabled />
                             </mat-form-field>
                         </div>
                     </div>
@@ -28,16 +28,15 @@
                                 (click)="base64.click()" matTooltip="Escolha um arquivo"><span
                                     class="fa fa-file-image-o"></span> Escolha um arquivo</button>
 
-                            <input #base64 name="base64" hidden="true" type="file" onclick="this.value=null" 
-                                (change)="saveImagem($event)" accept=".jrxml,.xml" required />
+                            <input #base64 name="base64" hidden="true" type="file" onclick="this.value=null"
+                                (change)="saveImagem($event)" accept=".jrxml,.xml" />
                         </div>
                     </div>
                     <div class="row">
                         <div style="overflow:hidden; width: 100%;">
                             <div *ngIf="dataToForm.id" class="col-12 col-sm-12 col-md-4 col-lg-3 pull-left ml-0 mr-0">
                                 <button mat-raised-button type="button" class="btn btn-info col-12"
-                                    (click)="resetForm()" matTooltip="Adiciona layout"><span
-                                        class="fa fa-plus"></span>
+                                    (click)="resetForm()" matTooltip="Adiciona layout"><span class="fa fa-plus"></span>
                                     Novo Layout</button>
                             </div>
 
@@ -48,8 +47,9 @@
                             </div>
                             <div class="col-12 col-sm-12 col-md-4 col-lg-3 pull-right ml-0 mr-0">
                                 <button mat-raised-button type="submit" class="btn btn-success col-12"
-                                    matTooltip="Salvar informações do formulário" [disabled]="!formValid()"
-                                    (click)="save()"><span class="fa fa-check"></span>Salvar</button>
+                                    matTooltip="Salvar informações do formulário"
+                                    [disabled]="!formValid() || !dataToForm.base64" (click)="save()"><span
+                                        class="fa fa-check"></span>Salvar</button>
                             </div>
                         </div>
                     </div>
@@ -64,7 +64,7 @@
                             <ng-container matColumnDef="name">
                                 <mat-header-cell *matHeaderCellDef mat-sort-header> Parâmetro </mat-header-cell>
                                 <mat-cell *matCellDef="let element">
-                                    {{element.name}}
+                                    {{element.description ? element.description : element.name }}
                                 </mat-cell>
                             </ng-container>
 
@@ -75,8 +75,9 @@
                             </ng-container>
 
                             <ng-container matColumnDef="value">
-                                <mat-header-cell *matHeaderCellDef mat-sort-header> Valor do parâmetro </mat-header-cell>
-                                <mat-cell *matCellDef="let element"> 
+                                <mat-header-cell *matHeaderCellDef mat-sort-header> Valor do parâmetro
+                                </mat-header-cell>
+                                <mat-cell *matCellDef="let element">
 
                                     <span *ngIf="element.type === 'STRING'" style="width: 100%;">
                                         <mat-form-field>
@@ -107,7 +108,8 @@
 
                                     <span *ngIf="element.type === 'TEXTAREA'" style="width: 100%;">
                                         <mat-form-field>
-                                            <textarea matInput cdkTextareaAutosize="true" cdkAutosizeMinRows="8" [(ngModel)]="element.value"></textarea>
+                                            <textarea matInput cdkTextareaAutosize="true" cdkAutosizeMinRows="8"
+                                                [(ngModel)]="element.value"></textarea>
                                         </mat-form-field>
                                     </span>
 
@@ -122,9 +124,8 @@
                 </div>
                 <div class="row">
                     <div *ngIf="dataToForm.id" class="col-12 col-sm-12 col-md-4 col-lg-3 pull-left ml-0 mr-0">
-                        <button mat-raised-button type="button" class="btn btn-info col-12"
-                            (click)="createReport()" matTooltip="Gera relatório"><span
-                                class="fa fa-file"></span>
+                        <button mat-raised-button type="button" class="btn btn-info col-12" (click)="createReport()"
+                            matTooltip="Gera relatório"><span class="fa fa-file"></span>
                             Gerar Relatório</button>
                     </div>
                 </div>

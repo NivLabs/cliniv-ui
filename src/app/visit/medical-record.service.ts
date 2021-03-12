@@ -6,6 +6,7 @@ import { Page, Pageable } from 'app/model/Util';
 import { DynamicFormAnswered } from 'app/model/DynamicFormAnswered';
 import { Allergy, AllergyFilters } from 'app/model/Allergy';
 import { EvolutionInfo } from 'app/model/Evolution';
+import { HttpHeaders } from '@angular/common/http';
 
 @Injectable()
 export class MedicalRecordService {
@@ -18,39 +19,32 @@ export class MedicalRecordService {
     }
 
     initializeVisit(dataToForm: NewAttendance) {
-        var headers = this.http.getHeadersDefault();
-        return this.http.post<MedicalRecord>(`${this.resourceUrl}`, dataToForm, { headers })
+        return this.http.post<MedicalRecord>(`${this.resourceUrl}`, dataToForm)
             .toPromise();
     }
 
     getActivedVisitByPatientId(patientId: number): Promise<MedicalRecord> {
-        var headers = this.http.getHeadersDefault();
-        return this.http.get<MedicalRecord>(`${this.resourceUrl}/actived/${patientId}/patient`, { headers })
+        return this.http.get<MedicalRecord>(`${this.resourceUrl}/actived/${patientId}/patient`)
             .toPromise();
     }
 
     getVisitById(attendanceId: number): Promise<MedicalRecord> {
-        var headers = this.http.getHeadersDefault();
-        return this.http.get<MedicalRecord>(`${this.resourceUrl}/${attendanceId}`, { headers })
+        return this.http.get<MedicalRecord>(`${this.resourceUrl}/${attendanceId}`)
             .toPromise();
     }
 
     getPatientHistory(patientId: number): Promise<PatientHistory> {
-        var headers = this.http.getHeadersDefault();
-        return this.http.get<PatientHistory>(`${this.resourceUrl}/history/${patientId}/patient`, { headers })
+        return this.http.get<PatientHistory>(`${this.resourceUrl}/history/${patientId}/patient`)
             .toPromise();
     }
 
     createDyanmicFormResponse(dynamicFormResponse, attendanceId): Promise<DynamicFormAnswered> {
-        var headers = this.http.getHeadersDefault();
-
         if (dynamicFormResponse) {
-            return this.http.post<DynamicFormAnswered>(`${this.resourceUrl}/${attendanceId}/dynamic-form`, dynamicFormResponse, { headers }).toPromise();
+            return this.http.post<DynamicFormAnswered>(`${this.resourceUrl}/${attendanceId}/dynamic-form`, dynamicFormResponse).toPromise();
         }
     }
 
     getPageAllergies(filter: AllergyFilters, pageSettings: Pageable): Promise<Page> {
-        var headers = this.http.getHeadersDefault();
         var queryString;
         if (filter) {
             let params = new URLSearchParams();
@@ -69,19 +63,17 @@ export class MedicalRecordService {
             queryString = queryString ? queryString + '&' + params.toString() : params.toString();
 
         }
-        return this.http.get<Page>(`${environment.apiUrl}/allergy?${queryString}`, { headers }).toPromise();
+        return this.http.get<Page>(`${environment.apiUrl}/allergy?${queryString}`).toPromise();
     }
 
     saveAllergies(descriptions, patientId): Promise<any> {
-        var headers = this.http.getHeadersDefault();
-
         if (descriptions) {
-            return this.http.post<Allergy>(`${environment.apiUrl}/allergy/patient/${patientId}`, descriptions, { headers }).toPromise();
+            return this.http.post<Allergy>(`${environment.apiUrl}/allergy/patient/${patientId}`, descriptions).toPromise();
         }
     }
 
     saveEvolution(evolution): Promise<any> {
-        var headers = this.http.getHeadersDefault().append('Content-Type', "application/json");
+        var headers = new HttpHeaders().append('Content-Type', "application/json");
 
         if (evolution) {
             return this.http.post<EvolutionInfo>(`${this.resourceUrl}/evolution`, evolution, { headers }).toPromise();
@@ -95,7 +87,7 @@ export class MedicalRecordService {
      * @param request Requisição de alta
      */
     closeAttendance(attendanceId: number, request: CloseAttendanceRequest): Promise<void> {
-        var headers = this.http.getHeadersDefault().append('Content-Type', "application/json");
+        var headers = new HttpHeaders().append('Content-Type', "application/json");
 
         if (request) {
             return this.http.put<void>(`${this.resourceUrl}/${attendanceId}`, request, { headers }).toPromise();
@@ -108,7 +100,7 @@ export class MedicalRecordService {
      * @param request Requisição de criação de evento de atendimento (Prontuário)
      */
     createAttendanceEvent(request: NewAttendanceEvent): Promise<void> {
-        var headers = this.http.getHeadersDefault().append('Content-Type', "application/json");
+        var headers = new HttpHeaders().append('Content-Type', "application/json");
 
         if (request) {
             return this.http.post<void>(`${this.resourceUrl}/event`, request, { headers }).toPromise();

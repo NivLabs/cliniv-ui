@@ -4,6 +4,7 @@ import { AppHttp } from "app/security/app-http";
 import { Sector, SectorFilters } from 'app/model/Sector';
 import { Page, Pageable } from 'app/model/Util';
 import { Accommodation } from 'app/model/Accommodation';
+import { HttpHeaders } from "@angular/common/http";
 
 @Injectable()
 export class SectorService {
@@ -14,14 +15,12 @@ export class SectorService {
     }
 
     getById(id): Promise<Sector> {
-        var headers = this.http.getHeadersDefault();
         if (id) {
-            return this.http.get<Sector>(`${this.baseUrl}/${id}`, { headers }).toPromise();
+            return this.http.get<Sector>(`${this.baseUrl}/${id}`).toPromise();
         }
     }
 
     getPage(filter: SectorFilters, pageSettings: Pageable): Promise<Page> {
-        var headers = this.http.getHeadersDefault();
         var queryString;
         if (filter) {
             let params = new URLSearchParams();
@@ -40,11 +39,11 @@ export class SectorService {
             queryString = queryString ? queryString + '&' + params.toString() : params.toString();
 
         }
-        return this.http.get<Page>(`${this.baseUrl}?${queryString}`, { headers }).toPromise();
+        return this.http.get<Page>(`${this.baseUrl}?${queryString}`).toPromise();
     }
 
     update(sector): Promise<Sector> {
-        var headers = this.http.getHeadersDefault()
+        var headers = new HttpHeaders()
             .append('Content-Type', "application/json");
         if (sector) {
             return this.http.put<Sector>(`${this.baseUrl}/${sector.id}`, sector, { headers }).toPromise();
@@ -52,7 +51,7 @@ export class SectorService {
     }
 
     create(sector): Promise<Sector> {
-        var headers = this.http.getHeadersDefault()
+        var headers = new HttpHeaders()
             .append('Content-Type', "application/json");
         if (sector) {
             return this.http.post<Sector>(this.baseUrl, sector, { headers }).toPromise();
@@ -60,26 +59,20 @@ export class SectorService {
     }
 
     createAccommodation(accommodation): Promise<Accommodation> {
-        var headers = this.http.getHeadersDefault();
-
         if (accommodation) {
-            return this.http.post<Accommodation>(`${this.baseUrl}/room-or-bed`, accommodation, { headers }).toPromise();
+            return this.http.post<Accommodation>(`${this.baseUrl}/room-or-bed`, accommodation).toPromise();
         }
     }
 
     updateAccommodation(accommodation): Promise<Accommodation> {
-        var headers = this.http.getHeadersDefault();
-
         if (accommodation) {
-            return this.http.put<Accommodation>(`${this.baseUrl}/room-or-bed/${accommodation.id}`, accommodation, { headers }).toPromise();
+            return this.http.put<Accommodation>(`${this.baseUrl}/room-or-bed/${accommodation.id}`, accommodation).toPromise();
         }
     }
 
     deleteAccommodation(accommodationId): Promise<void> {
-        var headers = this.http.getHeadersDefault();
-
         if (accommodationId) {
-            return this.http.delete<void>(`${this.baseUrl}/room-or-bed/${accommodationId}`, { headers }).toPromise();
+            return this.http.delete<void>(`${this.baseUrl}/room-or-bed/${accommodationId}`).toPromise();
         }
     }
 

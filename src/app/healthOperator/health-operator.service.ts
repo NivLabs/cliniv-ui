@@ -1,3 +1,4 @@
+import { HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { HealthOperator, HealthOperatorFilter } from "app/model/HealthOperator";
 import { Page, Pageable } from "app/model/Util";
@@ -13,14 +14,14 @@ export class HealthOperatorService {
     }
 
     getById(id): Promise<HealthOperator> {
-        var headers = this.http.getHeadersDefault();
+
         if (id) {
-            return this.http.get<HealthOperator>(`${this.baseUrl}/${id}`, { headers }).toPromise();
+            return this.http.get<HealthOperator>(`${this.baseUrl}/${id}`).toPromise();
         }
     }
 
     getPage(filter: HealthOperatorFilter, pageSettings: Pageable): Promise<Page> {
-        var headers = this.http.getHeadersDefault();
+
         var queryString;
         if (filter) {
             let params = new URLSearchParams();
@@ -39,11 +40,11 @@ export class HealthOperatorService {
             queryString = queryString ? queryString + '&' + params.toString() : params.toString();
 
         }
-        return this.http.get<Page>(`${this.baseUrl}?${queryString}`, { headers }).toPromise();
+        return this.http.get<Page>(`${this.baseUrl}?${queryString}`).toPromise();
     }
 
     create(healthOperator): Promise<HealthOperator> {
-        var headers = this.http.getHeadersDefault()
+        var headers = new HttpHeaders()
             .append('Content-Type', "application/json");
         if (healthOperator) {
             return this.http.post<HealthOperator>(this.baseUrl, healthOperator, { headers }).toPromise();
@@ -51,7 +52,7 @@ export class HealthOperatorService {
     }
 
     update(healthOperator): Promise<HealthOperator> {
-        var headers = this.http.getHeadersDefault()
+        var headers = new HttpHeaders()
             .append('Content-Type', "application/json");
         if (healthOperator) {
             return this.http.put<HealthOperator>(`${this.baseUrl}/${healthOperator.id}`, healthOperator, { headers }).toPromise();

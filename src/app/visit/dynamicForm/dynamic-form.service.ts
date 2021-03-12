@@ -4,6 +4,7 @@ import { AppHttp } from '../../security/app-http';
 import { Page, Pageable } from 'app/model/Util';
 import { DynamicForm, DynamicFormFilter } from 'app/model/DynamicForm';
 import { DynamicFormQuestion } from 'app/model/DynamicFormQuestion';
+import { HttpHeaders } from '@angular/common/http';
 
 @Injectable()
 export class DynamicFormService {
@@ -22,7 +23,6 @@ export class DynamicFormService {
     getPageOfForms(filters: DynamicFormFilter, pageSettings: Pageable): Promise<Page> {
 
         var queryString;
-        var headers = this.http.getHeadersDefault();
         if (filters) {
             let params = new URLSearchParams();
             for (let key in filters) {
@@ -40,7 +40,7 @@ export class DynamicFormService {
             queryString = queryString ? queryString + '&' + params.toString() : params.toString();
 
         }
-        return this.http.get<Page>(`${this.resourceUrl}?${queryString}`, { headers }).toPromise();
+        return this.http.get<Page>(`${this.resourceUrl}?${queryString}`).toPromise();
     }
 
     /**
@@ -49,13 +49,12 @@ export class DynamicFormService {
      */
     findById(id: number): Promise<DynamicForm> {
         if (id) {
-            var headers = this.http.getHeadersDefault();
-            return this.http.get<DynamicForm>(`${this.resourceUrl}/${id}`, { headers }).toPromise();
+            return this.http.get<DynamicForm>(`${this.resourceUrl}/${id}`).toPromise();
         }
     }
 
     create(dynamicForm): Promise<DynamicForm> {
-        var headers = this.http.getHeadersDefault()
+        var headers = new HttpHeaders()
             .append('Content-Type', "application/json");
         if (dynamicForm) {
             return this.http.post<DynamicForm>(this.resourceUrl, dynamicForm, { headers }).toPromise();
@@ -63,7 +62,7 @@ export class DynamicFormService {
     }
 
     update(dynamicForm): Promise<DynamicForm> {
-        var headers = this.http.getHeadersDefault()
+        var headers = new HttpHeaders()
             .append('Content-Type', "application/json");
         if (dynamicForm) {
             return this.http.put<DynamicForm>(`${this.resourceUrl}/${dynamicForm.id}`, dynamicForm, { headers }).toPromise();
@@ -71,34 +70,26 @@ export class DynamicFormService {
     }
 
     delete(dynamicFormId): Promise<void> {
-        var headers = this.http.getHeadersDefault();
-
         if (dynamicFormId) {
-            return this.http.delete<void>(`${this.resourceUrl}/${dynamicFormId}`, { headers }).toPromise();
+            return this.http.delete<void>(`${this.resourceUrl}/${dynamicFormId}`).toPromise();
         }
     }
 
     createDynamicFormQuestion(dynamicFormQuestion, dynamicFormId): Promise<DynamicFormQuestion> {
-        var headers = this.http.getHeadersDefault();
-
         if (dynamicFormQuestion) {
-            return this.http.post<DynamicFormQuestion>(`${this.resourceUrl}/${dynamicFormId}/question`, dynamicFormQuestion, { headers }).toPromise();
+            return this.http.post<DynamicFormQuestion>(`${this.resourceUrl}/${dynamicFormId}/question`, dynamicFormQuestion).toPromise();
         }
     }
 
     updateDynamicFormQuestion(dynamicFormQuestion): Promise<DynamicFormQuestion> {
-        var headers = this.http.getHeadersDefault();
-
         if (dynamicFormQuestion) {
-            return this.http.put<DynamicFormQuestion>(`${this.resourceUrl}/question/${dynamicFormQuestion.id}`, dynamicFormQuestion, { headers }).toPromise();
+            return this.http.put<DynamicFormQuestion>(`${this.resourceUrl}/question/${dynamicFormQuestion.id}`, dynamicFormQuestion).toPromise();
         }
     }
 
     deleteDynamicFormQuestion(dynamicFormQuestionId): Promise<void> {
-        var headers = this.http.getHeadersDefault();
-
         if (dynamicFormQuestionId) {
-            return this.http.delete<void>(`${this.resourceUrl}/question/${dynamicFormQuestionId}`, { headers }).toPromise();
+            return this.http.delete<void>(`${this.resourceUrl}/question/${dynamicFormQuestionId}`).toPromise();
         }
     }
 
