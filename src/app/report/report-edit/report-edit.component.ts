@@ -177,20 +177,13 @@ export class ReportEditComponent implements OnInit {
   }
 
   createReport() {
-    this.loading = true;
+    this.loading = true;    
 
-    var params = new Object();
-
-    this.dataToForm.params.forEach(element => {
-      params[element.name] = element.value;
-    });
-
-    var report = { params: params };
-
-    this.principalService.createReport(report, this.dataToForm.id).then(resp => {
+    this.principalService.createReport(this.dataToForm, this.dataToForm.id).then(resp => {
       this.loading = false;
       this.document = resp;
       this.notification.showSucess("Relatório gerado com sucesso!");
+      this.openDocumentViewerDialog();
     }).catch((error) => this.handlerException(error));
 
   }

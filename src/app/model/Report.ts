@@ -7,12 +7,8 @@ export class Report {
     id: number;
     name: string;
     base64: string;
-    type: string;
-    params: Array<ReportParameters>
+    params: Array<ReportParameters>;   
     
-    constructor() {
-        this.type = 'XML';
-    }
 }
 
 /**
