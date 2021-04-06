@@ -7,6 +7,7 @@ import { AddressService } from 'app/core/address.service';
 import { ConfirmDialogComponent } from 'app/core/confirm-dialog/confirm-dialog.component';
 import { ErrorHandlerService } from 'app/core/error-handler.service';
 import { NotificationsComponent } from 'app/core/notification/notifications.component';
+import { PersonDocumentDialogComponent } from 'app/core/person-document-dialog/person-document-dialog.component';
 import { UtilService } from 'app/core/util.service';
 import { HealthPlanService } from 'app/healthOperator/health-plan.service';
 import { Address } from 'app/model/Address';
@@ -14,6 +15,7 @@ import { PatientHistory } from 'app/model/Attendance';
 import { Document } from 'app/model/Document';
 import { HealthPlan } from 'app/model/HealthPlan';
 import { PatientInfo } from 'app/model/Patient';
+import { Person, PersonDocument } from 'app/model/Person';
 import { PatientService } from '../patient.service';
 
 
@@ -29,6 +31,8 @@ export class PatientEditComponent implements OnInit {
 
   public displayedColumns = ['id', 'entryDatetime', 'entryCause', 'isFinished', 'actions'];
   public attendanceHistoryDataSource: MatTableDataSource<PatientHistory>;
+  public displayedColunsDocuments = ['type', 'value', 'dispatcher', 'uf', 'expeditionDate', 'actions'];
+  public documentsDataSource: MatTableDataSource<PersonDocument>;
 
   constructor(private router: Router,
     public confirmDialog: MatDialog,
@@ -40,7 +44,8 @@ export class PatientEditComponent implements OnInit {
     private patientService: PatientService,
     private addressService: AddressService,
     private notification: NotificationsComponent,
-    private utilService: UtilService) {
+    private utilService: UtilService,
+    public dialog: MatDialog) {
 
     this.dialogRef.disableClose = true;
     this.dataToForm = new PatientInfo();
@@ -84,6 +89,9 @@ export class PatientEditComponent implements OnInit {
     confirmDialogRef.afterClosed().subscribe(result => {
       if (result !== undefined && result.isConfirmed) {
         this.dataToForm = new PatientInfo();
+        this.documentsDataSource = new MatTableDataSource(this.dataToForm.documents);
+        this.attendanceHistoryDataSource = new MatTableDataSource(this.dataToForm.attendanceHistory);
+
       }
     });
   }
@@ -110,6 +118,11 @@ export class PatientEditComponent implements OnInit {
           this.dataToForm.attendanceHistory = resp.attendanceHistory;
           this.attendanceHistoryDataSource = new MatTableDataSource(this.dataToForm.attendanceHistory);
         }
+        if (resp.documents) {
+          this.documentsDataSource = new MatTableDataSource(this.dataToForm.documents);
+        } else {
+          this.dataToForm.documents = [];
+        }
       }).catch(error => {
         this.loading = false;
         var cpf = this.dataToForm.document.value;
@@ -125,15 +138,10 @@ export class PatientEditComponent implements OnInit {
   }
 
   save() {
-    this.loading = true;
     if (this.dataToForm.id) {
-
+      this.loading = true;
       this.patientService.update(this.dataToForm).then(resp => {
-        this.loading = false;
-        this.dataToForm = resp;
-        if (!resp.address) {
-          this.dataToForm.address = new Address();
-        }
+        this.ngOnInit();
         this.notification.showSucess("Paciente alterado com sucesso!");
       }).catch(error => {
         this.loading = false;
@@ -141,11 +149,8 @@ export class PatientEditComponent implements OnInit {
       });
     } else {
       this.patientService.create(this.dataToForm).then(resp => {
-        this.loading = false;
-        this.dataToForm = resp;
-        if (!resp.address) {
-          this.dataToForm.address = new Address();
-        }
+        this.dialogRef.componentInstance.data['selectedPatient'] = resp.id;
+        this.ngOnInit();
         this.notification.showSucess("Paciente cadastrado com sucesso!");
       }).catch(error => {
         this.loading = false;
@@ -189,13 +194,56 @@ export class PatientEditComponent implements OnInit {
     this.dataToForm.type = newValue;
   }
 
+  selectEthnicGroup(newValue) {
+    this.dataToForm.ethnicGroup = newValue;
+  }
+
+  openEditDocument(document, personId) {
+    if (!document) {
+      document = new PersonDocument();
+      document.personId = personId;
+    }
+    const dialogRef = this.dialog.open(PersonDocumentDialogComponent, {
+      width: '100%',
+      height: 'auto',
+      data: { document: document }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        if (!this.dataToForm.documents.find(doc => doc.type == result.type && doc.value == result.value && doc.personId == result.personId)) {
+          this.dataToForm.documents.push(result);
+          this.documentsDataSource = new MatTableDataSource(this.dataToForm.documents);
+        }
+      }
+    });
+  }
+
+  deleteDocument(document) {
+    const confirmDialogRef = this.confirmDialog.open(ConfirmDialogComponent, {
+      data: { title: 'Confirmação', message: 'Você tem certeza que deseja apagar este ' + document.type + '?' }
+    });
+
+    confirmDialogRef.afterClosed().subscribe(result => {
+      if (result !== undefined && result.isConfirmed) {
+        for (var i = 0; i < this.dataToForm.documents.length; i++) {
+          if (this.dataToForm.documents[i] == document) {
+            this.dataToForm.documents.splice(i--, 1);
+            this.documentsDataSource = new MatTableDataSource(this.dataToForm.documents);
+          }
+        }
+      }
+    });
+  }
+
   cpfIsValid() {
     if (this.dataToForm.document) {
       if (this.dataToForm.document.value === "" || this.dataToForm.document.value === undefined)
-        return true
-      return this.utilService.cpfIsValid(this.dataToForm.document.value);
-    }
-    return false
+        return false
+      else
+        return this.utilService.cpfIsValid(this.dataToForm.document.value);
+    } else
+      return false
   }
 
   searchHealthPlan() {
@@ -223,7 +271,7 @@ export class PatientEditComponent implements OnInit {
 
   searchPatientByCpf() {
     if (!this.cpfIsValid()) {
-      this.notification.showWarning("CPF Inválido, favor informar um CPF válido e sem pontos e/ou traços");
+      this.notification.showWarning("CPF Inválido, favor informar um CPF válido");
       this.dataToForm.document = new Document("CPF");
     } else {
       this.loading = true;

@@ -21,4 +21,21 @@ export class Person {
     genderIdentity: string;
     createdAt: Date;
     profilePhoto: string;
+    ethnicGroup: string;
+    bloodType: string;
+    nationality: string;
+    documents: Array<PersonDocument> = [];
+}
+
+/**
+ * Documentos de pessoa física
+ */
+export class PersonDocument {
+    personId: string = "";
+    type: string = "CPF";
+    value: string = "";
+    dispatcher: string = "";
+    expeditionDate: Date;
+    validate: Date;
+    uf: string;
 }

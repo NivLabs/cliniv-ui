@@ -1,0 +1,79 @@
+<div class="card">
+    <div class="card-header card-header-info">
+        <h4 class="card-title">Documento</h4>
+        <p class="card-category">Dados completos do documento</p>
+    </div>
+    <div class="card-body">
+        <form #form="ngForm" autocomplete="off">
+            <div class="row">
+                <div class="col-md-2">
+                    <mat-form-field>
+                        <mat-label>Tipo do documento</mat-label>
+                        <select matNativeControl name="bloodType" (change)="selectDocumentType($event.target.value)"
+                            [(ngModel)]="dataToForm.type" #type>
+                            <option value="CPF">CPF</option>
+                            <option value="RG">RG</option>
+                            <option value="RNE">RNE</option>
+                            <option value="CTPS">CTPS</option>
+                        </select>
+                    </mat-form-field>
+                </div>
+
+                <!-- CPF -->
+                <div class="col-md-10" *ngIf="dataToForm.type === 'CPF' ">
+                    <mat-form-field>
+                        <input matInput placeholder="Valor do documento" name="value"
+                            [(ngModel)]="dataToForm.value" #value mask="000.000.000-00" required />
+                    </mat-form-field>
+                </div>
+                <!-- RG -->
+                <div class="col-md-4" *ngIf="dataToForm.type === 'RG' ">
+                    <mat-form-field>
+                        <input matInput placeholder="Valor do documento" name="value"
+                            [(ngModel)]="dataToForm.value" #value mask="0.000.000" required />
+                    </mat-form-field>
+                </div>
+                <div class="col-md-2" *ngIf="dataToForm.type === 'RG' ">
+                    <mat-form-field>
+                        <input matInput placeholder="Órgão expedidor" name="dispatcher"
+                            [(ngModel)]="dataToForm.dispatcher" #dispatcher required />
+                    </mat-form-field>
+                </div>
+                <div class="col-md-2" *ngIf="dataToForm.type === 'RG' ">
+                    <mat-form-field>
+                        <input matInput placeholder="UF" name="uf" [(ngModel)]="dataToForm.uf" #uf required />
+                    </mat-form-field>
+                </div>
+                <div class="col-md-2" *ngIf="dataToForm.type === 'RG' ">
+                    <mat-form-field>
+                        <input matInput type="date" placeholder="Data de expedição" name="expeditionDate"
+                            [(ngModel)]="dataToForm.expeditionDate" #expeditionDate required />
+                    </mat-form-field>
+                </div>
+                <!-- Outros -->
+                <div class="col-md-10" *ngIf="dataToForm.type != 'CPF' && dataToForm.type != 'RG' ">
+                    <mat-form-field>
+                        <input matInput placeholder="Valor do documento" name="value"
+                            [(ngModel)]="dataToForm.value" #value required />
+                    </mat-form-field>
+                </div>
+
+            </div>
+            <div class="row">
+                <div style="overflow:hidden; width: 100%;">
+                    <div class="col-12 col-sm-12 col-md-4 col-lg-3 pull-right ml-0 mr-0">
+                        <button mat-raised-button type="button" class="btn btn-danger col-12" (click)="onCancelClick()"
+                            matTooltip="Fecha formulário"><span class="fa fa-close"></span> Fechar</button>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-4 col-lg-3 pull-right ml-0 mr-0">
+                        <button mat-raised-button type="button" class="btn btn-success col-12"
+                            matTooltip="Salvar informações do formulário" [mat-dialog-close]="dataToForm"
+                            [disabled]="!form.valid"><span class="fa fa-check"></span> Salvar</button>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </form>
+    </div>
+</div>
+<app-loading [show]="loading"></app-loading>

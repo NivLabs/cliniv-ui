@@ -10,20 +10,21 @@
             <a href="javascript:void(0)" style="padding: 10px;">
                 <i class="material-icons" (click)="logoInput.click()" style="color: white;">cloud_upload</i>
             </a>
-            <input #logoInput hidden="true" type="file" onclick="this.value=null" (change)="saveImagem($event)" accept=".png" />
+            <input #logoInput hidden="true" type="file" onclick="this.value=null" (change)="saveImagem($event)"
+                accept=".png" />
             <a href="javascript:void(0)" style="padding: 10px;">
                 <i class="material-icons" (click)="openWebCam()" style="color: white;">camera_alt</i>
             </a>
         </div>
         <h4 class="card-title">Dados do paciente</h4>
-        <p class="card-category">Dados completos do paciente
+        <p class="card-category">Dados do paciente desde
             {{dataToForm.id ? 'criado em ' + (dataToForm.createdAt | date: 'dd/MM/yyyy') : ''}}</p>
 
     </div>
     <div class="card-body">
         <form #form="ngForm" autocomplete="off" (ngSubmit)="save()">
             <mat-tab-group>
-                <mat-tab label="Informações *">
+                <mat-tab label="Informações gerais *">
                     <br />
                     <div class="row">
                         <div *ngIf="dataToForm.id" class="col-md-3">
@@ -46,7 +47,7 @@
                                 <input matInput placeholder="Cadastro de Pessoa Física (CPF)  [ENTER]" name="document"
                                     [(ngModel)]="dataToForm.document.value"
                                     (keypress)="enterKeyPress($event, 'searchCPF')" #document type="text" maxlength="14"
-                                    mask="000.000.000-00" required />
+                                    mask="000.000.000-00" />
                             </mat-form-field>
                         </div>
                         <div class="col-md-4">
@@ -55,10 +56,37 @@
                                     [(ngModel)]="dataToForm.fullName" #fullName="ngModel" type="text" required />
                             </mat-form-field>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-2">
                             <mat-form-field>
-                                <input matInput placeholder="Nome Social" name="socialName"
-                                    [(ngModel)]="dataToForm.socialName" #socialName="ngModel" type="text" />
+                                <mat-label>Etnia</mat-label>
+                                <mat-select matNativeControl name="ethnicGroup"
+                                    (change)="selectEthnicGroup($event.target.value)"
+                                    [(ngModel)]="dataToForm.ethnicGroup" #ethnicGroup>
+                                    <mat-option>Não Informado</mat-option>
+                                    <mat-option value="WHITE">BRANCO</mat-option>
+                                    <mat-option value="BLACK">PRETO</mat-option>
+                                    <mat-option value="MULTIRACIAL">PARDO</mat-option>
+                                    <mat-option value="YELLOW">AMARELO</mat-option>
+                                    <mat-option value="INDIANS">ÍNDIO</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-2">
+                            <mat-form-field>
+                                <mat-label>Tipo sanguíneo</mat-label>
+                                <mat-select matNativeControl name="bloodType"
+                                    (change)="selectEthnicGroup($event.target.value)" [(ngModel)]="dataToForm.bloodType"
+                                    #bloodType>
+                                    <mat-option>Não Informado</mat-option>
+                                    <mat-option value="A_POSITIVE">A+</mat-option>
+                                    <mat-option value="B_POSITIVE">B</mat-option>
+                                    <mat-option value="AB_POSITIVE">AB+</mat-option>
+                                    <mat-option value="O_POSITIVE">O+</mat-option>
+                                    <mat-option value="A_NEGATIVE">A-</mat-option>
+                                    <mat-option value="B_NEGATIVE">B-</mat-option>
+                                    <mat-option value="AB_NEGATIVE">AB-</mat-option>
+                                    <mat-option value="O_NEGATIVE">O-</mat-option>
+                                </mat-select>
                             </mat-form-field>
                         </div>
                     </div>
@@ -104,14 +132,8 @@
                         </div>
                         <div class="col-md-3">
                             <mat-form-field>
-                                <mat-label>Identidade de Gênero</mat-label>
-                                <mat-select matNativeControl name="genderIdentity"
-                                    (change)="selectGenderIdeology($event.target.value)"
-                                    [(ngModel)]="dataToForm.genderIdentity" #genderIdentity required>
-                                    <mat-option value="HETERO" selected>Heterosexual</mat-option>
-                                    <mat-option value="HOMO">Homossexual</mat-option>
-                                    <mat-option value="TRANS">Transexual</mat-option>
-                                </mat-select>
+                                <input matInput placeholder="Nacionalidade" name="nationality"
+                                    [(ngModel)]="dataToForm.nationality" #nationality type="text" />
                             </mat-form-field>
                         </div>
                     </div>
@@ -126,6 +148,64 @@
                                     {{dataToForm.annotations?.length}})!
                                 </span>
                             </mat-form-field>
+                        </div>
+                    </div>
+                </mat-tab>
+                <mat-tab label="Documentos">
+                    <br />
+                    <div class="row">
+                        <div class="col-md-12">
+                            <mat-table [dataSource]="documentsDataSource">
+                                <ng-container matColumnDef="type">
+                                    <mat-header-cell *matHeaderCellDef> Tipo </mat-header-cell>
+                                    <mat-cell *matCellDef="let element">
+                                        {{element.type}}
+                                    </mat-cell>
+                                </ng-container>
+
+                                <ng-container matColumnDef="value">
+                                    <mat-header-cell *matHeaderCellDef> Valor </mat-header-cell>
+                                    <mat-cell *matCellDef="let element"> {{element.value}} </mat-cell>
+                                </ng-container>
+
+                                <ng-container matColumnDef="dispatcher">
+                                    <mat-header-cell *matHeaderCellDef> Org. Exped. </mat-header-cell>
+                                    <mat-cell *matCellDef="let element"> {{element.dispatcher}} </mat-cell>
+                                </ng-container>
+
+                                <ng-container matColumnDef="uf">
+                                    <mat-header-cell *matHeaderCellDef> UF Exped. </mat-header-cell>
+                                    <mat-cell *matCellDef="let element"> {{element.uf}} </mat-cell>
+                                </ng-container>
+
+                                <ng-container matColumnDef="expeditionDate">
+                                    <mat-header-cell *matHeaderCellDef> DT. Exped. </mat-header-cell>
+                                    <mat-cell *matCellDef="let element"> {{element.expeditionDate}} </mat-cell>
+                                </ng-container>
+
+                                <ng-container matColumnDef="actions">
+                                    <mat-header-cell *matHeaderCellDef style="justify-content: center;"> Excluir
+                                    </mat-header-cell>
+                                    <mat-cell *matCellDef="let element" style="justify-content: center;">
+                                        <button mat-raised-button type="button" class="btn-danger"
+                                            (click)="deleteDocument(element)">
+                                            <mat-icon>delete</mat-icon>
+                                        </button>
+                                    </mat-cell>
+                                </ng-container>
+
+                                <mat-header-row *matHeaderRowDef="displayedColunsDocuments"></mat-header-row>
+                                <mat-row *matRowDef="let row; columns: displayedColunsDocuments;"></mat-row>
+
+                            </mat-table>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-sm-12 col-md-4 col-lg-3 pull-left ml-0 mr-0">
+                            <button mat-raised-button type="button" class="btn btn-warning col-12"
+                                matTooltip="Adiciona um novo documento"
+                                (click)="openEditDocument(null, dataToForm.id)"><span class="fa fa-plus"></span>
+                                Adicionar documento</button>
                         </div>
                     </div>
                 </mat-tab>
