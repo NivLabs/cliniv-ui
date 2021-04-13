@@ -24,6 +24,12 @@
                                         <mat-icon>ballot</mat-icon>
                                         <span>Formulário</span>
                                     </button>
+                                    <button mat-menu-item matTooltip="Realiza prescrição"
+                                        *ngIf="visit.id && visit.patientId && !visit.exitDateTime"
+                                        (click)="openNewPrescriptionDialog(visit.id)">
+                                        <mat-icon>fact_check</mat-icon>
+                                        <span>Prescrição</span>
+                                    </button>
                                     <button mat-menu-item matTooltip="Adiciona prescrição"
                                         *ngIf="1!=1 && visit.id && visit.patientId && !visit.exitDateTime">
                                         <mat-icon>insert_drive_file</mat-icon>
@@ -176,7 +182,7 @@
                                 'card-header-danger' : visit && visit.attendanceLevel === 'HIGH',
                                 'card-header-warning' : visit && visit.attendanceLevel === 'MEDIUM'
                             }">
-                        <h4 class="card-title">Medicamentos</h4>
+                        <h4 class="card-title">Medicamentos Utilizados</h4>
                     </div>
                     <div class="card-body">
 
@@ -196,16 +202,9 @@
                                     : element.datetime}}
                                 </mat-cell>
                             </ng-container>
-
-                            <ng-container matColumnDef="description">
-                                <mat-header-cell *matHeaderCellDef mat-sort-header class="text-primary"
-                                    style="font-size: 0.95rem; font-weight: 500;"> Descrição </mat-header-cell>
-                                <mat-cell *matCellDef="let element"> {{element.description}} </mat-cell>
-                            </ng-container>
-
                             <ng-container matColumnDef="amount">
                                 <mat-header-cell *matHeaderCellDef mat-sort-header class="text-primary"
-                                    style="font-size: 0.95rem; font-weight: 500;"> Dosagem </mat-header-cell>
+                                    style="font-size: 0.95rem; font-weight: 500;"> Medicamento </mat-header-cell>
                                 <mat-cell *matCellDef="let element"> {{element.amount}} </mat-cell>
                             </ng-container>
 
