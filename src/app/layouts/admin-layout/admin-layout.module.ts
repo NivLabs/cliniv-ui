@@ -100,7 +100,7 @@ import { ReportComponent } from 'app/report/report.component';
 import { ReportEditComponent } from 'app/report/report-edit/report-edit.component';
 import { ReportService } from 'app/report/report.service';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
-
+import { PersonDocumentDialogComponent } from 'app/core/person-document-dialog/person-document-dialog.component';
 
 const matModules = [
   MatAutocompleteModule,
@@ -177,6 +177,7 @@ const maskConfig: Partial<IConfig> = {
 
     PatientComponent,
     PatientEditComponent,
+    PersonDocumentDialogComponent,
 
     ProfessionalComponent,
     ProfessionalEditComponent,
@@ -237,6 +238,7 @@ const maskConfig: Partial<IConfig> = {
   entryComponents: [
     PatientEditComponent,
     PatientHistoryComponent,
+    PersonDocumentDialogComponent,
     ChangePasswordComponent,
     NewAttendanceComponent,
     AllergyComponent,

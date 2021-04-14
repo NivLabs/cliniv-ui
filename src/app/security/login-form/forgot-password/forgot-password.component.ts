@@ -23,5 +23,9 @@ export class ForgotPasswordComponent implements OnInit {
   onCancelClick(): void {
     this.dialogRef.close();
   }
+  
+  forgotPassword(): void {
+
+  }
 
 }
