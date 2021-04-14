@@ -99,6 +99,7 @@ import { DynamicFormQuestionComponent } from 'app/dynamic-form/dynamic-form-ques
 import { ReportComponent } from 'app/report/report.component';
 import { ReportEditComponent } from 'app/report/report-edit/report-edit.component';
 import { ReportService } from 'app/report/report.service';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 
 const matModules = [
@@ -153,7 +154,8 @@ const maskConfig: Partial<IConfig> = {
     WebcamModule,
     NgxMaskModule.forRoot(maskConfig),
     PdfViewerModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    CKEditorModule
   ],
   exports: [
     CommonModule,
@@ -162,7 +164,8 @@ const maskConfig: Partial<IConfig> = {
     InfiniteScrollModule,
     ReactiveFormsModule,
     SecurityModule,
-    LoadingComponent
+    LoadingComponent,
+    CKEditorModule
   ],
   declarations: [
     DashboardComponent,

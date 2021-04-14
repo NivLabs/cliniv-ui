@@ -15,6 +15,8 @@ import { Document } from 'app/model/Document';
 import { HealthPlan } from 'app/model/HealthPlan';
 import { PatientInfo } from 'app/model/Patient';
 import { PatientService } from '../patient.service';
+import '@ckeditor/ckeditor5-build-decoupled-document/build/translations/pt-br';
+import * as DecoupledEditor  from '@ckeditor/ckeditor5-build-decoupled-document';
 
 
 @Component({
@@ -29,6 +31,12 @@ export class PatientEditComponent implements OnInit {
 
   public displayedColumns = ['id', 'entryDatetime', 'entryCause', 'isFinished', 'actions'];
   public attendanceHistoryDataSource: MatTableDataSource<PatientHistory>;
+
+  public Editor = DecoupledEditor;
+  public editorData = '<p>Anotações sobre o paciente</p>';
+  public config = {
+    language: 'pt-br'
+  };
 
   constructor(private router: Router,
     public confirmDialog: MatDialog,
@@ -302,4 +310,12 @@ export class PatientEditComponent implements OnInit {
   showStatus(status: boolean) {
     return status ? 'Teve alta' : 'Em atendimento';
   }
+
+  onReady( editor ) {
+    editor.ui.getEditableElement().parentElement.insertBefore(
+        editor.ui.view.toolbar.element,
+        editor.ui.getEditableElement()
+    );
+  }
+
 }

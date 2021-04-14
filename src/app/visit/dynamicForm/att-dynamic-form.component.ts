@@ -8,6 +8,8 @@ import { DynamicFormQuestion } from 'app/model/DynamicFormQuestion';
 import { Page, Pageable } from 'app/model/Util';
 import { Response } from 'app/model/Response';
 import { DynamicFormAnswered } from 'app/model/DynamicFormAnswered';
+import '@ckeditor/ckeditor5-build-decoupled-document/build/translations/pt-br';
+import * as DecoupledEditor  from '@ckeditor/ckeditor5-build-decoupled-document';
 
 @Component({
     selector: 'app-att-dynamic-form',
@@ -24,6 +26,12 @@ export class AttDynamicFormComponent implements OnInit {
     pageSettings: Pageable;
     public formTitle: string;
     attendanceId: boolean;
+
+    public Editor = DecoupledEditor;
+    public editorData = '<p></p>';
+    public config = {
+        language: 'pt-br'
+    };
 
     constructor(public principalService: MedicalRecordService, public confirmDialog: MatDialog, public dialog: MatDialog, public dialogRef: MatDialogRef<AttDynamicFormComponent>,
         @Inject(MAT_DIALOG_DATA) public data: DynamicFormQuestion, public formBuilder: FormBuilder, private errorHandler: ErrorHandlerService, private notification: NotificationsComponent) {
@@ -77,5 +85,12 @@ export class AttDynamicFormComponent implements OnInit {
         return !this.dynamicFormAnswered.listOfResponse.some(x => x.response != "" && x.response != null);
 
     }
+
+    onReady( editor ) {
+        editor.ui.getEditableElement().parentElement.insertBefore(
+            editor.ui.view.toolbar.element,
+            editor.ui.getEditableElement()
+        );
+      }
 
 }

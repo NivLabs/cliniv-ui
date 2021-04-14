@@ -13,6 +13,9 @@ import { SectorService } from 'app/sector/sector.service';
 import { Pageable } from 'app/model/Util';
 import { ErrorHandlerService } from 'app/core/error-handler.service';
 import { AttendanceService } from 'app/attendance/attendance.service';
+import '@ckeditor/ckeditor5-build-decoupled-document/build/translations/pt-br';
+import * as DecoupledEditor  from '@ckeditor/ckeditor5-build-decoupled-document';
+
 
 @Component({
     selector: 'app-new-attendance',
@@ -38,6 +41,12 @@ export class NewAttendanceComponent implements OnInit {
 
     filters = new SectorFilters();
     pageSettings = new Pageable();
+    
+    public Editor = DecoupledEditor;
+    public editorData = '<p>Motivo do atendimento</p>';
+    public config = {
+        language: 'pt-br'
+    };
 
     constructor(public dialogRef: MatDialogRef<NewAttendanceComponent>, public attendanceService: AttendanceService, public sectorService: SectorService, public notification: NotificationsComponent, public utilService: UtilService, public visitService: MedicalRecordService, private errorHandler: ErrorHandlerService,
         @Inject(MAT_DIALOG_DATA) public data: number) { }
@@ -124,5 +133,12 @@ export class NewAttendanceComponent implements OnInit {
     selectAccommodation(newValue) {
         this.newVisit.accommodationId = newValue;
     }
+
+    onReady( editor ) {
+        editor.ui.getEditableElement().parentElement.insertBefore(
+            editor.ui.view.toolbar.element,
+            editor.ui.getEditableElement()
+        );
+      }
 
 }

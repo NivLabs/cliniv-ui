@@ -161,9 +161,12 @@
                 <div class="row">
                     <div class="col-md-8">
                         <mat-form-field>
-                            <mat-label>Anotações</mat-label>
-                            <textarea matInput cdkTextareaAutosize="true" cdkAutosizeMinRows="12" name="annotation"
-                                [(ngModel)]="dataToForm.annotation" #annotation></textarea>
+                            <textarea matInput cdkTextareaAutosize="true" cdkAutosizeMinRows="12"
+                            [(ngModel)]="dataToForm.annotation" style="display: none;"
+                            [ngModelOptions]="{standalone: true}"></textarea>
+
+                        <ckeditor [editor]="Editor" [(ngModel)]="dataToForm.annotation" #annotation
+                            name="annotation" [data]="editorData" (ready)="onReady($event)" [config]="config"></ckeditor>
                         </mat-form-field>
                     </div>
                     <div class="col-md-4">

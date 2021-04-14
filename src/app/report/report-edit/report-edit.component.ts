@@ -10,6 +10,8 @@ import { ConfirmDialogComponent } from 'app/core/confirm-dialog/confirm-dialog.c
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { DocumentViewerComponent } from '../../component/document-viewer/document-viewer.component';
+import '@ckeditor/ckeditor5-build-decoupled-document/build/translations/pt-br';
+import * as DecoupledEditor  from '@ckeditor/ckeditor5-build-decoupled-document';
 
 @Component({
   selector: 'app-report-edit',
@@ -25,6 +27,12 @@ export class ReportEditComponent implements OnInit {
   public displayedColumns: any;
   public selectedReportId: number = 0;
   public document: any;
+
+  public Editor = DecoupledEditor;
+  public editorData = '<p>teste</p>';
+  public config = {
+    language: 'pt-br'
+  };
 
   constructor(public principalService: ReportService, public confirmDialog: MatDialog, public dialog: MatDialog, public dialogRef: MatDialogRef<ReportEditComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Report, public formBuilder: FormBuilder, private utilService: UtilService, private errorHandler: ErrorHandlerService,
@@ -196,6 +204,13 @@ export class ReportEditComponent implements OnInit {
       data: { selectedDigitalDocumentId: 0, document: this.document }
     });
 
+  }
+
+  onReady( editor ) {
+    editor.ui.getEditableElement().parentElement.insertBefore(
+        editor.ui.view.toolbar.element,
+        editor.ui.getEditableElement()
+    );
   }
 
 }
