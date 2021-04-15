@@ -108,8 +108,14 @@
 
                                     <span *ngIf="element.type === 'TEXTAREA'" style="width: 100%;">
                                         <mat-form-field>
+
                                             <textarea matInput cdkTextareaAutosize="true" cdkAutosizeMinRows="8"
-                                                [(ngModel)]="element.value"></textarea>
+                                                [(ngModel)]="element.value" style="display: none;"
+                                                [ngModelOptions]="{standalone: true}"></textarea>
+
+                                            <ckeditor [editor]="Editor" [(ngModel)]="element.value" [data]="editorData"
+                                                (ready)="onReady($event)" [config]="config"></ckeditor>
+
                                         </mat-form-field>
                                     </span>
 

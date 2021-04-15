@@ -35,7 +35,8 @@
               "node_modules/moment/moment.js",
               "node_modules/perfect-scrollbar/dist/perfect-scrollbar.min.js",
               "node_modules/bootstrap-notify/bootstrap-notify.js",
-              "node_modules/chartist/dist/chartist.js"
+              "node_modules/chartist/dist/chartist.js",
+              "node_modules/@ckeditor/ckeditor5-build-decoupled-document/build/translations/pt-br.js"
             ]
           },
           "configurations": {

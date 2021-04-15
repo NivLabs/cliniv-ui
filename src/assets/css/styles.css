@@ -107,3 +107,7 @@ html::-webkit-scrollbar-thumb
   border-radius: 5px;
   background-color: #c1c1c1;
 }
+
+.ck-editor__editable {
+  min-height: 325px;
+}

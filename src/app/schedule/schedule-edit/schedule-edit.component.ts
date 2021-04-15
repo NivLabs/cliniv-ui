@@ -12,6 +12,8 @@ import { Document } from 'app/model/Document';
 import { ScheduleInfo, ScheduleParameters } from 'app/model/Schedule';
 import { PatientService } from 'app/patient/patient.service';
 import { ScheduleService } from '../schedule.service';
+import '@ckeditor/ckeditor5-build-decoupled-document/build/translations/pt-br';
+import * as DecoupledEditor  from '@ckeditor/ckeditor5-build-decoupled-document';
 
 @Component({
   selector: 'app-schedule-edit',
@@ -27,6 +29,13 @@ export class ScheduleEditComponent implements OnInit {
   public loading = false;
 
   public responsibles = [];
+
+  public Editor = DecoupledEditor;
+  public editorData = '<p>Anotações</p>';
+  public config = {
+    language: 'pt-br'
+  };
+
   constructor(
     private dialogRef: MatDialogRef<ScheduleEditComponent>,
     private notification: NotificationsComponent,
@@ -170,6 +179,13 @@ export class ScheduleEditComponent implements OnInit {
       this.loading = false;
       this.errorHandler.handle(error, this.dialogRef);
     });
+  }
+
+  onReady( editor ) {
+    editor.ui.getEditableElement().parentElement.insertBefore(
+        editor.ui.view.toolbar.element,
+        editor.ui.getEditableElement()
+    );
   }
 
 }

@@ -34,6 +34,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { AttendanceComponent } from 'app/attendance/attendance.component';
 import { CameraDialogComponent } from 'app/component/camera/dialog/camera-dialog.component';
 import { DocumentViewerComponent } from 'app/component/document-viewer/document-viewer.component';
@@ -103,7 +104,6 @@ import { MedicalRecordService } from '../../visit/medical-record.service';
 import { NewAttendanceComponent } from '../../visit/newVisit/new-attendance.component';
 import { AdminLayoutRoutes } from './admin-layout.routing';
 
-
 const matModules = [
   MatAutocompleteModule,
   MatButtonModule,
@@ -156,7 +156,8 @@ const maskConfig: Partial<IConfig> = {
     WebcamModule,
     NgxMaskModule.forRoot(maskConfig),
     PdfViewerModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    CKEditorModule
   ],
   exports: [
     CommonModule,
@@ -165,7 +166,8 @@ const maskConfig: Partial<IConfig> = {
     InfiniteScrollModule,
     ReactiveFormsModule,
     SecurityModule,
-    LoadingComponent
+    LoadingComponent,
+    CKEditorModule
   ],
   declarations: [
     DashboardComponent,

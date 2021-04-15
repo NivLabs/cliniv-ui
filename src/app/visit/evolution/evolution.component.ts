@@ -4,6 +4,8 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MedicalRecordService } from '../medical-record.service';
 import { NotificationsComponent } from 'app/core/notification/notifications.component';
 import { ErrorHandlerService } from 'app/core/error-handler.service';
+import '@ckeditor/ckeditor5-build-decoupled-document/build/translations/pt-br';
+import * as DecoupledEditor  from '@ckeditor/ckeditor5-build-decoupled-document';
 
 @Component({
   selector: 'app-evolution',
@@ -13,7 +15,13 @@ import { ErrorHandlerService } from 'app/core/error-handler.service';
 export class EvolutionComponent implements OnInit {
 
   dataToForm: EvolutionInfo;
-  public loading = false;
+  public loading = false;  
+
+  public Editor = DecoupledEditor;
+  public editorData = '<p>Evolução do paciente</p>';
+  public config = {
+    language: 'pt-br'
+  };
 
   constructor(public dialogRef: MatDialogRef<EvolutionComponent>, @Inject(MAT_DIALOG_DATA) public data: EvolutionInfo, public principalService: MedicalRecordService,
               private notification: NotificationsComponent, private errorHandler: ErrorHandlerService) {
@@ -45,6 +53,13 @@ export class EvolutionComponent implements OnInit {
       this.errorHandler.handle(error, this.dialogRef);
     });
 
+  }
+
+  onReady( editor ) {
+    editor.ui.getEditableElement().parentElement.insertBefore(
+        editor.ui.view.toolbar.element,
+        editor.ui.getEditableElement()
+    );
   }
 
 }
