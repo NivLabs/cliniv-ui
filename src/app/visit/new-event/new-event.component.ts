@@ -7,7 +7,6 @@ import { NotificationsComponent } from 'app/core/notification/notifications.comp
 import { UtilService } from 'app/core/util.service';
 import { Accommodation } from 'app/model/Accommodation';
 import { NewAttendanceEvent } from 'app/model/Attendance';
-import { EventType } from 'app/model/EventType';
 import { FileInfo } from 'app/model/File';
 import { ProcedureFilters, ProcedureInfo } from 'app/model/Procedure';
 import { Professional } from 'app/model/Professional';
@@ -16,6 +15,8 @@ import { Pageable } from 'app/model/Util';
 import { ProcedureService } from 'app/procedure/procedure.service';
 import { SectorService } from 'app/sector/sector.service';
 import { MedicalRecordService } from '../medical-record.service';
+import '@ckeditor/ckeditor5-build-decoupled-document/build/translations/pt-br';
+import * as DecoupledEditor  from '@ckeditor/ckeditor5-build-decoupled-document';
 
 @Component({
   selector: 'app-new-event',
@@ -44,7 +45,12 @@ export class NewEventComponent implements OnInit {
 
   @ViewChild('inputFile')
   inputFile: ElementRef;
-
+  
+  public Editor = DecoupledEditor;
+  public editorData = '<p>Observações</p>';
+  public config = {
+    language: 'pt-br'
+  };
 
   constructor(
     public dialogRef: MatDialogRef<NewEventComponent>,
@@ -204,6 +210,13 @@ export class NewEventComponent implements OnInit {
 
   cleanAttacheds() {
     this.dataToForm.documents = [];
+  }
+
+  onReady( editor ) {
+    editor.ui.getEditableElement().parentElement.insertBefore(
+        editor.ui.view.toolbar.element,
+        editor.ui.getEditableElement()
+    );
   }
 
 }

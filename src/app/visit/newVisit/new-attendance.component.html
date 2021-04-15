@@ -68,9 +68,12 @@
             <div class="row">
                 <div class="col-12">
                     <mat-form-field>
-                        <mat-label>Motivo do atendimento</mat-label>
-                        <textarea matInput cdkTextareaAutosize="true" cdkAutosizeMinRows="4" name="entryCause"
-                            [(ngModel)]="newVisit.entryCause" #entryCause></textarea>
+                        <textarea matInput cdkTextareaAutosize="true" cdkAutosizeMinRows="4"
+                            [(ngModel)]="newVisit.entryCause" style="display: none;"
+                            [ngModelOptions]="{standalone: true}"></textarea>
+
+                        <ckeditor [editor]="Editor" [(ngModel)]="newVisit.entryCause" #entryCause name="entryCause"
+                            [data]="editorData" (ready)="onReady($event)" [config]="config"></ckeditor>
                     </mat-form-field>
                 </div>
             </div>
