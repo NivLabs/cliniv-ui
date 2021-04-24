@@ -1,0 +1,103 @@
+<div style="background-color: red;color: white;">FUNCIONALIDADE EM DESENVOLVIMENTO, NÃO ESTÁ FUNCIONAL...</div>
+<div class="card">
+    <div class="card-header card-header-info">
+        <h4 class="card-title">Prescrição</h4>
+        <p class="card-category">Paciente: {{attendance.fullName}} | Idade: {{getAge(attendance.bornDate)}} | Sexo:
+            {{attendance.gender}}</p>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                <mat-form-field>
+                    <input matInput placeholder="Data/Hora início" name="datetimeInit"
+                        [(ngModel)]="dataToForm.datetimeInit" #datetimeInit type="datetime-local" />
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+                <mat-form-field>
+                    <input matInput placeholder="Data/Hora fim" name="datetimeEnd" [(ngModel)]="dataToForm.datetimeEnd"
+                        #datetimeEnd type="datetime-local" />
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <mat-table [dataSource]="dataSource">
+                    <ng-container matColumnDef="sequential">
+                        <mat-header-cell class="col-md-1" *matHeaderCellDef> Seq. </mat-header-cell>
+                        <mat-cell class="col-md-1" *matCellDef="let element">
+                            {{element.sequential}}
+                        </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="description">
+                        <mat-header-cell class="col-md-3" *matHeaderCellDef> Descrição </mat-header-cell>
+                        <mat-cell class="col-md-3" *matCellDef="let element"> {{element.description}} </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="routeOfAdministration">
+                        <mat-header-cell class="col-md-2" *matHeaderCellDef> Via </mat-header-cell>
+                        <mat-cell class="col-md-2" *matCellDef="let element"> {{element.routeOfAdministration}}
+                        </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="dosage">
+                        <mat-header-cell class="col-md-1" *matHeaderCellDef> Dosagem </mat-header-cell>
+                        <mat-cell class="col-md-1" *matCellDef="let element"> {{element.dosage ? element.dosage :
+                            'N/I'}}
+                        </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="unitOfMeasurement">
+                        <mat-header-cell class="col-md-1" *matHeaderCellDef> Uni. Medida </mat-header-cell>
+                        <mat-cell class="col-md-1" *matCellDef="let element"> {{element.unitOfMeasurement ?
+                            element.unitOfMeasurement.value : 'N/I'}} </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="timeInterval">
+                        <mat-header-cell class="col-md-1" *matHeaderCellDef> Intervalo </mat-header-cell>
+                        <mat-cell class="col-md-1" *matCellDef="let element"> {{element.timeInterval ?
+                            element.timeInterval +
+                            convertTimeIntervalType(element.timeIntervalType) + "/" + element.timeInterval +
+                            convertTimeIntervalType(element.timeIntervalType) : 'N/I'}}
+                        </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="actions">
+                        <mat-header-cell class="col-md-3" *matHeaderCellDef style="justify-content: center;"> Ações
+                        </mat-header-cell>
+                        <mat-cell class="col-md-3" *matCellDef="let element" style="justify-content: center;">
+                            <button mat-raised-button type="button" class="btn-danger" (click)="deleteItem(element)">
+                                <mat-icon>delete</mat-icon>
+                            </button>
+                            <button mat-raised-button type="button" class="btn-info" (click)="addOrUpdate(element)">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                        </mat-cell>
+                    </ng-container>
+                    <mat-header-row *matHeaderRowDef="displayedColuns"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: displayedColuns;"></mat-row>
+                </mat-table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-sm-12 col-md-4 col-lg-3 pull-left ml-0 mr-0">
+                <button mat-raised-button type="button" class="btn btn-warning col-12"
+                    matTooltip="Adiciona um novo documento" (click)="addOrUpdate(null)"><span class="fa fa-plus"></span>
+                    Adicionar item</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-sm-12 col-md-4 col-lg-3 pull-right ml-0 mr-0">
+                <button mat-raised-button type="button" class="btn btn-danger col-12" (click)="onCancelClick()"
+                    matTooltip="Fecha formulário"><span class="fa fa-close"></span> Fechar</button>
+            </div>
+            <div class="col-12 col-sm-12 col-md-4 col-lg-3 pull-right ml-0 mr-0">
+                <button mat-raised-button type="button" class="btn btn-success col-12" matTooltip="Gerar prescrição"
+                    (click)="save()" [disabled]="dataToForm.items.length == 0"><span class="fa fa-check"></span>
+                    Gerar prescrição</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div style="background-color: red;color: white;">FUNCIONALIDADE EM DESENVOLVIMENTO, NÃO ESTÁ FUNCIONAL...</div>

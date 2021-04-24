@@ -59,4 +59,35 @@ export class UtilService {
         return this.http.get<DigitalDocument>(`${environment.apiUrl}/digital-document/${id}`)
             .toPromise();
     }
+
+    /**
+     * Calcula a idade baseada na data de nascimento
+     * @param bornDate Data de nascimento
+     * @returns Idade
+     */
+    public calculateAge(bornDate: Date): number {
+        var currentDate = new Date();
+        var currentYear = currentDate.getFullYear();
+        if (!(bornDate instanceof Date)) {
+            bornDate = new Date(bornDate);
+        }
+        var bornDay = bornDate.getDay();
+        var bornMonth = bornDate.getMonth();
+        var bornYear = bornDate.getFullYear();
+        var age = currentYear - bornYear;
+        var currentMonth = currentDate.getMonth() + 1;
+        //Se mes atual for menor que o nascimento, nao fez aniversario ainda;  
+        if (currentMonth < bornMonth) {
+            age--;
+        } else {
+            //Se estiver no mes do nascimento, verificar o dia
+            if (currentMonth == bornMonth) {
+                if (new Date().getDate() < bornDay) {
+                    //Se a data atual for menor que o dia de nascimento ele ainda nao fez aniversario
+                    age--;
+                }
+            }
+        }
+        return age;
+    }
 }
