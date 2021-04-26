@@ -3,9 +3,11 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { MatTableDataSource } from '@angular/material/table';
 import { ConfirmDialogComponent } from 'app/core/confirm-dialog/confirm-dialog.component';
 import { ErrorHandlerService } from 'app/core/error-handler.service';
+import { NotificationsComponent } from 'app/core/notification/notifications.component';
 import { UtilService } from 'app/core/util.service';
 import { MedicalRecord } from 'app/model/Attendance';
 import { Prescription, PrescriptionItem } from 'app/model/Prescription';
+import { MedicalRecordService } from '../medical-record.service';
 import { PrescriptionEditComponent } from './prescription-edit/prescription-edit.component';
 
 @Component({
@@ -18,11 +20,14 @@ export class PrescriptionComponent implements OnInit {
   public attendance: MedicalRecord;
   public dataSource: MatTableDataSource<PrescriptionItem>;
   public displayedColuns: any;
+  public loading: boolean = false;
   constructor(
     private dialogRef: MatDialogRef<PrescriptionComponent>,
     private errorHandler: ErrorHandlerService,
     private utilService: UtilService,
+    private principalService: MedicalRecordService,
     private confirmDialog: MatDialog,
+    private notification: NotificationsComponent,
     @Inject(MAT_DIALOG_DATA) private data: MedicalRecord,
     private dialog: MatDialog) {
     this.dialogRef.disableClose = true;
@@ -110,11 +115,17 @@ export class PrescriptionComponent implements OnInit {
   }
 
   /**
-   * 
+   * Cria uma prescrição médica no atendimento ativo
    */
   save() {
-    console.log(this.dataToForm);
+    this.loading = true;
+    this.principalService.createPrescription(this.dataToForm).then(resp => {
+      this.loading = false;
+      this.notification.showInfo("Prescrição adicionada com sucesso");
+    }).catch(error => {
+      this.loading = false;
+      this.errorHandler.handle(error, this.dialogRef);
+    });
   }
-
 
 }

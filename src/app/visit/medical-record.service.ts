@@ -7,6 +7,7 @@ import { DynamicFormAnswered } from 'app/model/DynamicFormAnswered';
 import { Allergy, AllergyFilters } from 'app/model/Allergy';
 import { EvolutionInfo } from 'app/model/Evolution';
 import { HttpHeaders } from '@angular/common/http';
+import { Prescription } from 'app/model/Prescription';
 
 @Injectable()
 export class MedicalRecordService {
@@ -104,6 +105,19 @@ export class MedicalRecordService {
 
         if (request) {
             return this.http.post<void>(`${this.resourceUrl}/event`, request, { headers }).toPromise();
+        }
+    }
+
+    /**
+     * Realiza a criação de uma prescrição médica em um atendimento ativo
+     * 
+     * @param request Requisição de criação de prescrição
+     */
+    createPrescription(request: Prescription): Promise<void> {
+        var headers = new HttpHeaders().append('Content-Type', "application/json");
+
+        if (request) {
+            return this.http.post<void>(`${this.resourceUrl}/prescription`, request, { headers }).toPromise();
         }
     }
 }

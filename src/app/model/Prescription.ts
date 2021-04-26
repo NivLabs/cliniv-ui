@@ -4,6 +4,7 @@ import { RouteOfAdministration, UnitOfMeasurement } from './Util';
  * Prescrição do atendimento
  */
 export class Prescription {
+    id: number;
     attendanceId: number;
     datetimeInit: Date;
     datetimeEnd: Date;
