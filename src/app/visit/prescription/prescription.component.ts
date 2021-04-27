@@ -121,7 +121,8 @@ export class PrescriptionComponent implements OnInit {
     this.loading = true;
     this.principalService.createPrescription(this.dataToForm).then(resp => {
       this.loading = false;
-      this.notification.showInfo("Prescrição adicionada com sucesso");
+      this.notification.showSucess("Prescrição adicionada com sucesso");
+      this.dialogRef.close();
     }).catch(error => {
       this.loading = false;
       this.errorHandler.handle(error, this.dialogRef);
