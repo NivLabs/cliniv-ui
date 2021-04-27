@@ -53,6 +53,7 @@ export class MedicalRecordComponent implements OnInit {
       id: null,
       document: new Document('CPF'),
       fullName: null,
+      bloodType: null,
       socialName: null,
       principalNumber: null,
       susNumber: null,
