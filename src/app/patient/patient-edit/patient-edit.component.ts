@@ -2,6 +2,8 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
+import * as DecoupledEditor from '@ckeditor/ckeditor5-build-decoupled-document';
+import '@ckeditor/ckeditor5-build-decoupled-document/build/translations/pt-br';
 import { CameraDialogComponent } from 'app/component/camera/dialog/camera-dialog.component';
 import { AddressService } from 'app/core/address.service';
 import { ConfirmDialogComponent } from 'app/core/confirm-dialog/confirm-dialog.component';
@@ -15,10 +17,8 @@ import { PatientHistory } from 'app/model/Attendance';
 import { Document } from 'app/model/Document';
 import { HealthPlan } from 'app/model/HealthPlan';
 import { PatientInfo } from 'app/model/Patient';
-import { Person, PersonDocument } from 'app/model/Person';
+import { PersonDocument } from 'app/model/Person';
 import { PatientService } from '../patient.service';
-import '@ckeditor/ckeditor5-build-decoupled-document/build/translations/pt-br';
-import * as DecoupledEditor  from '@ckeditor/ckeditor5-build-decoupled-document';
 
 
 @Component({

@@ -6,6 +6,7 @@ import { ProcedureService } from 'app/procedure/procedure.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from 'app/core/confirm-dialog/confirm-dialog.component';
 import { NotificationsComponent } from 'app/core/notification/notifications.component';
+import { ProcedureEditComponent } from './procedure-edit/procedure-edit.component';
 
 @Component({
   selector: 'app-procedure',
@@ -21,7 +22,7 @@ export class ProcedureComponent implements OnInit {
   pageSettings: Pageable;
   filters: ProcedureFilters;
 
-  constructor(private principalService: ProcedureService, private errorHandler: ErrorHandlerService, public confirmDialog: MatDialog,
+  constructor(private principalService: ProcedureService, private errorHandler: ErrorHandlerService, public dialog: MatDialog,
     private notification: NotificationsComponent) { }
 
   ngOnInit() {
@@ -42,11 +43,6 @@ export class ProcedureComponent implements OnInit {
       this.errorHandler.handle(error, null);
     });
 
-  }
-
-  selectProcedureType(newValue) {
-    this.filters.activeType = newValue;
-    this.applyFilter();
   }
 
   enterKeyPress(event: any) {
@@ -90,53 +86,17 @@ export class ProcedureComponent implements OnInit {
   }
 
   openDialog(procedure: ProcedureInfo) {
+    const dialogRef = this.dialog.open(ProcedureEditComponent, {
+      width: '100%',
+      height: 'auto',
+      data: { selectedProcedure: procedure },
 
-    this.updateProcedure(procedure);
-
-  }
-
-  updateProcedure(procedure: ProcedureInfo) {
-    const confirmDialogRef = this.confirmDialog.open(ConfirmDialogComponent, {
-      data: { title: 'Confirmação', message: procedure.active ? 'Tem certeza que deseja inativar esse procedimento?' : 'Tem certeza que deseja ativar esse procedimento?' }
     });
-    confirmDialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.loading = true;
-        this.principalService.update(procedure.id).then(() => {
-          
-          this.loading = false;
 
-          this.notification.showSucess(procedure.active ? "Procedimento inativado com sucesso!" : "Procedimento ativado com sucesso!");
-
-          var cardBody = document.getElementById('card_body_' + procedure.id);
-          var liName = document.getElementById('li_name_' + procedure.id);
-          var span = document.getElementById('span_' + procedure.id);
-
-          if (procedure.active) {
-            cardBody.classList.add('margin-color-danger');
-            liName.classList.add('name-not-identified');
-            span.classList.remove('fa-check-square');
-            span.classList.add('fa-window-close');     
-            procedure.active = false;
-          }
-          else {
-            cardBody.classList.remove('margin-color-danger');
-            liName.classList.remove('name-not-identified');
-            span.classList.remove('fa-window-close');
-            span.classList.add('fa-check-square');
-            procedure.active = true;
-          }
-
-          if(this.filters.activeType != undefined){
-            this.applyFilter();
-          }
-
-        }).catch(error => {
-          this.loading = false;
-          this.errorHandler.handle(error, confirmDialogRef);
-        });
-      }
+    dialogRef.afterClosed().subscribe(result => {
+      this.applyFilter();
     });
+
   }
 
 }

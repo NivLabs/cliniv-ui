@@ -1,0 +1,97 @@
+<div class="card">
+    <div class="card-header card-header-info">
+        <h4 class="card-title">Dados do procedimento</h4>
+        <p class="card-category">Dados completos do procedimento</p>
+    </div>
+    <div class="card-body">
+        <mat-tab-group>
+            <mat-tab label="Informações do Procedimento *">
+                <br />
+                <form #form="ngForm" autocomplete="off">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <mat-form-field>
+                                <input matInput placeholder="Código do Procedimento" name="id"
+                                    [(ngModel)]="dataToForm.id" #id disabled />
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <mat-form-field>
+                                <input matInput placeholder="Descrição" name="description"
+                                    [(ngModel)]="dataToForm.description" #description required />
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <mat-form-field>
+                                <input matInput placeholder="Valor padrão" name="baseValue"
+                                    [(ngModel)]="dataToForm.baseValue" #baseValue />
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-6">
+                            <mat-form-field>
+                                <input matInput placeholder="Periodicidade" name="frequency"
+                                    [(ngModel)]="dataToForm.frequency" #frequency />
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-2">
+                            <mat-form-field>
+                                <input matInput placeholder="Idade mínima" name="minAge" [(ngModel)]="dataToForm.minAge"
+                                    #minAge />
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-2">
+                            <mat-form-field>
+                                <input matInput placeholder="Idade máxima" name="maxAge" [(ngModel)]="dataToForm.maxAge"
+                                    #maxAge />
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <mat-checkbox hidden></mat-checkbox>
+                        <div class="col-md-4">
+                            <div>
+                                <label class="mat-checkbox-layout" for="specialAuthorization">
+                                    <div class="mat-checkbox-inner-container">
+                                        <input type="checkbox" class="mat-checkbox-input" name="specialAuthorization"
+                                            #specialAuthorization [(ngModel)]="dataToForm.specialAuthorization">
+                                        <div matripple="" class="mat-ripple mat-checkbox-ripple">
+                                            <div class="mat-ripple-element mat-checkbox-persistent-ripple"></div>
+                                        </div>
+                                    </div>
+                                    <span class="mat-checkbox-label">Requer autorização especial</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div style="overflow:hidden; width: 100%;">
+                            <div *ngIf="dataToForm.id" class="col-12 col-sm-12 col-md-4 col-lg-3 pull-left ml-0 mr-0">
+                                <button mat-raised-button type="button" class="btn btn-info col-12"
+                                    (click)="resetForm()" matTooltip="Adiciona Procedimento"><span
+                                        class="fa fa-plus"></span>
+                                    Novo Procedimento</button>
+                            </div>
+
+                            <div class="col-12 col-sm-12 col-md-4 col-lg-3 pull-right ml-0 mr-0">
+                                <button mat-raised-button type="button" class="btn btn-danger col-12"
+                                    (click)="onCancelClick()" matTooltip="Fecha formulário"><span
+                                        class="fa fa-close"></span> Fechar</button>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-4 col-lg-3 pull-right ml-0 mr-0">
+                                <button mat-raised-button type="submit" class="btn btn-success col-12"
+                                    matTooltip="Salvar informações do formulário" [disabled]="!form.valid"
+                                    (click)="save()"><span class="fa fa-check"></span>Salvar</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </form>
+            </mat-tab>
+        </mat-tab-group>
+    </div>
+</div>
+<app-loading [show]="loading"></app-loading>
