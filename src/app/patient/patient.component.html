@@ -17,42 +17,42 @@
                                             [(ngModel)]="filters.type" #type>
                                             <mat-option>Ambos</mat-option>
                                             <mat-option value="IDENTIFIED">Identificado</mat-option>
-                                            <mat-option value="NOT_IDENTIFIED">Não identificado</mat-option>
+                                            <mat-option value="NOT_IDENTIFIED">Não Identificado</mat-option>
                                         </mat-select>
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-2">
                                     <mat-form-field>
-                                        <input matInput placeholder="Matrícula do paciente [ENTER]"
-                                            name="id" [(ngModel)]="filters.id" #id type="number"
+                                        <input matInput placeholder="Matrícula do paciente [ENTER]" name="id"
+                                            [(ngModel)]="filters.id" #id type="number"
                                             (keypress)="enterKeyPress($event)" />
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-2">
                                     <mat-form-field>
-                                        <input matInput placeholder="CNS (Número) [ENTER]"
-                                            name="susNumber" [(ngModel)]="filters.susNumber" #susNumber type="text"
+                                        <input matInput placeholder="CNS (Número) [ENTER]" name="susNumber"
+                                            [(ngModel)]="filters.susNumber" #susNumber type="text"
                                             (keypress)="enterKeyPress($event)" />
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-2">
                                     <mat-form-field>
-                                        <input matInput placeholder="Nome do paciente [ENTER]"
-                                            name="fullName" [(ngModel)]="filters.fullName" #fullName type="text"
+                                        <input matInput placeholder="Nome do paciente [ENTER]" name="fullName"
+                                            [(ngModel)]="filters.fullName" #fullName type="text"
                                             (keypress)="enterKeyPress($event)" />
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-2">
                                     <mat-form-field>
-                                        <input matInput placeholder="Nome Social do paciente [ENTER]"
-                                            name="socialName" [(ngModel)]="filters.socialName" #socialName type="text"
+                                        <input matInput placeholder="Nome Social do paciente [ENTER]" name="socialName"
+                                            [(ngModel)]="filters.socialName" #socialName type="text"
                                             (keypress)="enterKeyPress($event)" />
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-2">
                                     <mat-form-field>
-                                        <input matInput placeholder="CPF do paciente [ENTER]"
-                                            name="cpf" [(ngModel)]="filters.cpf" #cpf type="text"
+                                        <input matInput placeholder="CPF do paciente [ENTER]" name="cpf"
+                                            [(ngModel)]="filters.cpf" #cpf type="text"
                                             (keypress)="enterKeyPress($event)" mask="000.000.000-00" />
                                     </mat-form-field>
                                 </div>
@@ -99,8 +99,9 @@
                                     {{patient.cpf | mask:'000.000.000-00'}}</li>
                                 <li>
                                     <span class="fa fa-phone patient-info"> Tel:</span>
-                                    {{patient.principalNumber ? (patient.principalNumber | mask: patient.principalNumber.length <= 10 ? '(00) 0000-00009' : '(00) 00000-0000') : ('Não informado')}}
-                                </li>
+                                    {{patient.principalNumber ? (patient.principalNumber | mask:
+                                    patient.principalNumber.length <= 10 ? '(00) 0000-00009' : '(00) 00000-0000' ) :
+                                        ('Não informado')}} </li>
                             </ul>
                         </div>
                     </div>

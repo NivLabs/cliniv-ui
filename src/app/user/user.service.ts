@@ -4,6 +4,7 @@ import { AppHttp } from '../security/app-http';
 import { environment } from '../../environments/environment';
 import { UserInfo, UserFilters } from 'app/model/User';
 import { Page, Pageable } from 'app/model/Util';
+import { HttpHeaders } from '@angular/common/http';
 
 @Injectable()
 export class UserService {
@@ -14,14 +15,12 @@ export class UserService {
     }
 
     getById(id): Promise<UserInfo> {
-        var headers = this.http.getHeadersDefault();
         if (id) {
-            return this.http.get<UserInfo>(`${this.baseUrl}/${id}`, { headers }).toPromise();
+            return this.http.get<UserInfo>(`${this.baseUrl}/${id}`).toPromise();
         }
     }
 
     getPage(filter: UserFilters, pageSettings: Pageable): Promise<Page> {
-        var headers = this.http.getHeadersDefault();
         var queryString;
         if (filter) {
             let params = new URLSearchParams();
@@ -40,19 +39,18 @@ export class UserService {
             queryString = queryString ? queryString + '&' + params.toString() : params.toString();
 
         }
-        return this.http.get<Page>(`${this.baseUrl}?${queryString}`, { headers }).toPromise();
+        return this.http.get<Page>(`${this.baseUrl}?${queryString}`).toPromise();
     }
 
 
     getByCpf(cpf: string): Promise<UserInfo> {
-        var headers = this.http.getHeadersDefault();
         if (cpf) {
-            return this.http.get<UserInfo>(`${this.baseUrl}/CPF/${cpf}`, { headers }).toPromise();
+            return this.http.get<UserInfo>(`${this.baseUrl}/CPF/${cpf}`).toPromise();
         }
     }
 
     create(user: UserInfo): Promise<UserInfo> {
-        var headers = this.http.getHeadersDefault()
+        var headers = new HttpHeaders()
             .append('Content-Type', "application/json");
         if (user) {
             return this.http.post<UserInfo>(`${this.baseUrl}`, user, { headers }).toPromise();
@@ -60,7 +58,7 @@ export class UserService {
     }
 
     update(user: UserInfo): Promise<UserInfo> {
-        var headers = this.http.getHeadersDefault()
+        var headers = new HttpHeaders()
             .append('Content-Type', "application/json");
         if (user) {
             return this.http.put<UserInfo>(`${this.baseUrl}/${user.id}`, user, { headers }).toPromise();
@@ -68,7 +66,7 @@ export class UserService {
     }
 
     resertPassword(id: number): Promise<void> {
-        var headers = this.http.getHeadersDefault()
+        var headers = new HttpHeaders()
             .append('Content-Type', "application/json");
         if (id) {
             return this.http.put<void>(`${this.baseUrl}/${id}/reset-password`, {}, { headers }).toPromise();

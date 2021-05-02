@@ -1,18 +1,20 @@
-import { Component, Inject, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import '@ckeditor/ckeditor5-build-decoupled-document/build/translations/pt-br';
+import { AttendanceService } from 'app/attendance/attendance.service';
+import { ErrorHandlerService } from 'app/core/error-handler.service';
 import { NotificationsComponent } from 'app/core/notification/notifications.component';
 import { UtilService } from 'app/core/util.service';
-import { MedicalRecordService } from '../medical-record.service';
-import { Specialization } from 'app/model/Specialization';
-import { Professional } from 'app/model/Professional';
-import { NewAttendance } from 'app/model/Attendance';
 import { Accommodation } from 'app/model/Accommodation';
+import { NewAttendance } from 'app/model/Attendance';
+import { Professional } from 'app/model/Professional';
 import { Sector, SectorFilters } from 'app/model/Sector';
-import { SectorService } from 'app/sector/sector.service';
+import { Specialization } from 'app/model/Specialization';
 import { Pageable } from 'app/model/Util';
-import { ErrorHandlerService } from 'app/core/error-handler.service';
-import { AttendanceService } from 'app/attendance/attendance.service';
+import { SectorService } from 'app/sector/sector.service';
+import { MedicalRecordService } from '../medical-record.service';
+
 
 @Component({
     selector: 'app-new-attendance',
@@ -39,7 +41,14 @@ export class NewAttendanceComponent implements OnInit {
     filters = new SectorFilters();
     pageSettings = new Pageable();
 
-    constructor(public dialogRef: MatDialogRef<NewAttendanceComponent>, public attendanceService: AttendanceService, public sectorService: SectorService, public notification: NotificationsComponent, public utilService: UtilService, public visitService: MedicalRecordService, private errorHandler: ErrorHandlerService,
+    constructor(
+        public dialogRef: MatDialogRef<NewAttendanceComponent>,
+        public attendanceService: AttendanceService,
+        public sectorService: SectorService,
+        public notification: NotificationsComponent,
+        public utilService: UtilService,
+        public visitService: MedicalRecordService,
+        private errorHandler: ErrorHandlerService,
         @Inject(MAT_DIALOG_DATA) public data: number) { }
 
     ngOnInit(): void {
@@ -123,6 +132,13 @@ export class NewAttendanceComponent implements OnInit {
 
     selectAccommodation(newValue) {
         this.newVisit.accommodationId = newValue;
+    }
+
+    onReady(editor) {
+        editor.ui.getEditableElement().parentElement.insertBefore(
+            editor.ui.view.toolbar.element,
+            editor.ui.getEditableElement()
+        );
     }
 
 }

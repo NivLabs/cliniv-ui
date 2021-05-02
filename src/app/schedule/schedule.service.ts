@@ -1,3 +1,4 @@
+import { HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Schedule, ScheduleFilter, ScheduleInfo } from "app/model/Schedule";
 import { AppHttp } from "app/security/app-http";
@@ -16,8 +17,7 @@ export class ScheduleService {
      * @param id Idenditicador único do agendamento
      */
     findById(id: number): Promise<ScheduleInfo> {
-        var headers = this.http.getHeadersDefault();
-        return this.http.get<ScheduleInfo>(`${this.baseUrl}/${id}`, { headers }).toPromise();
+        return this.http.get<ScheduleInfo>(`${this.baseUrl}/${id}`).toPromise();
     }
 
     /**
@@ -25,7 +25,7 @@ export class ScheduleService {
      * @param request Requisição de Criação ou Atualização
      */
     createOrUpdate(request: ScheduleInfo): Promise<ScheduleInfo> {
-        var headers = this.http.getHeadersDefault()
+        var headers = new HttpHeaders()
             .append('Content-Type', "application/json");
         if (request.id) {
             return this.http.put<ScheduleInfo>(`${this.baseUrl}/${request.id}`, request, { headers }).toPromise();
@@ -40,7 +40,6 @@ export class ScheduleService {
      * @param scheduleFilter Filtro da Agenda
      */
     getByFilter(scheduleFilter: ScheduleFilter): Promise<Schedule[]> {
-        var headers = this.http.getHeadersDefault();
         var queryString;
         if (scheduleFilter) {
             let params = new URLSearchParams();
@@ -52,6 +51,6 @@ export class ScheduleService {
             queryString = params.toString();
         }
 
-        return this.http.get<Schedule[]>(`${this.baseUrl}?${queryString}`, { headers }).toPromise();
+        return this.http.get<Schedule[]>(`${this.baseUrl}?${queryString}`).toPromise();
     }
 }

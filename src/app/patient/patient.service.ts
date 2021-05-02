@@ -4,6 +4,7 @@ import { AppHttp } from '../security/app-http';
 import { environment } from '../../environments/environment';
 import { PatientInfo, PatientFilters } from 'app/model/Patient';
 import { Page, Pageable } from 'app/model/Util';
+import { HttpHeaders } from '@angular/common/http';
 
 @Injectable()
 export class PatientService {
@@ -14,14 +15,12 @@ export class PatientService {
     }
 
     getById(id): Promise<PatientInfo> {
-        var headers = this.http.getHeadersDefault()
         if (id) {
-            return this.http.get<PatientInfo>(`${this.baseUrl}/${id}`, { headers }).toPromise();
+            return this.http.get<PatientInfo>(`${this.baseUrl}/${id}`).toPromise();
         }
     }
 
     getPage(filter: PatientFilters, pageSettings: Pageable): Promise<Page> {
-        var headers = this.http.getHeadersDefault();
         var queryString;
         if (filter) {
             let params = new URLSearchParams();
@@ -40,18 +39,17 @@ export class PatientService {
             queryString = queryString ? queryString + '&' + params.toString() : params.toString();
 
         }
-        return this.http.get<Page>(`${this.baseUrl}?${queryString}`, { headers }).toPromise();
+        return this.http.get<Page>(`${this.baseUrl}?${queryString}`).toPromise();
     }
 
     getByDocument(documentType: string, documentValue: string): Promise<PatientInfo> {
-        var headers = this.http.getHeadersDefault()
         if (documentType && documentValue) {
-            return this.http.get<PatientInfo>(`${this.baseUrl}/${documentType}/${documentValue}`, { headers }).toPromise();
+            return this.http.get<PatientInfo>(`${this.baseUrl}/${documentType}/${documentValue}`).toPromise();
         }
     }
 
     create(patient: PatientInfo): Promise<PatientInfo> {
-        var headers = this.http.getHeadersDefault()
+        var headers = new HttpHeaders()
             .append('Content-Type', "application/json");
         if (patient) {
             return this.http.post<PatientInfo>(`${this.baseUrl}`, patient, { headers }).toPromise();
@@ -59,7 +57,7 @@ export class PatientService {
     }
 
     update(patient: PatientInfo): Promise<PatientInfo> {
-        var headers = this.http.getHeadersDefault()
+        var headers = new HttpHeaders()
             .append('Content-Type', "application/json");
         if (patient) {
             return this.http.put<PatientInfo>(`${this.baseUrl}/${patient.id}`, patient, { headers }).toPromise();

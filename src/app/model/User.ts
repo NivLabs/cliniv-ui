@@ -8,6 +8,7 @@ import { Person } from "./Person";
 export class UserInfo extends Person {
     userName: string;
     email: string;
+    password: string;
     roles: Array<any>;
 }
 

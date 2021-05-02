@@ -1,5 +1,5 @@
 <h1 align="center">
-  <a href="https://gestao-prontuario-ui.herokuapp.com">
+  <a href="http://app.nivlabs.com.br">
     <img alt="NLGP Logo" src="./readme/logo.png" width="350px" />
   </a>
 </h1>
@@ -16,7 +16,7 @@ O NiV Labs - Gestão de Prontuário - UI (NLGP-UI) é uma UI RestClient criada i
     <img alt="License" src="https://img.shields.io/badge/license-MIT-%2304D361" />
 </p>
 
-Atualmente encontra-se na versão 1.0.0 em desenvolvimento - [NLGP-UI](https://gestao-prontuario-ui.herokuapp.com/)
+Atualmente encontra-se na versão 1.0.0 em desenvolvimento - [NLGP-UI](http://app.nivlabs.com.br)
 
 ---
 

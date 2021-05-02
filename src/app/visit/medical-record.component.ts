@@ -21,6 +21,7 @@ import { CloseEventComponent } from './close-event/close-event.component';
 import { NewEventComponent } from './new-event/new-event.component';
 import { SelectFormComponent } from './dynamicForm/select-form/select-form.component';
 import * as moment from 'moment';
+import { PrescriptionComponent } from './prescription/prescription.component';
 
 @Component({
   selector: 'app-medical-record',
@@ -52,6 +53,7 @@ export class MedicalRecordComponent implements OnInit {
       id: null,
       document: new Document('CPF'),
       fullName: null,
+      bloodType: null,
       socialName: null,
       principalNumber: null,
       susNumber: null,
@@ -84,8 +86,8 @@ export class MedicalRecordComponent implements OnInit {
     this.displayedColumnsEvolutions = ['id', 'datetime', 'responsibleName', 'action'];
     this.dataSourceEvolutions = new MatTableDataSource([{ id: 'Sem Registro', datetime: 'Sem Registro', responsibleName: 'Sem Registro', action: 'Sem Registro' }]);
 
-    this.displayedColumnsMedicines = ['id', 'datetime', 'description', 'amount', 'responsibleForTheAdministration'];
-    this.dataSourceMedicines = new MatTableDataSource([{ id: 'Sem Registro', datetime: 'Sem Registro', description: 'Sem Registro', amount: 'Sem Registro', responsibleForTheAdministration: 'Sem Registro' }]);
+    this.displayedColumnsMedicines = ['id', 'datetime', 'amount', 'responsibleForTheAdministration'];
+    this.dataSourceMedicines = new MatTableDataSource([{ id: 'Sem Registro', datetime: 'Sem Registro', amount: 'Sem Registro', responsibleForTheAdministration: 'Sem Registro' }]);
 
   }
 
@@ -339,6 +341,20 @@ export class MedicalRecordComponent implements OnInit {
     });
 
     dialogAllergy.afterClosed().subscribe(result => {
+      this.searchActivedVisitByPatientId();
+    });
+  }
+
+  /**
+   * Abre componente de criação de prescrição
+   */
+  openNewPrescriptionDialog() {
+    const dialogPrescriptionComponent = this.dialog.open(PrescriptionComponent, {
+      width: '100%',
+      data: { attendance: this.visit }
+    });
+
+    dialogPrescriptionComponent.afterClosed().subscribe(result => {
       this.searchActivedVisitByPatientId();
     });
   }

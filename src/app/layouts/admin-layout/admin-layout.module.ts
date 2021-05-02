@@ -8,7 +8,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatNativeDateModule, MatPseudoCheckboxModule, MatRippleModule } from '@angular/material/core';
-import { MatDatepickerModule, MatCalendarHeader } from '@angular/material/datepicker';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatExpansionModule } from '@angular/material/expansion';
@@ -34,21 +34,31 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { AttendanceComponent } from 'app/attendance/attendance.component';
 import { CameraDialogComponent } from 'app/component/camera/dialog/camera-dialog.component';
 import { DocumentViewerComponent } from 'app/component/document-viewer/document-viewer.component';
 import { CameraComponent } from 'app/core/camera/camera.component';
+import { PersonDocumentDialogComponent } from 'app/core/person-document-dialog/person-document-dialog.component';
+import { DynamicFormEditComponent } from 'app/dynamic-form/dynamic-form-edit/dynamic-form-edit.component';
+import { DynamicFormQuestionComponent } from 'app/dynamic-form/dynamic-form-question/dynamic-form-question.component';
 import { HealthOperatorEditComponent } from 'app/healthOperator/health-operator-edit/health-operator-edit.component';
 import { HealthOperatorComponent } from 'app/healthOperator/health-operator.component';
 import { HealthOperatorService } from 'app/healthOperator/health-operator.service';
 import { HealthPlanService } from 'app/healthOperator/health-plan.service';
 import { HealthPlanComponent } from 'app/healthOperator/health-plan/health-plan.component';
-import { ScheduleComponent } from 'app/schedule/schedule.component';
+import { ProcedureEditComponent } from 'app/procedure/procedure-edit/procedure-edit.component';
+import { ReportEditComponent } from 'app/report/report-edit/report-edit.component';
+import { ReportComponent } from 'app/report/report.component';
+import { ReportService } from 'app/report/report.service';
 import { ScheduleEditComponent } from 'app/schedule/schedule-edit/schedule-edit.component';
+import { ScheduleComponent } from 'app/schedule/schedule.component';
 import { SettingsComponent } from 'app/settings/settings.component';
 import { CloseEventComponent } from 'app/visit/close-event/close-event.component';
 import { DocumentSelectorComponent } from 'app/visit/document-selector/document-selector.component';
 import { NewEventComponent } from 'app/visit/new-event/new-event.component';
+import { PrescriptionEditComponent } from 'app/visit/prescription/prescription-edit/prescription-edit.component';
+import { PrescriptionComponent } from 'app/visit/prescription/prescription.component';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { IConfig, NgxMaskModule } from 'ngx-mask';
@@ -58,10 +68,11 @@ import { LoadingComponent } from '../../components/loading/loading.component';
 import { ConfirmDialogComponent } from '../../core/confirm-dialog/confirm-dialog.component';
 import { NotificationsComponent } from '../../core/notification/notifications.component';
 import { DashboardComponent } from '../../dashboard/dashboard.component';
+import { DashboardService } from '../../dashboard/dashboard.service';
+import { DynamicFormComponent } from '../../dynamic-form/dynamic-form.component';
 import { PatientEditComponent } from '../../patient/patient-edit/patient-edit.component';
 import { PatientComponent } from '../../patient/patient.component';
 import { PatientService } from '../../patient/patient.service';
-import { DashboardService } from '../../dashboard/dashboard.service';
 import { ProcedureComponent } from '../../procedure/procedure.component';
 import { ProcedureService } from '../../procedure/procedure.service';
 import { ProfessionalEditComponent } from '../../professional/professional-edit/professional-edit.component';
@@ -74,6 +85,9 @@ import { SectorComponent } from '../../sector/sector.component';
 import { SectorService } from '../../sector/sector.service';
 import { SecurityModule } from '../../security/security.module';
 import { SettingsService } from '../../settings/settings.service';
+import { SpecialityEditComponent } from '../../speciality/speciality-edit/speciality-edit.component';
+import { SpecialityComponent } from '../../speciality/speciality.component';
+import { SpecialityService } from '../../speciality/speciality.service';
 import { ChangePasswordComponent } from '../../user-profile/change-password/change-password.component';
 import { UserProfileComponent } from '../../user-profile/user-profile.component';
 import { UserProfileService } from '../../user-profile/user-profile.service';
@@ -83,7 +97,6 @@ import { UserService } from '../../user/user.service';
 import { AllergyComponent } from '../../visit/allergy/allergy.component';
 import { AttDynamicFormComponent } from '../../visit/dynamicForm/att-dynamic-form.component';
 import { DynamicFormService } from '../../visit/dynamicForm/dynamic-form.service';
-import { DynamicFormComponent } from '../../dynamic-form/dynamic-form.component';
 import { SelectFormComponent } from '../../visit/dynamicForm/select-form/select-form.component';
 import { EvolutionComponent } from '../../visit/evolution/evolution.component';
 import { PatientHistoryComponent } from '../../visit/history/patient-history.component';
@@ -91,12 +104,6 @@ import { MedicalRecordComponent } from '../../visit/medical-record.component';
 import { MedicalRecordService } from '../../visit/medical-record.service';
 import { NewAttendanceComponent } from '../../visit/newVisit/new-attendance.component';
 import { AdminLayoutRoutes } from './admin-layout.routing';
-import { SpecialityComponent } from '../../speciality/speciality.component';
-import { SpecialityService } from '../../speciality/speciality.service';
-import { SpecialityEditComponent } from '../../speciality/speciality-edit/speciality-edit.component';
-import { DynamicFormEditComponent } from 'app/dynamic-form/dynamic-form-edit/dynamic-form-edit.component';
-import { DynamicFormQuestionComponent } from 'app/dynamic-form/dynamic-form-question/dynamic-form-question.component';
-
 
 const matModules = [
   MatAutocompleteModule,
@@ -150,7 +157,8 @@ const maskConfig: Partial<IConfig> = {
     WebcamModule,
     NgxMaskModule.forRoot(maskConfig),
     PdfViewerModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    CKEditorModule
   ],
   exports: [
     CommonModule,
@@ -159,7 +167,8 @@ const maskConfig: Partial<IConfig> = {
     InfiniteScrollModule,
     ReactiveFormsModule,
     SecurityModule,
-    LoadingComponent
+    LoadingComponent,
+    CKEditorModule
   ],
   declarations: [
     DashboardComponent,
@@ -171,6 +180,7 @@ const maskConfig: Partial<IConfig> = {
 
     PatientComponent,
     PatientEditComponent,
+    PersonDocumentDialogComponent,
 
     ProfessionalComponent,
     ProfessionalEditComponent,
@@ -203,12 +213,15 @@ const maskConfig: Partial<IConfig> = {
     SettingsComponent,
 
     ProcedureComponent,
+    ProcedureEditComponent,
 
     AccommodationComponent,
 
     DynamicFormComponent,
     SelectFormComponent,
 
+    PrescriptionComponent,
+    PrescriptionEditComponent,
     EvolutionComponent,
 
     AllergyComponent,
@@ -223,14 +236,20 @@ const maskConfig: Partial<IConfig> = {
     ScheduleEditComponent,
 
     SpecialityComponent,
-    SpecialityEditComponent
+    SpecialityEditComponent,
+
+    ReportComponent,
+    ReportEditComponent
   ],
   entryComponents: [
     PatientEditComponent,
     PatientHistoryComponent,
+    PersonDocumentDialogComponent,
     ChangePasswordComponent,
     NewAttendanceComponent,
     AllergyComponent,
+    PrescriptionComponent,
+    PrescriptionEditComponent,
     EvolutionComponent,
     ProfessionalEditComponent,
     DynamicFormComponent,
@@ -247,10 +266,13 @@ const maskConfig: Partial<IConfig> = {
     ConfirmDialogComponent,
     CameraDialogComponent,
     DocumentViewerComponent,
+    ProcedureEditComponent,
     SpecialityEditComponent,
     DynamicFormEditComponent,
     DynamicFormQuestionComponent,
-    AttDynamicFormComponent
+    AttDynamicFormComponent,
+    ReportComponent,
+    ReportEditComponent
   ],
   providers: [
     UserProfileService,
@@ -267,7 +289,8 @@ const maskConfig: Partial<IConfig> = {
     AttendanceService,
     SettingsService,
     ProcedureService,
-    SpecialityService
+    SpecialityService,
+    ReportService
   ]
 })
 

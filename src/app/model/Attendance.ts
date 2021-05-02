@@ -43,6 +43,7 @@ export class MedicalRecord {
     document: Document;
     susNumber: string;
     fullName: string;
+    bloodType: string;
     socialName: string;
     principalNumber: string;
     lastAccommodation: Accommodation;

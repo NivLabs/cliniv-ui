@@ -14,14 +14,12 @@ export class AttendanceService {
   }
 
   getById(id): Promise<AttendanceInfo> {
-    var headers = this.http.getHeadersDefault()
     if (id) {
-      return this.http.get<AttendanceInfo>(`${this.baseUrl}/${id}`, { headers }).toPromise();
+      return this.http.get<AttendanceInfo>(`${this.baseUrl}/${id}`).toPromise();
     }
   }
 
   getPage(filter: AttendanceFilters, pageSettings: Pageable): Promise<Page> {
-    var headers = this.http.getHeadersDefault();
     var queryString;
     if (filter) {
       let params = new URLSearchParams();
@@ -40,7 +38,7 @@ export class AttendanceService {
       queryString = queryString ? queryString + '&' + params.toString() : params.toString();
 
     }
-    return this.http.get<Page>(`${this.baseUrl}?${queryString}`, { headers }).toPromise();
+    return this.http.get<Page>(`${this.baseUrl}?${queryString}`).toPromise();
   }
 
 }

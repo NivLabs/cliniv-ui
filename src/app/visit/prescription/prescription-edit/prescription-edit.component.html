@@ -1,0 +1,90 @@
+<div class="card">
+    <div class="card-header card-header-info">
+        <h4 class="card-title">Item da prescrição</h4>
+    </div>
+    <div class="card-body">
+        <form #form="ngForm" autocomplete="off">
+            <div class="row">
+                <div class="col-md-1">
+                    <mat-form-field>
+                        <input matInput placeholder="Sequencial" name="sequential" [(ngModel)]="dataToForm.sequential"
+                            #sequential required disabled />
+                    </mat-form-field>
+                </div>
+
+                <!-- Medicamento -->
+                <div class="col-md-3">
+                    <mat-form-field>
+                        <input matInput placeholder="Descrição" name="description" [(ngModel)]="dataToForm.description"
+                            #description required />
+                    </mat-form-field>
+                </div>
+                <div class="col-md-2">
+                    <mat-form-field>
+                        <input matInput placeholder="Via de Administração" name="routeOfAdministration"
+                            [(ngModel)]="dataToForm.routeOfAdministration" #routeOfAdministration required />
+                    </mat-form-field>
+                </div>
+                <div class="col-md-2">
+                    <mat-form-field>
+                        <input matInput placeholder="Dosagem" name="dosage" [(ngModel)]="dataToForm.dosage" #dosage />
+                    </mat-form-field>
+                </div>
+                <div class="col-md-1">
+                    <mat-form-field>
+                        <mat-select matInput placeholder="Unidade de medida" name="unitOfMeasurement"
+                            [(ngModel)]="dataToForm.unitOfMeasurement" #unitOfMeasurement>
+                            <mat-option *ngFor="let data of listOfUnitOfMeasurement" [value]="data">
+                                {{data.value}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-2">
+                    <mat-form-field>
+                        <input matInput placeholder="Intervalo" name="timeInterval"
+                            [(ngModel)]="dataToForm.timeInterval" #timeInterval />
+                    </mat-form-field>
+                </div>
+                <div class="col-md-1">
+                    <mat-form-field>
+                        <mat-select matInput placeholder="Tipo do intervalo" name="timeIntervalType"
+                            [(ngModel)]="dataToForm.timeIntervalType" #timeIntervalType>
+                            <mat-option value="HOUR">Hora(s)</mat-option>
+                            <mat-option value="MINUTE">Minuto(s)</mat-option>
+                            <mat-option value="DAY">Dia(s)</mat-option>
+                            <mat-option value="WEEK">Semana(s)</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <mat-form-field>
+                        <mat-label>Informações adicionais</mat-label>
+                        <textarea matInput cdkTextareaAutosize="true" cdkAutosizeMinRows="8" name="observations"
+                            [(ngModel)]="dataToForm.observations" #observations></textarea>
+                        <span style="color:red" *ngIf="dataToForm.observations?.length > 10000">
+                            As observações não podem passar de 600 caracteres (Atual:
+                            {{dataToForm.annotations?.length}})!
+                        </span>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div style="overflow:hidden; width: 100%;">
+                    <div class="col-12 col-sm-12 col-md-4 col-lg-3 pull-right ml-0 mr-0">
+                        <button mat-raised-button type="button" class="btn btn-danger col-12" (click)="onCancelClick()"
+                            matTooltip="Fecha formulário"><span class="fa fa-close"></span> Fechar</button>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-4 col-lg-3 pull-right ml-0 mr-0">
+                        <button mat-raised-button type="button" class="btn btn-success col-12"
+                            matTooltip="Salvar informações do formulário" [mat-dialog-close]="dataToForm"
+                            [disabled]="!form.valid"><span class="fa fa-check"></span> Salvar</button>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </form>
+    </div>
+</div>

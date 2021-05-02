@@ -17,19 +17,7 @@
                                             [(ngModel)]="filters.id" #id (keypress)="enterKeyPress($event)" />
                                     </mat-form-field>
                                 </div>
-                                <div class="col-md-4">
-                                    <mat-form-field>
-                                        <mat-label>Situação</mat-label>
-                                        <mat-select matNativeControl name="activeType"
-                                            (selectionChange)="selectProcedureType($event.value)"
-                                            [(ngModel)]="filters.activeType" #activeType>
-                                            <mat-option>Ambos</mat-option>
-                                            <mat-option value="ACTIVE">Ativo</mat-option>
-                                            <mat-option value="NOT_ACTIVE">Inativo</mat-option>
-                                        </mat-select>
-                                    </mat-form-field>
-                                </div>
-                                <div class="col-md-4">
+                                <div class="col-md-8">
                                     <mat-form-field>
                                         <input matInput placeholder="Descrição [ENTER]"
                                             name="description" [(ngModel)]="filters.description" #description
@@ -65,12 +53,6 @@
 
                                 <li><span class="fa fa-sort-numeric-asc procedure-info"> Código: </span>
                                     {{procedure.id}}
-                                </li>
-
-                                <li><span id="span_{{procedure.id}}" class="fa procedure-info"
-                                        [ngClass]="procedure.active === true ? 'fa-check-square' : 'fa-window-close'">
-                                        Situação: </span>
-                                    {{procedure.active === true ? 'Ativo' : 'Inativo'}}
                                 </li>
 
                                 <li *ngIf="procedure.baseValue"><span id="span_{{procedure.baseValue}}"

@@ -14,30 +14,22 @@ export class UtilService {
     }
 
     getEventTypes(): Promise<Array<EventType>> {
-        var headers = this.http.getHeadersDefault();
-
-        return this.http.get<Array<EventType>>(`${environment.apiUrl}/event-type`, { headers })
+        return this.http.get<Array<EventType>>(`${environment.apiUrl}/event-type`)
             .toPromise();
     }
 
     getSpecialization(): Promise<Page> {
-        var headers = this.http.getHeadersDefault();
-
-        return this.http.get<Page>(`${environment.apiUrl}/speciality?size=100`, { headers })
+        return this.http.get<Page>(`${environment.apiUrl}/speciality?size=100`)
             .toPromise();
     }
 
     getSpecializationById(id: number): Promise<SpecializationInfo> {
-        var headers = this.http.getHeadersDefault();
-
-        return this.http.get<SpecializationInfo>(`${environment.apiUrl}/speciality/${id}`, { headers })
+        return this.http.get<SpecializationInfo>(`${environment.apiUrl}/speciality/${id}`)
             .toPromise();
     }
 
     getParametersByGroup(groupNane: string): Promise<ParameterByGroup> {
-        var headers = this.http.getHeadersDefault();
-
-        return this.http.get<ParameterByGroup>(`${environment.apiUrl}/speciality/${groupNane}`, { headers }).toPromise();
+        return this.http.get<ParameterByGroup>(`${environment.apiUrl}/speciality/${groupNane}`).toPromise();
     }
 
     cpfIsValid(strCPF) {
@@ -64,9 +56,38 @@ export class UtilService {
     }
 
     getDigitalDocumentById(id: number): Promise<DigitalDocument> {
-        var headers = this.http.getHeadersDefault();
-
-        return this.http.get<DigitalDocument>(`${environment.apiUrl}/digital-document/${id}`, { headers })
+        return this.http.get<DigitalDocument>(`${environment.apiUrl}/digital-document/${id}`)
             .toPromise();
+    }
+
+    /**
+     * Calcula a idade baseada na data de nascimento
+     * @param bornDate Data de nascimento
+     * @returns Idade
+     */
+    public calculateAge(bornDate: Date): number {
+        var currentDate = new Date();
+        var currentYear = currentDate.getFullYear();
+        if (!(bornDate instanceof Date)) {
+            bornDate = new Date(bornDate);
+        }
+        var bornDay = bornDate.getDay();
+        var bornMonth = bornDate.getMonth();
+        var bornYear = bornDate.getFullYear();
+        var age = currentYear - bornYear;
+        var currentMonth = currentDate.getMonth() + 1;
+        //Se mes atual for menor que o nascimento, nao fez aniversario ainda;  
+        if (currentMonth < bornMonth) {
+            age--;
+        } else {
+            //Se estiver no mes do nascimento, verificar o dia
+            if (currentMonth == bornMonth) {
+                if (new Date().getDate() < bornDay) {
+                    //Se a data atual for menor que o dia de nascimento ele ainda nao fez aniversario
+                    age--;
+                }
+            }
+        }
+        return age;
     }
 }

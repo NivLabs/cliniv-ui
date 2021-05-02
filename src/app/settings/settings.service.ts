@@ -4,6 +4,7 @@ import { environment } from '../../environments/environment';
 import { SetingsInfo as SetingsInfo } from 'app/model/Settings';
 import { FileInfo } from 'app/model/File';
 import { Parameter } from 'app/model/Parameter';
+import { HttpHeaders } from '@angular/common/http';
 
 @Injectable()
 export class SettingsService {
@@ -27,33 +28,23 @@ export class SettingsService {
   }
 
   getSettings(): Promise<SetingsInfo> {
-
-    var headers = this.http.getHeadersDefault();
-
-    return this.http.get<SetingsInfo>(`${this.baseUrl}`, { headers }).toPromise();
+    return this.http.get<SetingsInfo>(`${this.baseUrl}`).toPromise();
 
   }
 
   updateInstitute(request: any): Promise<any> {
-    var headers = this.http.getHeadersDefault().append('Content-Type', "application/json");
+    var headers = new HttpHeaders().append('Content-Type', "application/json");
 
     return this.http.post<FileInfo>(`${this.baseUrl}`, request, { headers }).toPromise();
   }
 
   updateParameter(parameterId: number, value: any): Promise<void> {
-
-    var headers = this.http.getHeadersDefault();
-
-    return this.http.put<void>(`${environment.apiUrl}/parameter/${parameterId}`, { "newValue": value }, { headers }).toPromise();
-
+    return this.http.put<void>(`${environment.apiUrl}/parameter/${parameterId}`, { "newValue": value }).toPromise();
   }
 
   saveLogo(file: FileInfo): Promise<FileInfo> {
-
-    var headers = this.http.getHeadersDefault().append('Content-Type', "application/json");
-
+    var headers = new HttpHeaders().append('Content-Type', "application/json");
     return this.http.post<FileInfo>(`${this.baseUrl}/logo`, file, { headers }).toPromise();
-
   }
 
 }

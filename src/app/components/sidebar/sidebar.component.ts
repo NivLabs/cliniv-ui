@@ -19,6 +19,7 @@ export const ROUTES: RouteInfo[] = [
   { path: '/patient', title: 'Pacientes', icon: 'people', class: '', collapse: false, routes: null },
   { path: '/visit', title: 'Prontuário', icon: 'content_paste', class: '', collapse: false, routes: null },
   { path: '/attendance', title: 'Atendimentos', icon: 'assignment_ind', class: '', collapse: false, routes: null },
+  { path: '/report', title: 'Relatórios', icon: 'list_alt', class: '', collapse: false, routes: null },
   {
     path: '', title: 'Outros Cadastros', icon: 'format_list_bulleted', class: '', collapse: true, routes: [
       { path: '/speciality', title: 'Especialidades', icon: 'label_important', class: '', collapse: false, routes: null },

@@ -1,10 +1,11 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { AttendanceService } from 'app/attendance/attendance.service';
 import { ErrorHandlerService } from 'app/core/error-handler.service';
 import { NotificationsComponent } from 'app/core/notification/notifications.component';
 import { CloseAttendanceRequest } from 'app/model/Attendance';
 import { MedicalRecordService } from '../medical-record.service';
+import '@ckeditor/ckeditor5-build-decoupled-document/build/translations/pt-br';
+import * as DecoupledEditor  from '@ckeditor/ckeditor5-build-decoupled-document';
 
 @Component({
   selector: 'app-close-event',
@@ -17,6 +18,11 @@ export class CloseEventComponent implements OnInit {
   public loading: boolean;
   private attendanceId: number;
 
+  public Editor = DecoupledEditor;
+  public editorData = '<p>Parecer (Médico | Clínico)</p>';
+  public config = {
+    language: 'pt-br'
+  };
 
   constructor(
     public dialogRef: MatDialogRef<CloseEventComponent>,
@@ -49,6 +55,13 @@ export class CloseEventComponent implements OnInit {
       })
       .catch(error => this.errorHandler.handle(error, this.dialogRef))
       .then(() => this.loading = false);
+  }
+
+  onReady( editor ) {
+    editor.ui.getEditableElement().parentElement.insertBefore(
+        editor.ui.view.toolbar.element,
+        editor.ui.getEditableElement()
+    );
   }
 
 }

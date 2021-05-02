@@ -4,6 +4,8 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MedicalRecordService } from '../medical-record.service';
 import { NotificationsComponent } from 'app/core/notification/notifications.component';
 import { ErrorHandlerService } from 'app/core/error-handler.service';
+import '@ckeditor/ckeditor5-build-decoupled-document/build/translations/pt-br';
+import * as DecoupledEditor from '@ckeditor/ckeditor5-build-decoupled-document';
 
 @Component({
   selector: 'app-evolution',
@@ -16,7 +18,7 @@ export class EvolutionComponent implements OnInit {
   public loading = false;
 
   constructor(public dialogRef: MatDialogRef<EvolutionComponent>, @Inject(MAT_DIALOG_DATA) public data: EvolutionInfo, public principalService: MedicalRecordService,
-              private notification: NotificationsComponent, private errorHandler: ErrorHandlerService) {
+    private notification: NotificationsComponent, private errorHandler: ErrorHandlerService) {
     this.dialogRef.disableClose = true;
   }
 
@@ -36,8 +38,8 @@ export class EvolutionComponent implements OnInit {
 
   save() {
     this.loading = true;
-    this.principalService.saveEvolution(this.dataToForm).then(resp => {    
-      this.loading = false;  
+    this.principalService.saveEvolution(this.dataToForm).then(resp => {
+      this.loading = false;
       this.notification.showSucess("Evolução salva com sucesso!");
       this.dialogRef.close();
     }).catch(error => {

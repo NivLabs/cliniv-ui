@@ -14,8 +14,6 @@ export class AddressService {
     }
 
     getAddressByCep(cep: string): Promise<Address> {
-        var headers = this.http.getHeadersDefault();
-        return this.http.get<Address>(`${this.resourceUrl}/${cep}`, { headers })
-            .toPromise();
+        return this.http.get<Address>(`${this.resourceUrl}/${cep}`).toPromise();
     }
 }
