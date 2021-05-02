@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { AppHttp } from '../security/app-http';
 import { environment } from '../../environments/environment';
-import { ProcedureFilters } from 'app/model/Procedure';
+import { ProcedureFilters, ProcedureInfo } from 'app/model/Procedure';
 import { Page, Pageable } from 'app/model/Util';
+import { HttpHeaders } from '@angular/common/http';
 
 @Injectable()
 export class ProcedureService {
@@ -35,8 +36,26 @@ export class ProcedureService {
     return this.http.get<Page>(`${this.baseUrl}?${queryString}`).toPromise();
   }
 
-  update(procedureId: number): Promise<void> {
-    return this.http.put<void>(`${this.baseUrl}/${procedureId}`, {}).toPromise();
+  getById(id): Promise<ProcedureInfo> {
+    if (id) {
+      return this.http.get<ProcedureInfo>(`${this.baseUrl}/${id}`).toPromise();
+    }
+  }
+
+  update(request: ProcedureInfo): Promise<ProcedureInfo> {
+    var headers = new HttpHeaders()
+      .append('Content-Type', "application/json");
+    if (request) {
+      return this.http.put<ProcedureInfo>(`${this.baseUrl}/${request.id}`, request, { headers }).toPromise();
+    }
+  }
+
+  create(request: ProcedureInfo): Promise<ProcedureInfo> {
+    var headers = new HttpHeaders()
+      .append('Content-Type', "application/json");
+    if (request) {
+      return this.http.post<ProcedureInfo>(this.baseUrl, request, { headers }).toPromise();
+    }
   }
 
 }

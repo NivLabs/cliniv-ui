@@ -47,6 +47,7 @@ import { HealthOperatorComponent } from 'app/healthOperator/health-operator.comp
 import { HealthOperatorService } from 'app/healthOperator/health-operator.service';
 import { HealthPlanService } from 'app/healthOperator/health-plan.service';
 import { HealthPlanComponent } from 'app/healthOperator/health-plan/health-plan.component';
+import { ProcedureEditComponent } from 'app/procedure/procedure-edit/procedure-edit.component';
 import { ReportEditComponent } from 'app/report/report-edit/report-edit.component';
 import { ReportComponent } from 'app/report/report.component';
 import { ReportService } from 'app/report/report.service';
@@ -212,6 +213,7 @@ const maskConfig: Partial<IConfig> = {
     SettingsComponent,
 
     ProcedureComponent,
+    ProcedureEditComponent,
 
     AccommodationComponent,
 
@@ -264,6 +266,7 @@ const maskConfig: Partial<IConfig> = {
     ConfirmDialogComponent,
     CameraDialogComponent,
     DocumentViewerComponent,
+    ProcedureEditComponent,
     SpecialityEditComponent,
     DynamicFormEditComponent,
     DynamicFormQuestionComponent,

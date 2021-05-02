@@ -69,12 +69,13 @@
                 <div class="col-12">
                     <mat-form-field>
                         <textarea matInput cdkTextareaAutosize="true" cdkAutosizeMinRows="4"
-                            [(ngModel)]="newVisit.entryCause" style="display: none;"
-                            [ngModelOptions]="{standalone: true}"></textarea>
-
-                        <ckeditor [editor]="Editor" [(ngModel)]="newVisit.entryCause" #entryCause name="entryCause"
-                            [data]="editorData" (ready)="onReady($event)" [config]="config"></ckeditor>
+                            [ngModelOptions]="{standalone: true}" placeholder="Queixa principal"
+                            [(ngModel)]="newVisit.entryCause"></textarea>
                     </mat-form-field>
+                    <span style="color:red" *ngIf="newVisit.entryCause?.length > 200">
+                        O motivo da entrada não podem passar de 200 caracteres! (Atual:
+                        {{newVisit.entryCause?.length}})
+                    </span>
                 </div>
             </div>
             <div class="row">
@@ -130,7 +131,7 @@
                     </mat-form-field>
                 </div>
                 <button mat-raised-button type="submit" [disabled]="eventTypeControl.hasError('required') || accommodationControl.hasError('required') || 
-                                specializationControl.hasError('required') || levelControl.hasError('required')"
+                                specializationControl.hasError('required') || levelControl.hasError('required') || newVisit.entryCause?.length > 200"
                     class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-success pull-right"
                     [mat-dialog-close]="newVisit">Iniciar Atendimento</button>
             </div>
