@@ -37,9 +37,7 @@ export function tokenGetter() {
 
     JwtModule.forRoot({
       config: {
-        tokenGetter: tokenGetter,
-        whitelistedDomains: environment.tokenWhitelistedDomains,
-        blacklistedRoutes: environment.tokenBlacklistedRoutes
+        tokenGetter: tokenGetter
       }
     }),
     NgxMaskModule.forRoot(maskConfig),
