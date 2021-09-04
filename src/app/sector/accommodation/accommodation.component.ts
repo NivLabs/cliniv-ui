@@ -33,6 +33,7 @@ export class AccommodationComponent implements OnInit {
             this.dataForm.sectorId = this.sectorId;
         } else {
             this.dataForm = this.dialogRef.componentInstance.data['accommodation'];
+            this.sectorId = this.dataForm.sectorId;
         }
     }
 
