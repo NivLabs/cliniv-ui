@@ -51,6 +51,7 @@ export class ReportEditComponent implements OnInit {
         this.dataToForm.id = resp.id;
         this.dataToForm.name = resp.name;
         this.dataToForm.base64 = resp.base64;
+        console.log(this.dataToForm.base64);
         this.dataToForm.params = resp.params;
         this.dataToForm.params = this.dataToForm.params.sort(function (a, b) {
           return a.id < b.id ? -1 : a.id > b.id ? 1 : 0;
@@ -146,13 +147,13 @@ export class ReportEditComponent implements OnInit {
 
     var t = this;
     var file = fileInputEvent.target.files[0];
-
     var reader = new FileReader();
 
     reader.onload = function (readerEvt) {
       var binaryString = readerEvt.target.result.toString();
       var base64 = btoa(binaryString);
       t.dataToForm.base64 = base64;
+      t.dataToForm.name = file.name;
     };
 
     reader.readAsBinaryString(file);

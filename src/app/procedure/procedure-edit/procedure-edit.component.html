@@ -51,6 +51,7 @@
                         </div>
                     </div>
                     <div class="row">
+                        <!-- Autorização Especial -->
                         <mat-checkbox hidden></mat-checkbox>
                         <div class="col-md-4">
                             <div>
@@ -63,6 +64,38 @@
                                         </div>
                                     </div>
                                     <span class="mat-checkbox-label">Requer autorização especial</span>
+                                </label>
+                            </div>
+                        </div>
+                        <!-- Requer Auditoria Prévia -->
+                        <mat-checkbox hidden></mat-checkbox>
+                        <div class="col-md-4">
+                            <div>
+                                <label class="mat-checkbox-layout" for="previousAudit">
+                                    <div class="mat-checkbox-inner-container">
+                                        <input type="checkbox" class="mat-checkbox-input" name="previousAudit"
+                                            #previousAudit [(ngModel)]="dataToForm.previousAudit">
+                                        <div matripple="" class="mat-ripple mat-checkbox-ripple">
+                                            <div class="mat-ripple-element mat-checkbox-persistent-ripple"></div>
+                                        </div>
+                                    </div>
+                                    <span class="mat-checkbox-label">Requer auditoria prévia</span>
+                                </label>
+                            </div>
+                        </div>
+                        <!-- Requer especialiação -->
+                        <mat-checkbox hidden></mat-checkbox>
+                        <div class="col-md-4">
+                            <div>
+                                <label class="mat-checkbox-layout" for="specialty">
+                                    <div class="mat-checkbox-inner-container">
+                                        <input type="checkbox" class="mat-checkbox-input" name="specialty" #specialty
+                                            [(ngModel)]="dataToForm.specialty">
+                                        <div matripple="" class="mat-ripple mat-checkbox-ripple">
+                                            <div class="mat-ripple-element mat-checkbox-persistent-ripple"></div>
+                                        </div>
+                                    </div>
+                                    <span class="mat-checkbox-label">Requer especialização</span>
                                 </label>
                             </div>
                         </div>

@@ -10,6 +10,7 @@ import { DynamicFormQuestion } from 'app/model/DynamicFormQuestion';
 import { DynamicFormService } from 'app/visit/dynamicForm/dynamic-form.service';
 import { ConfirmDialogComponent } from 'app/core/confirm-dialog/confirm-dialog.component';
 import { DynamicFormQuestionComponent } from '../dynamic-form-question/dynamic-form-question.component';
+import { throwToolbarMixedModesError } from '@angular/material/toolbar';
 
 @Component({
   selector: 'app-dynamic-form-edit',
@@ -91,7 +92,7 @@ export class DynamicFormEditComponent implements OnInit {
     this.errorHandler.handle(error, this.dialogRef);
   }
 
-  save() { 
+  save() {
     this.loading = true;
     if (this.dataToForm.id) {
       this.principalService.update(this.dataToForm).then(resp => {
@@ -108,12 +109,15 @@ export class DynamicFormEditComponent implements OnInit {
     }
   }
 
-  openDynamicFormQuestionDialog(dynamicFormId): void {
+  /**
+   * Abre o formulário para a criação de uma nova questão
+   */
+  openDynamicFormQuestionDialog(): void {
 
     const dialogRef = this.dialog.open(DynamicFormQuestionComponent, {
       width: '100%',
       height: 'auto',
-      data: { dynamicFormId: dynamicFormId }
+      data: { dynamicFormId: this.dataToForm.id }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -122,12 +126,16 @@ export class DynamicFormEditComponent implements OnInit {
 
   }
 
+  /**
+   * Abre o formulário para edição de uma questão existente
+   * @param dynamicFormQuestion 
+   */
   openEditDynamicFormQuestionDialog(dynamicFormQuestion): void {
 
     const dialogRef = this.dialog.open(DynamicFormQuestionComponent, {
       width: '100%',
       height: 'auto',
-      data: { dynamicFormQuestion: dynamicFormQuestion }
+      data: { dynamicFormQuestion: dynamicFormQuestion, dynamicFormId: this.dataToForm.id }
     });
 
     dialogRef.afterClosed().subscribe(result => {
