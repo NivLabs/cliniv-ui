@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
-import { NotificationsComponent } from '../core/notification/notifications.component'
+import { environment } from "environments/environment";
+import { NotificationsComponent } from '../core/notification/notifications.component';
 import { Dashboard, DashboardService } from './dashboard.service';
 
 @Component({
@@ -12,6 +12,7 @@ export class DashboardComponent implements OnInit {
 
   loading: boolean = false;
   data: Dashboard = new Dashboard();
+  appVersion: string = environment.appVersion;
 
   constructor(private dashboardService: DashboardService) { }
 
