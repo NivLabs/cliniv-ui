@@ -14,7 +14,9 @@
     "e2e": "ng e2e",
     "config": "ts-node ./scripts/setenv.ts",
     "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && ng serve -o",
-    "heroku-postbuild": "npm run config -- --environment=prod && ng build --prod"
+    "heroku-postbuild": "npm run config -- --environment=prod && ng build --prod && npm run config -- --environment=prod --isPostBuild=true",
+    "prod-build": "npm run heroku-postbuild",
+    "debug-build": "npm run config -- && ng build --prod && npm run config -- --isPostBuild=true"
   },
   "engines": {
     "node": "14.15.0",
@@ -78,7 +80,7 @@
     "@types/googlemaps": "^3.40.0",
     "@types/jasmine": "^3.5.14",
     "@types/jquery": "^3.5.2",
-    "@types/node": "^12.19.12",
+    "@types/node": "^12.20.23",
     "codelyzer": "^6.0.2",
     "dotenv": "^8.2.0",
     "jasmine-core": "^3.6.0",

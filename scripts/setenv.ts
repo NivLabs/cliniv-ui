@@ -1,5 +1,6 @@
 const { writeFile } = require('fs');
 const { argv } = require('yargs');
+const { version } = require('../package.json');
 
 // read environment variables from .env file
 require('dotenv').config();
@@ -7,6 +8,7 @@ require('dotenv').config();
 // read the command line arguments passed with yargs
 const environment = argv.environment;
 const isProduction = environment === 'prod';
+const isPostBuild = argv.isPostBuild === 'true';
 
 if (!process.env.BASE_URL) {
    console.error('A URL da API não foi informada, favor informar a mesma antes de subir a aplicação!');
@@ -22,9 +24,8 @@ const targetPath = isProduction
 const environmentFileContent = `
 export const environment = {
    production: ${isProduction},
-   apiUrl: "${ isProduction ? process.env.BASE_URL : 'https://gestao-prontuario.herokuapp.com'}",
-   tokenWhitelistedDomains: [],
-   tokenBlacklistedRoutes: []
+   apiUrl: ${isProduction && !isPostBuild ? "'" + process.env.BASE_URL + "'" : (isPostBuild && isProduction ? 'process.env.BASE_URL' : "'https://gestao-prontuario.herokuapp.com'")},
+   appVersion: '${version + (isProduction ? '' : '-dev')}'
 };
 `;
 // write the content to the respective file
