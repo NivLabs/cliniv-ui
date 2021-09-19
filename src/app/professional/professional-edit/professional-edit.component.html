@@ -25,13 +25,13 @@
                 <mat-tab label="Informações *">
                     <br />
                     <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-md-1">
                             <mat-form-field>
                                 <input matInput placeholder="Matrícula do Profissional" formControlName="id"
                                     [(ngModel)]="dataToForm.id" #id disabled />
                             </mat-form-field>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <mat-form-field>
                                 <input matInput placeholder="Registro Prof." formControlName="registerValue"
                                     [(ngModel)]="dataToForm.professionalIdentity.registerValue" #registerValue />
@@ -42,6 +42,21 @@
                                 <input matInput placeholder="Tipo Reg. (CRM, COREN, etc...)"
                                     formControlName="registerType"
                                     [(ngModel)]="dataToForm.professionalIdentity.registerType" #registerType />
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-md-3">
+                            <mat-form-field>
+                                <input matInput placeholder="Celular (Apenas números)" formControlName="principalNumber"
+                                    name="principalNumber" [(ngModel)]="dataToForm.principalNumber" #principalNumber
+                                    mask="(00) 0 0000-0000" />
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-3">
+                            <mat-form-field>
+                                <input matInput placeholder="Telefone (Apenas números)"
+                                    formControlName="secondaryNumber" name="secondaryNumber"
+                                    [(ngModel)]="dataToForm.secondaryNumber" #secondaryNumber mask="(00) 0000-0000" />
                             </mat-form-field>
                         </div>
                     </div>
@@ -86,9 +101,8 @@
                     <div class="row">
                         <div class="col-md-4">
                             <mat-form-field>
-                                <input matInput placeholder="Telefone principal (Apenas números)"
-                                    formControlName="principalNumber" [(ngModel)]="dataToForm.principalNumber"
-                                    #principalNumber type="text" mask="(00) 0000-00000" />
+                                <input matInput placeholder="E-mail" formControlName="email"
+                                    [(ngModel)]="dataToForm.email" #email type="text" />
                             </mat-form-field>
                         </div>
                         <div class="col-md-4">

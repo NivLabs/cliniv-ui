@@ -38,6 +38,18 @@
                                     required />
                             </mat-form-field>
                         </div>
+                        <div class="col-md-3">
+                            <mat-form-field>
+                                <input matInput placeholder="Celular (Apenas números)" name="principalNumber"
+                                    [(ngModel)]="dataToForm.principalNumber" #principalNumber mask="(00) 0 0000-0000" />
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-3">
+                            <mat-form-field>
+                                <input matInput placeholder="Telefone (Apenas números)" name="secondaryNumber"
+                                    [(ngModel)]="dataToForm.secondaryNumber" #secondaryNumber mask="(00) 0000-0000" />
+                            </mat-form-field>
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-md-4">
@@ -78,26 +90,19 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <mat-form-field>
                                 <input matInput placeholder="Email" name="email" [(ngModel)]="dataToForm.email" #email
                                     type="email" required />
                             </mat-form-field>
                         </div>
-                        <div class="col-md-4">
-                            <mat-form-field>
-                                <input matInput placeholder="Telefone principal (Apenas números)" name="principalNumber"
-                                    [(ngModel)]="dataToForm.principalNumber" #principalNumber type="text"
-                                    mask="(00) 0000-00000" />
-                            </mat-form-field>
-                        </div>
-                        <div class="col-md-2">
+                        <div class="col-md-3">
                             <mat-form-field>
                                 <input matInput placeholder="Data de nascimento" name="bornDate"
                                     [(ngModel)]="dataToForm.bornDate" #bornDate type="date" required />
                             </mat-form-field>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-3">
                             <mat-form-field>
                                 <mat-label>Sexo</mat-label>
                                 <mat-select matNativeControl name="gender" (change)="selectGender($event.target.value)"

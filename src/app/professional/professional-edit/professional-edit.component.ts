@@ -43,6 +43,7 @@ export class ProfessionalEditComponent implements OnInit {
       motherName: new FormControl(''),
       fatherName: new FormControl(''),
       principalNumber: new FormControl(''),
+      secondaryNumber: new FormControl(''),
       bornDate: new FormControl(''),
       gender: new FormControl(''),
       cep: new FormControl(''),
@@ -51,6 +52,7 @@ export class ProfessionalEditComponent implements OnInit {
       complement: new FormControl(''),
       neighborhood: new FormControl(''),
       city: new FormControl(''),
+      email: new FormControl(''),
       state: new FormControl('')
     })
     this.form.controls.id.disable();
@@ -116,6 +118,7 @@ export class ProfessionalEditComponent implements OnInit {
           this.dataToForm.professionalIdentity = new ProfessionalIdentity();
         }
         this.loadspecializationsData();
+        console.log(this.dataToForm)
       }).catch(error => {
         this.loading = false;
         var cpf = this.dataToForm.document.value;

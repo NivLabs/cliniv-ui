@@ -1,13 +1,13 @@
-import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-
+import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
+import { UserInfo } from 'app/model/User';
+import { SettingsService } from 'app/settings/settings.service';
 import { ErrorHandlerService } from './../../core/error-handler.service';
 import { AuthService } from './../auth.service';
-import { SettingsService } from 'app/settings/settings.service';
-import { SignupComponent } from './signup/signup.component';
-import { MatDialog } from '@angular/material/dialog';
-import { UserInfo } from 'app/model/User';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { SignupComponent } from './signup/signup.component';
+
 
 @Component({
   selector: 'app-login-form',
