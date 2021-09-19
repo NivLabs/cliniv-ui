@@ -24,6 +24,7 @@ export class Person {
     ethnicGroup: string;
     bloodType: string;
     nationality: string;
+    email: string;
     documents: Array<PersonDocument> = [];
 }
 

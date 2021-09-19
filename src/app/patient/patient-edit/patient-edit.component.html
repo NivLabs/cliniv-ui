@@ -27,17 +27,35 @@
                 <mat-tab label="Informações gerais *">
                     <br />
                     <div class="row">
-                        <div *ngIf="dataToForm.id" class="col-md-3">
+                        <div *ngIf="dataToForm.id" class="col-md-1">
                             <mat-form-field>
                                 <input matInput placeholder="Matrícula do Paciente" name="id"
                                     [(ngModel)]="dataToForm.id" #id="ngModel" disabled />
                             </mat-form-field>
                         </div>
+                        <div class="col-md-2">
+                            <mat-form-field>
+                                <input matInput placeholder="CNS (Número) [ENTER]" name="cnsNumber"
+                                    (keypress)="enterKeyPress($event, 'searchSUS')" [(ngModel)]="dataToForm.cnsNumber"
+                                    #cnsNumber="ngModel" />
+                            </mat-form-field>
+                        </div>
                         <div class="col-md-3">
                             <mat-form-field>
-                                <input matInput placeholder="CNS (Número) [ENTER]" name="susNumber"
-                                    (keypress)="enterKeyPress($event, 'searchSUS')" [(ngModel)]="dataToForm.susNumber"
-                                    #susNumber="ngModel" />
+                                <input matInput placeholder="E-mail" name="email" [(ngModel)]="dataToForm.email"
+                                    #email="ngModel" />
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-3">
+                            <mat-form-field>
+                                <input matInput placeholder="Celular (Apenas números)" name="principalNumber"
+                                    [(ngModel)]="dataToForm.principalNumber" #principalNumber mask="(00) 0 0000-0000" />
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-3">
+                            <mat-form-field>
+                                <input matInput placeholder="Telefone (Apenas números)" name="secondaryNumber"
+                                    [(ngModel)]="dataToForm.secondaryNumber" #secondaryNumber mask="(00) 0000-0000" />
                             </mat-form-field>
                         </div>
                     </div>
@@ -50,43 +68,10 @@
                                     mask="000.000.000-00" />
                             </mat-form-field>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-8">
                             <mat-form-field>
                                 <input matInput placeholder="Nome Completo" name="fullName"
                                     [(ngModel)]="dataToForm.fullName" #fullName="ngModel" type="text" required />
-                            </mat-form-field>
-                        </div>
-                        <div class="col-md-2">
-                            <mat-form-field>
-                                <mat-label>Etnia</mat-label>
-                                <mat-select matNativeControl name="ethnicGroup"
-                                    (change)="selectEthnicGroup($event.target.value)"
-                                    [(ngModel)]="dataToForm.ethnicGroup" #ethnicGroup>
-                                    <mat-option>Não Informado</mat-option>
-                                    <mat-option value="WHITE">BRANCO</mat-option>
-                                    <mat-option value="BLACK">PRETO</mat-option>
-                                    <mat-option value="MULTIRACIAL">PARDO</mat-option>
-                                    <mat-option value="YELLOW">AMARELO</mat-option>
-                                    <mat-option value="INDIANS">ÍNDIO</mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                        </div>
-                        <div class="col-md-2">
-                            <mat-form-field>
-                                <mat-label>Tipo sanguíneo</mat-label>
-                                <mat-select matNativeControl name="bloodType"
-                                    (change)="selectEthnicGroup($event.target.value)" [(ngModel)]="dataToForm.bloodType"
-                                    #bloodType>
-                                    <mat-option>Não Informado</mat-option>
-                                    <mat-option value="A_POSITIVE">A+</mat-option>
-                                    <mat-option value="B_POSITIVE">B</mat-option>
-                                    <mat-option value="AB_POSITIVE">AB+</mat-option>
-                                    <mat-option value="O_POSITIVE">O+</mat-option>
-                                    <mat-option value="A_NEGATIVE">A-</mat-option>
-                                    <mat-option value="B_NEGATIVE">B-</mat-option>
-                                    <mat-option value="AB_NEGATIVE">AB-</mat-option>
-                                    <mat-option value="O_NEGATIVE">O-</mat-option>
-                                </mat-select>
                             </mat-form-field>
                         </div>
                     </div>
@@ -107,11 +92,37 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <mat-form-field>
-                                <input matInput placeholder="Telefone principal (Apenas números)" name="principalNumber"
-                                    [(ngModel)]="dataToForm.principalNumber" #principalNumber type="text"
-                                    mask="(00) 0000-00000" />
+                                <mat-label>Etnia</mat-label>
+                                <mat-select matNativeControl name="ethnicGroup"
+                                    (change)="selectEthnicGroup($event.target.value)"
+                                    [(ngModel)]="dataToForm.ethnicGroup" #ethnicGroup>
+                                    <mat-option>Não Informado</mat-option>
+                                    <mat-option value="WHITE">BRANCO</mat-option>
+                                    <mat-option value="BLACK">PRETO</mat-option>
+                                    <mat-option value="MULTIRACIAL">PARDO</mat-option>
+                                    <mat-option value="YELLOW">AMARELO</mat-option>
+                                    <mat-option value="INDIANS">ÍNDIO</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-1">
+                            <mat-form-field>
+                                <mat-label>Tipo sanguíneo</mat-label>
+                                <mat-select matNativeControl name="bloodType"
+                                    (change)="selectEthnicGroup($event.target.value)" [(ngModel)]="dataToForm.bloodType"
+                                    #bloodType>
+                                    <mat-option>Não Informado</mat-option>
+                                    <mat-option value="A_POSITIVE">A+</mat-option>
+                                    <mat-option value="B_POSITIVE">B</mat-option>
+                                    <mat-option value="AB_POSITIVE">AB+</mat-option>
+                                    <mat-option value="O_POSITIVE">O+</mat-option>
+                                    <mat-option value="A_NEGATIVE">A-</mat-option>
+                                    <mat-option value="B_NEGATIVE">B-</mat-option>
+                                    <mat-option value="AB_NEGATIVE">AB-</mat-option>
+                                    <mat-option value="O_NEGATIVE">O-</mat-option>
+                                </mat-select>
                             </mat-form-field>
                         </div>
                         <div class="col-md-3">
@@ -145,7 +156,8 @@
                                     [ngModelOptions]="{standalone: true}"></textarea>
 
                                 <ckeditor [editor]="Editor" [(ngModel)]="dataToForm.annotations" #annotations
-                                    name="annotations" [data]="editorData" (ready)="onReady($event)" [config]="config"></ckeditor>
+                                    name="annotations" [data]="editorData" (ready)="onReady($event)" [config]="config">
+                                </ckeditor>
 
                                 <span style="color:red" *ngIf="dataToForm.annotations?.length > 10000">
                                     As anotações não podem passar de 10000 caracteres (Atual:

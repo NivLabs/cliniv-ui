@@ -56,7 +56,7 @@ export class MedicalRecordComponent implements OnInit {
       bloodType: null,
       socialName: null,
       principalNumber: null,
-      susNumber: null,
+      cnsNumber: null,
       lastAccommodation: new Accommodation(),
       bornDate: null,
       entryDateTime: null,
@@ -114,7 +114,7 @@ export class MedicalRecordComponent implements OnInit {
   }
 
   patientNotIdentified() {
-    return this.visit.id && this.visit.patientId && ((!this.visit.susNumber && !this.visit.document) || (!this.visit.susNumber && this.visit.document && !this.visit.document.value));
+    return this.visit.id && this.visit.patientId && ((!this.visit.cnsNumber && !this.visit.document) || (!this.visit.cnsNumber && this.visit.document && !this.visit.document.value));
   }
 
   searchVisitById() {

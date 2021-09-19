@@ -118,8 +118,8 @@
                                 <li *ngIf="attendance.cpf"><span class="fa fa-id-card patient-info">
                                         CPF: </span> {{attendance.cpf | mask:'000.000.000-00'}}</li>
 
-                                <li *ngIf="attendance.susNumber"><span class="fa fa-lock patient-info">
-                                        SUS: </span> {{attendance.susNumber}}</li>
+                                <li *ngIf="attendance.cnsNumber"><span class="fa fa-lock patient-info">
+                                        CNS: </span> {{attendance.cnsNumber}}</li>
 
                                 <li><span class="fa fa-plus-square patient-info"> Tipo:
                                     </span> {{attendance.type === 'EMERGENCY' ? 'Emergência' : 'Ambulatório'}}</li>

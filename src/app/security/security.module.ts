@@ -1,20 +1,19 @@
 import { CommonModule } from '@angular/common';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatTabsModule } from '@angular/material/tabs';
 import { JwtModule } from '@auth0/angular-jwt';
 import { IConfig, NgxMaskModule } from 'ngx-mask';
-import { environment } from '../../environments/environment';
 import { AppHttp } from './app-http';
 import { AuthGuard } from './auth.guard';
+import { AuthInterceptor } from './auth.interceptor';
 import { AuthService } from './auth.service';
+import { ForgotPasswordComponent } from './login-form/forgot-password/forgot-password.component';
 import { LoginFormComponent } from './login-form/login-form.component';
 import { SignupComponent } from './login-form/signup/signup.component';
 import { SecurityRoutingModule } from './security-routing.module';
-import { ForgotPasswordComponent } from './login-form/forgot-password/forgot-password.component';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AuthInterceptor } from './auth.interceptor';
 
 
 

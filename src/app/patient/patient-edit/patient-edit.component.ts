@@ -308,10 +308,10 @@ export class PatientEditComponent implements OnInit {
     }
   }
 
-  searchPatientBySusNumber() {
-    if (this.dataToForm.susNumber) {
+  searchPatientBycnsNumber() {
+    if (this.dataToForm.cnsNumber) {
       this.loading = true;
-      this.patientService.getByDocument('SUS', this.dataToForm.susNumber).then(resp => {
+      this.patientService.getByDocument('SUS', this.dataToForm.cnsNumber).then(resp => {
         this.loading = false;
         this.dataToForm = resp;
         if (!resp.address) {
@@ -330,7 +330,7 @@ export class PatientEditComponent implements OnInit {
         }
       }).catch(error => {
         this.loading = false;
-        this.dataToForm.susNumber = "";
+        this.dataToForm.cnsNumber = "";
         this.errorHandler.handle(error, this.dialogRef);
       });
     }
@@ -349,7 +349,7 @@ export class PatientEditComponent implements OnInit {
       if (handler === "searchCPF")
         this.searchPatientByCpf();
       if (handler === "searchSUS")
-        this.searchPatientBySusNumber();
+        this.searchPatientBycnsNumber();
       if (handler === "searchHealthPlan")
         this.searchHealthPlan();
     }
