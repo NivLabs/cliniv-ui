@@ -87,7 +87,7 @@
                                     {{patient.fullName + (patient.type === 'NOT_IDENTIFIED' ? ' [Não Identificado]' : '')}}
                                 </li>
                                 <li><span class="fa fa-user patient-info"> Matrícula:</span> {{patient.id}}</li>
-                                <li *ngIf="patient.cnsNumber"><span class="fa fa-lock patient-info"> SUS:</span>
+                                <li *ngIf="patient.cnsNumber"><span class="fa fa-lock patient-info"> CNS:</span>
                                     {{patient.cnsNumber}}</li>
                                 <li *ngIf="patient.bornDate"><span class="fa fa-calendar patient-info">
                                         Nascimento:</span>
