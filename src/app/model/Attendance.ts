@@ -16,7 +16,7 @@ export class AttendanceInfo {
     fullName: string = "";
     socialName: string = "";
     patientId: number;
-    susNumber: number;
+    cnsNumber: number;
     sectorId: number;
 }
 
@@ -41,7 +41,7 @@ export class MedicalRecord {
     exitDateTime: Date;
     patientId: number;
     document: Document;
-    susNumber: string;
+    cnsNumber: string;
     fullName: string;
     bloodType: string;
     socialName: string;

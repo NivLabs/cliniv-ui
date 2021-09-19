@@ -42,7 +42,7 @@
                                         <span>Evolução</span>
                                     </button>
                                     <button mat-menu-item matTooltip="Lista histórico do paciente"
-                                        *ngIf="visit.id && visit.patientId && (visit.susNumber || (visit.document && visit.document.value))"
+                                        *ngIf="visit.id && visit.patientId && (visit.cnsNumber || (visit.document && visit.document.value))"
                                         (click)="searchPatientHistory()">
                                         <mat-icon>history</mat-icon>
                                         <span>Histórico</span>
@@ -130,9 +130,9 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <mat-form-field>
-                                        <input matInput type="text" placeholder="CNS" name="susNumber"
+                                        <input matInput type="text" placeholder="CNS" name="cnsNumber"
                                             [ngClass]="{'patient-not-identified' : patientNotIdentified()}"
-                                            [(ngModel)]="visit.susNumber" #susNumber="ngModel" disabled />
+                                            [(ngModel)]="visit.cnsNumber" #cnsNumber="ngModel" disabled />
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-6">
