@@ -11,7 +11,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { DocumentViewerComponent } from '../../component/document-viewer/document-viewer.component';
 import '@ckeditor/ckeditor5-build-decoupled-document/build/translations/pt-br';
-import * as DecoupledEditor  from '@ckeditor/ckeditor5-build-decoupled-document';
+import * as DecoupledEditor from '@ckeditor/ckeditor5-build-decoupled-document';
 
 @Component({
   selector: 'app-report-edit',
@@ -22,7 +22,7 @@ export class ReportEditComponent implements OnInit {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   public loading = false;
-  public dataToForm: Report;
+  public dataToForm: Report = new Report();
   public dataSource: any;
   public displayedColumns: any;
   public selectedReportId: number = 0;
@@ -46,25 +46,12 @@ export class ReportEditComponent implements OnInit {
     if (this.dialogRef.componentInstance.data['selectedReport'] !== null || this.selectedReportId !== 0) {
       this.loading = true;
       this.selectedReportId = this.dialogRef.componentInstance.data['selectedReport'];
-      this.principalService.getById(this.selectedReportId).then(resp => {
-        this.loading = false;
-        this.dataToForm.id = resp.id;
-        this.dataToForm.name = resp.name;
-        this.dataToForm.base64 = resp.base64;
-        console.log(this.dataToForm.base64);
-        this.dataToForm.params = resp.params;
-        this.dataToForm.params = this.dataToForm.params.sort(function (a, b) {
-          return a.id < b.id ? -1 : a.id > b.id ? 1 : 0;
+      this.principalService.getById(this.selectedReportId)
+        .then((resp) => this.handleReportResponse(resp))
+        .catch(error => {
+          this.dataToForm = new Report();
+          this.handlerException(error);
         });
-        this.dataSource = new MatTableDataSource(this.dataToForm.params);
-        setTimeout(() => {
-          this.dataSource.sort = this.sort;
-        });
-
-      }).catch(error => {
-        this.dataToForm = new Report();
-        this.handlerException(error);
-      });
 
       this.displayedColumns = ['name', 'type', 'value'];
 
@@ -85,38 +72,32 @@ export class ReportEditComponent implements OnInit {
   save() {
     this.loading = true;
     if (this.dataToForm.id) {
-      this.principalService.update(this.dataToForm).then(resp => {
-        this.dataToForm.id = resp.id;
-        this.dataToForm.name = resp.name;
-        this.dataToForm.base64 = resp.base64;
-        this.dataToForm.params = resp.params;
-        this.dataToForm.params = this.dataToForm.params.sort(function (a, b) {
-          return a.id < b.id ? -1 : a.id > b.id ? 1 : 0;
-        });
-        this.dataSource = new MatTableDataSource(this.dataToForm.params);
-        setTimeout(() => {
-          this.dataSource.sort = this.sort;
-        });
-        this.loading = false;
-      }).catch((error) => this.handlerException(error));
-      this.notification.showSucess("Layout alterado com sucesso!");
+      this.principalService.update(this.dataToForm)
+        .then((resp) => this.handleReportResponse(resp))
+        .then(() => this.notification.showSucess("Relatório alterado com sucesso!"))
+        .catch((error) => this.handlerException(error));
     } else {
-      this.principalService.create(this.dataToForm).then(resp => {
-        this.dataToForm.id = resp.id;
-        this.dataToForm.name = resp.name;
-        this.dataToForm.base64 = resp.base64;
-        this.dataToForm.params = resp.params;
-        this.dataToForm.params = this.dataToForm.params.sort(function (a, b) {
-          return a.id < b.id ? -1 : a.id > b.id ? 1 : 0;
-        });
-        this.dataSource = new MatTableDataSource(this.dataToForm.params);
-        setTimeout(() => {
-          this.dataSource.sort = this.sort;
-        });
-        this.loading = false;
-        this.notification.showSucess("Layout cadastrado com sucesso!");
-      }).catch((error) => this.handlerException(error));
+      this.principalService.create(this.dataToForm)
+        .then((resp) => this.handleReportResponse(resp))
+        .then(() => this.notification.showSucess("Relatório cadastrado com sucesso!"))
+        .catch((error) => this.handlerException(error));
     }
+  }
+
+  /**
+   * Trata respsota da criação ou atualização do relatório dinâmico
+   * @param resp Resposta da criação ou atualização do relatório
+   */
+  handleReportResponse(resp: Report) {
+    this.dataToForm = resp;
+    this.dataToForm.params = this.dataToForm.params.sort(function (a, b) {
+      return a.id < b.id ? -1 : a.id > b.id ? 1 : 0;
+    });
+    this.dataSource = new MatTableDataSource(this.dataToForm.params);
+    setTimeout(() => {
+      this.dataSource.sort = this.sort;
+    });
+    this.loading = false;
   }
 
   /**
@@ -186,7 +167,7 @@ export class ReportEditComponent implements OnInit {
   }
 
   createReport() {
-    this.loading = true;    
+    this.loading = true;
 
     this.principalService.createReport(this.dataToForm, this.dataToForm.id).then(resp => {
       this.loading = false;
@@ -207,10 +188,10 @@ export class ReportEditComponent implements OnInit {
 
   }
 
-  onReady( editor ) {
+  onReady(editor) {
     editor.ui.getEditableElement().parentElement.insertBefore(
-        editor.ui.view.toolbar.element,
-        editor.ui.getEditableElement()
+      editor.ui.view.toolbar.element,
+      editor.ui.getEditableElement()
     );
   }
 
