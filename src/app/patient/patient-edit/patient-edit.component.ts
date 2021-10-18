@@ -31,9 +31,9 @@ export class PatientEditComponent implements OnInit {
   public loading: boolean;
   public isNewCpf = false;
 
-  public displayedColumns = ['id', 'entryDatetime', 'entryCause', 'isFinished', 'actions'];
+  public displayedColumns = ['id', 'entryDatetime', 'entryCause', 'isFinished'];
   public attendanceHistoryDataSource: MatTableDataSource<PatientHistory>;
-  public displayedColunsDocuments = ['type', 'value', 'dispatcher', 'uf', 'expeditionDate', 'actions'];
+  public displayedColunsDocuments = ['type', 'value', 'dispatcher', 'uf', 'expeditionDate'];
   public documentsDataSource: MatTableDataSource<PersonDocument>;
 
   public Editor = DecoupledEditor;
@@ -157,6 +157,7 @@ export class PatientEditComponent implements OnInit {
       });
     } else {
       this.patientService.create(this.dataToForm).then(resp => {
+        this.loading = true;
         this.dialogRef.componentInstance.data['selectedPatient'] = resp.id;
         this.ngOnInit();
         this.notification.showSucess("Paciente cadastrado com sucesso!");

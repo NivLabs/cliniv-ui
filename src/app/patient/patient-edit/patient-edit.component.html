@@ -435,18 +435,6 @@
                                     </mat-cell>
                                 </ng-container>
 
-                                <!-- Color Column -->
-                                <ng-container matColumnDef="actions">
-                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Selecionar</mat-header-cell>
-                                    <mat-cell *matCellDef="let row" style="text-align: center; display: block;">
-                                        <button mat-raised-button (click)="gotToVisit(row.id)"
-                                            class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-info"
-                                            [mat-dialog-close]="row" matTooltip="Visualizar"><span
-                                                class="fa fa-eye"></span></button>
-
-                                    </mat-cell>
-                                </ng-container>
-
                                 <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
                                 <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
                             </mat-table>
