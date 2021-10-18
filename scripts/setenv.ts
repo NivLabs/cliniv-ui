@@ -10,9 +10,9 @@ const environment = argv.environment;
 const isProduction = environment === 'prod';
 const isPostBuild = argv.isPostBuild === 'true';
 
-if (!process.env.BASE_URL) {
-   console.error('A URL da API não foi informada, favor informar a mesma antes de subir a aplicação!');
-   process.exit(-1);
+if (isProduction && !process.env.BASE_URL) {
+   console.error('A URL da API não foi informada, utilizando base padrão!');
+   process.env.BASE_URL = 'https://gestao-prontuario.herokuapp.com';
 }
 
 const targetPath = isProduction
@@ -24,7 +24,7 @@ const targetPath = isProduction
 const environmentFileContent = `
 export const environment = {
    production: ${isProduction},
-   apiUrl: ${isProduction && !isPostBuild ? "'" + process.env.BASE_URL + "'" : (isPostBuild && isProduction ? 'process.env.BASE_URL' : "'https://gestao-prontuario.herokuapp.com'")},
+   apiUrl: ${isProduction && !isPostBuild ? "'" + process.env.BASE_URL + "'" : 'process.env.BASE_URL'},
    appVersion: '${version + (isProduction ? '' : '-dev')}'
 };
 `;

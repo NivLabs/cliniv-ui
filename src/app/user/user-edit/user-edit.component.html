@@ -114,7 +114,7 @@
                         </div>
                     </div>
                 </mat-tab>
-                <mat-tab label="Permissões">
+                <mat-tab *ngIf="dataToForm.id" label="Permissões">
                     <br />
                     <div class="row">
                         <mat-checkbox hidden></mat-checkbox>
