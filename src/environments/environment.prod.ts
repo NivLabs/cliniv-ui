@@ -1,6 +1,6 @@
 
 export const environment = {
    production: true,
-   apiUrl: process.env.BASE_URL,
+   apiUrl: 'http://localhost:8080',
    appVersion: '1.0.1'
 };
