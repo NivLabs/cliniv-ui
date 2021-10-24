@@ -24,8 +24,8 @@ export class ScheduleComponent implements OnInit {
   public static END_SCHEDULE_PARAM_ID: number = 7;
   /** Intervalo da agenda */
   public static INTERVAL_SCHEDULE_PARAM_ID: number = 7;
-  private INIT_HOUR_DEFAULT: string = "08:00";
-  private END_HOUR_DEFAULT: string = "18:00";
+  private INIT_HOUR_DEFAULT: string = "00:00";
+  private END_HOUR_DEFAULT: string = "23:59";
 
   public filters: ScheduleFilter = new ScheduleFilter();
   responsibleControl = new FormControl();
@@ -65,7 +65,7 @@ export class ScheduleComponent implements OnInit {
     this.schedulerParams.endAttendanceTime = endAttendanceTime ? endAttendanceTime.value : this.END_HOUR_DEFAULT;
 
     var timeIntervalInMinutes = this.settingsService.getParameters().find(param => param.id == ScheduleComponent.INTERVAL_SCHEDULE_PARAM_ID);
-    this.schedulerParams.timeIntervalInMinutes = timeIntervalInMinutes && Number.parseInt(timeIntervalInMinutes.value) > 0 ? timeIntervalInMinutes.value : 30;
+    this.schedulerParams.timeIntervalInMinutes = timeIntervalInMinutes && Number.parseInt(timeIntervalInMinutes.value) > 0 ? timeIntervalInMinutes.value : 60;
 
     this.validateScheduleSettings();
   }
