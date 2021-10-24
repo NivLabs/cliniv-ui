@@ -98,7 +98,7 @@ export class MedicalRecordComponent implements OnInit {
         .then(result => this.onFindVisitInfo(result))
         .catch(error => {
           this.loading = false;
-          if (error.error && error.error.status === 422) {
+          if (error.error && error.error.status === 404) {
             const confirmDialogRef = this.confirmDialog.open(ConfirmDialogComponent, {
               data: { title: 'Confirmação', message: 'Não há atendimento ativo para o paciente informado, deseja iniciar um novo atendimento?' }
             });
@@ -311,7 +311,7 @@ export class MedicalRecordComponent implements OnInit {
     });
 
     closeAttendanceDialog.afterClosed().subscribe(result => {
-      this.searchVisitById();
+      this.ngOnInit();
     });
   }
 

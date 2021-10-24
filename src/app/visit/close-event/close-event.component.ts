@@ -19,7 +19,7 @@ export class CloseEventComponent implements OnInit {
   private attendanceId: number;
 
   public Editor = DecoupledEditor;
-  public editorData = '<p>Parecer (Médico | Clínico)</p>';
+  public editorData = '<p>Sem informações adicionais...</p>';
   public config = {
     language: 'pt-br'
   };
@@ -50,7 +50,7 @@ export class CloseEventComponent implements OnInit {
     this.loading = true;
     this.medicalRecService.closeAttendance(this.attendanceId, this.dataToForm)
       .then(resp => {
-        this.notification.showSucess("Alta realizada com sucesso!");
+        this.notification.showSucess("Atendimento encerrado com sucesso!");
         this.onCancelClick();
       })
       .catch(error => this.errorHandler.handle(error, this.dialogRef))

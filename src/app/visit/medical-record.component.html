@@ -64,11 +64,11 @@
                                         <mat-icon>add</mat-icon>
                                         <span>Alergia</span>
                                     </button>
-                                    <button mat-menu-item matTooltip="Realizar alta"
+                                    <button mat-menu-item matTooltip="Encerrar atendimento"
                                         *ngIf="visit.id && visit.patientId && !visit.exitDateTime"
                                         (click)="closeAttendance()">
                                         <mat-icon>check</mat-icon>
-                                        <span>Alta</span>
+                                        <span>Encerrar atendimento</span>
                                     </button>
                                     <button mat-menu-item matTooltip="Limpar pesquisa"
                                         *ngIf="visit.id && visit.patientId" (click)="ngOnInit()">
