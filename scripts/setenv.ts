@@ -9,11 +9,9 @@ require('dotenv').config();
 const environment = argv.environment;
 const isProduction = environment === 'prod';
 const isPostBuild = argv.isPostBuild === 'true';
+const baseURL = process.env.BASE_URL ? process.env.BASE_URL : 'https://gestao-prontuario.herokuapp.com';
+const customerId = process.env.CUSTOMER_ID ? process.env.CUSTOMER_ID : 'gpdemo';
 
-if (isProduction && !process.env.BASE_URL) {
-   console.error('A URL da API não foi informada, utilizando base padrão!');
-   process.env.BASE_URL = 'https://gestao-prontuario.herokuapp.com';
-}
 
 const targetPath = isProduction
    ? `./src/environments/environment.prod.ts`
@@ -24,8 +22,9 @@ const targetPath = isProduction
 const environmentFileContent = `
 export const environment = {
    production: ${isProduction},
-   apiUrl: ${isProduction && !isPostBuild ? "'" + process.env.BASE_URL + "'" : 'process.env.BASE_URL'},
-   appVersion: '${version + (isProduction ? '' : '-dev')}'
+   apiUrl: ${isProduction && !isPostBuild ? "'" + baseURL + "'" : 'process.env.BASE_URL'},
+   appVersion: '${version + (isProduction ? '' : '-dev')}',
+   customerId: '${customerId}'
 };
 `;
 // write the content to the respective file

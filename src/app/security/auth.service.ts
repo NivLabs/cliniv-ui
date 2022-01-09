@@ -16,7 +16,7 @@ export class AuthService {
     private http: HttpClient,
     private jwtHelper: JwtHelperService,
   ) {
-    this.resourceUrl = `${environment.apiUrl}/login`;
+    this.resourceUrl = `${environment.apiUrl}/auth`;
     this.loadToken();
   }
 
