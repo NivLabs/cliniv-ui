@@ -15,6 +15,7 @@ import { environment } from 'environments/environment';
 export class AuthInterceptor implements HttpInterceptor {
 
     private AUTH_HEADER = 'Authorization';
+    private CUSTOMER_ID_HEADER = "CUSTOMER_ID";
 
     constructor(private auth: AuthService) { }
 
@@ -44,11 +45,12 @@ export class AuthInterceptor implements HttpInterceptor {
 
     authheaders(req: HttpRequest<unknown>): HttpHeaders {
         let headers: HttpHeaders = req.headers;
+        headers = headers.append(this.CUSTOMER_ID_HEADER, environment.customerId);
 
         const token = this.auth.getToken();
 
         if (!this.auth.isInvalidAccessToken()) {
-            headers = req.headers.append(this.AUTH_HEADER, "Bearer ".concat(token));
+            headers = req.headers.append(this.AUTH_HEADER, "Bearer ".concat(token)).append(this.CUSTOMER_ID_HEADER, environment.customerId);
         }
 
         return headers;
