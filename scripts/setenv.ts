@@ -10,7 +10,8 @@ const environment = argv.environment;
 const isProduction = environment === 'prod';
 const isPostBuild = argv.isPostBuild === 'true';
 const baseURL = process.env.BASE_URL ? process.env.BASE_URL : 'https://gestao-prontuario.herokuapp.com';
-const customerId = process.env.CUSTOMER_ID ? process.env.CUSTOMER_ID : 'gpdemo';
+const customerId = process.env.CUSTOMER_ID ? process.env.CUSTOMER_ID : 'gpdefault';
+const customerName = process.env.CUSTOMER_NAME ? process.env.CUSTOMER_NAME : 'NivLabs';
 
 
 const targetPath = isProduction
@@ -24,7 +25,8 @@ export const environment = {
    production: ${isProduction},
    apiUrl: ${isProduction && !isPostBuild ? "'" + baseURL + "'" : 'process.env.BASE_URL'},
    appVersion: '${version + (isProduction ? '' : '-dev')}',
-   customerId: '${customerId}'
+   customerId: '${customerId}',
+   customerName: '${customerName}'
 };
 `;
 // write the content to the respective file

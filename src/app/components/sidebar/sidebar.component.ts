@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'app/security/auth.service';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { environment } from 'environments/environment';
 
 declare const $: any;
 declare interface RouteInfo {
@@ -49,6 +50,7 @@ export const ROUTES: RouteInfo[] = [
 export class SidebarComponent implements OnInit {
   menuItems: any[];
   personName: string;
+  logoName: string = environment.customerId;
 
   constructor(
     private auth: AuthService,
