@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { UserInfo } from 'app/model/User';
 import { SettingsService } from 'app/settings/settings.service';
+import { environment } from 'environments/environment';
 import { ErrorHandlerService } from './../../core/error-handler.service';
 import { AuthService } from './../auth.service';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
@@ -19,6 +20,7 @@ export class LoginFormComponent implements OnInit {
   hasResponse = true;
   user: UserInfo;
   saveInfoFlag: boolean = false;
+  logoName: string = environment.customerId;
 
   constructor(
     private auth: AuthService,

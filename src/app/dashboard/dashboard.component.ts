@@ -13,6 +13,7 @@ export class DashboardComponent implements OnInit {
   loading: boolean = false;
   data: Dashboard = new Dashboard();
   appVersion: string = environment.appVersion;
+  logoName: string = environment.customerId;
 
   constructor(private dashboardService: DashboardService) { }
 

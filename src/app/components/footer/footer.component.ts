@@ -9,6 +9,7 @@ import { environment } from 'environments/environment';
 export class FooterComponent implements OnInit {
   test: Date = new Date();
   version: string = environment.appVersion;
+  customer: string = environment.customerName ? environment.customerName : 'NivLabs';
   constructor() { }
 
   ngOnInit() {
