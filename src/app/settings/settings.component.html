@@ -35,13 +35,26 @@
                                     #version="ngModel" type="text" disabled />
                             </mat-form-field>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <mat-form-field>
-                                <input matInput placeholder="CNPJ" name="cnpj" mask="00.000.000/0000-00"
-                                    [(ngModel)]="settings.customerInfo.cnpj" #cnpj required />
+                                <select matNativeControl placeholder="Estado" name="cgcType" required
+                                    [(ngModel)]="settings.customerInfo.cgcType" #cgcType>
+                                    <option value="CNPJ">CNPJ</option>
+                                    <option value="CPF">CPF</option>
+                                </select>
                             </mat-form-field>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
+                            <mat-form-field *ngIf="settings.customerInfo.cgcType && settings.customerInfo.cgcType == 'CPF'">
+                                <input matInput placeholder="CPF" name="cgc" mask="000.000.000-00"
+                                    [(ngModel)]="settings.customerInfo.cgc" #cgc required />
+                            </mat-form-field>
+                            <mat-form-field *ngIf="!settings.customerInfo.cgcType || settings.customerInfo.cgcType == 'CNPJ'">
+                                <input matInput placeholder="CNPJ" name="cgc" mask="00.000.000/0000-00"
+                                    [(ngModel)]="settings.customerInfo.cgc" #cgc required />
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-2">
                             <mat-form-field>
                                 <input matInput placeholder="CNES" name="cnes" [(ngModel)]="settings.customerInfo.cnes"
                                     #cnes />
