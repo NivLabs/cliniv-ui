@@ -30,12 +30,12 @@
                 <div class="col-md-2">
                     <mat-form-field *ngIf="dataToForm.cgcType == 'CPF'">
                         <input matInput placeholder="Cadastro de Pessoa Física (CPF)" name="cgc"
-                            [(ngModel)]="dataToForm.cgc" #cgc type="text" maxlength="14" mask="000.000.000-00"
+                            [(ngModel)]="dataToForm.cgc" #cgc type="text" mask="000.000.000-00"
                             required />
                     </mat-form-field>
                     <mat-form-field *ngIf="dataToForm.cgcType == 'CNPJ'">
                         <input matInput placeholder="Cadastro Nacional de Pessoa Jurídica (CNPF)" name="cgc"
-                            [(ngModel)]="dataToForm.cgc" #cgc type="text" maxlength="14" mask="00.000.000/0000-00"
+                            [(ngModel)]="dataToForm.cgc" #cgc type="text" mask="00.000.000/0000-00"
                             required />
                     </mat-form-field>
                 </div>
