@@ -8,6 +8,7 @@
                   <div class="card card-login">
                      <div class="card-header card-header-info text-center">
                         <h4 class="card-title">LOGIN</h4>
+                        <span style="color: rgb(255, 38, 0);font-weight: bold;" *ngIf="isDefault()">Ambiente de apresentação, não informar dados confidenciais de pacientes!</span>
                      </div>
                      <div class="card-body ">
                         <div class="logo-img">
@@ -49,9 +50,8 @@
                      <div hidden="hidden" class="card-footer justify-content-center link"><small class="link"
                            (click)="openForgotPasswordDialog()">Esqueci a senha</small>
                      </div>
-                     <div hidden="hidden" class="card-footer justify-content-center link"><small class="link"
-                           (click)="openNewUserDialog()">Criar uma nova
-                           conta</small></div>
+                     <div *ngIf="isDefault()" class="card-footer justify-content-center link"><small class="link"
+                           (click)="openNewUserDialog()">Solicitar um ambiente</small></div>
                   </div>
                </form>
             </div>
