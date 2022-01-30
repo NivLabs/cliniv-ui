@@ -1,48 +1,63 @@
 <div class="card">
     <div class="card-header card-header-info">
-        <h4 class="card-title">Novo usuário</h4>
-        <p class="card-category">Cadastro de novo usuário</p>
+        <h4 class="card-title">Solicitação de ambiente</h4>
+        <p class="card-category">Quero usar o CliNiv na minha clínica</p>
     </div>
     <div class="card-body">
-        <form #form="ngForm" autocomplete="off" (ngSubmit)="createNewUser()">
+        <form #form="ngForm" autocomplete="off" (ngSubmit)="createNewCustomer()">
             <div class="row">
-                <div class="col-md-8">
+                <div class="col-md-4">
                     <mat-form-field>
-                        <input matInput type="text" placeholder="Nome Completo" name="fullName"
-                            [(ngModel)]="dataToForm.fullName" #newPassword="ngModel" required />
+                        <input matInput type="text" placeholder="Nome da Clínica" name="clinicName"
+                            [(ngModel)]="dataToForm.clinicName" #clinicName="ngModel" required />
                     </mat-form-field>
                 </div>
                 <div class="col-md-4">
                     <mat-form-field>
-                        <input matInput placeholder="Cadastro de Pessoa Física (CPF)  [ENTER]" name="document"
-                            [(ngModel)]="dataToForm.document.value" #document type="text" maxlength="14"
-                            mask="000.000.000-00" required />
+                        <input matInput type="text" placeholder="Nome do gestor" name="managerName"
+                            [(ngModel)]="dataToForm.managerName" #managerName="ngModel" required />
                     </mat-form-field>
                 </div>
-                <div class="col-md-12">
+                <div class="col-md-2">
+                    <mat-form-field>
+                        <select matNativeControl placeholder="Tipo de Contribuinte" name="cgcType" required
+                            [(ngModel)]="dataToForm.cgcType" #cgcType>
+                            <option value="CNPJ">CNPJ</option>
+                            <option value="CPF">CPF</option>
+                        </select>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-2">
+                    <mat-form-field *ngIf="dataToForm.cgcType == 'CPF'">
+                        <input matInput placeholder="Cadastro de Pessoa Física (CPF)" name="cgc"
+                            [(ngModel)]="dataToForm.cgc" #cgc type="text" mask="000.000.000-00"
+                            required />
+                    </mat-form-field>
+                    <mat-form-field *ngIf="dataToForm.cgcType == 'CNPJ'">
+                        <input matInput placeholder="Cadastro Nacional de Pessoa Jurídica (CNPF)" name="cgc"
+                            [(ngModel)]="dataToForm.cgc" #cgc type="text" mask="00.000.000/0000-00"
+                            required />
+                    </mat-form-field>
+                </div>
+                <div class="col-md-8">
                     <mat-form-field>
                         <input matInput placeholder="Email" name="email" [(ngModel)]="dataToForm.email" #email
                             type="email" required />
                     </mat-form-field>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <mat-form-field>
-                        <input matInput type="text" placeholder="Nome do usuário" name="userName"
-                            [(ngModel)]="dataToForm.userName" #userName="ngModel" required />
-                    </mat-form-field>
-                </div>
-                <div class="col-md-6">
-                    <mat-form-field>
-                        <input matInput type="password" placeholder="Senha" name="password"
-                            [(ngModel)]="dataToForm.password" #userName="ngModel" required />
+                        <input matInput type="text" placeholder="Celular principal" name="principalPhone"
+                            [(ngModel)]="dataToForm.principalPhone" #principalPhone="ngModel" mask="(00) 0 0000-0000" required />
                     </mat-form-field>
                 </div>
             </div>
             <div class="row">
-                <button mat-raised-button type="submit" [disabled]="!form.valid"
-                    class="col-12 btn btn-success">Confirmar</button>
-                <button mat-raised-button type="button" (click)="onCancelClick()" class="col-12 btn btn-danger"
-                    matTooltip="Fecha formulário"><span class="fa fa-close"></span> Fechar</button>
+                <button mat-raised-button type="submit" [disabled]="!form.valid || loading"
+                    class="col-12 btn btn-success">{{loading ? 'Enviando formulário...' : 'Confirmar'}} </button>
+                <button mat-raised-button type="button" [disabled]="loading" (click)="onCancelClick()"
+                    class="col-12 btn btn-danger" matTooltip="Fecha formulário"><span class="fa fa-close"></span>
+                    Fechar</button>
                 <div class="clearfix"></div>
             </div>
         </form>
