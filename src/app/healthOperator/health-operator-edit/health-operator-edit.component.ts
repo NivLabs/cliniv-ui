@@ -44,7 +44,6 @@ export class HealthOperatorEditComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
     if (this.dialogRef.componentInstance.data['selectedId'] !== null || this.selectedId !== 0) {
       this.loading = true;
       this.selectedId = this.dialogRef.componentInstance.data['selectedId'];
@@ -59,6 +58,7 @@ export class HealthOperatorEditComponent implements OnInit {
           this.dataSource.sort = this.sort;
         });
       }).catch(error => {
+        this.loading = false;
         this.dataToForm = new HealthOperator();
         this.handlerException(error);
       });
