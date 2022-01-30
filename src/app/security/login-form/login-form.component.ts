@@ -97,4 +97,7 @@ export class LoginFormComponent implements OnInit {
   checkSaveInfo() {
     this.saveInfoFlag = !this.saveInfoFlag;
   }
+  isDefault() {
+    return environment.customerId == 'gpdefault';
+  }
 }
