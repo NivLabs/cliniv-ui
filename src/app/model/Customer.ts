@@ -12,7 +12,8 @@ export class Customer {
     managerPhone: string;
     phone: string;
     cnes: number;
-    cnpj: number;
+    cgcType: string = 'CPF';
+    cgc: number;
     corporativeName: string;
     dependency: string;
     legalNature: string;
