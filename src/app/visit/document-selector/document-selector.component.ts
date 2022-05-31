@@ -18,7 +18,5 @@ export class DocumentSelectorComponent implements OnInit {
 
   ngOnInit(): void {
     this.dataSource = this.documentSelectorComponent.componentInstance.data['dataSource'];
-    console.log(this.dataSource);
-    
   }
 }

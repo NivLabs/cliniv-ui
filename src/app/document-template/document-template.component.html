@@ -1,0 +1,55 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-info">
+                        <h4 class="card-title">Modelos de documentos</h4>
+                    </div>
+                    <div class="card-body">
+                        <form #form="ngForm" autocomplete="off">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <mat-form-field>
+                                        <input matInput placeholder="Descrição do modelo de documento [ENTER]" name="description"
+                                            [(ngModel)]="filters.description" #title type="text"
+                                            (keypress)="enterKeyPress($event)" />
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <button mat-raised-button type="button" (click)="applyFilter()"
+                                class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-danger pull-right"
+                                matTooltip="Aplica Filtro">
+                                <span class="fa fa-search"></span> Filtrar</button>
+                            <button mat-raised-button type="button" (click)="openDialog(null)"
+                                matTooltip="Adiciona setor"
+                                class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-info pull-right"><span
+                                    class="fa fa-plus"></span> Novo Modelo</button>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="search-results" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50"
+            (scrolled)="loadNextPage()">
+            <div class="row">
+                <div class="center" *ngIf="!loading && dataNotFound">
+                    <h1>Nenhum modelo de documento encontrado...</h1>
+                </div>
+                <div *ngFor="let data of datas" class="col-12 col-sm-12 col-md-4 col-lg-4">
+                    <div class="card link-card" (click)="openDialog(data.id)">
+                        <div class="card-body margin-color-active">
+                            <ul>
+                                <li><span class="fa fa-key document-template-form-info"> Identificador:</span> {{data.id}}
+                                </li>
+                                <li><span class="fa fa-map document-template-form-info"> {{data.description}}</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-loading [show]="loading"></app-loading>

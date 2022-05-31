@@ -40,6 +40,9 @@ import { CameraDialogComponent } from 'app/component/camera/dialog/camera-dialog
 import { DocumentViewerComponent } from 'app/component/document-viewer/document-viewer.component';
 import { CameraComponent } from 'app/core/camera/camera.component';
 import { PersonDocumentDialogComponent } from 'app/core/person-document-dialog/person-document-dialog.component';
+import { DocumentTemplateEditComponent } from 'app/document-template/document-template-edit/document-template-edit.component';
+import { DocumentTemplateComponent } from 'app/document-template/document-template.component';
+import { DocumentTemplateService } from 'app/document-template/document-template.service';
 import { DynamicFormEditComponent } from 'app/dynamic-form/dynamic-form-edit/dynamic-form-edit.component';
 import { DynamicFormQuestionComponent } from 'app/dynamic-form/dynamic-form-question/dynamic-form-question.component';
 import { HealthOperatorEditComponent } from 'app/healthOperator/health-operator-edit/health-operator-edit.component';
@@ -217,6 +220,9 @@ const maskConfig: Partial<IConfig> = {
 
     AccommodationComponent,
 
+    DocumentTemplateComponent,
+    DocumentTemplateEditComponent,
+
     DynamicFormComponent,
     SelectFormComponent,
 
@@ -267,6 +273,7 @@ const maskConfig: Partial<IConfig> = {
     CameraDialogComponent,
     DocumentViewerComponent,
     ProcedureEditComponent,
+    DocumentTemplateEditComponent,
     SpecialityEditComponent,
     DynamicFormEditComponent,
     DynamicFormQuestionComponent,
@@ -279,6 +286,7 @@ const maskConfig: Partial<IConfig> = {
     PatientService,
     DashboardService,
     ScheduleService,
+    DocumentTemplateService,
     DynamicFormService,
     HealthPlanService,
     ProfessionalService,
