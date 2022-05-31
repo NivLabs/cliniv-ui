@@ -270,7 +270,6 @@ export class UserEditComponent implements OnInit {
     ];
     if (this.dataToForm && this.dataToForm.roles) {
       this.dataToForm.roles.forEach(role => {
-        console.log("Checando papeis de acesso :: ", role['id'], " :: ", role['description']);
         this.roles.forEach(roleInput => {
           if (role['id'] === roleInput.id) {
             roleInput.checked = true;

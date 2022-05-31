@@ -26,6 +26,7 @@ export class HealthPlanComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loading = true;
     if (this.dialogRef.componentInstance.data['operatorCode'] !== undefined) {
       this.dataForm = new HealthPlan();
       this.operatorCode = this.dialogRef.componentInstance.data['operatorCode'];
@@ -42,8 +43,10 @@ export class HealthPlanComponent implements OnInit {
   }
 
   save() {
+    this.loading = true;
     if (this.dataForm.id) {
       this.principalService.update(this.dataForm).then(resp => {
+        this.loading = false;
         this.dataForm = resp;
         this.notification.showSucess("Plano de saúde alterada com sucesso!");
       }).catch(error => {
@@ -52,6 +55,7 @@ export class HealthPlanComponent implements OnInit {
       });
     } else {
       this.principalService.create(this.dataForm).then(resp => {
+        this.loading = false;
         this.dataForm = resp;
         this.notification.showSucess("Plano de saúde cadastrada com sucesso!");
       }).catch(error => {

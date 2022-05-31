@@ -122,6 +122,9 @@ export class PatientEditComponent implements OnInit {
         if (!resp.healthPlan) {
           this.dataToForm.healthPlan = new HealthPlan();
         }
+        if(resp.healthPlan && !resp.healthPlan.patientPlanNumber) {
+          this.dataToForm.healthPlan.patientPlanNumber = "";
+        }
         if (resp.attendanceHistory) {
           this.dataToForm.attendanceHistory = resp.attendanceHistory;
           this.attendanceHistoryDataSource = new MatTableDataSource(this.dataToForm.attendanceHistory);

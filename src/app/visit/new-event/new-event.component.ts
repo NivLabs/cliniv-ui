@@ -5,8 +5,10 @@ import { AttendanceService } from 'app/attendance/attendance.service';
 import { ErrorHandlerService } from 'app/core/error-handler.service';
 import { NotificationsComponent } from 'app/core/notification/notifications.component';
 import { UtilService } from 'app/core/util.service';
+import { DocumentTemplateService } from 'app/document-template/document-template.service';
 import { Accommodation } from 'app/model/Accommodation';
 import { NewAttendanceEvent } from 'app/model/Attendance';
+import { DocumentTemplate, DocumentTemplateFilter } from 'app/model/DocumentTemplate';
 import { FileInfo } from 'app/model/File';
 import { ProcedureFilters, ProcedureInfo } from 'app/model/Procedure';
 import { Professional } from 'app/model/Professional';
@@ -15,8 +17,6 @@ import { Pageable } from 'app/model/Util';
 import { ProcedureService } from 'app/procedure/procedure.service';
 import { SectorService } from 'app/sector/sector.service';
 import { MedicalRecordService } from '../medical-record.service';
-import '@ckeditor/ckeditor5-build-decoupled-document/build/translations/pt-br';
-import * as DecoupledEditor  from '@ckeditor/ckeditor5-build-decoupled-document';
 
 @Component({
   selector: 'app-new-event',
@@ -27,42 +27,42 @@ export class NewEventComponent implements OnInit {
 
 
   loading = false;
+  selectedDocumentTemplate = false;
 
   eventTypeControl = new FormControl('10', [Validators.required]);
   sectorControl = new FormControl('', [Validators.required]);
   accommodationControl = new FormControl('', [Validators.required]);
   responsibleControl = new FormControl('', [Validators.required]);
-  procedureControl = new FormControl('');
+  procedureControl = new FormControl('', []);
+  documentTemplateControl = new FormControl('', []);
 
   responsibles: Array<Professional> = [];
   sectors: Array<Sector> = [];
   accommodations: Array<Accommodation> = [];
+  documentTemplates: Array<DocumentTemplate> = [];
 
   dataToForm: NewAttendanceEvent;
 
   sectorFilters = new SectorFilters();
-  setorPageSettings = new Pageable();
+  documentTemplateFilters = new DocumentTemplateFilter();
+  pageSettings = new Pageable();
 
   @ViewChild('inputFile')
   inputFile: ElementRef;
-  
-  public Editor = DecoupledEditor;
-  public editorData = '<p>Observações</p>';
-  public config = {
-    language: 'pt-br'
-  };
 
   constructor(
     public dialogRef: MatDialogRef<NewEventComponent>,
     public attendanceService: AttendanceService,
     public sectorService: SectorService,
+    public documentTemplateSerice: DocumentTemplateService,
     public notification: NotificationsComponent,
     public utilService: UtilService,
     public visitService: MedicalRecordService,
     public medicalRecService: MedicalRecordService,
     public procedureService: ProcedureService,
     private errorHandler: ErrorHandlerService,
-    @Inject(MAT_DIALOG_DATA) public data: any) { }
+    @Inject(MAT_DIALOG_DATA) public data: any) { 
+    }
 
   ngOnInit(): void {
     const data = this.dialogRef.componentInstance.data;
@@ -75,6 +75,7 @@ export class NewEventComponent implements OnInit {
       this.dataToForm.procedure = new ProcedureInfo();
     }
     this.loadSectors();
+    this.loadDocumentTemplates();
     this.procedureControl.registerOnChange((value) => {
       this.dataToForm.procedure.id = value;
     });
@@ -91,13 +92,27 @@ export class NewEventComponent implements OnInit {
       this.loadAccommodations(event);
     } else {
       this.loading = true;
-      this.sectorService.getPage(this.sectorFilters, this.setorPageSettings).then(response => {
+      this.sectorService.getPage(this.sectorFilters, this.pageSettings).then(response => {
         this.sectors = response.content;
         this.sectorControl.setValue(this.dataToForm.accommodation.sectorId);
         var event = { value: this.dataToForm.accommodation.sectorId };
         this.loadAccommodations(event);
       }).catch(e => this.errorHandler.handle(e, this.dialogRef))
         .then(() => this.loading = false);
+    }
+  }
+
+  /**
+   * Busca dados de templates de documentos
+   */
+  loadDocumentTemplates() {
+    if(this.documentTemplates?.length == 0) {
+      this.loading = true;
+      this.documentTemplateSerice.getPage(this.documentTemplateFilters, this.pageSettings).then(response => {
+        this.documentTemplates = response.content;
+      })
+      .catch(e => this.errorHandler.handle(e, this.dialogRef))
+      .then(() => this.loading = false);
     }
   }
 
@@ -130,6 +145,25 @@ export class NewEventComponent implements OnInit {
   selectAccommodation(id: number) {
     if (id) {
       this.dataToForm.accommodation.id = id;
+    }
+  }
+
+  /**
+   * 
+   * @param id Seleciona um modelo de documento
+   */
+  selectDocumentTemplate(id: number) {
+    if(id) {
+      this.loading = true;
+      this.documentTemplateSerice.findById(id).then(response => {
+        this.selectedDocumentTemplate = true;
+        this.dataToForm.observations = response.text;
+      })
+      .catch(e => this.errorHandler.handle(e, this.dialogRef))
+      .then(() => this.loading = false);
+    } else {
+      this.selectedDocumentTemplate = false;
+      this.dataToForm.observations = null;
     }
   }
 

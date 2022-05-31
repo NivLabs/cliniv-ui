@@ -74,7 +74,6 @@ export class ProfessionalComponent implements OnInit {
         this.datas = response.content;
         this.page = response;
         this.dataNotFound = this.datas.length === 0;
-        console.log(this.dataNotFound);
       }).catch(error => {
         this.dataNotFound = this.datas !== undefined ? this.datas.length === 0 : true;
         this.loading = false;

@@ -61,7 +61,6 @@ export class ScheduleEditComponent implements OnInit {
       this.onCancelClick();
       this.notification.showWarning('Nenhum profissional habilitado para realizar atendimento');
     }
-    console.log(this.dataToForm);
   }
 
 

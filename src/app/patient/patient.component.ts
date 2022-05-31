@@ -33,7 +33,6 @@ export class PatientComponent implements OnInit {
       this.datas = response.content;
       this.page = response;
       this.dataNotFound = this.datas.length === 0;
-      console.log(this.dataNotFound);
     }).catch(error => {
       this.dataNotFound = this.datas ? this.datas.length === 0 : true;
       this.loading = false;
