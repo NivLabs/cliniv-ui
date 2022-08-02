@@ -51,7 +51,6 @@ export class CameraComponent implements OnInit {
     this.pictureTaken.emit(webcamImage);
   }
   public cameraWasSwitched(deviceId: string): void {
-    console.log('active device: ' + deviceId);
     this.deviceId = deviceId;
   }
   public get triggerObservable(): Observable<void> {

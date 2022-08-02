@@ -40,7 +40,10 @@ export class ErrorHandlerService {
       }
 
       if (errorResponse.status === 403) {
-        msg = 'Você não tem permissão para executar esta ação, verifique suas permissões ou/e se sua sessão expirou';
+        msg = 'Você não tem permissão para executar esta ação, verifique suas permissões.';
+        if (errorResponse.error && errorResponse.error.message) {
+          msg = errorResponse.error.message;
+        }
         if (dialogRefToClose) {
           dialogRefToClose.close();
         }

@@ -40,11 +40,9 @@ export class DynamicFormComponent implements OnInit {
       this.datas = response.content;
       this.page = response;
       this.dataNotFound = this.datas.length === 0;
-      console.log(this.dataNotFound);
     }).catch(error => {
       this.dataNotFound = this.datas ? this.datas.length === 0 : true;
-      this.loading = false;
-      this.errorHandler.handle(error, null);
+      this.handlerException(error);
     });
   }
 
@@ -65,8 +63,7 @@ export class DynamicFormComponent implements OnInit {
         this.dataNotFound = this.datas.length === 0;
       }).catch(error => {
         this.dataNotFound = this.datas ? this.datas.length === 0 : true;
-        this.loading = false;
-        this.errorHandler.handle(error, null);
+        this.handlerException(error);
       });
     }
   }
@@ -81,10 +78,7 @@ export class DynamicFormComponent implements OnInit {
           this.datas.push(newItem);
         })
         this.page = response;
-      }).catch(error => {
-        this.loading = false;
-        this.errorHandler.handle(error, null);
-      })
+      }).catch((error) => this.handlerException(error));
     }
   }
 

@@ -15,6 +15,7 @@ import { ScheduleComponent } from 'app/schedule/schedule.component';
 import { SpecialityComponent } from 'app/speciality/speciality.component';
 import { DynamicFormComponent } from 'app/dynamic-form/dynamic-form.component';
 import { ReportComponent } from 'app/report/report.component';
+import { DocumentTemplateComponent } from 'app/document-template/document-template.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard', component: DashboardComponent },
@@ -25,6 +26,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'procedure', component: ProcedureComponent },
     { path: 'professional', component: ProfessionalComponent },
     { path: 'sector', component: SectorComponent },
+    { path: 'document-template', component: DocumentTemplateComponent },
     { path: 'dynamic-form', component: DynamicFormComponent },
     { path: 'speciality', component: SpecialityComponent },
     { path: 'health-operator', component: HealthOperatorComponent },

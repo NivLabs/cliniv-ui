@@ -46,8 +46,7 @@
                 <div class="col-md-4">
                     <mat-form-field>
                         <mat-label>
-                            {{accommodations && accommodations.length > 0 ? 'Selecione uma acomodação' : 'Não há
-                            acomodação habilitada'}}
+                            {{accommodations && accommodations.length > 0 ? 'Selecione uma acomodação' : 'Não há acomodação habilitada'}}
                         </mat-label>
                         <mat-select [formControl]="accommodationControl"
                             (selectionChange)="selectAccommodation($event.value)"
@@ -72,8 +71,8 @@
                             [ngModelOptions]="{standalone: true}" placeholder="Queixa principal"
                             [(ngModel)]="newVisit.entryCause"></textarea>
                     </mat-form-field>
-                    <span style="color:red" *ngIf="newVisit.entryCause?.length > 200">
-                        O motivo da entrada não podem passar de 200 caracteres! (Atual:
+                    <span style="color:red" *ngIf="newVisit.entryCause?.length > 5000">
+                        O motivo da entrada não pode passar de 5.000 caracteres! (Atual:
                         {{newVisit.entryCause?.length}})
                     </span>
                 </div>
@@ -131,7 +130,7 @@
                     </mat-form-field>
                 </div>
                 <button mat-raised-button type="submit" [disabled]="eventTypeControl.hasError('required') || accommodationControl.hasError('required') || 
-                                specializationControl.hasError('required') || levelControl.hasError('required') || newVisit.entryCause?.length > 200"
+                                specializationControl.hasError('required') || levelControl.hasError('required') || newVisit.entryCause?.length > 5000"
                     class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-success pull-right"
                     [mat-dialog-close]="newVisit">Iniciar Atendimento</button>
             </div>

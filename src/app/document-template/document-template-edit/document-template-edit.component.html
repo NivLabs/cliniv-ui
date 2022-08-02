@@ -1,0 +1,65 @@
+<div class="card">
+    <div class="card-header card-header-info">
+        <h4 class="card-title">Dados do modelo</h4>
+        <p class="card-category">Dados completos do modelo de documento</p>
+    </div>
+    <div class="card-body">
+        <mat-tab-group>
+            <mat-tab label="Informações do modelo de documento *">
+                <br />
+                <form #form="ngForm" autocomplete="off">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <mat-form-field>
+                                <input matInput placeholder="Código do modelo" name="id"
+                                    [(ngModel)]="dataToForm.id" #id disabled />
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <mat-form-field>
+                                <input matInput placeholder="Descrição do modelo" name="description"
+                                    [(ngModel)]="dataToForm.description" #description required />
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <mat-form-field>
+                                <textarea matInput
+                                    cdkTextareaAutosize="true" 
+                                    cdkAutosizeMinRows="30"
+                                    [(ngModel)]="dataToForm.text"
+                                    [ngModelOptions]="{standalone: true}"></textarea>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div style="overflow:hidden; width: 100%;">
+                            <div *ngIf="dataToForm.id" class="col-12 col-sm-12 col-md-4 col-lg-3 pull-left ml-0 mr-0">
+                                <button mat-raised-button type="button" class="btn btn-info col-12"
+                                    (click)="resetForm()" matTooltip="Adicionar modelo"><span
+                                        class="fa fa-plus"></span>
+                                    Novo modelo</button>
+                            </div>
+
+                            <div class="col-12 col-sm-12 col-md-4 col-lg-3 pull-right ml-0 mr-0">
+                                <button mat-raised-button type="button" class="btn btn-danger col-12"
+                                    (click)="onCancelClick()" matTooltip="Fechar formulário"><span
+                                        class="fa fa-close"></span> Fechar</button>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-4 col-lg-3 pull-right ml-0 mr-0">
+                                <button mat-raised-button type="submit" class="btn btn-success col-12"
+                                    matTooltip="Salvar informações do formulário" [disabled]="!form.valid"
+                                    (click)="save()"><span class="fa fa-check"></span>Salvar</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </form>
+            </mat-tab>
+        </mat-tab-group>
+    </div>
+</div>
+<app-loading [show]="loading"></app-loading>

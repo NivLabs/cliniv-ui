@@ -118,7 +118,6 @@ export class ProfessionalEditComponent implements OnInit {
           this.dataToForm.professionalIdentity = new ProfessionalIdentity();
         }
         this.loadspecializationsData();
-        console.log(this.dataToForm)
       }).catch(error => {
         this.loading = false;
         var cpf = this.dataToForm.document.value;
@@ -246,7 +245,6 @@ export class ProfessionalEditComponent implements OnInit {
 
   checkSpecializations() {
     this.dataToForm.specializations.forEach(spec => {
-      console.log("Checando especialização :: ", spec.id, " :: ", spec.name);
       this.specializationsData.forEach(specInput => {
         if (spec.id === specInput.id) {
           specInput.checked = true;
