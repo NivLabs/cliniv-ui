@@ -4,10 +4,10 @@
   </a>
 </h1>
 <h2 align="center">
-  NiV Labs - Gestão de Prontuário - UI
+  NiV Labs - CliNiv - UI
 </h2>
 
-O NiV Labs - Gestão de Prontuário - UI (NLGP-UI) é uma UI RestClient criada inicialmente como doação para hospitais que não possuem nenhuma solução de automação no processo de prontuário. O NLGP-UI é integrado com uma API baseado em Java, o [NLGP-API](https://github.com/niv-labs/gestao-de-prontuario).
+O NiV Labs - CliNiv - UI é uma UI RestClient criada inicialmente como doação para hospitais que não possuem nenhuma solução de automação no processo de prontuário. O NLGP-UI é integrado com uma API baseado em Java, o [NLGP-API](https://github.com/niv-labs/cliniv-api).
 
 <p align="center">
     <a href="https://github.com/niv-labs/">
@@ -53,7 +53,7 @@ Para contribuir com o projeto, existem alguns requisítos mínimos de configura�
 
 ### Passo 1
 
-- 👯 Clone este repositório na sua máquina local usando `https://github.com/niv-labs/gestao-de-prontuario-ui.git`
+- 👯 Clone este repositório na sua máquina local usando `https://github.com/niv-labs/cliniv-ui.git`
 
 ### Passo 2
 
@@ -74,7 +74,7 @@ Para contribuir com o projeto, existem alguns requisítos mínimos de configura�
 
 ### Passo 2
 
-- 👯 Clone este repositório na sua máquina local usando `https://github.com/niv-labs/gestao-de-prontuario-ui.git`
+- 👯 Clone este repositório na sua máquina local usando `https://github.com/niv-labs/cliniv-ui.git`
 
 ### Passo 3
 
