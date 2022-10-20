@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { Page, Pageable } from 'app/model/Util';
 import { AttendanceFilters } from '../model/Attendance';
 import { ErrorHandlerService } from 'app/core/error-handler.service';
@@ -21,8 +21,6 @@ export class AttendanceComponent implements OnInit {
 
   public displayedColumns: any;
   public dataSource: any;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-
 
   public loading: boolean;
   public dataNotFound: boolean;
@@ -41,6 +39,7 @@ export class AttendanceComponent implements OnInit {
   @ViewChild('sector', { static: true }) searchInput: ElementRef;
 
   constructor(private principalService: AttendanceService, private errorHandler: ErrorHandlerService, private sectorService: SectorService, private router: Router) {
+
     this.displayedColumns = ['id', 'patientId', 'fullName', 'entryDatetime', 'exitDatetime', 'cnsNumber', 'actions'];
     this.dataSource = new MatTableDataSource([]);
   }
@@ -124,7 +123,6 @@ export class AttendanceComponent implements OnInit {
         this.dataSource = new MatTableDataSource([]);
       } else {
         this.dataSource = new MatTableDataSource(this.page.content)
-        this.dataSource.paginator = this.paginator;
       }
       this.loading = false;
     });
@@ -133,23 +131,6 @@ export class AttendanceComponent implements OnInit {
   enterKeyPress(event: any) {
     if (event.key === "Enter") {
       this.applyFilter(null);
-    }
-  }
-
-  loadNextPage() {
-    if (this.page && !this.page.last) {
-      this.loading = true;
-      this.pageSettings.page = this.pageSettings.page + 1;
-      this.principalService.getPage(this.filters, this.pageSettings).then(response => {
-        this.loading = false;
-        response.content.forEach(newItem => {
-          this.datas.push(newItem);
-        })
-        this.page = response;
-      }).catch(error => {
-        this.loading = false;
-        this.errorHandler.handle(error, null);
-      })
     }
   }
 

@@ -136,7 +136,7 @@
                             </ng-container>
 
                             <ng-container class="col-md-1" matColumnDef="actions">
-                                <mat-header-cell class="col-md-1" *matHeaderCellDef> Abrir
+                                <mat-header-cell class="col-md-1" *matHeaderCellDef> Ações
                                 </mat-header-cell>
                                 <mat-cell class="col-md-1" *matCellDef="let element">
                                     <button mat-raised-button type="button" class="btn-info"
@@ -149,7 +149,7 @@
                             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
                             <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
                         </mat-table>
-                        <mat-paginator [pageSize]="pageSettings.size" [length]="page.totalElements"
+                        <mat-paginator [pageSize]="page.size" [length]="page.totalElements"
                             [pageIndex]="page.number" (page)="applyFilter($event)"
                             aria-label="Selecione a configuração de página">
                         </mat-paginator>

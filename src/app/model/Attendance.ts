@@ -30,6 +30,8 @@ export class AttendanceFilters {
     cpf: string;
     patientType: string;
     entryType: string;
+    direction: string = 'DESC';
+    orderBy: string = 'entryDateTime';
 }
 
 /**

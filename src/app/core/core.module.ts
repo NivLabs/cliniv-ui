@@ -6,6 +6,7 @@ import { ErrorHandlerService } from './error-handler.service';
 import { AddressService } from './address.service';
 import { UtilService } from './util.service';
 import { NotificationsComponent } from './notification/notifications.component';
+import { CustomPaginatorIntl } from './CustomPaginatorIntl';
 
 export function tokenGetter() {
   return localStorage.getItem('token');

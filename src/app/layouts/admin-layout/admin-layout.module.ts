@@ -17,7 +17,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
-import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatRadioModule } from '@angular/material/radio';
@@ -39,6 +39,7 @@ import { AttendanceComponent } from 'app/attendance/attendance.component';
 import { CameraDialogComponent } from 'app/component/camera/dialog/camera-dialog.component';
 import { DocumentViewerComponent } from 'app/component/document-viewer/document-viewer.component';
 import { CameraComponent } from 'app/core/camera/camera.component';
+import { CustomPaginatorIntl } from 'app/core/CustomPaginatorIntl';
 import { PersonDocumentDialogComponent } from 'app/core/person-document-dialog/person-document-dialog.component';
 import { DocumentTemplateEditComponent } from 'app/document-template/document-template-edit/document-template-edit.component';
 import { DocumentTemplateComponent } from 'app/document-template/document-template.component';
@@ -298,7 +299,8 @@ const maskConfig: Partial<IConfig> = {
     SettingsService,
     ProcedureService,
     SpecialityService,
-    ReportService
+    ReportService,
+    { provide: MatPaginatorIntl, useClass: CustomPaginatorIntl }
   ]
 })
 
