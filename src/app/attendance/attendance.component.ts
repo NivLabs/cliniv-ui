@@ -9,6 +9,8 @@ import { SectorFilters } from 'app/model/Sector';
 import { debounceTime, map, distinctUntilChanged, filter } from "rxjs/operators";
 import { fromEvent } from 'rxjs';
 import * as moment from 'moment';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-attendance',
@@ -16,6 +18,11 @@ import * as moment from 'moment';
   styleUrls: ['./attendance.component.css']
 })
 export class AttendanceComponent implements OnInit {
+
+  public displayedColumns: any;
+  public dataSource: any;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
 
   public loading: boolean;
   public dataNotFound: boolean;
@@ -33,7 +40,10 @@ export class AttendanceComponent implements OnInit {
   private readonly RELOAD_TOP_SCROLL_POSITION = 30;
   @ViewChild('sector', { static: true }) searchInput: ElementRef;
 
-  constructor(private principalService: AttendanceService, private errorHandler: ErrorHandlerService, private sectorService: SectorService, private router: Router) { }
+  constructor(private principalService: AttendanceService, private errorHandler: ErrorHandlerService, private sectorService: SectorService, private router: Router) {
+    this.displayedColumns = ['id', 'patientId', 'fullName', 'entryDatetime', 'exitDatetime', 'cnsNumber', 'actions'];
+    this.dataSource = new MatTableDataSource([]);
+  }
 
   ngOnInit() {
     this.loading = true;
@@ -47,18 +57,13 @@ export class AttendanceComponent implements OnInit {
     this.sectorspageSettings.size = 6;
 
     fromEvent(this.searchInput.nativeElement, 'keyup').pipe(
-
       map((event: any) => {
         return event.target.value;
       })
       , filter(res => res.length >= 0)
-
       , debounceTime(500)
-
       , distinctUntilChanged()
-
     ).subscribe((text: string) => {
-
       this.sectorsFilters.description = text;
 
       if (this.sectorsFilters.description) {
@@ -81,55 +86,53 @@ export class AttendanceComponent implements OnInit {
       }
 
     });
-
-    this.principalService.getPage(this.filters, this.pageSettings).then(response => {
-      this.loading = false;
-      this.datas = response.content;
-      this.page = response;
-      this.dataNotFound = this.datas.length === 0;
-    }).catch(error => {
-      this.dataNotFound = this.datas ? this.datas.length === 0 : true;
-      this.loading = false;
-      this.errorHandler.handle(error, null);
-    });
+    this.applyFilter(null);
   }
 
   selectPatientType(newValue) {
     this.filters.patientType = newValue;
-    this.applyFilter();
+    this.applyFilter(null);
   }
 
   selectAttendanceType(newValue) {
     this.filters.entryType = newValue;
-    this.applyFilter();
+    this.applyFilter(null);
   }
 
   selectSector(newValue) {
     this.filters.sectorId = newValue;
     this.sectors = [];
-    this.applyFilter();
+    this.applyFilter(null);
   }
 
-  applyFilter() {
-    if (this.filters) {
-      this.loading = true;
-      this.pageSettings = new Pageable();
-      this.principalService.getPage(this.filters, this.pageSettings).then(response => {
-        this.loading = false;
-        this.datas = response.content;
-        this.page = response;
-        this.dataNotFound = this.datas.length === 0;
-      }).catch(error => {
-        this.dataNotFound = this.datas ? this.datas.length === 0 : true;
-        this.loading = false;
-        this.errorHandler.handle(error, null);
-      });
+  applyFilter(event) {
+    this.loading = true;
+    if (event) {
+      if (event.previousPageIndex > event.pageIndex) {
+        this.pageSettings.page -= 1;
+      } else {
+        this.pageSettings.page += 1;
+      }
     }
+
+    this.principalService.getPage(this.filters, this.pageSettings).then(response => {
+      this.page = response;
+    }).catch(error => {
+      this.errorHandler.handle(error, null);
+    }).finally(() => {
+      if (!this.page.content) {
+        this.dataSource = new MatTableDataSource([]);
+      } else {
+        this.dataSource = new MatTableDataSource(this.page.content)
+        this.dataSource.paginator = this.paginator;
+      }
+      this.loading = false;
+    });
   }
 
   enterKeyPress(event: any) {
     if (event.key === "Enter") {
-      this.applyFilter();
+      this.applyFilter(null);
     }
   }
 
