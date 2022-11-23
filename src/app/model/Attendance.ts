@@ -1,11 +1,10 @@
-import { MedicationUsed } from "./Medicine";
-import { Evolution } from "./Evolution";
-import { Document } from "./Document";
 import { Accommodation } from "./Accommodation";
-import { EventType } from "./EventType";
+import { Document } from "./Document";
+import { Evolution } from "./Evolution";
+import { FileInfo } from "./File";
+import { MedicationUsed } from "./Medicine";
 import { ProcedureInfo } from "./Procedure";
 import { Professional } from "./Professional";
-import { FileInfo } from "./File";
 
 /**
  * Informações do atendimento
@@ -28,6 +27,7 @@ export class AttendanceFilters {
     fullName: string;
     socialName: string;
     cpf: string;
+    activeType: string = 'ACTIVE';
     patientType: string;
     entryType: string;
     direction: string = 'DESC';
