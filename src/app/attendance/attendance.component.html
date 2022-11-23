@@ -9,7 +9,7 @@
                     <div class="card-body">
                         <form #form="ngForm" autocomplete="off">
                             <div class="row">
-                                <div class="col-md-2">
+                                <div class="col-md-1">
                                     <mat-form-field>
                                         <mat-label>Tipo Paciente</mat-label>
                                         <mat-select matNativeControl name="patientType"
@@ -35,9 +35,7 @@
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-2">
-
                                     <mat-form-field>
-
                                         <input type="text" placeholder="Setor" matInput [matAutocomplete]="auto"
                                             #sector>
 
@@ -58,6 +56,18 @@
 
                                     </mat-form-field>
 
+                                </div>
+                                <div class="col-md-1">
+                                    <mat-form-field>
+                                        <mat-label>Situação dos atendimentos</mat-label>
+                                        <mat-select matNativeControl name="activeType"
+                                            (selectionChange)="selectActiveType($event.value)"
+                                            [(ngModel)]="filters.activeType" #activeType>
+                                            <mat-option value="ALL">Todos</mat-option>
+                                            <mat-option value="ACTIVE">Ativos</mat-option>
+                                            <mat-option value="NOT_ACTIVE">Encerrados</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
                                 </div>
                                 <div class="col-md-2">
                                     <mat-form-field>
@@ -102,36 +112,53 @@
                         <mat-table [dataSource]="dataSource">
                             <ng-container class="col-md-1" matColumnDef="id">
                                 <mat-header-cell class="col-md-1" *matHeaderCellDef> Cod. Atend. </mat-header-cell>
-                                <mat-cell class="col-md-1" *matCellDef="let element"> {{element.id}} </mat-cell>
+                                <mat-cell class="col-md-1" *matCellDef="let element">
+                                    <span class="mobile-label">Cod. Atend.:</span>
+                                    {{element.id}}
+                                </mat-cell>
                             </ng-container>
 
                             <ng-container class="col-md-1" matColumnDef="patientId">
                                 <mat-header-cell class="col-md-1" *matHeaderCellDef> Matrícula </mat-header-cell>
-                                <mat-cell class="col-md-1" *matCellDef="let element"> {{element.patientId}} </mat-cell>
+                                <mat-cell class="col-md-1" *matCellDef="let element">
+                                    <span class="mobile-label">Matrícula:</span>
+                                    {{element.patientId}}
+                                </mat-cell>
                             </ng-container>
 
                             <ng-container class="col-md-4" matColumnDef="fullName">
                                 <mat-header-cell class="col-md-4" *matHeaderCellDef> Paciente </mat-header-cell>
-                                <mat-cell class="col-md-4" *matCellDef="let element"> {{element.fullName}}
+                                <mat-cell class="col-md-4" *matCellDef="let element">
+                                    <span class="mobile-label">Paciente:</span>
+                                    {{element.fullName}}
                                 </mat-cell>
                             </ng-container>
 
                             <ng-container class="col-md-2" matColumnDef="entryDatetime">
                                 <mat-header-cell class="col-md-2" *matHeaderCellDef> Entrada </mat-header-cell>
-                                <mat-cell class="col-md-2" *matCellDef="let element"> {{element.entryDatetime |
-                                    date:"dd/MM/yyyy - HH:mm"}} </mat-cell>
+                                <mat-cell class="col-md-2" *matCellDef="let element">
+                                    <span class="mobile-label">Entrada:</span>
+                                    {{element.entryDatetime |
+                                    date:"dd/MM/yyyy - HH:mm"}}
+                                </mat-cell>
                             </ng-container>
 
 
                             <ng-container class="col-md-2" matColumnDef="exitDatetime">
                                 <mat-header-cell class="col-md-2" *matHeaderCellDef> Saĩda </mat-header-cell>
-                                <mat-cell class="col-md-2" *matCellDef="let element"> {{element.exitDatetime |
-                                    date:"dd/MM/yyyy - HH:mm"}} </mat-cell>
+                                <mat-cell class="col-md-2" *matCellDef="let element">
+                                    <span class="mobile-label">Saída:</span>
+                                    {{element.exitDatetime |
+                                    date:"dd/MM/yyyy - HH:mm"}}
+                                    {{!element.exitDatetime ? '--':''}}
+                                </mat-cell>
                             </ng-container>
 
-                            <ng-container class="col-md-1" matColumnDef="cnsNumber">
-                                <mat-header-cell class="col-md-1" *matHeaderCellDef> CNS </mat-header-cell>
-                                <mat-cell class="col-md-1" *matCellDef="let element"> {{element.cnsNumber}}
+                            <ng-container class="col-md-1" matColumnDef="attendanceTime">
+                                <mat-header-cell class="col-md-1" *matHeaderCellDef>Tempo </mat-header-cell>
+                                <mat-cell class="col-md-1" *matCellDef="let element">
+                                    <span class="mobile-label">Tempo:</span>
+                                    {{ getTime(element.entryDatetime, element.exitDatetime) }}
                                 </mat-cell>
                             </ng-container>
 
@@ -149,9 +176,8 @@
                             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
                             <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
                         </mat-table>
-                        <mat-paginator [pageSize]="page.size" [length]="page.totalElements"
-                            [pageIndex]="page.number" (page)="applyFilter($event)"
-                            aria-label="Selecione a configuração de página">
+                        <mat-paginator [pageSize]="page.size" [length]="page.totalElements" [pageIndex]="page.number"
+                            (page)="applyFilter($event)" aria-label="Selecione a configuração de página">
                         </mat-paginator>
                     </div>
                 </div>

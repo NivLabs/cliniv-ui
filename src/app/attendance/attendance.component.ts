@@ -1,16 +1,15 @@
-import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
-import { Page, Pageable } from 'app/model/Util';
-import { AttendanceFilters } from '../model/Attendance';
-import { ErrorHandlerService } from 'app/core/error-handler.service';
-import { SectorService } from 'app/sector/sector.service';
-import { AttendanceService } from 'app/attendance/attendance.service';
-import { Router } from '@angular/router';
-import { SectorFilters } from 'app/model/Sector';
-import { debounceTime, map, distinctUntilChanged, filter } from "rxjs/operators";
-import { fromEvent } from 'rxjs';
-import * as moment from 'moment';
-import { MatPaginator } from '@angular/material/paginator';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
+import { AttendanceService } from 'app/attendance/attendance.service';
+import { ErrorHandlerService } from 'app/core/error-handler.service';
+import { SectorFilters } from 'app/model/Sector';
+import { Page, Pageable } from 'app/model/Util';
+import { SectorService } from 'app/sector/sector.service';
+import * as moment from 'moment';
+import { fromEvent } from 'rxjs';
+import { debounceTime, distinctUntilChanged, filter, map } from "rxjs/operators";
+import { AttendanceFilters } from '../model/Attendance';
 
 @Component({
   selector: 'app-attendance',
@@ -40,7 +39,7 @@ export class AttendanceComponent implements OnInit {
 
   constructor(private principalService: AttendanceService, private errorHandler: ErrorHandlerService, private sectorService: SectorService, private router: Router) {
 
-    this.displayedColumns = ['id', 'patientId', 'fullName', 'entryDatetime', 'exitDatetime', 'cnsNumber', 'actions'];
+    this.displayedColumns = ['id', 'patientId', 'fullName', 'entryDatetime', 'exitDatetime', 'attendanceTime', 'actions'];
     this.dataSource = new MatTableDataSource([]);
   }
 
@@ -88,13 +87,18 @@ export class AttendanceComponent implements OnInit {
     this.applyFilter(null);
   }
 
-  selectPatientType(newValue) {
+  selectPatientType(newValue: string) {
     this.filters.patientType = newValue;
     this.applyFilter(null);
   }
 
-  selectAttendanceType(newValue) {
+  selectAttendanceType(newValue: string) {
     this.filters.entryType = newValue;
+    this.applyFilter(null);
+  }
+
+  selectActiveType(newValue: string) {
+    this.filters.activeType = newValue;
     this.applyFilter(null);
   }
 
@@ -166,15 +170,15 @@ export class AttendanceComponent implements OnInit {
     }
   }
 
-  getTime(entryDateTime) {
+  getTime(entryDateTime, exitDateTime) {
 
-    var initDate = moment(entryDateTime, "YYYY-MM-DD'T'HH:mm:ss")
-    var currentDate = moment();
-    var ms = currentDate.diff(initDate);
-    var d = moment.duration(ms);
-    var s = Math.floor(d.asHours()) + moment.utc(ms).format(":mm");
-    var hh = parseInt(s.split(":")[0]);
-    var mm = new Number(s.split(":")[1]);
+    const initDate = moment(entryDateTime, "YYYY-MM-DD'T'HH:mm:ss")
+    const currentDate = exitDateTime ? moment(exitDateTime, "YYYY-MM-DD'T'HH:mm:ss") : moment();
+    const ms = currentDate.diff(initDate);
+    const d = moment.duration(ms);
+    const s = Math.floor(d.asHours()) + moment.utc(ms).format(":mm");
+    const hh = parseInt(s.split(":")[0]);
+    const mm = new Number(s.split(":")[1]);
     return (hh ? hh + "h(s) e " : "") + mm + "min(s)";
   }
 }

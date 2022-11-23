@@ -52,7 +52,9 @@ li {
 
 ul {
     padding: 0;
-}.patient-name {
+}
+
+.patient-name {
     color: #00BCD4;
     font-weight: 400;
     font-size: 14px;
@@ -106,8 +108,9 @@ li {
 
 ul {
     padding: 0;
-}    
-.timer {    
+}
+
+.timer {
     position: absolute;
     top: -30px;
     right: -10px;
@@ -117,4 +120,32 @@ ul {
     padding: 10px;
     border-radius: 5px;
     font-weight: 400;
+}
+
+.mobile-label {
+    display: none;
+}
+
+@media(max-width: 600px) {
+    .mobile-label {
+        width: 80px;
+        display: inline-block;
+        font-weight: bold;
+    }
+
+    .mat-header-row {
+        display: none;
+    }
+
+    .mat-row {
+        flex-direction: column;
+        align-items: start;
+        padding: 8px 24px;
+    }
+
+    mat-cell:first-of-type,
+    mat-header-cell:first-of-type,
+    mat-footer-cell:first-of-type {
+        padding-left: 15px;
+    }
 }
