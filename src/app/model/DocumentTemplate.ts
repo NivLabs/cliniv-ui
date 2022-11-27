@@ -10,5 +10,6 @@ export class DocumentTemplateInfo {
 }
 
 export class DocumentTemplateFilter {
+    orderBy :string = 'description';
     description: string;
 }

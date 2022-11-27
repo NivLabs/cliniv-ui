@@ -48,7 +48,8 @@
                 <div class="col-md-2">
                     <mat-form-field>
                         <mat-label>
-                            {{accommodations && accommodations.length > 0 ? 'Selecione uma acomodação' : 'Não há acomodação habilitada'}}
+                            {{accommodations && accommodations.length > 0 ? 'Selecione uma acomodação' : 'Não há
+                            acomodação habilitada'}}
                         </mat-label>
                         <mat-select [formControl]="accommodationControl"
                             (selectionChange)="selectAccommodation($event.value)"
@@ -68,7 +69,8 @@
                 <div class="col-md-4">
                     <mat-form-field>
                         <mat-label>
-                            {{documentTemplates && documentTemplates.length > 0 ? 'Selecione um modelo de documento' : 'Não há modelo cadastrado'}}
+                            {{documentTemplates && documentTemplates.length > 0 ? 'Selecione um modelo de documento' :
+                            'Não há modelo cadastrado'}}
                         </mat-label>
                         <mat-select [formControl]="documentTemplateControl"
                             (selectionChange)="selectDocumentTemplate($event.value)"
@@ -79,7 +81,8 @@
                             <mat-option *ngIf="!documentTemplates || documentTemplates.length === 0">
                                 Não há modelo de documento cadastrado
                             </mat-option>
-                            <mat-option *ngFor="let documentTemplate of documentTemplates" [value]="documentTemplate.id">
+                            <mat-option *ngFor="let documentTemplate of documentTemplates"
+                                [value]="documentTemplate.id">
                                 {{documentTemplate.description}}
                             </mat-option>
                         </mat-select>
@@ -89,10 +92,8 @@
             <div *ngIf="dataToForm.observations || selectedDocumentTemplate" class="row">
                 <div class="col-12">
                     <mat-form-field>
-                        <textarea matInput [(ngModel)]="dataToForm.observations"
-                            cdkTextareaAutosize="true" 
-                            cdkAutosizeMinRows="30"
-                            [ngModelOptions]="{standalone: true}"></textarea>
+                        <textarea matInput [(ngModel)]="dataToForm.observations" cdkTextareaAutosize="true"
+                            cdkAutosizeMinRows="30" [ngModelOptions]="{standalone: true}"></textarea>
                     </mat-form-field>
                 </div>
             </div>
@@ -121,14 +122,15 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-6">
+                <div [ngClass]="dataToForm.documents && dataToForm.documents.length > 0 ? 'col-md-6' : 'col-md-12'">
                     <input hidden #inputFile id="inputFile" name="inputFile" (change)="addFile($event)" type="file"
                         accept=".pdf">
                     <label for="inputFile" class="col-md-12 btn btn-info"><i class="fa fa-plus"></i>
                         Anexar arquivo</label>
                 </div>
                 <div class="col-md-6">
-                    <button class="col-md-12 btn btn-warning" (click)="cleanAttacheds()"><i class="fa fa-eraser"></i>
+                    <button *ngIf="dataToForm.documents && dataToForm.documents.length > 0"
+                        class="col-md-12 btn btn-warning" (click)="cleanAttacheds()"><i class="fa fa-eraser"></i>
                         Apagar anexos</button>
                 </div>
             </div>

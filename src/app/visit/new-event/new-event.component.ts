@@ -54,15 +54,16 @@ export class NewEventComponent implements OnInit {
     public dialogRef: MatDialogRef<NewEventComponent>,
     public attendanceService: AttendanceService,
     public sectorService: SectorService,
-    public documentTemplateSerice: DocumentTemplateService,
+    public documentTemplateService: DocumentTemplateService,
     public notification: NotificationsComponent,
     public utilService: UtilService,
     public visitService: MedicalRecordService,
     public medicalRecService: MedicalRecordService,
     public procedureService: ProcedureService,
     private errorHandler: ErrorHandlerService,
-    @Inject(MAT_DIALOG_DATA) public data: any) { 
-    }
+    @Inject(MAT_DIALOG_DATA) public data: any) {
+    this.pageSettings.size = 100;
+  }
 
   ngOnInit(): void {
     const data = this.dialogRef.componentInstance.data;
@@ -106,13 +107,13 @@ export class NewEventComponent implements OnInit {
    * Busca dados de templates de documentos
    */
   loadDocumentTemplates() {
-    if(this.documentTemplates?.length == 0) {
+    if (this.documentTemplates?.length == 0) {
       this.loading = true;
-      this.documentTemplateSerice.getPage(this.documentTemplateFilters, this.pageSettings).then(response => {
+      this.documentTemplateService.getPage(this.documentTemplateFilters, this.pageSettings).then(response => {
         this.documentTemplates = response.content;
       })
-      .catch(e => this.errorHandler.handle(e, this.dialogRef))
-      .then(() => this.loading = false);
+        .catch(e => this.errorHandler.handle(e, this.dialogRef))
+        .then(() => this.loading = false);
     }
   }
 
@@ -153,14 +154,14 @@ export class NewEventComponent implements OnInit {
    * @param id Seleciona um modelo de documento
    */
   selectDocumentTemplate(id: number) {
-    if(id) {
+    if (id) {
       this.loading = true;
-      this.documentTemplateSerice.findById(id).then(response => {
+      this.documentTemplateService.findById(id).then(response => {
         this.selectedDocumentTemplate = true;
         this.dataToForm.observations = response.text;
       })
-      .catch(e => this.errorHandler.handle(e, this.dialogRef))
-      .then(() => this.loading = false);
+        .catch(e => this.errorHandler.handle(e, this.dialogRef))
+        .then(() => this.loading = false);
     } else {
       this.selectedDocumentTemplate = false;
       this.dataToForm.observations = null;
@@ -246,10 +247,10 @@ export class NewEventComponent implements OnInit {
     this.dataToForm.documents = [];
   }
 
-  onReady( editor ) {
+  onReady(editor) {
     editor.ui.getEditableElement().parentElement.insertBefore(
-        editor.ui.view.toolbar.element,
-        editor.ui.getEditableElement()
+      editor.ui.view.toolbar.element,
+      editor.ui.getEditableElement()
     );
   }
 
