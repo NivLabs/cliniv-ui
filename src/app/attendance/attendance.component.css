@@ -121,31 +121,3 @@ ul {
     border-radius: 5px;
     font-weight: 400;
 }
-
-.mobile-label {
-    display: none;
-}
-
-@media(max-width: 600px) {
-    .mobile-label {
-        width: 80px;
-        display: inline-block;
-        font-weight: bold;
-    }
-
-    .mat-header-row {
-        display: none;
-    }
-
-    .mat-row {
-        flex-direction: column;
-        align-items: start;
-        padding: 8px 24px;
-    }
-
-    mat-cell:first-of-type,
-    mat-header-cell:first-of-type,
-    mat-footer-cell:first-of-type {
-        padding-left: 15px;
-    }
-}

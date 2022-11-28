@@ -18,9 +18,6 @@ import { AttendanceFilters } from '../model/Attendance';
 })
 export class AttendanceComponent implements OnInit {
 
-  public displayedColumns: any;
-  public dataSource: any;
-
   public loading: boolean;
   public dataNotFound: boolean;
   datas: Array<any>;
@@ -37,11 +34,7 @@ export class AttendanceComponent implements OnInit {
   private readonly RELOAD_TOP_SCROLL_POSITION = 30;
   @ViewChild('sector', { static: true }) searchInput: ElementRef;
 
-  constructor(private principalService: AttendanceService, private errorHandler: ErrorHandlerService, private sectorService: SectorService, private router: Router) {
-
-    this.displayedColumns = ['id', 'patientId', 'fullName', 'entryDatetime', 'exitDatetime', 'attendanceTime', 'actions'];
-    this.dataSource = new MatTableDataSource([]);
-  }
+  constructor(private principalService: AttendanceService, private errorHandler: ErrorHandlerService, private sectorService: SectorService, private router: Router) { }
 
   ngOnInit() {
     this.loading = true;
@@ -52,7 +45,7 @@ export class AttendanceComponent implements OnInit {
     this.sectorPage = new Page();
     this.sectorsFilters = new SectorFilters();
     this.sectorspageSettings = new Pageable();
-    this.sectorspageSettings.size = 6;
+    this.sectorspageSettings.size = 100;
 
     fromEvent(this.searchInput.nativeElement, 'keyup').pipe(
       map((event: any) => {
@@ -84,57 +77,46 @@ export class AttendanceComponent implements OnInit {
       }
 
     });
-    this.applyFilter(null);
+    this.applyFilter();
   }
 
   selectPatientType(newValue: string) {
     this.filters.patientType = newValue;
-    this.applyFilter(null);
+    this.applyFilter();
   }
 
   selectAttendanceType(newValue: string) {
     this.filters.entryType = newValue;
-    this.applyFilter(null);
+    this.applyFilter();
   }
 
   selectActiveType(newValue: string) {
     this.filters.activeType = newValue;
-    this.applyFilter(null);
+    this.applyFilter();
   }
 
   selectSector(newValue) {
     this.filters.sectorId = newValue;
     this.sectors = [];
-    this.applyFilter(null);
+    this.applyFilter();
   }
 
-  applyFilter(event) {
+  applyFilter() {
     this.loading = true;
-    if (event) {
-      if (event.previousPageIndex > event.pageIndex) {
-        this.pageSettings.page -= 1;
-      } else {
-        this.pageSettings.page += 1;
-      }
-    }
-
     this.principalService.getPage(this.filters, this.pageSettings).then(response => {
       this.page = response;
+      this.datas = response.content;
     }).catch(error => {
       this.errorHandler.handle(error, null);
     }).finally(() => {
-      if (!this.page.content) {
-        this.dataSource = new MatTableDataSource([]);
-      } else {
-        this.dataSource = new MatTableDataSource(this.page.content)
-      }
+      this.dataNotFound = !this.page.content
       this.loading = false;
     });
   }
 
   enterKeyPress(event: any) {
     if (event.key === "Enter") {
-      this.applyFilter(null);
+      this.applyFilter();
     }
   }
 
@@ -167,6 +149,14 @@ export class AttendanceComponent implements OnInit {
   loadAllOnScroll(event) {
     if (event.target.scrollTop > this.RELOAD_TOP_SCROLL_POSITION) {
       this.loadAutoCompleteNextPage();
+    }
+  }
+
+  loadNextPage() {
+    if (this.page && !this.page.last) {
+      this.loading = true;
+      this.pageSettings.page = this.pageSettings.page + 1;
+      this.applyFilter();
     }
   }
 
