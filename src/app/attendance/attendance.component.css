@@ -21,17 +21,17 @@
 
 .margin-color-active {
     border-left: 10px solid #00BCD4;
-    height: 200px;
+    height: 260px;
 }
 
 .margin-color-danger {
     border-left: 10px solid #F44336 !important;
-    height: 200px;
+    height: 260px;
 }
 
 .link-card {
     cursor: pointer;
-    height: 200px;
+    height: 260px;
 }
 
 .link-card:hover {
@@ -77,17 +77,17 @@ ul {
 
 .margin-color-active {
     border-left: 10px solid #00BCD4;
-    height: 200px;
+    height: 260px;
 }
 
 .margin-color-danger {
     border-left: 10px solid #F44336 !important;
-    height: 200px;
+    height: 260px;
 }
 
 .link-card {
     cursor: pointer;
-    height: 200px;
+    height: 260px;
 }
 
 .link-card:hover {
