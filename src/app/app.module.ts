@@ -12,6 +12,7 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
 import { AdminLayoutModule } from './layouts/admin-layout/admin-layout.module';
 import { SecurityRoutingModule } from './security/security-routing.module';
 import { SecurityModule } from './security/security.module';
+import { ChangeSectorAndResponsibleComponent } from './visit/change-sector-and-responsible/change-sector-and-responsible.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { SecurityModule } from './security/security.module';
    ],
    declarations: [
       AppComponent,
-      AdminLayoutComponent
+      AdminLayoutComponent,
+      ChangeSectorAndResponsibleComponent
    ],
    providers: [{ provide: MAT_DATE_LOCALE, useValue: 'pt-BR' }],
    bootstrap: [

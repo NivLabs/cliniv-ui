@@ -58,6 +58,12 @@
                                         <mat-icon>create</mat-icon>
                                         <span>Criar Evento</span>
                                     </button>
+                                    <button mat-menu-item matTooltip="Altera local e/ou profissional do atendimento"
+                                        *ngIf="visit.id && visit.patientId && !visit.exitDateTime"
+                                        (click)="openChangeSectorAndResponsibleDialog()">
+                                        <mat-icon>create</mat-icon>
+                                        <span>Movimentar atend.</span>
+                                    </button>
                                     <button mat-menu-item matTooltip="Adiciona alergia"
                                         *ngIf="visit.id && visit.patientId && !visit.exitDateTime"
                                         (click)="openAllergyDialog(visit.patientId)">

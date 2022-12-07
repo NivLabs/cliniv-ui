@@ -49,6 +49,7 @@ export class MedicalRecord {
     socialName: string;
     principalNumber: string;
     lastAccommodation: Accommodation;
+    lastProfessional: Professional;
     bornDate: Date;
     gender: string;
     allergies: Array<string>;
