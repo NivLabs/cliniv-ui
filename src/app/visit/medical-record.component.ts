@@ -22,6 +22,8 @@ import { NewEventComponent } from './new-event/new-event.component';
 import { SelectFormComponent } from './dynamicForm/select-form/select-form.component';
 import * as moment from 'moment';
 import { PrescriptionComponent } from './prescription/prescription.component';
+import { ChangeSectorAndResponsibleComponent } from './change-sector-and-responsible/change-sector-and-responsible.component';
+import { Professional } from 'app/model/Professional';
 
 @Component({
   selector: 'app-medical-record',
@@ -58,6 +60,7 @@ export class MedicalRecordComponent implements OnInit {
       principalNumber: null,
       cnsNumber: null,
       lastAccommodation: new Accommodation(),
+      lastProfessional: new Professional(),
       bornDate: null,
       entryDateTime: null,
       exitDateTime: null,
@@ -391,4 +394,28 @@ export class MedicalRecordComponent implements OnInit {
 
   }
 
+  /**
+   * Abre componente de alteração de setor e profissional responsável
+   * @param attendanceId Identificador único do atendimento
+   */
+  openChangeSectorAndResponsibleDialog() {
+    const dialogNewEvolution = this.dialog.open(ChangeSectorAndResponsibleComponent, {
+      width: '100%',
+      data: { attendanceId: this.visit.id, lastAccommodation: this.visit.lastAccommodation, lascProfessional: this.visit.lastProfessional }
+    });
+
+    dialogNewEvolution.afterClosed().subscribe(result => {
+      if (result) {
+        this.loading = true;
+
+        this.visitService.createAttendanceEvent(result).then(resp => {
+          this.notification.showSucess("Movimentação realizada com sucesso!");
+        }).catch(e => this.errorHandler.handle(e, null))
+          .then(() => {
+            this.loading = false;
+            this.searchVisitById();
+          });
+      }
+    });
+  }
 }
