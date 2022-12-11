@@ -39,30 +39,27 @@ export class DocumentViewerComponent implements OnInit {
     this.loading = true;
     var selectedDigitalDocumentId = this.dialogDocumentViewer.componentInstance.data['selectedDigitalDocumentId'];
 
-    if(selectedDigitalDocumentId != 0){
-
+    if (selectedDigitalDocumentId != 0) {
       this.utilService.getDigitalDocumentById(selectedDigitalDocumentId).then(resp => {
-        this.document = resp;
-        this.document.base64 = 'data:application/pdf;base64,' + this.document.base64;
         setTimeout(() => {
           this.loading = false;
-        }, 2000);
+        }, 3000);
+        this.document = resp;
+        this.document.base64 = 'data:application/pdf;base64,' + this.document.base64;
       }).catch(error => {
-        this.loading = false;
         this.document = new DigitalDocument();
         this.errorHandler.handle(error, this.dialogDocumentViewer);
-      });
+      }).finally(() =>
+        this.loading = false);
 
     }
-    else{
-
+    else {
       var documentReport = this.dialogDocumentViewer.componentInstance.data['document'];
-
-      this.document = documentReport;
-      this.document.base64 = 'data:application/pdf;base64,' + this.document.base64;
       setTimeout(() => {
         this.loading = false;
-      }, 2000);
+      }, 3000);
+      this.document = documentReport;
+      this.document.base64 = 'data:application/pdf;base64,' + this.document.base64;
 
     }
 
