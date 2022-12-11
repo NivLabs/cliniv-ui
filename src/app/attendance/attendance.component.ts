@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { AttendanceService } from 'app/attendance/attendance.service';
 import { ErrorHandlerService } from 'app/core/error-handler.service';
@@ -10,6 +10,7 @@ import * as moment from 'moment';
 import { fromEvent } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, map } from "rxjs/operators";
 import { AttendanceFilters } from '../model/Attendance';
+import { ReportGeneratorComponent } from './report-generator/report-generator.component';
 
 @Component({
   selector: 'app-attendance',
@@ -34,7 +35,12 @@ export class AttendanceComponent implements OnInit {
   private readonly RELOAD_TOP_SCROLL_POSITION = 30;
   @ViewChild('sector', { static: true }) searchInput: ElementRef;
 
-  constructor(private principalService: AttendanceService, private errorHandler: ErrorHandlerService, private sectorService: SectorService, private router: Router) { }
+  constructor(
+    private principalService: AttendanceService,
+    private errorHandler: ErrorHandlerService,
+    private sectorService: SectorService,
+    private router: Router,
+    public dialog: MatDialog) { }
 
   ngOnInit() {
     this.loading = true;
@@ -171,4 +177,11 @@ export class AttendanceComponent implements OnInit {
     const mm = new Number(s.split(":")[1]);
     return (hh ? hh + "h(s) e " : "") + mm + "min(s)";
   }
+
+  openReportGenerator() {
+    this.dialog.open(ReportGeneratorComponent, {
+      width: '50%'
+    });
+  }
+
 }

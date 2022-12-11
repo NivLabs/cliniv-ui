@@ -3,6 +3,7 @@ import { AppHttp } from '../security/app-http';
 import { environment } from '../../environments/environment';
 import { AttendanceInfo, AttendanceFilters, NewAttendance } from 'app/model/Attendance';
 import { Page, Pageable } from 'app/model/Util';
+import { DigitalDocument } from 'app/model/DigitalDocument';
 
 @Injectable()
 export class AttendanceService {
@@ -39,6 +40,12 @@ export class AttendanceService {
 
     }
     return this.http.get<Page>(`${this.baseUrl}?${queryString}`).toPromise();
+  }
+
+  generateReport(params: any): Promise<DigitalDocument> {
+    if (params) {
+      return this.http.post<DigitalDocument>(`${this.baseUrl}/report`, params).toPromise();
+    }
   }
 
 }
