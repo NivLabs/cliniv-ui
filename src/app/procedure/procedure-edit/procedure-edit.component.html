@@ -28,7 +28,7 @@
                         <div class="col-md-2">
                             <mat-form-field>
                                 <input matInput placeholder="Valor padrão" name="baseValue"
-                                    [(ngModel)]="dataToForm.baseValue" #baseValue />
+                                    [(ngModel)]="dataToForm.baseValue" (blur)="formatCurrency($event)" #baseValue />
                             </mat-form-field>
                         </div>
                         <div class="col-md-6">

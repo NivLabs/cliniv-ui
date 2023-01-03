@@ -1,3 +1,4 @@
+import { CurrencyPipe } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ErrorHandlerService } from 'app/core/error-handler.service';
@@ -70,6 +71,9 @@ export class ProcedureEditComponent implements OnInit {
     this.loading = false;
     this.errorHandler.handle(error, this.dialogRef);
   }
-
+  formatCurrency(event) {
+    var uy = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BLR' }).format(event.target.value);
+    this.dataToForm.baseValue = parseFloat(parseFloat(uy).toFixed(2));
+  }
 
 }
