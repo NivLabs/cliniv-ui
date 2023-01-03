@@ -1,13 +1,13 @@
 <h1 align="center">
   <a href="http://app.nivlabs.com.br">
-    <img alt="NLGP Logo" src="./readme/logo.png" width="350px" />
+    <img alt="CLINIV Logo" src="./readme/logo.png" width="350px" />
   </a>
 </h1>
 <h2 align="center">
   CliNiv - UI
 </h2>
 
-CliNiv - UI é uma UI RestClient criada inicialmente como doação para hospitais que não possuem nenhuma solução de automação no processo de prontuário. O NLGP-UI é integrado com uma API baseado em Java, o [NLGP-API](https://github.com/niv-labs/cliniv-api).
+CliNiv - UI é uma UI RestClient criada inicialmente como doação para hospitais que não possuem nenhuma solução de automação no processo de prontuário. O CLINIV-UI é integrado com uma API baseado em Java, o [CLINIV-API](https://github.com/niv-labs/cliniv-api).
 
 <p align="center">
     <a href="https://github.com/niv-labs/">
@@ -16,7 +16,7 @@ CliNiv - UI é uma UI RestClient criada inicialmente como doação para hospitai
     <img alt="License" src="https://img.shields.io/badge/license-MIT-%2304D361" />
 </p>
 
-Atualmente encontra-se na versão 1.0.0 em desenvolvimento - [NLGP-UI](http://app.nivlabs.com.br)
+Atualmente encontra-se na versão 1.0.0 em desenvolvimento - [CLINIV-UI](http://app.nivlabs.com.br)
 
 ---
 
