@@ -4,10 +4,10 @@
   </a>
 </h1>
 <h2 align="center">
-  NiV Labs - CliNiv - UI
+  CliNiv - UI
 </h2>
 
-O NiV Labs - CliNiv - UI é uma UI RestClient criada inicialmente como doação para hospitais que não possuem nenhuma solução de automação no processo de prontuário. O NLGP-UI é integrado com uma API baseado em Java, o [NLGP-API](https://github.com/niv-labs/cliniv-api).
+CliNiv - UI é uma UI RestClient criada inicialmente como doação para hospitais que não possuem nenhuma solução de automação no processo de prontuário. O NLGP-UI é integrado com uma API baseado em Java, o [NLGP-API](https://github.com/niv-labs/cliniv-api).
 
 <p align="center">
     <a href="https://github.com/niv-labs/">
@@ -100,8 +100,9 @@ Depois que seu Pull Request é aceito e o merge é realizado, você pode deletar
 
 > Você pode me encontrar por aqui...
 
-- NiV Labs :: [NiV Labs](http://www.nivlabs.com.br)
-- Atendimento :: [atendimento@nivlabs.com.br](atendimento@nivlabs.com.br)
+- NiV Labs      :: [NiV Labs](http://www.nivlabs.com.br)
+- Atendimento   :: [atendimento@nivlabs.com.br](atendimento@nivlabs.com.br)
+- Vinícios (eu) :: [viniciosrodrigues@nivlabs.com.br](viniciosrodrigues@nivlabs.com.br)
 
 ---
 
