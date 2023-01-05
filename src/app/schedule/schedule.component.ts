@@ -1,12 +1,12 @@
-import { ChangeDetectorRef, Component, Inject, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { MatCalendar, MatCalendarCellCssClasses } from '@angular/material/datepicker';
 import { MatDialog } from '@angular/material/dialog';
 import { ErrorHandlerService } from 'app/core/error-handler.service';
 import { NotificationsComponent } from 'app/core/notification/notifications.component';
 import { Pageable } from 'app/model/Util';
 import { ProfessionalService } from 'app/professional/professional.service';
 import { SettingsService } from 'app/settings/settings.service';
-import { INITIAL_CONFIG } from 'ngx-mask';
 import { Schedule, ScheduleFilter, ScheduleInfo, ScheduleParameters } from '../model/Schedule';
 import { ScheduleEditComponent } from './schedule-edit/schedule-edit.component';
 import { ScheduleService } from './schedule.service';
@@ -14,9 +14,11 @@ import { ScheduleService } from './schedule.service';
 @Component({
   selector: 'app-schedule',
   templateUrl: './schedule.component.html',
-  styleUrls: ['./schedule.component.css']
+  styleUrls: ['./schedule.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class ScheduleComponent implements OnInit {
+  @ViewChild(MatCalendar) calendar: MatCalendar<Date>;
 
   /**Hora início */
   public static INIT_SCHEDULE_PARAM_ID: number = 6;
@@ -32,11 +34,14 @@ export class ScheduleComponent implements OnInit {
   confirmationSelectControl = new FormControl();
   statusSelectControl = new FormControl();
   availableScheduleTimes: ScheduleInterval[] = [];
+
   public schedules: Schedule[] = [];
   public responsibles: any;
   public loading = false;
   public selectedDate: any;
   public schedulerParams: ScheduleParameters = new ScheduleParameters();
+
+  public daysWithAppointment: number[] = [];
 
   constructor(private dialog: MatDialog,
     private errorHandler: ErrorHandlerService,
@@ -179,13 +184,29 @@ export class ScheduleComponent implements OnInit {
     }
   }
 
+  dateClass() {
+    return (cellDate, view): MatCalendarCellCssClasses => {
+      // Marca a data apenas se estiver na visualização do mês.
+      if (view === 'month') {
+        const date = cellDate.getDate();
+
+        // Marca os dias com agendamento
+        return this.daysWithAppointment.find(day => day == date) ? 'date-with-attendance-class' : '';
+      }
+
+      return '';
+    }
+  }
+
   /**
    * Carrega as informações necessárias para a Agenda
    */
   loadScheduleByFilters() {
     this.loading = true;
     return this.principalService.getByFilter(this.filters).then(resp => {
-      this.schedules = resp;
+      this.schedules = resp.content;
+      this.daysWithAppointment = resp.daysWithAppointment;
+      this.calendar.updateTodaysDate();
       this.schedules.sort((a, b) => new Date(a.schedulingDateAndTime).getTime() - new Date(b.schedulingDateAndTime).getTime());
       this.mountSchedule();
       this.loading = false;

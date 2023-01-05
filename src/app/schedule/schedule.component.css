@@ -1,4 +1,4 @@
-.stretch { 
+.stretch {
 	align-items: stretch;
 	justify-content: flex-start;
 }
@@ -8,25 +8,26 @@
 }
 
 .schedule-button-plus {
-    float: right;
-    top: 0px;
-    margin-top: 0;
+	float: right;
+	top: 0px;
+	margin-top: 0;
 }
 
 .center {
-    text-align: center;
-    width: 100%;
+	text-align: center;
+	width: 100%;
 }
 
 .schedule-item {
 	border-left: 5px solid #0bb3c8;
-    padding-left: 10px;
-    border-radius: 5px;
-    padding-top: 5px;
+	padding-left: 10px;
+	border-radius: 5px;
+	padding-top: 5px;
 	padding-bottom: 5px;
 	background-color: #FFF;
 	font-size: 12px;
 }
+
 .link-card.schedule-item.canceled {
 	border-left: 5px solid #f55145 !important;
 }
@@ -50,7 +51,7 @@
 	bottom: 3px;
 	box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
 	position: relative;
-    cursor: pointer;
+	cursor: pointer;
 }
 
 .description-prop {
@@ -62,6 +63,11 @@
 	display: none !important;
 }
 
-:host /deep/ .spinner-three-bounce {	
+:host /deep/ .spinner-three-bounce {
 	position: fixed !important;
-  }
+}
+
+.date-with-attendance-class {
+	background: #00bcd4;
+	border-radius: 100%;
+}
