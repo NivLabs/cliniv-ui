@@ -11,7 +11,9 @@
                             <div class="col-12">
                                 <mat-calendar #calendar id="calendar" name="calendar"
                                     (monthSelected)="selectMonth($event)" [selected]="selectedDate"
-                                    (selectedChange)="onSelect($event)">
+                                    (selectedChange)="onSelect($event)"
+                                    [dateClass]="dateClass()">
+                                    
                                 </mat-calendar>
                             </div>
                         </div>

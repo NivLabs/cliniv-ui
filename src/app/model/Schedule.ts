@@ -15,6 +15,11 @@ export class ScheduleInfo {
     createdAt: Date;
 }
 
+export class GetAppointmentResponse {
+    content: Schedule[];
+    daysWithAppointment: number[];
+}
+
 /**
  * Informações resumidas de agenda
  */

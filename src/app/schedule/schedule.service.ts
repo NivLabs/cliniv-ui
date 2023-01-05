@@ -1,6 +1,6 @@
 import { HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Schedule, ScheduleFilter, ScheduleInfo } from "app/model/Schedule";
+import { GetAppointmentResponse, Schedule, ScheduleFilter, ScheduleInfo } from "app/model/Schedule";
 import { AppHttp } from "app/security/app-http";
 import { environment } from '../../environments/environment';
 
@@ -9,7 +9,7 @@ export class ScheduleService {
     baseUrl: string;
 
     constructor(private http: AppHttp) {
-        this.baseUrl = `${environment.apiUrl}/schedule`;
+        this.baseUrl = `${environment.apiUrl}/appointment`;
     }
 
     /**
@@ -39,7 +39,7 @@ export class ScheduleService {
      * Busca as informações da agenda utilizando o filtro
      * @param scheduleFilter Filtro da Agenda
      */
-    getByFilter(scheduleFilter: ScheduleFilter): Promise<Schedule[]> {
+    getByFilter(scheduleFilter: ScheduleFilter): Promise<GetAppointmentResponse> {
         var queryString;
         if (scheduleFilter) {
             let params = new URLSearchParams();
@@ -51,6 +51,6 @@ export class ScheduleService {
             queryString = params.toString();
         }
 
-        return this.http.get<Schedule[]>(`${this.baseUrl}?${queryString}`).toPromise();
+        return this.http.get<GetAppointmentResponse>(`${this.baseUrl}?${queryString}`).toPromise();
     }
 }
