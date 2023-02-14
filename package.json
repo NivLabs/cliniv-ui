@@ -41,7 +41,7 @@
     "@angular/router": "^12.2.4",
     "@auth0/angular-jwt": "^5.0.2",
     "@ckeditor/ckeditor5-angular": "^2.0.2",
-    "@ckeditor/ckeditor5-build-decoupled-document": "^29.2.0",
+    "@ckeditor/ckeditor5-build-decoupled-document": "^36.0.1",
     "ajv": "8.6.2",
     "arrive": "2.4.1",
     "bootstrap": "4.3.1",
