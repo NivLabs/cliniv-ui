@@ -85,12 +85,11 @@ export class ReportComponent implements OnInit {
   }
 
   openDialog(id): void {
-
-    if(this.card){
+    if (this.card) {
       const dialogRef = this.dialog.open(ReportEditComponent, {
         width: '100%',
         height: 'auto',
-        data: {selectedReport: id}
+        data: { selectedReport: id }
       });
 
       dialogRef.afterClosed().subscribe(result => {

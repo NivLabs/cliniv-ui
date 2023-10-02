@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'app/security/auth.service';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { environment } from 'environments/environment';
+import { AuthService } from 'app/security/auth.service';
 
 declare const $: any;
 declare interface RouteInfo {
@@ -16,7 +15,7 @@ declare interface RouteInfo {
 export const ROUTES: RouteInfo[] = [
 
   { path: '/dashboard', title: 'Dashboard', icon: 'dashboard', class: '', collapse: false, routes: null },
-  { path: '/schedule', title: 'Agenda', icon: 'schedule', class: '', collapse: false, routes: null },
+  { path: '/appointment', title: 'Agenda', icon: 'schedule', class: '', collapse: false, routes: null },
   { path: '/patient', title: 'Pacientes', icon: 'people', class: '', collapse: false, routes: null },
   { path: '/visit', title: 'Prontuário', icon: 'content_paste', class: '', collapse: false, routes: null },
   { path: '/attendance', title: 'Atendimentos', icon: 'assignment_ind', class: '', collapse: false, routes: null },
@@ -51,7 +50,6 @@ export const ROUTES: RouteInfo[] = [
 export class SidebarComponent implements OnInit {
   menuItems: any[];
   personName: string;
-  logoName: string = environment.customerId;
 
   constructor(
     private auth: AuthService,

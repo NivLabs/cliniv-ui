@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'app/security/auth.service';
 import { environment } from 'environments/environment';
 
 @Component({
@@ -9,10 +10,11 @@ import { environment } from 'environments/environment';
 export class FooterComponent implements OnInit {
   test: Date = new Date();
   version: string = environment.appVersion;
-  customer: string = environment.customerName ? environment.customerName : 'NivLabs';
-  constructor() { }
+  customer: string = 'NivLabs';
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
+    this.customer = this.authService.getUnitName();
   }
 
 }

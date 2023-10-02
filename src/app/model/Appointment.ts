@@ -4,7 +4,7 @@ import { Professional } from "./Professional";
 /**
  * Objeto que representa informações detalhadas de um agendamento
  */
-export class ScheduleInfo {
+export class AppointmentInfo {
     id: number;
     patient: PatientInfo = new PatientInfo();
     professional: Professional = new Professional();
@@ -16,14 +16,14 @@ export class ScheduleInfo {
 }
 
 export class GetAppointmentResponse {
-    content: Schedule[];
+    content: Appointment[];
     daysWithAppointment: number[];
 }
 
 /**
  * Informações resumidas de agenda
  */
-export class Schedule {
+export class Appointment {
     id: number;
     patientName: string;
     patientCpf: string;
@@ -33,13 +33,14 @@ export class Schedule {
     status: string = 'WAITING_CONFIRMATION';
 }
 
-export class ScheduleFilter {
+export class AppointmentFilter {
     professionalId: number;
-    selectedDate: string;
+    startDate: any;
+    endDate: any;
     status: string;
 }
 
-export class ScheduleParameters {
+export class AppointmentParameters {
     initialAttendanceTime: string = "08:00";
     endAttendanceTime: string = "18:00";
     timeIntervalInMinutes: number = 30;

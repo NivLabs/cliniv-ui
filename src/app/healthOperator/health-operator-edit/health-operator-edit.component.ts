@@ -6,7 +6,6 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ConfirmDialogComponent } from 'app/core/confirm-dialog/confirm-dialog.component';
 import { ErrorHandlerService } from 'app/core/error-handler.service';
 import { NotificationsComponent } from 'app/core/notification/notifications.component';
-import { UtilService } from 'app/core/util.service';
 import { HealthOperator } from 'app/model/HealthOperator';
 import { HealthPlan } from 'app/model/HealthPlan';
 import { HealthOperatorService } from '../health-operator.service';
@@ -35,7 +34,6 @@ export class HealthOperatorEditComponent implements OnInit {
     public dialogRef: MatDialogRef<HealthOperatorEditComponent>,
     @Inject(MAT_DIALOG_DATA) public data: HealthOperator,
     public formBuilder: FormBuilder,
-    private utilService: UtilService,
     private errorHandler: ErrorHandlerService,
     private notification: NotificationsComponent) {
 

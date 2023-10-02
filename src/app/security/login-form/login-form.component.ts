@@ -1,14 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { UserInfo } from 'app/model/User';
-import { SettingsService } from 'app/settings/settings.service';
-import { environment } from 'environments/environment';
 import { ErrorHandlerService } from './../../core/error-handler.service';
 import { AuthService } from './../auth.service';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { SignupComponent } from './signup/signup.component';
 
+class LoginModel {
+  unitName: string;
+  userName: string;
+  password: string;
+}
 
 @Component({
   selector: 'app-login-form',
@@ -18,13 +20,11 @@ import { SignupComponent } from './signup/signup.component';
 export class LoginFormComponent implements OnInit {
 
   hasResponse = true;
-  user: UserInfo;
+  user: LoginModel;
   saveInfoFlag: boolean = false;
-  logoName: string = environment.customerId;
 
   constructor(
     private auth: AuthService,
-    private settingsService: SettingsService,
     private errorHandler: ErrorHandlerService,
     private router: Router,
     public dialog: MatDialog
@@ -37,20 +37,19 @@ export class LoginFormComponent implements OnInit {
     }
   }
   ngOnInit(): void {
-    this.user = new UserInfo();
+    this.user = new LoginModel();
+    this.user.unitName = localStorage.getItem('__saved_unit');
     this.user.userName = localStorage.getItem('__saved_user');
     this.saveInfoFlag = localStorage.getItem('__saveInfo') == 'checked' ? true : false;
   }
 
   /**
    * Realiza o login na aplicação
-   * @param userName Nome de usuário
-   * @param password Senha do usuário
    */
   login() {
     this.hasResponse = false;
     this.updateSaveInfo();
-    this.auth.login(this.user.userName, this.user.password)
+    this.auth.login(this.user.unitName, this.user.userName, this.user.password)
       .then(() => {
         this.hasResponse = true;
         this.router.navigate(['/dashboard']);
@@ -86,9 +85,11 @@ export class LoginFormComponent implements OnInit {
 
   updateSaveInfo() {
     if (this.saveInfoFlag) {
+      localStorage.setItem('__saved_unit', this.user.unitName);
       localStorage.setItem('__saveInfo', 'checked');
       localStorage.setItem("__saved_user", this.user.userName);
     } else {
+      localStorage.removeItem('__saved_unit');
       localStorage.removeItem("__saved_user");
       localStorage.removeItem('__saveInfo');
     }
@@ -96,8 +97,5 @@ export class LoginFormComponent implements OnInit {
 
   checkSaveInfo() {
     this.saveInfoFlag = !this.saveInfoFlag;
-  }
-  isDefault() {
-    return environment.customerId == 'gpdefault';
   }
 }

@@ -20,9 +20,10 @@ export class AuthService {
     this.loadToken();
   }
 
-  login(username: string, password: string): Promise<void> {
+  login(unitName: string, username: string, password: string): Promise<void> {
     var headers = new HttpHeaders()
       .append('Content-Type', 'application/json');
+    this.saveUnitName(unitName);
     const body = `{"username": "${username}", "password": "${password}"}`;
     return this.http.post<any>(this.resourceUrl, body,
       { headers, withCredentials: true, responseType: 'json', observe: 'response' })
@@ -30,17 +31,31 @@ export class AuthService {
       .then(response => {
         this.removeAccessToken();
         this.saveToken(response.headers.get('Authorization'));
+        this.saveUnitName(unitName);
       })
       .catch(response => {
+        let message = 'Usuário e/ou senha inválido(s)!'
         if (response.status === 401) {
-          return Promise.reject('Usuário ou senha inválida!');
+          if(response.error && response.error.message) {
+            message = response.error.message;
+          }
+          return Promise.reject(message);
         }
         return Promise.reject(response);
       });
   }
 
+  getUnitName() {
+    return localStorage.getItem('x-cutomer-id');
+  }
+
+  saveUnitName(unitName: any) {
+    localStorage.setItem('x-cutomer-id', unitName);
+  }
+
   removeAccessToken() {
     localStorage.removeItem('token');
+    localStorage.removeItem('x-cutomer-id')
     this.jwtPayload = null;
   }
 

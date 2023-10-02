@@ -1,0 +1,97 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row stretch">
+            <div class="item col-md-6 col-lg-12">
+                <div class="card">
+                    <div class="card-header card-header-info">
+                        <h4 class="card-title">Agenda de Consultas</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <button mat-raised-button type="button" (click)="openDialog(null)"
+                                    matTooltip="Adiciona agendamento" class="btn btn-info btn-block"
+                                    [disabled]="!responsibles || responsibles.length == 0"><span
+                                        class="fa fa-plus"></span> Novo
+                                    Agendamento</button>
+                            </div>
+                            <div class="col-md-8">
+                                <mat-form-field>
+                                    <mat-label>
+                                        {{responsibles && responsibles.length > 0 ? 'Selecione um profissional' :
+                                        'Não
+                                        há
+                                        profissional habilitado'}}
+                                    </mat-label>
+                                    <mat-select [formControl]="responsibleControl"
+                                        (selectionChange)="selectResponsible($event.value)"
+                                        [disabled]="!responsibles || responsibles.length === 0">
+                                        <mat-option *ngIf="responsibles && responsibles.length > 0">
+                                            Todos
+                                        </mat-option>
+                                        <mat-option *ngIf="!responsibles || responsibles.length === 0">
+                                            Não há profissional cadastrado
+                                        </mat-option>
+                                        <mat-option *ngFor="let responsible of responsibles" [value]="responsible.id">
+                                            {{responsible.fullName}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <mat-form-field>
+                                    <mat-label>Filtrar por Situação</mat-label>
+                                    <mat-select [formControl]="statusSelectControl"
+                                        (selectionChange)="selectStatus($event.value)">
+                                        <mat-option>Todos</mat-option>
+                                        <mat-option value="WAITING_CONFIRMATION">Aguardando confirmação do paciente
+                                        </mat-option>
+                                        <mat-option value="CONFIRMED">Agendamentos confirmados</mat-option>
+                                        <mat-option value="COMPLETED">Agendamentos concluídos</mat-option>
+                                        <mat-option value="CANCELED">Agendamentos cancelados</mat-option>
+                                        <mat-option value="MISSED">Agendamentos perdidos</mat-option>
+                                        <mat-option value="RESCHEDULED">Agendamentos remarcados</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <h5>Legenda</h5>
+                                <div class="row">
+                                    <div class='col-2'>
+                                        <label><i class='fa fa-circle' style='color:#0253e8;'></i> Confirmado</label>
+                                    </div>
+                                    <div class='col-2'>
+                                        <label><i class='fa fa-circle' style='color:#5f4bc4;'></i> Remarcado</label>
+                                    </div>
+                                    <div class='col-2'>
+                                        <label><i class='fa fa-circle' style='color:#38f005;'></i> Atendido</label>
+                                    </div>
+                                    <div class='col-2'>
+                                        <label><i class='fa fa-circle' style='color:#e80202;'></i> Cancelado</label>
+                                    </div>
+                                    <div class='col-2'>
+                                        <label><i class='fa fa-circle' style='color:#e80202;'></i> Ausente</label>
+                                    </div>
+                                    <div class='col-2'>
+                                        <label><i class='fa fa-circle' style='color:#e4e802;'></i> Aguardando confirmação</label>
+                                    </div>
+                                </div>
+                                <hr />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <full-calendar [options]="calendarOptions" [events]="currentEvents"></full-calendar>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-loading [show]="loading"></app-loading>

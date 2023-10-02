@@ -1,5 +1,3 @@
-import { Document } from "./Document";
-import { Address } from "./Address";
 import { Person } from "./Person";
 
 /**

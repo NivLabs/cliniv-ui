@@ -1,16 +1,14 @@
-import { Component, OnInit, Inject, ViewChild } from '@angular/core';
-import { NotificationsComponent } from 'app/core/notification/notifications.component';
-import { ErrorHandlerService } from 'app/core/error-handler.service';
-import { SectorService } from '../sector.service';
-import { UtilService } from 'app/core/util.service';
-import { FormBuilder } from '@angular/forms';
-import { Sector } from 'app/model/Sector';
-import { MatDialogRef, MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ConfirmDialogComponent } from 'app/core/confirm-dialog/confirm-dialog.component';
-import { MatTableDataSource } from '@angular/material/table';
-import { Accommodation } from 'app/model/Accommodation';
-import { AccommodationComponent } from 'app/sector/accommodation/accommodation.component';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import { ConfirmDialogComponent } from 'app/core/confirm-dialog/confirm-dialog.component';
+import { ErrorHandlerService } from 'app/core/error-handler.service';
+import { NotificationsComponent } from 'app/core/notification/notifications.component';
+import { Accommodation } from 'app/model/Accommodation';
+import { Sector } from 'app/model/Sector';
+import { AccommodationComponent } from 'app/sector/accommodation/accommodation.component';
+import { SectorService } from '../sector.service';
 
 @Component({
   selector: 'app-sector-edit',
@@ -29,7 +27,7 @@ export class SectorEditComponent implements OnInit {
   constructor(public principalService: SectorService,
     public confirmDialog: MatDialog,
     public dialog: MatDialog,
-    public dialogRef: MatDialogRef<SectorEditComponent>, 
+    public dialogRef: MatDialogRef<SectorEditComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Sector,
     private errorHandler: ErrorHandlerService,
     private notification: NotificationsComponent) {
@@ -76,15 +74,20 @@ export class SectorEditComponent implements OnInit {
     this.loading = true;
     if (this.dataToForm.id) {
       this.principalService.update(this.dataToForm).then(resp => {
-        this.loading = false;
         this.notification.showSucess("Setor alterado com sucesso!");
         this.dataToForm = resp;
+        this.loading = false;
       }).catch((error) => this.handlerException(error));
     } else {
       this.principalService.create(this.dataToForm).then(resp => {
-        this.loading = false;
         this.dataToForm = resp;
         this.notification.showSucess("Setor cadastrado com sucesso!");
+        this.dataSource = new MatTableDataSource(this.dataToForm.listOfRoomsOrBeds);
+        setTimeout(() => {
+          this.dataSource.sort = this.sort;
+        });
+        this.displayedColumns = ['type', 'description', 'actions'];
+        this.loading = false;
       }).catch((error) => this.handlerException(error));
     }
   }
@@ -111,7 +114,7 @@ export class SectorEditComponent implements OnInit {
    * 
    * @param sectorId Identificador único do setor
    */
-  openAccoommodationDialog(sectorId): void {
+  openAccommodationDialog(sectorId): void {
 
     const dialogRef = this.dialog.open(AccommodationComponent, {
       width: '100%',

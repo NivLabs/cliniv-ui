@@ -35,6 +35,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { FullCalendarModule } from '@fullcalendar/angular';
+import { AppointmentEditComponent } from 'app/appointment/appointment-edit/appointment-edit.component';
+import { AppointmentComponent } from 'app/appointment/appointment.component';
 import { AttendanceComponent } from 'app/attendance/attendance.component';
 import { CameraDialogComponent } from 'app/component/camera/dialog/camera-dialog.component';
 import { DocumentViewerComponent } from 'app/component/document-viewer/document-viewer.component';
@@ -55,8 +58,6 @@ import { ProcedureEditComponent } from 'app/procedure/procedure-edit/procedure-e
 import { ReportEditComponent } from 'app/report/report-edit/report-edit.component';
 import { ReportComponent } from 'app/report/report.component';
 import { ReportService } from 'app/report/report.service';
-import { ScheduleEditComponent } from 'app/schedule/schedule-edit/schedule-edit.component';
-import { ScheduleComponent } from 'app/schedule/schedule.component';
 import { SettingsComponent } from 'app/settings/settings.component';
 import { CloseEventComponent } from 'app/visit/close-event/close-event.component';
 import { DocumentSelectorComponent } from 'app/visit/document-selector/document-selector.component';
@@ -67,6 +68,7 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { IConfig, NgxMaskModule } from 'ngx-mask';
 import { WebcamModule } from 'ngx-webcam';
+import { AppointmentService } from '../../appointment/appointment.service';
 import { AttendanceService } from '../../attendance/attendance.service';
 import { LoadingComponent } from '../../components/loading/loading.component';
 import { ConfirmDialogComponent } from '../../core/confirm-dialog/confirm-dialog.component';
@@ -82,7 +84,6 @@ import { ProcedureService } from '../../procedure/procedure.service';
 import { ProfessionalEditComponent } from '../../professional/professional-edit/professional-edit.component';
 import { ProfessionalComponent } from '../../professional/professional.component';
 import { ProfessionalService } from '../../professional/professional.service';
-import { ScheduleService } from '../../schedule/schedule.service';
 import { AccommodationComponent } from '../../sector/accommodation/accommodation.component';
 import { SectorEditComponent } from '../../sector/sector-edit/sector-edit.component';
 import { SectorComponent } from '../../sector/sector.component';
@@ -162,7 +163,8 @@ const maskConfig: Partial<IConfig> = {
     NgxMaskModule.forRoot(maskConfig),
     PdfViewerModule,
     BrowserAnimationsModule,
-    CKEditorModule
+    CKEditorModule,
+    FullCalendarModule
   ],
   exports: [
     CommonModule,
@@ -172,7 +174,8 @@ const maskConfig: Partial<IConfig> = {
     ReactiveFormsModule,
     SecurityModule,
     LoadingComponent,
-    CKEditorModule
+    CKEditorModule,
+    FullCalendarModule
   ],
   declarations: [
     DashboardComponent,
@@ -239,8 +242,8 @@ const maskConfig: Partial<IConfig> = {
     HealthOperatorEditComponent,
     HealthPlanComponent,
 
-    ScheduleComponent,
-    ScheduleEditComponent,
+    AppointmentComponent,
+    AppointmentEditComponent,
 
     SpecialityComponent,
     SpecialityEditComponent,
@@ -260,7 +263,7 @@ const maskConfig: Partial<IConfig> = {
     EvolutionComponent,
     ProfessionalEditComponent,
     DynamicFormComponent,
-    ScheduleEditComponent,
+    AppointmentEditComponent,
     SelectFormComponent,
     CloseEventComponent,
     SectorEditComponent,
@@ -286,7 +289,7 @@ const maskConfig: Partial<IConfig> = {
     UserProfileService,
     PatientService,
     DashboardService,
-    ScheduleService,
+    AppointmentService,
     DocumentTemplateService,
     DynamicFormService,
     HealthPlanService,
