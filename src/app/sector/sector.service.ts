@@ -58,6 +58,14 @@ export class SectorService {
         }
     }
 
+    saveOrUpdateAccommodation(accommodation): Promise<Accommodation> {
+        if (accommodation.id) {
+            return this.updateAccommodation(accommodation);
+        } else {
+            return this.createAccommodation(accommodation);
+        }
+    }
+
     createAccommodation(accommodation): Promise<Accommodation> {
         if (accommodation) {
             return this.http.post<Accommodation>(`${this.baseUrl}/room-or-bed`, accommodation).toPromise();

@@ -1,11 +1,11 @@
 import { HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { GetAppointmentResponse, Schedule, ScheduleFilter, ScheduleInfo } from "app/model/Schedule";
+import { GetAppointmentResponse, Appointment, AppointmentFilter, AppointmentInfo } from "app/model/Appointment";
 import { AppHttp } from "app/security/app-http";
 import { environment } from '../../environments/environment';
 
 @Injectable()
-export class ScheduleService {
+export class AppointmentService {
     baseUrl: string;
 
     constructor(private http: AppHttp) {
@@ -16,21 +16,21 @@ export class ScheduleService {
      * Busca informações detalhadas de um agendamento
      * @param id Idenditicador único do agendamento
      */
-    findById(id: number): Promise<ScheduleInfo> {
-        return this.http.get<ScheduleInfo>(`${this.baseUrl}/${id}`).toPromise();
+    findById(id: number): Promise<AppointmentInfo> {
+        return this.http.get<AppointmentInfo>(`${this.baseUrl}/${id}`).toPromise();
     }
 
     /**
      * Cria ou atualiza as informações de um agendamento
      * @param request Requisição de Criação ou Atualização
      */
-    createOrUpdate(request: ScheduleInfo): Promise<ScheduleInfo> {
+    createOrUpdate(request: AppointmentInfo): Promise<AppointmentInfo> {
         var headers = new HttpHeaders()
             .append('Content-Type', "application/json");
         if (request.id) {
-            return this.http.put<ScheduleInfo>(`${this.baseUrl}/${request.id}`, request, { headers }).toPromise();
+            return this.http.put<AppointmentInfo>(`${this.baseUrl}/${request.id}`, request, { headers }).toPromise();
         } else {
-            return this.http.post<ScheduleInfo>(`${this.baseUrl}`, request, { headers }).toPromise();
+            return this.http.post<AppointmentInfo>(`${this.baseUrl}`, request, { headers }).toPromise();
         }
     }
 
@@ -39,7 +39,7 @@ export class ScheduleService {
      * Busca as informações da agenda utilizando o filtro
      * @param scheduleFilter Filtro da Agenda
      */
-    getByFilter(scheduleFilter: ScheduleFilter): Promise<GetAppointmentResponse> {
+    getByFilter(scheduleFilter: AppointmentFilter): Promise<GetAppointmentResponse> {
         var queryString;
         if (scheduleFilter) {
             let params = new URLSearchParams();

@@ -117,7 +117,7 @@
                 <div *ngFor="let attendance of datas" class="col-12 col-sm-12 col-md-4 col-lg-4">
                     <div class="card link-card" (click)="goToVisit(attendance.patientId)">
                         <div class="card-body margin-color-active"
-                            [ngClass]="{'margin-color-danger' : attendance.patientType === 'NOT_IDENTIFIED'}">
+                            [ngClass]="{'margin-color-danger' : attendance.level === 'HIGH', 'margin-color-medium' : attendance.level == 'MEDIUM'}">
                             <ul>
                                 <li class="patient-name"
                                     [ngClass]="{'name-not-identified' : attendance.patientType === 'NOT_IDENTIFIED'}">

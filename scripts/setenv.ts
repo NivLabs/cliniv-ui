@@ -9,8 +9,8 @@ require('dotenv').config();
 const environment = argv.environment;
 const isProduction = environment === 'prod';
 const isPostBuild = argv.isPostBuild === 'true';
-const baseURL = process.env.BASE_URL ? process.env.BASE_URL : 'https://cliniv-api.herokuapp.com';
-const customerId = process.env.CUSTOMER_ID ? process.env.CUSTOMER_ID : 'gpdefault';
+const baseURL = process.env.BASE_URL ? process.env.BASE_URL : 'https://cliniv.cloud';
+const customerId = process.env.CUSTOMER_ID ? process.env.CUSTOMER_ID : 'cliniv';
 const customerName = process.env.CUSTOMER_NAME ? process.env.CUSTOMER_NAME : 'NivLabs';
 
 

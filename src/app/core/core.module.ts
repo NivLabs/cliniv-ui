@@ -1,12 +1,11 @@
-import { FormsModule } from '@angular/forms';
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
-import { ErrorHandlerService } from './error-handler.service';
 import { AddressService } from './address.service';
-import { UtilService } from './util.service';
+import { ErrorHandlerService } from './error-handler.service';
 import { NotificationsComponent } from './notification/notifications.component';
-import { CustomPaginatorIntl } from './CustomPaginatorIntl';
+import { UtilService } from './util.service';
 
 export function tokenGetter() {
   return localStorage.getItem('token');

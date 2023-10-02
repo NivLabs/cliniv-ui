@@ -8,13 +8,20 @@
                   <div class="card card-login">
                      <div class="card-header card-header-info text-center">
                         <h4 class="card-title">LOGIN</h4>
-                        <span style="color: rgb(255, 38, 0);font-weight: bold;" *ngIf="isDefault()">Ambiente de apresentação, não informar dados confidenciais de pacientes!</span>
                      </div>
                      <div class="card-body ">
                         <div class="logo-img">
-                           <img src="{{'/assets/img/' + logoName + '.png'}}" width="130">
+                           <img src="{{'/assets/img/cliniv.png'}}" width="130">
                         </div>
                         <p class="card-description text-center">CliNiv - Gestão Clínica</p>
+                        <span class="bmd-form-group">
+                           <div class="input-group">
+                              <div class="input-group-prepend"><span class="input-group-text"><i
+                                       class="material-icons">house</i></span></div>
+                              <input class="form-control" placeholder="Unidade" type="text" required id="unitName"
+                                 name="unitName" [(ngModel)]="user.unitName" #unitName="ngModel" />
+                           </div>
+                        </span>
                         <span class="bmd-form-group">
                            <div class="input-group">
                               <div class="input-group-prepend"><span class="input-group-text"><i
@@ -42,7 +49,7 @@
                      </div>
                      <div class="card-footer justify-content-center">
                         <button class="btn btn-info btn-lg"
-                           [disabled]="!hasResponse || (!user.userName || !user.password || !form.valid)"
+                           [disabled]="!hasResponse || (!user.unitName || !user.userName || !user.password || !form.valid)"
                            type="submit">{{hasResponse ? 'Entrar' :
                            'Entrando...'}}</button>
                      </div>
@@ -50,7 +57,7 @@
                      <div hidden="hidden" class="card-footer justify-content-center link"><small class="link"
                            (click)="openForgotPasswordDialog()">Esqueci a senha</small>
                      </div>
-                     <div *ngIf="isDefault()" class="card-footer justify-content-center link"><small class="link"
+                     <div class="card-footer justify-content-center link"><small class="link"
                            (click)="openNewUserDialog()">Solicitar um ambiente</small></div>
                   </div>
                </form>

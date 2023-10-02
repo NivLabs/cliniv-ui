@@ -24,6 +24,11 @@
     height: 260px;
 }
 
+.margin-color-medium {
+    border-left: 10px solid #da9922 !important;
+    height: 260px;
+}
+
 .margin-color-danger {
     border-left: 10px solid #F44336 !important;
     height: 260px;

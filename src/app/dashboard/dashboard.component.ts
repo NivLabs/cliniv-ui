@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { environment } from "environments/environment";
 import { NotificationsComponent } from '../core/notification/notifications.component';
 import { Dashboard, DashboardService } from './dashboard.service';
 
@@ -12,7 +11,6 @@ export class DashboardComponent implements OnInit {
 
   loading: boolean = false;
   data: Dashboard = new Dashboard();
-  logoName: string = environment.customerId;
 
   constructor(private dashboardService: DashboardService) { }
 

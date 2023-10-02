@@ -9,21 +9,21 @@ import { NotificationsComponent } from 'app/core/notification/notifications.comp
 import { UtilService } from 'app/core/util.service';
 import { Address } from 'app/model/Address';
 import { Document } from 'app/model/Document';
-import { ScheduleInfo, ScheduleParameters } from 'app/model/Schedule';
+import { AppointmentInfo, AppointmentParameters } from 'app/model/Appointment';
 import { PatientService } from 'app/patient/patient.service';
-import { ScheduleService } from '../schedule.service';
+import { AppointmentService } from '../appointment.service';
 import '@ckeditor/ckeditor5-build-decoupled-document/build/translations/pt-br';
 import * as DecoupledEditor  from '@ckeditor/ckeditor5-build-decoupled-document';
 
 @Component({
-  selector: 'app-schedule-edit',
-  templateUrl: './schedule-edit.component.html',
-  styleUrls: ['./schedule-edit.component.css']
+  selector: 'app-appointment-edit',
+  templateUrl: './appointment-edit.component.html',
+  styleUrls: ['./appointment-edit.component.css']
 })
-export class ScheduleEditComponent implements OnInit {
+export class AppointmentEditComponent implements OnInit {
 
-  public dataToForm: ScheduleInfo;
-  public scheduleParameters: ScheduleParameters;
+  public dataToForm: AppointmentInfo;
+  public scheduleParameters: AppointmentParameters;
   public responsibleControl: FormControl = new FormControl('', [Validators.required]);
 
   public loading = false;
@@ -37,13 +37,13 @@ export class ScheduleEditComponent implements OnInit {
   };
 
   constructor(
-    private dialogRef: MatDialogRef<ScheduleEditComponent>,
+    private dialogRef: MatDialogRef<AppointmentEditComponent>,
     private notification: NotificationsComponent,
     private confirmDialog: MatDialog,
     private utilService: UtilService,
     private patientService: PatientService,
     private errorHandler: ErrorHandlerService,
-    private scheduleService: ScheduleService,
+    private scheduleService: AppointmentService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
 
@@ -52,10 +52,10 @@ export class ScheduleEditComponent implements OnInit {
     this.dataToForm = this.dialogRef.componentInstance.data['schedule'];
     this.scheduleParameters = this.dialogRef.componentInstance.data['scheduleParameters'];
     if (!this.scheduleParameters) {
-      this.scheduleParameters = new ScheduleParameters();
+      this.scheduleParameters = new AppointmentParameters();
     }
     if (!this.dataToForm) {
-      this.dataToForm = new ScheduleInfo();
+      this.dataToForm = new AppointmentInfo();
     }
     if (!this.responsibles || this.responsibles.length == 0) {
       this.onCancelClick();
@@ -159,11 +159,11 @@ export class ScheduleEditComponent implements OnInit {
     if (!this.dataToForm.id) {
       var schedulingDateAndTime = this.dataToForm.schedulingDateAndTime;
       var professional = this.dataToForm.professional;
-      this.dataToForm = new ScheduleInfo();
+      this.dataToForm = new AppointmentInfo();
       this.dataToForm.schedulingDateAndTime = schedulingDateAndTime;
       this.dataToForm.professional = professional;
     } else {
-      this.dataToForm = new ScheduleInfo();
+      this.dataToForm = new AppointmentInfo();
     }
   }
 
