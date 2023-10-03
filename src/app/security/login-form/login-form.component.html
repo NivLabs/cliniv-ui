@@ -11,10 +11,10 @@
                      </div>
                      <div class="card-body ">
                         <div class="logo-img">
-                           <img src="{{'/assets/img/cliniv.png'}}" width="130">
+                           <img src="{{'/assets/img/' + logoName + '.png'}}" width="130">
                         </div>
                         <p class="card-description text-center">CliNiv - Gestão Clínica</p>
-                        <span class="bmd-form-group">
+                        <span *ngIf="showUnitInput" class="bmd-form-group">
                            <div class="input-group">
                               <div class="input-group-prepend"><span class="input-group-text"><i
                                        class="material-icons">house</i></span></div>
@@ -57,7 +57,7 @@
                      <div hidden="hidden" class="card-footer justify-content-center link"><small class="link"
                            (click)="openForgotPasswordDialog()">Esqueci a senha</small>
                      </div>
-                     <div class="card-footer justify-content-center link"><small class="link"
+                     <div *ngIf="showUnitInput" class="card-footer justify-content-center link"><small class="link"
                            (click)="openNewUserDialog()">Solicitar um ambiente</small></div>
                   </div>
                </form>

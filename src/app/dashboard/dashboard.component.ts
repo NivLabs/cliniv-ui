@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UtilService } from 'app/core/util.service';
 import { NotificationsComponent } from '../core/notification/notifications.component';
 import { Dashboard, DashboardService } from './dashboard.service';
 
@@ -11,8 +12,10 @@ export class DashboardComponent implements OnInit {
 
   loading: boolean = false;
   data: Dashboard = new Dashboard();
+  logoName = 'cliniv';
 
-  constructor(private dashboardService: DashboardService) { }
+  constructor(private dashboardService: DashboardService,
+    private utilService: UtilService) { }
 
   showMessage(message) {
     let dialog = new NotificationsComponent;
@@ -21,6 +24,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.loading = true;
+    this.logoName = this.utilService.getLogo();
     this.dashboardService.getDashboardInfo().then((resp) => {
       this.data = resp;
       this.loading = false;

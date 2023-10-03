@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { UtilService } from 'app/core/util.service';
 import { AuthService } from 'app/security/auth.service';
 
 declare const $: any;
@@ -50,11 +51,13 @@ export const ROUTES: RouteInfo[] = [
 export class SidebarComponent implements OnInit {
   menuItems: any[];
   personName: string;
+  logoName: string;
 
   constructor(
     private auth: AuthService,
     private router: Router,
-    private jwtHelper: JwtHelperService) {
+    private jwtHelper: JwtHelperService,
+    private utilService: UtilService) {
     const token = localStorage.getItem('token');
     this.personName = this.jwtHelper.decodeToken(token) !== null ? this.jwtHelper.decodeToken(token).personName : '';
     this.personName = this.personName.split(" ")[0];
@@ -62,6 +65,7 @@ export class SidebarComponent implements OnInit {
 
   ngOnInit() {
     this.menuItems = ROUTES.filter(menuItem => menuItem);
+    this.logoName = this.utilService.getLogo();
   }
 
   isMobileMenu() {

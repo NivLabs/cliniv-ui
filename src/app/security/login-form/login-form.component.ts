@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { UtilService } from 'app/core/util.service';
 import { ErrorHandlerService } from './../../core/error-handler.service';
 import { AuthService } from './../auth.service';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
@@ -19,6 +20,8 @@ class LoginModel {
 })
 export class LoginFormComponent implements OnInit {
 
+  showUnitInput = true;
+  logoName = 'cliniv';
   hasResponse = true;
   user: LoginModel;
   saveInfoFlag: boolean = false;
@@ -27,7 +30,8 @@ export class LoginFormComponent implements OnInit {
     private auth: AuthService,
     private errorHandler: ErrorHandlerService,
     private router: Router,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private utilService: UtilService
   ) {
     if (!this.auth.isInvalidAccessToken()) {
       this.router.navigate(['/dashboard']);
@@ -38,6 +42,11 @@ export class LoginFormComponent implements OnInit {
   }
   ngOnInit(): void {
     this.user = new LoginModel();
+    if (this.utilService.getCustomerByHost() !== 'cliniv') {
+      this.showUnitInput = false;
+      localStorage.setItem('__saved_unit', this.utilService.getCustomerByHost());
+      this.logoName = this.utilService.getCustomerByHost();
+    }
     this.user.unitName = localStorage.getItem('__saved_unit');
     this.user.userName = localStorage.getItem('__saved_user');
     this.saveInfoFlag = localStorage.getItem('__saveInfo') == 'checked' ? true : false;
