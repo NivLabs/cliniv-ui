@@ -20,12 +20,21 @@ export const ROUTES: RouteInfo[] = [
   { path: '/patient', title: 'Pacientes', icon: 'people', class: '', collapse: false, routes: null },
   { path: '/visit', title: 'Prontuário', icon: 'content_paste', class: '', collapse: false, routes: null },
   { path: '/attendance', title: 'Atendimentos', icon: 'assignment_ind', class: '', collapse: false, routes: null },
+  {
+    path: '', title: 'Financeiro', icon: 'show_chart', class: '', collapse: true, routes: [
+      { path: '/payable-and-receivable', title: 'A pagar/receber', icon: 'label_important', class: '', collapse: false, routes: null },
+      { path: '/financial-release', title: 'Lançamentos', icon: 'label_important', class: '', collapse: false, routes: null },
+      { path: '/cash-flow', title: 'Fluxo de Cx.', icon: 'label_important', class: '', collapse: false, routes: null }
+    ]
+  },
   // { path: '/report', title: 'Relatórios', icon: 'list_alt', class: '', collapse: false, routes: null },
   {
     path: '', title: 'Outros Cadastros', icon: 'format_list_bulleted', class: '', collapse: true, routes: [
       { path: '/speciality', title: 'Especialidades', icon: 'label_important', class: '', collapse: false, routes: null },
-      { path: '/document-template', title: 'Modelos Doc.', icon: 'label_important', class: '', collapse: false, routes: null },
+      { path: '/payment-methods', title: 'Formas Pgto.', icon: 'label_important', class: '', collapse: false, routes: null },
       { path: '/dynamic-form', title: "Formulários", icon: 'label_important', class: '', collapse: false, routes: null },
+      { path: '/supplier', title: 'Fornecedores', icon: 'label_important', class: '', collapse: false, routes: null },
+      { path: '/document-template', title: 'Modelos Doc.', icon: 'label_important', class: '', collapse: false, routes: null },
       { path: '/health-operator', title: 'Operadoras', icon: 'label_important', class: '', collapse: false, routes: null },
       { path: '/procedure', title: 'Procedimentos', icon: 'label_important', class: '', collapse: false, routes: null },
       { path: '/professional', title: 'Profissionais', icon: 'label_important', class: '', collapse: false, routes: null },
@@ -36,8 +45,8 @@ export const ROUTES: RouteInfo[] = [
   {
     path: '', title: 'Configurações', icon: 'settings', class: '', collapse: true, routes: [
       { path: '/user-profile', title: 'Perfil', icon: 'label_important', class: '', collapse: false, routes: null },
-      { path: '/user', title: 'Usuários', icon: 'label_important', class: '', collapse: false, routes: null },
-      { path: '/settings', title: 'Instituição', icon: 'label_important', class: '', collapse: false, routes: null }
+      { path: '/settings', title: 'Instituição', icon: 'label_important', class: '', collapse: false, routes: null },
+      { path: '/user', title: 'Usuários', icon: 'label_important', class: '', collapse: false, routes: null }
 
     ]
   }

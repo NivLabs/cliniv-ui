@@ -5,9 +5,11 @@ img.displayed-log {
     left: 50%;
     margin-right: -50%;
     transform: translate(-50%, -50%);
-    -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+    -webkit-filter: grayscale(100%);
+    /* Safari 6.0 - 9.0 */
     filter: grayscale(100%);
 }
+
 span.displayed-log {
     margin: 0;
     position: absolute;
@@ -16,6 +18,66 @@ span.displayed-log {
     left: 65%;
     margin-right: -50%;
     transform: translate(-50%, -50%);
-    -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+    -webkit-filter: grayscale(100%);
+    /* Safari 6.0 - 9.0 */
     filter: grayscale(100%);
+}
+
+.postit {
+    background-color: #edff8d;
+    border: 1px #ececec solid;
+    border-radius: 2px;
+    box-shadow: 5px 5px 2px 1px rgba(0, 0, 255, .2);
+    font-size: 10px;
+    margin-bottom: 10px;
+}
+
+.postit-header {
+    margin-top: 5px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.postit-header-title {
+    font-weight: 400;
+}
+
+.postit-header-action {
+    position: absolute;
+    right: 25px;
+    top: 0;
+    cursor: pointer;
+}
+
+.postit-body {
+    margin: 10px;
+    cursor: pointer;
+}
+
+.statistics-card {
+    border: 1px solid rgb(225 225 225);
+    text-align: center;
+    font-size: 10px;
+}
+
+.statistics-card-title,
+.statistics-card-footer {
+    font-weight: 400;
+}
+
+.next-appointment {
+    text-align: center;
+    font-weight: 400;
+    font-size: 12px;
+}
+
+.add-sticker {
+    float: right;
+    padding-bottom: 0px;
+    top: 0px;
+    margin-top: -12px;
+    padding-top: 5px;
 }

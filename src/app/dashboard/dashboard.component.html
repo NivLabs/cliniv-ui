@@ -68,6 +68,99 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header card-header-success">
+                        <h4 class="card-title">Agendamentos confirmados <small>(hoje)</small></h4>
+                    </div>
+                    <div class="card-body">
+                        <div *ngIf="data.appointments.length == 0" class="next-appointment">
+                            Nenhum agendamento confirmado para hoje
+                        </div>
+                        <div *ngFor="let appointment of data.appointments" class="next-appointment">
+                            {{appointment.schedulingDateAndTime | date: 'dd/MM/yyyy, HH:mm'}} |
+                            {{appointment.patientName}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header card-header-info">
+                        <h4 class="card-title">Estatísticas do profissional</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="container">
+                            <div class="row">
+                                <div class="statistics-card col-md-4">
+                                    <div class="statistics-card-title">
+                                        Você possui
+                                    </div>
+                                    <div class="statistics-card-value">
+                                        {{data.totalActiveAttendance}}
+                                    </div>
+                                    <div class="statistics-card-footer">atendimentos ativos</div>
+                                </div>
+
+                                <div class="statistics-card col-md-4">
+                                    <div class="statistics-card-title">
+                                        Você já atendeu
+                                    </div>
+                                    <div class="statistics-card-value">
+                                        {{data.totalAttendanceProvided}}
+                                    </div>
+                                    <div class="statistics-card-footer">pacientes hoje</div>
+                                </div>
+
+                                <div class="statistics-card col-md-4">
+                                    <div class="statistics-card-title">
+                                        Existem
+                                    </div>
+                                    <div class="statistics-card-value">
+                                        {{data.totalUnconfirmedAppointment}}
+                                    </div>
+                                    <div class="statistics-card-footer">pacientes não confirmados</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header card-header-warning">
+                        <h4 class="card-title">Lembretes
+                            <button matTooltip="Adicionar lembrete" (click)="openDialog(null)" mat-icon-button
+                                class="add-sticker">
+                                <mat-icon>add</mat-icon>
+                            </button>
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="container">
+                            <div class="row">
+                                <div *ngIf="data.stickers.length == 0" class="col-md-12 next-appointment">
+                                    Nenhum lembrete encontrado
+                                </div>
+                                <div *ngFor="let sticker of data.stickers" class="col-md-6">
+                                    <div class="postit">
+                                        <div class="postit-header">
+                                            <div class="postit-header-title">{{sticker.createdAt | date: 'dd/MM/yyyy'}}
+                                            </div>
+                                            <div class="postit-header-action" (click)="deleteSticker(sticker.id)"><i
+                                                    class="fa fa-trash"></i></div>
+                                        </div>
+                                        <div class="postit-body" (click)="openDialog(sticker)">{{sticker.description}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <app-loading [show]="loading"></app-loading>
