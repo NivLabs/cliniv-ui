@@ -130,7 +130,7 @@
                 <mat-divider></mat-divider>
                 <br />
                 <div class="row">
-                    <div class="col-sm-12 col-md-6 col-lg-4">
+                    <div class="col-sm-12 col-md-4 col-lg-2">
                         <mat-form-field>
                             <mat-label>Data/hora do atendimento</mat-label>
                             <input matInput placeholder="Data/Hora do atendimento" type="datetime-local"
@@ -138,7 +138,38 @@
                                 #schedulingDateAndTime="ngModel" required>
                         </mat-form-field>
                     </div>
-                    <div class="col-sm-12 col-md-6 col-lg-8">
+                    <div *ngIf="!dataToForm.id" class="col-sm-12 col-md-2 col-lg-2">
+                        <mat-form-field>
+                            <mat-label>Quantidade de ocorrências</mat-label>
+                            <input matInput placeholder="Quantidade de ocorrências" type="number"
+                                [(ngModel)]="dataToForm.repeatSettings.numberOfOccurrences" name="numberOfOccurrences"
+                                #numberOfOccurrences="ngModel">
+                        </mat-form-field>
+                    </div>
+                    <div *ngIf="!dataToForm.id" class="col-sm-12 col-md-2 col-lg-2">
+                        <mat-form-field>
+                            <mat-select [(ngModel)]="dataToForm.repeatSettings.intervalType"
+                                [disabled]="!dataToForm.repeatSettings || !dataToForm.repeatSettings.numberOfOccurrences">
+                                <mat-option
+                                    *ngIf="!dataToForm.repeatSettings || !dataToForm.repeatSettings.numberOfOccurrences">
+                                    Informe uma quantidade de ocorrências
+                                </mat-option>
+                                <mat-option value="DAILY">
+                                    Diário
+                                </mat-option>
+                                <mat-option value="WEEKLY">
+                                    Semanal
+                                </mat-option>
+                                <mat-option value="MONTHLY">
+                                    Mensal
+                                </mat-option>
+                                <mat-option value="YEARLY">
+                                    Anual
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-sm-12 col-md-4 col-lg-6">
                         <mat-form-field>
                             <mat-label>
                                 {{responsibles && responsibles.length > 0 ? 'Selecione um profissional' :
@@ -162,11 +193,12 @@
                     <div class="col-md-8">
                         <mat-form-field>
                             <textarea matInput cdkTextareaAutosize="true" cdkAutosizeMinRows="12"
-                            [(ngModel)]="dataToForm.annotation" style="display: none;"
-                            [ngModelOptions]="{standalone: true}"></textarea>
+                                [(ngModel)]="dataToForm.annotation" style="display: none;"
+                                [ngModelOptions]="{standalone: true}"></textarea>
 
-                        <ckeditor [editor]="Editor" [(ngModel)]="dataToForm.annotation" #annotation
-                            name="annotation" [data]="editorData" (ready)="onReady($event)" [config]="config"></ckeditor>
+                            <ckeditor [editor]="Editor" [(ngModel)]="dataToForm.annotation" #annotation
+                                name="annotation" [data]="editorData" (ready)="onReady($event)" [config]="config">
+                            </ckeditor>
                         </mat-form-field>
                     </div>
                     <div class="col-md-4">

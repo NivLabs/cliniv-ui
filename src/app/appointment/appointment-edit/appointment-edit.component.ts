@@ -9,11 +9,11 @@ import { NotificationsComponent } from 'app/core/notification/notifications.comp
 import { UtilService } from 'app/core/util.service';
 import { Address } from 'app/model/Address';
 import { Document } from 'app/model/Document';
-import { AppointmentInfo, AppointmentParameters } from 'app/model/Appointment';
+import { AppointmentInfo, AppointmentParameters, AppointmentRecurrenceSettings } from 'app/model/Appointment';
 import { PatientService } from 'app/patient/patient.service';
 import { AppointmentService } from '../appointment.service';
 import '@ckeditor/ckeditor5-build-decoupled-document/build/translations/pt-br';
-import * as DecoupledEditor  from '@ckeditor/ckeditor5-build-decoupled-document';
+import * as DecoupledEditor from '@ckeditor/ckeditor5-build-decoupled-document';
 
 @Component({
   selector: 'app-appointment-edit',
@@ -60,6 +60,9 @@ export class AppointmentEditComponent implements OnInit {
     if (!this.responsibles || this.responsibles.length == 0) {
       this.onCancelClick();
       this.notification.showWarning('Nenhum profissional habilitado para realizar atendimento');
+    }
+    if (!this.dataToForm.repeatSettings) {
+      this.dataToForm.repeatSettings = new AppointmentRecurrenceSettings();
     }
   }
 
@@ -119,6 +122,9 @@ export class AppointmentEditComponent implements OnInit {
     }
   }
 
+  openRepeatSettingsDialog() {
+
+  }
   searchPatientById() {
     if (this.dataToForm.patient.id) {
       this.loading = true;
@@ -180,10 +186,10 @@ export class AppointmentEditComponent implements OnInit {
     });
   }
 
-  onReady( editor ) {
+  onReady(editor) {
     editor.ui.getEditableElement().parentElement.insertBefore(
-        editor.ui.view.toolbar.element,
-        editor.ui.getEditableElement()
+      editor.ui.view.toolbar.element,
+      editor.ui.getEditableElement()
     );
   }
 

@@ -9,6 +9,7 @@ export class AppointmentInfo {
     patient: PatientInfo = new PatientInfo();
     professional: Professional = new Professional();
     schedulingDateAndTime: string;
+    repeatSettings: AppointmentRecurrenceSettings = new AppointmentRecurrenceSettings();
     annotation: string;
     status: string = "WAITING_CONFIRMATION";
     attendanceEvent
@@ -45,4 +46,10 @@ export class AppointmentParameters {
     endAttendanceTime: string = "18:00";
     timeIntervalInMinutes: number = 30;
 
+}
+
+export class AppointmentRecurrenceSettings {
+    numberOfOccurrences: number = 0;
+    intervalType: string = "DAILY";
+    businessDaysOnly: boolean = true;
 }
