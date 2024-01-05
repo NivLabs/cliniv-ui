@@ -39,11 +39,13 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 import { AppointmentEditComponent } from 'app/appointment/appointment-edit/appointment-edit.component';
 import { AppointmentComponent } from 'app/appointment/appointment.component';
 import { AttendanceComponent } from 'app/attendance/attendance.component';
+import { ReportGeneratorComponent } from 'app/attendance/report-generator/report-generator.component';
 import { CameraDialogComponent } from 'app/component/camera/dialog/camera-dialog.component';
 import { DocumentViewerComponent } from 'app/component/document-viewer/document-viewer.component';
 import { CameraComponent } from 'app/core/camera/camera.component';
 import { CustomPaginatorIntl } from 'app/core/CustomPaginatorIntl';
 import { PersonDocumentDialogComponent } from 'app/core/person-document-dialog/person-document-dialog.component';
+import { StickerEditComponent } from 'app/dashboard/sticker-edit/sticker-edit.component';
 import { DocumentTemplateEditComponent } from 'app/document-template/document-template-edit/document-template-edit.component';
 import { DocumentTemplateComponent } from 'app/document-template/document-template.component';
 import { DocumentTemplateService } from 'app/document-template/document-template.service';
@@ -59,6 +61,7 @@ import { ReportEditComponent } from 'app/report/report-edit/report-edit.componen
 import { ReportComponent } from 'app/report/report.component';
 import { ReportService } from 'app/report/report.service';
 import { SettingsComponent } from 'app/settings/settings.component';
+import { ChangeSectorAndResponsibleComponent } from 'app/visit/change-sector-and-responsible/change-sector-and-responsible.component';
 import { CloseEventComponent } from 'app/visit/close-event/close-event.component';
 import { DocumentSelectorComponent } from 'app/visit/document-selector/document-selector.component';
 import { NewEventComponent } from 'app/visit/new-event/new-event.component';
@@ -179,6 +182,7 @@ const maskConfig: Partial<IConfig> = {
   ],
   declarations: [
     DashboardComponent,
+    StickerEditComponent,
 
     DynamicFormComponent,
     DynamicFormEditComponent,
@@ -233,6 +237,7 @@ const maskConfig: Partial<IConfig> = {
     PrescriptionComponent,
     PrescriptionEditComponent,
     EvolutionComponent,
+    ChangeSectorAndResponsibleComponent,
 
     AllergyComponent,
 
@@ -249,7 +254,9 @@ const maskConfig: Partial<IConfig> = {
     SpecialityEditComponent,
 
     ReportComponent,
-    ReportEditComponent
+    ReportEditComponent,
+
+    ReportGeneratorComponent
   ],
   entryComponents: [
     PatientEditComponent,

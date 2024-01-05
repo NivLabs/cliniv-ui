@@ -45,7 +45,8 @@ export class AuthInterceptor implements HttpInterceptor {
 
     authheaders(req: HttpRequest<unknown>): HttpHeaders {
         let headers: HttpHeaders = req.headers;
-        headers = headers.append(this.CUSTOMER_ID_HEADER, this.auth.getUnitName());
+
+        headers = headers.append(this.CUSTOMER_ID_HEADER, this.auth.getUnitName() || 'cliniv');
 
         const token = this.auth.getToken();
 

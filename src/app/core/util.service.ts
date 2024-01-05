@@ -1,16 +1,36 @@
 import { Injectable } from "@angular/core";
-import { environment } from "environments/environment";
-import { AppHttp } from "app/security/app-http";
-import { Specialization, SpecializationInfo } from "app/model/Specialization";
-import { EventType } from "app/model/EventType";
 import { DigitalDocument } from "app/model/DigitalDocument";
+import { EventType } from "app/model/EventType";
 import { ParameterByGroup } from "app/model/Parameter";
+import { SpecializationInfo } from "app/model/Specialization";
 import { Page } from "app/model/Util";
+import { AppHttp } from "app/security/app-http";
+import { environment } from "environments/environment";
 
 @Injectable()
 export class UtilService {
 
     constructor(private http: AppHttp) {
+    }
+
+    getHost() {
+        return '.nivlabs.com.br';
+    }
+
+    getLogo() {
+        const unitsWithLogo = [
+            'cliniv',
+            'perseverar'
+        ];
+        return unitsWithLogo.find(item => item === localStorage.getItem('x-cutomer-id')) || 'cliniv';
+    }
+
+    getCustomerByHost() {
+        let customerId = 'cliniv';
+        if (window.location.host.endsWith(this.getHost())) {
+            customerId = window.location.host.split('.')[0];
+        }
+        return customerId;
     }
 
     getEventTypes(): Promise<Array<EventType>> {

@@ -12,8 +12,6 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
 import { AdminLayoutModule } from './layouts/admin-layout/admin-layout.module';
 import { SecurityRoutingModule } from './security/security-routing.module';
 import { SecurityModule } from './security/security.module';
-import { ChangeSectorAndResponsibleComponent } from './visit/change-sector-and-responsible/change-sector-and-responsible.component';
-import { ReportGeneratorComponent } from './attendance/report-generator/report-generator.component';
 
 
 @NgModule({
@@ -32,9 +30,7 @@ import { ReportGeneratorComponent } from './attendance/report-generator/report-g
    ],
    declarations: [
       AppComponent,
-      AdminLayoutComponent,
-      ChangeSectorAndResponsibleComponent,
-      ReportGeneratorComponent
+      AdminLayoutComponent
    ],
    providers: [{ provide: MAT_DATE_LOCALE, useValue: 'pt-BR' }],
    bootstrap: [

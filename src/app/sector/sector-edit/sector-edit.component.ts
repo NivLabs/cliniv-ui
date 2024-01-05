@@ -36,7 +36,6 @@ export class SectorEditComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
     if (this.dialogRef.componentInstance.data['selectedSector'] !== null || this.selectedSectorId !== 0) {
       this.loading = true;
       this.selectedSectorId = this.dialogRef.componentInstance.data['selectedSector'];
