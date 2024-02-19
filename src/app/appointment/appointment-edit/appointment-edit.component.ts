@@ -14,6 +14,7 @@ import { PatientService } from 'app/patient/patient.service';
 import { AppointmentService } from '../appointment.service';
 import '@ckeditor/ckeditor5-build-decoupled-document/build/translations/pt-br';
 import * as DecoupledEditor from '@ckeditor/ckeditor5-build-decoupled-document';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-appointment-edit',
@@ -44,6 +45,7 @@ export class AppointmentEditComponent implements OnInit {
     private patientService: PatientService,
     private errorHandler: ErrorHandlerService,
     private scheduleService: AppointmentService,
+    private router: Router,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
 
@@ -95,7 +97,7 @@ export class AppointmentEditComponent implements OnInit {
         return true
       return this.utilService.cpfIsValid(this.dataToForm.patient.document.value);
     }
-    return false
+    return false;
   }
 
   searchPatientByCpf() {
@@ -123,8 +125,28 @@ export class AppointmentEditComponent implements OnInit {
   }
 
   openRepeatSettingsDialog() {
-
   }
+
+  navigateToPatient() {
+    this.router.navigate(['patient', { patientId: this.dataToForm.patient.id }]);
+    this.onCancelClick();
+  }
+
+  onRemoveClick(id: number) {
+    if (id) {
+      this.loading = true;
+
+      this.scheduleService.delete(id).then(_ => {
+        this.loading = false;
+        this.notification.showSucess("Agendamento removido com sucesso!");
+        this.onCancelClick();
+      }).catch(error => {
+        this.loading = false;
+        this.errorHandler.handle(error, this.dialogRef);
+      });
+    }
+  }
+
   searchPatientById() {
     if (this.dataToForm.patient.id) {
       this.loading = true;

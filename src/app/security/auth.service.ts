@@ -46,16 +46,16 @@ export class AuthService {
   }
 
   getUnitName() {
-    return localStorage.getItem('x-cutomer-id');
+    return localStorage.getItem('X-Customer-Id');
   }
 
   saveUnitName(unitName: any) {
-    localStorage.setItem('x-cutomer-id', unitName);
+    localStorage.setItem('X-Customer-Id', unitName);
   }
 
   removeAccessToken() {
     localStorage.removeItem('token');
-    localStorage.removeItem('x-cutomer-id')
+    localStorage.removeItem('X-Customer-Id')
     this.jwtPayload = null;
   }
 

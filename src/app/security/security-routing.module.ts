@@ -1,11 +1,13 @@
- 
-import { Routes, RouterModule } from '@angular/router';
-import { NgModule } from '@angular/core';
 
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+
+import { PublicScheduleComponent } from 'app/professional/public-schedule/public-schedule.component';
 import { LoginFormComponent } from './login-form/login-form.component';
 
 const routes: Routes = [
-  { path: 'login', component: LoginFormComponent }
+  { path: 'login', component: LoginFormComponent },
+  { path: 'public-schedule', component: PublicScheduleComponent }
 ];
 
 @NgModule({

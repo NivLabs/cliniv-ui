@@ -1,21 +1,24 @@
-import { Injectable } from '@angular/core';
 import {
-    HttpRequest,
-    HttpHandler,
     HttpEvent,
+    HttpEventType,
+    HttpHandler,
+    HttpHeaders,
     HttpInterceptor,
-    HttpHeaders, HttpEventType
+    HttpRequest
 } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { AuthService } from './auth.service';
-import { tap } from 'rxjs/operators';
+import { Injectable } from '@angular/core';
 import { environment } from 'environments/environment';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { v4 as uuidv4 } from 'uuid';
+import { AuthService } from './auth.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
 
     private AUTH_HEADER = 'Authorization';
-    private CUSTOMER_ID_HEADER = "x-cutomer-id";
+    private CUSTOMER_ID_HEADER = "X-Customer-Id";
+    private OPERATION_ID_HEADER = "X-Operation-Id";
 
     constructor(private auth: AuthService) { }
 
@@ -47,12 +50,14 @@ export class AuthInterceptor implements HttpInterceptor {
         let headers: HttpHeaders = req.headers;
 
         headers = headers.append(this.CUSTOMER_ID_HEADER, this.auth.getUnitName() || 'cliniv');
+        headers = headers.append(this.OPERATION_ID_HEADER, uuidv4());
 
         const token = this.auth.getToken();
 
         if (!this.auth.isInvalidAccessToken()) {
             headers = req.headers.append(this.AUTH_HEADER, "Bearer ".concat(token))
-                .append(this.CUSTOMER_ID_HEADER, this.auth.getUnitName());
+                .append(this.CUSTOMER_ID_HEADER, this.auth.getUnitName())
+                .append(this.OPERATION_ID_HEADER, uuidv4());
         }
 
         return headers;

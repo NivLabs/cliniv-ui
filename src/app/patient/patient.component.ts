@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { PatientEditComponent } from './patient-edit/patient-edit.component';
 import { Page, Pageable } from 'app/model/Util';
 import { PatientFilters } from '../model/Patient'
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-patient',
@@ -21,9 +22,11 @@ export class PatientComponent implements OnInit {
   pageSettings: Pageable;
   filters: PatientFilters;
 
-  constructor(public dialog: MatDialog, private principalService: PatientService, private errorHandler: ErrorHandlerService, private notification: NotificationsComponent) { }
+  constructor(public dialog: MatDialog, private router: Router, private principalService: PatientService, private errorHandler: ErrorHandlerService, private notification: NotificationsComponent, private route: ActivatedRoute) { }
 
   ngOnInit() {
+    var patientIdFromUrl = this.route.snapshot.paramMap.get('patientId');
+    this.router.navigate(['patient']);
     this.loading = true;
     this.page = new Page();
     this.filters = new PatientFilters();
@@ -33,6 +36,9 @@ export class PatientComponent implements OnInit {
       this.datas = response.content;
       this.page = response;
       this.dataNotFound = this.datas.length === 0;
+      if (patientIdFromUrl) {
+        this.openDialog(Number.parseInt(patientIdFromUrl));
+      }
     }).catch(error => {
       this.dataNotFound = this.datas ? this.datas.length === 0 : true;
       this.loading = false;

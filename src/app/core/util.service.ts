@@ -22,7 +22,7 @@ export class UtilService {
             'cliniv',
             'perseverar'
         ];
-        return unitsWithLogo.find(item => item === localStorage.getItem('x-cutomer-id')) || 'cliniv';
+        return unitsWithLogo.find(item => item === localStorage.getItem('X-Customer-Id')) || 'cliniv';
     }
 
     getCustomerByHost() {

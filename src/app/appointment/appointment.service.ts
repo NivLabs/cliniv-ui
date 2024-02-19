@@ -53,4 +53,12 @@ export class AppointmentService {
 
         return this.http.get<GetAppointmentResponse>(`${this.baseUrl}?${queryString}`).toPromise();
     }
+    
+    delete(id: number): Promise<void> {
+        var headers = new HttpHeaders()
+            .append('Content-Type', "application/json");
+        if (id) {
+            return this.http.delete<void>(`${this.baseUrl}/${id}`, { headers }).toPromise();
+        }
+    }
 }

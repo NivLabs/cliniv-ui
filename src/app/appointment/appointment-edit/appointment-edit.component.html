@@ -7,6 +7,8 @@
         <h4 class="card-title">Dados do agendamento</h4>
         <p class="card-category">Dados completos do agendamento
             {{dataToForm.id ? 'criado em ' + (dataToForm.createdAt | date: 'dd/MM/yyyy HH:mm:ss') : ''}}</p>
+        <button mat-raised-button class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-danger"
+            (click)="onRemoveClick(dataToForm.id)"><span class="fa fa-trash"></span> Apagar agendamento</button>
     </div>
     <div class="card-body">
         <form #form="ngForm" autocomplete="off">
@@ -227,20 +229,33 @@
                 </div>
                 <mat-divider></mat-divider>
             </mat-list>
+            <div class="row">
+                <div *ngIf="(dataToForm.patient.id && dataToForm.patient.document.value && dataToForm.patient.fullName) || dataToForm.id"
+                    class="ol-12 col-sm-12 col-md-4 col-lg-3 pull-left ml-0 mr-0">
+                    <button mat-raised-button type="button" class="col-12 btn btn-warning" (click)="resetForm()"
+                        matTooltip="Limpar formulário"><span class="fa fa-eraser"></span> Limpar
+                        formulário</button>
+                </div>
+                <div *ngIf="(dataToForm.patient.id && dataToForm.patient.document.value && dataToForm.patient.fullName) || dataToForm.id"
+                    class="ol-12 col-sm-12 col-md-4 col-lg-3 pull-left ml-0 mr-0">
+                    <button mat-raised-button type="button" class="col-12 btn btn-info" (click)="navigateToPatient()"
+                        matTooltip="Cadastro do paciente"><span class="fa fa-user"></span>
+                        Cadastro
+                        do paciente</button>
+                </div>
+                <div class="col-12 col-sm-12 col-md-4 col-lg-3 pull-right ml-0 mr-0">
+                    <button mat-raised-button type="submit"
+                        [disabled]="responsibleControl.hasError('required') || !dataToForm.patient.id || !dataToForm.professional.id || !dataToForm.schedulingDateAndTime"
+                        class="col-12 btn btn-success pull-right" (click)="save()"><span class="fa fa-check"></span> {{
+                        dataToForm.id ? 'Salvar' :
+                        'Agendar' }}</button>
+                </div>
+                <div class="col-12 col-sm-12 col-md-4 col-lg-3 pull-right ml-0 mr-0">
+                    <button mat-raised-button class="col-12 btn btn-danger pull-right" (click)="onCancelClick()"><span
+                            class="fa fa-close"></span> Fechar</button>
+                </div>
+            </div>
             <div class="clearfix"></div>
-            <button mat-raised-button
-                *ngIf="(dataToForm.patient.id && dataToForm.patient.document.value && dataToForm.patient.fullName) || dataToForm.id"
-                type="button" class="col-12 col-sm-12 col-md-4 col-lg-3 pull-left ml-0 mr-0 btn btn-warning"
-                (click)="resetForm()" matTooltip="Limpar formulário"><span class="fa fa-eraser"></span> Limpar
-                formulário</button>
-            <button mat-raised-button class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-danger pull-right"
-                (click)="onCancelClick()">Fechar</button>
-            <button mat-raised-button type="submit"
-                [disabled]="responsibleControl.hasError('required') || !dataToForm.patient.id || !dataToForm.professional.id || !dataToForm.schedulingDateAndTime"
-                class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-success pull-right" (click)="save()">{{
-                dataToForm.id ? 'Salvar' : 'Agendar' }}</button>
-
-
         </form>
     </div>
 </div>

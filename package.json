@@ -75,6 +75,7 @@
     "rxjs": "^6.6.3",
     "rxjs-compat": "^6.6.3",
     "typescript": "4.3.2",
+    "uuid": "^9.0.1",
     "web-animations-js": "2.3.1",
     "zone.js": "0.11.4"
   },
@@ -87,6 +88,7 @@
     "@types/jasmine": "^3.5.14",
     "@types/jquery": "^3.5.2",
     "@types/node": "^12.20.23",
+    "@types/uuid": "^9.0.8",
     "dotenv": "^8.2.0",
     "jasmine-core": "^3.6.0",
     "jasmine-spec-reporter": "^4.2.1",
