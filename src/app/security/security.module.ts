@@ -5,7 +5,6 @@ import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatTabsModule } from '@angular/material/tabs';
 import { JwtModule } from '@auth0/angular-jwt';
-import { LoadingComponent } from 'app/components/loading/loading.component';
 import { IConfig, NgxMaskModule } from 'ngx-mask';
 import { AppHttp } from './app-http';
 import { AuthGuard } from './auth.guard';
@@ -16,6 +15,7 @@ import { ForgotPasswordComponent } from './login-form/forgot-password/forgot-pas
 import { LoginFormComponent } from './login-form/login-form.component';
 import { SignupComponent } from './login-form/signup/signup.component';
 import { SecurityRoutingModule } from './security-routing.module';
+import { PublicScheduleComponent } from 'app/professional/public-schedule/public-schedule.component';
 
 
 
@@ -46,6 +46,7 @@ export function tokenGetter() {
   ],
   declarations: [
     LoginFormComponent,
+    PublicScheduleComponent,
     SignupComponent,
     ForgotPasswordComponent
   ],

@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 
-import { AppHttp } from '../security/app-http';
-import { environment } from '../../environments/environment';
-import { PatientInfo, PatientFilters } from 'app/model/Patient';
-import { Page, Pageable } from 'app/model/Util';
 import { HttpHeaders } from '@angular/common/http';
+import { DigitalDocument } from 'app/model/DigitalDocument';
+import { PatientFilters, PatientInfo } from 'app/model/Patient';
+import { Page, Pageable } from 'app/model/Util';
+import { environment } from '../../environments/environment';
+import { AppHttp } from '../security/app-http';
 
 @Injectable()
 export class PatientService {
@@ -61,6 +62,14 @@ export class PatientService {
             .append('Content-Type', "application/json");
         if (patient) {
             return this.http.put<PatientInfo>(`${this.baseUrl}/${patient.id}`, patient, { headers }).toPromise();
+        }
+    }
+
+    generateAppointmentsReport(id, request): Promise<DigitalDocument> {
+        var headers = new HttpHeaders()
+            .append('Content-Type', 'application/json');
+        if (id && request) {
+            return this.http.post<DigitalDocument>(`${this.baseUrl}/${id}/reports/appointments`, request, { headers }).toPromise();
         }
     }
 }

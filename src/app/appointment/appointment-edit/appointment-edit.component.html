@@ -7,7 +7,7 @@
         <h4 class="card-title">Dados do agendamento</h4>
         <p class="card-category">Dados completos do agendamento
             {{dataToForm.id ? 'criado em ' + (dataToForm.createdAt | date: 'dd/MM/yyyy HH:mm:ss') : ''}}</p>
-        <button mat-raised-button class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-danger"
+        <button *ngIf="dataToForm.id" class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-danger"
             (click)="onRemoveClick(dataToForm.id)"><span class="fa fa-trash"></span> Apagar agendamento</button>
     </div>
     <div class="card-body">
@@ -151,6 +151,7 @@
                     <div *ngIf="!dataToForm.id" class="col-sm-12 col-md-2 col-lg-2">
                         <mat-form-field>
                             <mat-select [(ngModel)]="dataToForm.repeatSettings.intervalType"
+                                (selectionChange)="selectIntervalType($event.value)"
                                 [disabled]="!dataToForm.repeatSettings || !dataToForm.repeatSettings.numberOfOccurrences">
                                 <mat-option
                                     *ngIf="!dataToForm.repeatSettings || !dataToForm.repeatSettings.numberOfOccurrences">

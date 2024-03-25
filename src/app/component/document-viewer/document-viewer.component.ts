@@ -42,8 +42,8 @@ export class DocumentViewerComponent implements OnInit {
     if (selectedDigitalDocumentId != 0) {
       this.utilService.getDigitalDocumentById(selectedDigitalDocumentId).then(resp => {
         setTimeout(() => {
-          this.loading = false;
-        }, 3000);
+          this.incrementZoom(0.1);
+        }, 500);
         this.document = resp;
         this.document.base64 = 'data:application/pdf;base64,' + this.document.base64;
       }).catch(error => {

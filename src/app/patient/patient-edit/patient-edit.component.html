@@ -8,17 +8,21 @@
     <div class="card-header card-header-info">
         <div>
             <a href="javascript:void(0)" style="padding: 10px;">
-                <i class="material-icons" (click)="logoInput.click()" style="color: white;">cloud_upload</i>
+                <i class="material-icons" (click)="logoInput.click()" matTooltip="Enviar foto" style="color: white;">cloud_upload</i>
             </a>
             <input #logoInput hidden="true" type="file" onclick="this.value=null" (change)="saveImagem($event)"
                 accept=".png" />
             <a href="javascript:void(0)" style="padding: 10px;">
-                <i class="material-icons" (click)="openWebCam()" style="color: white;">camera_alt</i>
+                <i class="material-icons" (click)="openWebCam()" matTooltip="Abrir câmera" style="color: white;">camera_alt</i>
+            </a>
+            <a href="javascript:void(0)" style="padding: 10px;">
+                <i class="material-icons" (click)="openAppointmentsReport()" matTooltip="Agendamentos deste mês" style="color: white;">event</i>
             </a>
         </div>
         <h4 class="card-title">Dados do paciente</h4>
         <p class="card-category">Dados do paciente desde
-            {{dataToForm.id ? 'criado em ' + (dataToForm.createdAt | date: 'dd/MM/yyyy') : ''}}</p>
+            {{dataToForm.id ? 'criado em ' + (dataToForm.createdAt | date: 'dd/MM/yyyy') + ' - Idade: ' +
+            dataToForm.lifetimeDescription : ''}}</p>
 
     </div>
     <div class="card-body">
@@ -400,8 +404,41 @@
                         </div>
                     </div>
                 </mat-tab>
-                <mat-tab *ngIf="dataToForm.attendanceHistory && dataToForm.attendanceHistory.length > 0"
-                    label="Histórico">
+                <mat-tab *ngIf="dataToForm.upcomingAppointments?.length > 0" label="Próximas consultas">
+                    <br />
+                    <div class="row">
+                        <div class="col-12">
+                            <mat-table [dataSource]="upcomingAppointmentsDatasource" matSort>
+                                <!-- ID Column -->
+                                <ng-container matColumnDef="schedulingDateAndTime">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Data - Hora</mat-header-cell>
+                                    <mat-cell *matCellDef="let row">{{row.schedulingDateAndTime | date: 'dd/MM/yyyy
+                                        HH:mm'}}</mat-cell>
+                                </ng-container>
+
+                                <!-- Name Column -->
+                                <ng-container matColumnDef="professionalName">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Profissional</mat-header-cell>
+                                    <mat-cell *matCellDef="let row">{{row.professionalName}}
+                                    </mat-cell>
+                                </ng-container>
+
+                                <!-- Progress Column -->
+                                <ng-container matColumnDef="status">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Situação do agendamento
+                                    </mat-header-cell>
+                                    <mat-cell
+                                        *matCellDef="let row">{{getAppointmentStatusDescription(row.status)}}</mat-cell>
+                                </ng-container>
+
+                                <mat-header-row
+                                    *matHeaderRowDef="upcomingAppointmentsDisplayedColumns"></mat-header-row>
+                                <mat-row *matRowDef="let row; columns: upcomingAppointmentsDisplayedColumns;"></mat-row>
+                            </mat-table>
+                        </div>
+                    </div>
+                </mat-tab>
+                <mat-tab *ngIf="dataToForm.attendanceHistory?.length > 0" label="Histórico">
                     <br />
                     <div class="row">
                         <div class="col-12">
@@ -434,8 +471,8 @@
                                         <h5>{{showStatus(row.isFinished)}}</h5>
                                     </mat-cell>
                                 </ng-container>
-                                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-                                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                                <mat-header-row *matHeaderRowDef="attendanceHistoryDisplayedColumns"></mat-header-row>
+                                <mat-row *matRowDef="let row; columns: attendanceHistoryDisplayedColumns;"></mat-row>
                             </mat-table>
                         </div>
                     </div>

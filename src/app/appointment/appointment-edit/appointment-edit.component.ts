@@ -214,5 +214,8 @@ export class AppointmentEditComponent implements OnInit {
       editor.ui.getEditableElement()
     );
   }
+  selectIntervalType(newValue: string) {
+    this.dataToForm.repeatSettings.intervalType = newValue;
+  }
 
 }

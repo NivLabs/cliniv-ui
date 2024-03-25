@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import * as DecoupledEditor from '@ckeditor/ckeditor5-build-decoupled-document';
@@ -13,12 +13,14 @@ import { PersonDocumentDialogComponent } from 'app/core/person-document-dialog/p
 import { UtilService } from 'app/core/util.service';
 import { HealthPlanService } from 'app/healthOperator/health-plan.service';
 import { Address } from 'app/model/Address';
+import { Appointment } from 'app/model/Appointment';
 import { PatientHistory } from 'app/model/Attendance';
 import { Document } from 'app/model/Document';
 import { HealthPlan } from 'app/model/HealthPlan';
 import { PatientInfo } from 'app/model/Patient';
 import { PersonDocument } from 'app/model/Person';
 import { PatientService } from '../patient.service';
+import { DocumentViewerComponent } from 'app/component/document-viewer/document-viewer.component';
 
 
 @Component({
@@ -31,8 +33,12 @@ export class PatientEditComponent implements OnInit {
   public loading: boolean;
   public isNewCpf = false;
 
-  public displayedColumns = ['id', 'entryDatetime', 'entryCause', 'isFinished'];
+  public upcomingAppointmentsDisplayedColumns = ['schedulingDateAndTime', 'professionalName', 'status'];
+  public upcomingAppointmentsDatasource: MatTableDataSource<Appointment>;
+
+  public attendanceHistoryDisplayedColumns = ['id', 'entryDatetime', 'entryCause', 'isFinished'];
   public attendanceHistoryDataSource: MatTableDataSource<PatientHistory>;
+
   public displayedColunsDocuments = ['type', 'value', 'dispatcher', 'uf', 'expeditionDate'];
   public documentsDataSource: MatTableDataSource<PersonDocument>;
 
@@ -122,12 +128,16 @@ export class PatientEditComponent implements OnInit {
         if (!resp.healthPlan) {
           this.dataToForm.healthPlan = new HealthPlan();
         }
-        if(resp.healthPlan && !resp.healthPlan.patientPlanNumber) {
+        if (resp.healthPlan && !resp.healthPlan.patientPlanNumber) {
           this.dataToForm.healthPlan.patientPlanNumber = "";
         }
         if (resp.attendanceHistory) {
           this.dataToForm.attendanceHistory = resp.attendanceHistory;
           this.attendanceHistoryDataSource = new MatTableDataSource(this.dataToForm.attendanceHistory);
+        }
+        if (resp.upcomingAppointments) {
+          this.dataToForm.upcomingAppointments = resp.upcomingAppointments;
+          this.upcomingAppointmentsDatasource = new MatTableDataSource(this.dataToForm.upcomingAppointments);
         }
         if (resp.documents) {
           this.documentsDataSource = new MatTableDataSource(this.dataToForm.documents);
@@ -332,11 +342,32 @@ export class PatientEditComponent implements OnInit {
           this.dataToForm.attendanceHistory = resp.attendanceHistory;
           this.attendanceHistoryDataSource = new MatTableDataSource(this.dataToForm.attendanceHistory);
         }
+        if (resp.upcomingAppointments) {
+          this.dataToForm.upcomingAppointments = resp.upcomingAppointments;
+          this.upcomingAppointmentsDatasource = new MatTableDataSource(this.dataToForm.upcomingAppointments);
+        }
       }).catch(error => {
         this.loading = false;
         this.dataToForm.cnsNumber = "";
         this.errorHandler.handle(error, this.dialogRef);
       });
+    }
+  }
+
+  getAppointmentStatusDescription(status: string) {
+    switch (status) {
+      case "WAITING_CONFIRMATION":
+        return "Aguardando confirmação";
+      case "CONFIRMED":
+        return "Paciente confirmado(Paciente confirmou presença)";
+      case "COMPLETED":
+        return "Atendimento realizado";
+      case "CANCELED":
+        return "Agendamento cancelado";
+      case "MISSED":
+        return "Paciente faltou";
+      case "REESCHEDULED":
+        return "Remarcado";
     }
   }
 
@@ -363,11 +394,31 @@ export class PatientEditComponent implements OnInit {
     return status ? 'Teve alta' : 'Em atendimento';
   }
 
-  onReady( editor ) {
+  onReady(editor) {
     editor.ui.getEditableElement().parentElement.insertBefore(
-        editor.ui.view.toolbar.element,
-        editor.ui.getEditableElement()
+      editor.ui.view.toolbar.element,
+      editor.ui.getEditableElement()
     );
+  }
+
+  openAppointmentsReport() {
+    this.loading = true;
+
+    const currentDate = new Date();
+    const firstDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+    const lastDay = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
+
+    const firstDayISO = firstDay.toISOString().slice(0, 10);
+    const lastDayISO = lastDay.toISOString().slice(0, 10);
+
+    this.patientService.generateAppointmentsReport(this.dataToForm.id, { initDate: firstDayISO, endDate: lastDayISO }).then(resp => {
+      this.loading = false;
+      this.dialog.open(DocumentViewerComponent, {
+        width: '100%',
+        height: 'auto',
+        data: { selectedDigitalDocumentId: 0, document: resp }
+      });
+    }).finally(() => this.loading = false);
   }
 
 }

@@ -1,29 +1,28 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import { ActivatedRoute, Router } from '@angular/router';
+import { DocumentViewerComponent } from 'app/component/document-viewer/document-viewer.component';
 import { ConfirmDialogComponent } from 'app/core/confirm-dialog/confirm-dialog.component';
 import { ErrorHandlerService } from 'app/core/error-handler.service';
 import { NotificationsComponent } from 'app/core/notification/notifications.component';
-import { PatientHistoryComponent } from './history/patient-history.component';
-import { NewAttendanceComponent } from './newVisit/new-attendance.component';
-import { MedicalRecordService } from './medical-record.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Accommodation } from 'app/model/Accommodation';
 import { MedicalRecord, NewAttendance } from 'app/model/Attendance';
 import { Document } from 'app/model/Document';
-import { DocumentViewerComponent } from 'app/component/document-viewer/document-viewer.component';
-import { AttDynamicFormComponent } from './dynamicForm/att-dynamic-form.component';
-import { AllergyComponent } from './allergy/allergy.component';
-import { EvolutionComponent } from './evolution/evolution.component';
-import { Accommodation } from 'app/model/Accommodation';
-import { DocumentSelectorComponent } from './document-selector/document-selector.component';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatSort } from '@angular/material/sort';
-import { CloseEventComponent } from './close-event/close-event.component';
-import { NewEventComponent } from './new-event/new-event.component';
-import { SelectFormComponent } from './dynamicForm/select-form/select-form.component';
-import * as moment from 'moment';
-import { PrescriptionComponent } from './prescription/prescription.component';
-import { ChangeSectorAndResponsibleComponent } from './change-sector-and-responsible/change-sector-and-responsible.component';
 import { Professional } from 'app/model/Professional';
+import * as moment from 'moment';
+import { AllergyComponent } from './allergy/allergy.component';
+import { ChangeSectorAndResponsibleComponent } from './change-sector-and-responsible/change-sector-and-responsible.component';
+import { CloseEventComponent } from './close-event/close-event.component';
+import { DocumentSelectorComponent } from './document-selector/document-selector.component';
+import { SelectFormComponent } from './dynamicForm/select-form/select-form.component';
+import { EvolutionComponent } from './evolution/evolution.component';
+import { PatientHistoryComponent } from './history/patient-history.component';
+import { MedicalRecordService } from './medical-record.service';
+import { NewEventComponent } from './new-event/new-event.component';
+import { NewAttendanceComponent } from './newVisit/new-attendance.component';
+import { PrescriptionComponent } from './prescription/prescription.component';
 
 @Component({
   selector: 'app-medical-record',
@@ -46,7 +45,13 @@ export class MedicalRecordComponent implements OnInit {
   public displayedColumnsMedicines: any;
   public timer: string;
 
-  constructor(private router: Router, private route: ActivatedRoute, public confirmDialog: MatDialog, public dialog: MatDialog, private visitService: MedicalRecordService, private errorHandler: ErrorHandlerService, private notification: NotificationsComponent) { }
+  constructor(private router: Router,
+    private route: ActivatedRoute,
+    public confirmDialog: MatDialog,
+    public dialog: MatDialog,
+    private visitService: MedicalRecordService,
+    private errorHandler: ErrorHandlerService,
+    private notification: NotificationsComponent) { }
 
   ngOnInit() {
     this.router.navigate(['visit']);
