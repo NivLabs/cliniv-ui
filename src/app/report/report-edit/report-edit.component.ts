@@ -3,12 +3,12 @@ import { NotificationsComponent } from 'app/core/notification/notifications.comp
 import { ErrorHandlerService } from 'app/core/error-handler.service';
 import { ReportService } from '../report.service';
 import { UtilService } from 'app/core/util.service';
-import { FormBuilder } from '@angular/forms';
+import { UntypedFormBuilder } from '@angular/forms';
 import { Report } from 'app/model/Report';
-import { MatDialogRef, MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatLegacyDialogRef as MatDialogRef, MatLegacyDialog as MatDialog, MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA } from '@angular/material/legacy-dialog';
 import { ConfirmDialogComponent } from 'app/core/confirm-dialog/confirm-dialog.component';
 import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatLegacyTableDataSource as MatTableDataSource } from '@angular/material/legacy-table';
 import { DocumentViewerComponent } from '../../component/document-viewer/document-viewer.component';
 import '@ckeditor/ckeditor5-build-decoupled-document/build/translations/pt-br';
 import * as DecoupledEditor from '@ckeditor/ckeditor5-build-decoupled-document';
@@ -35,7 +35,7 @@ export class ReportEditComponent implements OnInit {
   };
 
   constructor(public principalService: ReportService, public confirmDialog: MatDialog, public dialog: MatDialog, public dialogRef: MatDialogRef<ReportEditComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Report, public formBuilder: FormBuilder, private utilService: UtilService, private errorHandler: ErrorHandlerService,
+    @Inject(MAT_DIALOG_DATA) public data: Report, public formBuilder: UntypedFormBuilder, private utilService: UtilService, private errorHandler: ErrorHandlerService,
     private notification: NotificationsComponent) {
     this.dialogRef.disableClose = true;
     this.dataToForm = new Report();

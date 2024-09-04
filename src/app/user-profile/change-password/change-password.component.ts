@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UpdatePassword } from 'app/model/UpdatePassword';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
 import { UserProfileService } from '../user-profile.service';
 import { ErrorHandlerService } from 'app/core/error-handler.service';
 import { NotificationsComponent } from 'app/core/notification/notifications.component';

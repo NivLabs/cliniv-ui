@@ -1,8 +1,8 @@
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { UntypedFormBuilder } from '@angular/forms';
+import { MatLegacyDialog as MatDialog, MatLegacyDialogRef as MatDialogRef, MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA } from '@angular/material/legacy-dialog';
 import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatLegacyTableDataSource as MatTableDataSource } from '@angular/material/legacy-table';
 import { ErrorHandlerService } from 'app/core/error-handler.service';
 import { NotificationsComponent } from 'app/core/notification/notifications.component';
 import { DynamicForm } from 'app/model/DynamicForm';
@@ -33,7 +33,7 @@ export class DynamicFormEditComponent implements OnInit {
     public dialog: MatDialog,
     public dialogRef: MatDialogRef<DynamicFormEditComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DynamicForm,
-    public formBuilder: FormBuilder,
+    public formBuilder: UntypedFormBuilder,
     private errorHandler: ErrorHandlerService,
     private notification: NotificationsComponent) {
     this.dialogRef.disableClose = true;

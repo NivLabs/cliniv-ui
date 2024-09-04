@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ErrorHandlerService } from 'app/core/error-handler.service';
 import { SpecialityService } from './speciality.service';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { Page, Pageable } from 'app/model/Util';
 import { SpecialityFilters } from '../model/Speciality';
 import { SpecialityEditComponent } from '../speciality/speciality-edit/speciality-edit.component';

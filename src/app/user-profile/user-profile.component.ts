@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { UserProfileService } from './user-profile.service';
 import { ErrorHandlerService } from 'app/core/error-handler.service';
 import { NotificationsComponent } from 'app/core/notification/notifications.component';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { AddressService } from 'app/core/address.service';
 import { UserInfo } from 'app/model/User';
 import { Document } from 'app/model/Document';
 import { Address } from 'app/model/Address';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog, MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
 import { CameraDialogComponent } from 'app/component/camera/dialog/camera-dialog.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 
@@ -19,7 +19,7 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
 })
 export class UserProfileComponent implements OnInit {
 
-  form: FormGroup;
+  form: UntypedFormGroup;
   public loading: boolean;
   userInfo: UserInfo = new UserInfo;
 

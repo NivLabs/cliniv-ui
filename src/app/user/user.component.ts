@@ -5,7 +5,7 @@ import { UserService } from './user.service';
 import { Page, Pageable } from 'app/model/Util';
 import { UserFilters } from 'app/model/User';
 import { UserEditComponent } from './user-edit/user-edit.component';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 
 @Component({
   selector: 'app-user',

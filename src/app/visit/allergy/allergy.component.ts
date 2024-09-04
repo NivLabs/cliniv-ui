@@ -2,16 +2,16 @@ import { Component, OnInit, Inject, ViewChild, ElementRef } from '@angular/core'
 import { NotificationsComponent } from 'app/core/notification/notifications.component';
 import { ErrorHandlerService } from 'app/core/error-handler.service';
 import { MedicalRecordService } from '../medical-record.service';
-import { FormBuilder, FormControl } from '@angular/forms';
-import { MatDialogRef, MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { UntypedFormBuilder, UntypedFormControl } from '@angular/forms';
+import { MatLegacyDialogRef as MatDialogRef, MatLegacyDialog as MatDialog, MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA } from '@angular/material/legacy-dialog';
 import { ConfirmDialogComponent } from 'app/core/confirm-dialog/confirm-dialog.component';
 import { Page, Pageable } from 'app/model/Util';
 import { Allergy, AllergyFilters, AllergiesDescriptions } from 'app/model/Allergy';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { fromEvent } from 'rxjs';
-import { MatAutocompleteSelectedEvent, MatAutocomplete } from '@angular/material/autocomplete';
+import { MatLegacyAutocompleteSelectedEvent as MatAutocompleteSelectedEvent, MatLegacyAutocomplete as MatAutocomplete } from '@angular/material/legacy-autocomplete';
 import { map, debounceTime, distinctUntilChanged, filter } from 'rxjs/operators';
-import { MatChipInputEvent } from '@angular/material/chips';
+import { MatLegacyChipInputEvent as MatChipInputEvent } from '@angular/material/legacy-chips';
 
 @Component({
     selector: 'app-allergy',
@@ -35,14 +35,14 @@ export class AllergyComponent implements OnInit {
     selectable = true;
     removable = true;
     separatorKeysCodes: number[] = [ENTER, COMMA];
-    allergyCtrl = new FormControl();
+    allergyCtrl = new UntypedFormControl();
 
     private readonly RELOAD_TOP_SCROLL_POSITION = 30;
     @ViewChild('allergyInput', { static: true }) allergyInput: ElementRef;
     @ViewChild('auto') matAutocomplete: MatAutocomplete;
 
     constructor(public principalService: MedicalRecordService, public confirmDialog: MatDialog, public dialog: MatDialog, public dialogRef: MatDialogRef<AllergyComponent>,
-        @Inject(MAT_DIALOG_DATA) public data: Allergy, public formBuilder: FormBuilder, private errorHandler: ErrorHandlerService, private notification: NotificationsComponent) {
+        @Inject(MAT_DIALOG_DATA) public data: Allergy, public formBuilder: UntypedFormBuilder, private errorHandler: ErrorHandlerService, private notification: NotificationsComponent) {
         this.dialogRef.disableClose = true;
     }
 

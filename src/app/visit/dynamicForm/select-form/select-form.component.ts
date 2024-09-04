@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { UntypedFormControl, Validators } from '@angular/forms';
+import { MatLegacyDialog as MatDialog, MatLegacyDialogRef as MatDialogRef, MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA } from '@angular/material/legacy-dialog';
 import { Router } from '@angular/router';
 import { ErrorHandlerService } from 'app/core/error-handler.service';
 import { NotificationsComponent } from 'app/core/notification/notifications.component';
@@ -31,7 +31,7 @@ export class SelectFormComponent implements OnInit {
   public page: Page;
   public pageSettings: Pageable;
   public attendanceId: number;
-  public dataControl = new FormControl('', [Validators.required]);
+  public dataControl = new UntypedFormControl('', [Validators.required]);
 
 
   ngOnInit(): void {

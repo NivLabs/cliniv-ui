@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { ErrorHandlerService } from 'app/core/error-handler.service';
 import { DynamicFormFilter } from 'app/model/DynamicForm';
 import { Page, Pageable } from 'app/model/Util';

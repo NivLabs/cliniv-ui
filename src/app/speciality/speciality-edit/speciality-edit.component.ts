@@ -3,9 +3,9 @@ import { NotificationsComponent } from 'app/core/notification/notifications.comp
 import { ErrorHandlerService } from 'app/core/error-handler.service';
 import { SpecialityService } from '../speciality.service';
 import { UtilService } from 'app/core/util.service';
-import { FormBuilder } from '@angular/forms';
+import { UntypedFormBuilder } from '@angular/forms';
 import { Speciality } from 'app/model/Speciality';
-import { MatDialogRef, MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatLegacyDialogRef as MatDialogRef, MatLegacyDialog as MatDialog, MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA } from '@angular/material/legacy-dialog';
 import { ConfirmDialogComponent } from 'app/core/confirm-dialog/confirm-dialog.component';
 import { MatSort } from '@angular/material/sort';
 
@@ -21,7 +21,7 @@ export class SpecialityEditComponent implements OnInit {
   public dataToForm: Speciality;
   public selectedSpecialityId: number = 0;
 
-  constructor(public principalService: SpecialityService, public confirmDialog: MatDialog, public dialog: MatDialog, public dialogRef: MatDialogRef<SpecialityEditComponent>, @Inject(MAT_DIALOG_DATA) public data: Speciality, public formBuilder: FormBuilder, private utilService: UtilService, private errorHandler: ErrorHandlerService, private notification: NotificationsComponent) {
+  constructor(public principalService: SpecialityService, public confirmDialog: MatDialog, public dialog: MatDialog, public dialogRef: MatDialogRef<SpecialityEditComponent>, @Inject(MAT_DIALOG_DATA) public data: Speciality, public formBuilder: UntypedFormBuilder, private utilService: UtilService, private errorHandler: ErrorHandlerService, private notification: NotificationsComponent) {
     this.dialogRef.disableClose = true;
     this.dataToForm = new Speciality();
   }

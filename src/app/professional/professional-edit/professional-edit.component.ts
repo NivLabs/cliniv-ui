@@ -2,11 +2,11 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { ErrorHandlerService } from 'app/core/error-handler.service';
 import { NotificationsComponent } from 'app/core/notification/notifications.component';
 import { ProfessionalService } from '../professional.service';
-import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialogRef as MatDialogRef, MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA, MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { AddressService } from 'app/core/address.service';
 import { UtilService } from 'app/core/util.service';
 import { ConfirmDialogComponent } from 'app/core/confirm-dialog/confirm-dialog.component';
-import { FormGroup, FormControl, FormBuilder, FormArray } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, UntypedFormBuilder, FormArray } from '@angular/forms';
 import { Professional } from 'app/model/Professional';
 import { Address } from 'app/model/Address';
 import { ProfessionalIdentity } from 'app/model/ProfessionalIdentity';
@@ -21,12 +21,12 @@ import { Specialization } from 'app/model/Specialization';
 })
 export class ProfessionalEditComponent implements OnInit {
 
-  public form: FormGroup;
+  public form: UntypedFormGroup;
   public dataToForm: Professional;
   public loading: boolean;
   specializationsData: any;
 
-  constructor(public confirmDialog: MatDialog, public formBuilder: FormBuilder,
+  constructor(public confirmDialog: MatDialog, public formBuilder: UntypedFormBuilder,
     public dialogRef: MatDialogRef<ProfessionalEditComponent>, public errorHandler: ErrorHandlerService,
     @Inject(MAT_DIALOG_DATA) public data: Professional, private professionalService: ProfessionalService, private addressService: AddressService, private notification: NotificationsComponent, private utilService: UtilService) {
     this.dialogRef.disableClose = true;
@@ -34,26 +34,26 @@ export class ProfessionalEditComponent implements OnInit {
     this.dataToForm = new Professional();
 
     this.form = this.formBuilder.group({
-      id: new FormControl(''),
-      registerValue: new FormControl(''),
-      registerType: new FormControl(''),
-      document: new FormControl(''),
-      fullName: new FormControl(''),
-      socialName: new FormControl(''),
-      motherName: new FormControl(''),
-      fatherName: new FormControl(''),
-      principalNumber: new FormControl(''),
-      secondaryNumber: new FormControl(''),
-      bornDate: new FormControl(''),
-      gender: new FormControl(''),
-      cep: new FormControl(''),
-      street: new FormControl(''),
-      addressNumber: new FormControl(''),
-      complement: new FormControl(''),
-      neighborhood: new FormControl(''),
-      city: new FormControl(''),
-      email: new FormControl(''),
-      state: new FormControl('')
+      id: new UntypedFormControl(''),
+      registerValue: new UntypedFormControl(''),
+      registerType: new UntypedFormControl(''),
+      document: new UntypedFormControl(''),
+      fullName: new UntypedFormControl(''),
+      socialName: new UntypedFormControl(''),
+      motherName: new UntypedFormControl(''),
+      fatherName: new UntypedFormControl(''),
+      principalNumber: new UntypedFormControl(''),
+      secondaryNumber: new UntypedFormControl(''),
+      bornDate: new UntypedFormControl(''),
+      gender: new UntypedFormControl(''),
+      cep: new UntypedFormControl(''),
+      street: new UntypedFormControl(''),
+      addressNumber: new UntypedFormControl(''),
+      complement: new UntypedFormControl(''),
+      neighborhood: new UntypedFormControl(''),
+      city: new UntypedFormControl(''),
+      email: new UntypedFormControl(''),
+      state: new UntypedFormControl('')
     })
     this.form.controls.id.disable();
 

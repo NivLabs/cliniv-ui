@@ -3,7 +3,7 @@ import { HealthOperatorFilter } from 'app/model/HealthOperator';
 import { Page, Pageable } from 'app/model/Util';
 import { HealthOperatorService } from './health-operator.service';
 import { ErrorHandlerService } from 'app/core/error-handler.service';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { HealthOperatorEditComponent } from './health-operator-edit/health-operator-edit.component';
 
 @Component({

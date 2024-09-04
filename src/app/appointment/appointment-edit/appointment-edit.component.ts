@@ -1,8 +1,8 @@
 import { DatePipe } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { UntypedFormControl, Validators } from '@angular/forms';
+import { MatLegacyDialog as MatDialog, MatLegacyDialogRef as MatDialogRef, MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA } from '@angular/material/legacy-dialog';
 import { ConfirmDialogComponent } from 'app/core/confirm-dialog/confirm-dialog.component';
 import { ErrorHandlerService } from 'app/core/error-handler.service';
 import { NotificationsComponent } from 'app/core/notification/notifications.component';
@@ -25,7 +25,7 @@ export class AppointmentEditComponent implements OnInit {
 
   public dataToForm: AppointmentInfo;
   public scheduleParameters: AppointmentParameters;
-  public responsibleControl: FormControl = new FormControl('', [Validators.required]);
+  public responsibleControl: UntypedFormControl = new UntypedFormControl('', [Validators.required]);
 
   public loading = false;
 

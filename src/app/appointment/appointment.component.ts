@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
+import { UntypedFormControl } from '@angular/forms';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { CalendarOptions, EventApi } from '@fullcalendar/core';
 import { default as dayGridPlugin } from '@fullcalendar/daygrid';
 import listPlugin from '@fullcalendar/list';
@@ -63,9 +63,9 @@ export class AppointmentComponent implements OnInit {
   private END_HOUR_DEFAULT: string = "23:59";
 
   public filters: AppointmentFilter = new AppointmentFilter();
-  responsibleControl = new FormControl();
-  confirmationSelectControl = new FormControl();
-  statusSelectControl = new FormControl();
+  responsibleControl = new UntypedFormControl();
+  confirmationSelectControl = new UntypedFormControl();
+  statusSelectControl = new UntypedFormControl();
 
   currentEvents: EventApi[] = [];
   public responsibles: any;

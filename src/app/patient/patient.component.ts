@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PatientService } from './patient.service';
 import { ErrorHandlerService } from 'app/core/error-handler.service';
 import { NotificationsComponent } from 'app/core/notification/notifications.component';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { PatientEditComponent } from './patient-edit/patient-edit.component';
 import { Page, Pageable } from 'app/model/Util';
 import { PatientFilters } from '../model/Patient'

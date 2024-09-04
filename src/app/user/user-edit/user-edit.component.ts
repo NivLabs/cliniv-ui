@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { UserService } from '../user.service';
 import { ErrorHandlerService } from 'app/core/error-handler.service';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog, MatLegacyDialogRef as MatDialogRef, MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA } from '@angular/material/legacy-dialog';
 import { UserInfo } from 'app/model/User';
 import { AddressService } from 'app/core/address.service';
 import { NotificationsComponent } from 'app/core/notification/notifications.component';
