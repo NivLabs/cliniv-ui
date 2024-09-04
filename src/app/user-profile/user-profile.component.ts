@@ -7,7 +7,7 @@ import { AddressService } from 'app/core/address.service';
 import { UserInfo } from 'app/model/User';
 import { Document } from 'app/model/Document';
 import { Address } from 'app/model/Address';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog, MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
 import { CameraDialogComponent } from 'app/component/camera/dialog/camera-dialog.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { ErrorHandlerService } from 'app/core/error-handler.service';
 import { UtilService } from 'app/core/util.service';
 import { Sticker } from 'app/model/Sticker';

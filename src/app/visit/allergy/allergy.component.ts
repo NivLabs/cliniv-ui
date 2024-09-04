@@ -3,15 +3,15 @@ import { NotificationsComponent } from 'app/core/notification/notifications.comp
 import { ErrorHandlerService } from 'app/core/error-handler.service';
 import { MedicalRecordService } from '../medical-record.service';
 import { UntypedFormBuilder, UntypedFormControl } from '@angular/forms';
-import { MatDialogRef, MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatLegacyDialogRef as MatDialogRef, MatLegacyDialog as MatDialog, MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA } from '@angular/material/legacy-dialog';
 import { ConfirmDialogComponent } from 'app/core/confirm-dialog/confirm-dialog.component';
 import { Page, Pageable } from 'app/model/Util';
 import { Allergy, AllergyFilters, AllergiesDescriptions } from 'app/model/Allergy';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { fromEvent } from 'rxjs';
-import { MatAutocompleteSelectedEvent, MatAutocomplete } from '@angular/material/autocomplete';
+import { MatLegacyAutocompleteSelectedEvent as MatAutocompleteSelectedEvent, MatLegacyAutocomplete as MatAutocomplete } from '@angular/material/legacy-autocomplete';
 import { map, debounceTime, distinctUntilChanged, filter } from 'rxjs/operators';
-import { MatChipInputEvent } from '@angular/material/chips';
+import { MatLegacyChipInputEvent as MatChipInputEvent } from '@angular/material/legacy-chips';
 
 @Component({
     selector: 'app-allergy',

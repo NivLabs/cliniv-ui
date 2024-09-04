@@ -5,7 +5,7 @@ import { SpecialityService } from '../speciality.service';
 import { UtilService } from 'app/core/util.service';
 import { UntypedFormBuilder } from '@angular/forms';
 import { Speciality } from 'app/model/Speciality';
-import { MatDialogRef, MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatLegacyDialogRef as MatDialogRef, MatLegacyDialog as MatDialog, MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA } from '@angular/material/legacy-dialog';
 import { ConfirmDialogComponent } from 'app/core/confirm-dialog/confirm-dialog.component';
 import { MatSort } from '@angular/material/sort';
 

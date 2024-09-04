@@ -3,7 +3,7 @@ import { ErrorHandlerService } from 'app/core/error-handler.service';
 import { Page, Pageable } from 'app/model/Util';
 import { ProcedureFilters, ProcedureInfo } from '../model/Procedure';
 import { ProcedureService } from 'app/procedure/procedure.service';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { ConfirmDialogComponent } from 'app/core/confirm-dialog/confirm-dialog.component';
 import { NotificationsComponent } from 'app/core/notification/notifications.component';
 import { ProcedureEditComponent } from './procedure-edit/procedure-edit.component';

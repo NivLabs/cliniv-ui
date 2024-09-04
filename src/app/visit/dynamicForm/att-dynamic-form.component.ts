@@ -3,7 +3,7 @@ import { NotificationsComponent } from 'app/core/notification/notifications.comp
 import { ErrorHandlerService } from 'app/core/error-handler.service';
 import { MedicalRecordService } from '../medical-record.service';
 import { UntypedFormBuilder } from '@angular/forms';
-import { MatDialogRef, MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatLegacyDialogRef as MatDialogRef, MatLegacyDialog as MatDialog, MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA } from '@angular/material/legacy-dialog';
 import { DynamicFormQuestion } from 'app/model/DynamicFormQuestion';
 import { Page, Pageable } from 'app/model/Util';
 import { Response } from 'app/model/Response';

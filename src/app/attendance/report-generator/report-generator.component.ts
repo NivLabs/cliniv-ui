@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormControl } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { DocumentViewerComponent } from 'app/component/document-viewer/document-viewer.component';
 import { NotificationsComponent } from 'app/core/notification/notifications.component';
 import { Pageable } from 'app/model/Util';

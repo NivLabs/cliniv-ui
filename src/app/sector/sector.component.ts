@@ -2,7 +2,7 @@ import { Component, OnInit, ErrorHandler } from '@angular/core';
 import { ErrorHandlerService } from 'app/core/error-handler.service';
 import { SectorService } from './sector.service';
 import { SectorEditComponent } from './sector-edit/sector-edit.component';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { Page, Pageable } from 'app/model/Util';
 import { SectorFilters } from '../model/Sector';
 

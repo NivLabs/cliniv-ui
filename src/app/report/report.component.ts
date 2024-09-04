@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ErrorHandlerService } from 'app/core/error-handler.service';
 import { ReportService } from './report.service';
 import { ReportEditComponent } from './report-edit/report-edit.component';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { Page, Pageable } from 'app/model/Util';
 import { ReportFilters } from '../model/Report';
 import { ConfirmDialogComponent } from 'app/core/confirm-dialog/confirm-dialog.component';

@@ -4,7 +4,7 @@ import { ErrorHandlerService } from 'app/core/error-handler.service';
 import { DynamicFormService } from 'app/visit/dynamicForm/dynamic-form.service';
 import { UtilService } from 'app/core/util.service';
 import { UntypedFormBuilder } from '@angular/forms';
-import { MatDialogRef, MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatLegacyDialogRef as MatDialogRef, MatLegacyDialog as MatDialog, MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA } from '@angular/material/legacy-dialog';
 import { ConfirmDialogComponent } from 'app/core/confirm-dialog/confirm-dialog.component';
 import { DynamicFormQuestion } from 'app/model/DynamicFormQuestion';
 

@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { UntypedFormControl } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { CalendarOptions, EventApi } from '@fullcalendar/core';
 import { default as dayGridPlugin } from '@fullcalendar/daygrid';
 import listPlugin from '@fullcalendar/list';
