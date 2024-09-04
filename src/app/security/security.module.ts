@@ -94,45 +94,40 @@ export function tokenGetter() {
 }
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    matModules,
-
-    JwtModule.forRoot({
-      config: {
-        tokenGetter: tokenGetter
-      }
-    }),
-    NgxMaskModule.forRoot(maskConfig),
-    SecurityRoutingModule
-  ],
-  exports: [
-    CommonModule,
-    FormsModule,
-    matModules,
-  ],
-  declarations: [
-    LoginFormComponent,
-    PublicScheduleComponent,
-    PatientRegisterComponent,
-    SignupComponent,
-    ForgotPasswordComponent
-  ],
-  entryComponents: [
-    SignupComponent,
-    ForgotPasswordComponent
-  ],
-  providers: [
-    AuthGuard,
-    AuthService,
-    CustomerService,
-    AppHttp,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptor,
-      multi: true
-    }
-  ]
+    imports: [
+        CommonModule,
+        FormsModule,
+        matModules,
+        JwtModule.forRoot({
+            config: {
+                tokenGetter: tokenGetter
+            }
+        }),
+        NgxMaskModule.forRoot(maskConfig),
+        SecurityRoutingModule
+    ],
+    exports: [
+        CommonModule,
+        FormsModule,
+        matModules,
+    ],
+    declarations: [
+        LoginFormComponent,
+        PublicScheduleComponent,
+        PatientRegisterComponent,
+        SignupComponent,
+        ForgotPasswordComponent
+    ],
+    providers: [
+        AuthGuard,
+        AuthService,
+        CustomerService,
+        AppHttp,
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: AuthInterceptor,
+            multi: true
+        }
+    ]
 })
 export class SecurityModule { }
