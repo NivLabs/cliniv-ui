@@ -72,10 +72,10 @@
           "options": {},
           "configurations": {
             "production": {
-              "browserTarget": "material-dashboard-angular:build:production"
+              "buildTarget": "material-dashboard-angular:build:production"
             },
             "development": {
-              "browserTarget": "material-dashboard-angular:build:development"
+              "buildTarget": "material-dashboard-angular:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -83,7 +83,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "material-dashboard-angular:build"
+            "buildTarget": "material-dashboard-angular:build"
           }
         },
         "test": {
