@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { UntypedFormBuilder } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Person, PersonDocument } from 'app/model/Person';
 import { NotificationsComponent } from '../notification/notifications.component';
@@ -18,7 +18,7 @@ export class PersonDocumentDialogComponent implements OnInit {
   constructor(public dialog: MatDialog,
     public dialogRef: MatDialogRef<PersonDocumentDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: PersonDocument,
-    public formBuilder: FormBuilder,
+    public formBuilder: UntypedFormBuilder,
     private utilService: UtilService,
     private notification: NotificationsComponent) {
     this.dialogRef.disableClose = true;

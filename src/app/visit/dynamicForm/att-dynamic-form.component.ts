@@ -2,7 +2,7 @@ import { Component, OnInit, Inject, ViewChild } from '@angular/core';
 import { NotificationsComponent } from 'app/core/notification/notifications.component';
 import { ErrorHandlerService } from 'app/core/error-handler.service';
 import { MedicalRecordService } from '../medical-record.service';
-import { FormBuilder } from '@angular/forms';
+import { UntypedFormBuilder } from '@angular/forms';
 import { MatDialogRef, MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DynamicFormQuestion } from 'app/model/DynamicFormQuestion';
 import { Page, Pageable } from 'app/model/Util';
@@ -34,7 +34,7 @@ export class AttDynamicFormComponent implements OnInit {
     };
 
     constructor(public principalService: MedicalRecordService, public confirmDialog: MatDialog, public dialog: MatDialog, public dialogRef: MatDialogRef<AttDynamicFormComponent>,
-        @Inject(MAT_DIALOG_DATA) public data: DynamicFormQuestion, public formBuilder: FormBuilder, private errorHandler: ErrorHandlerService, private notification: NotificationsComponent) {
+        @Inject(MAT_DIALOG_DATA) public data: DynamicFormQuestion, public formBuilder: UntypedFormBuilder, private errorHandler: ErrorHandlerService, private notification: NotificationsComponent) {
         this.dialogRef.disableClose = true;
     }
 

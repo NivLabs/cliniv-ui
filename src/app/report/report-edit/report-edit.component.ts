@@ -3,7 +3,7 @@ import { NotificationsComponent } from 'app/core/notification/notifications.comp
 import { ErrorHandlerService } from 'app/core/error-handler.service';
 import { ReportService } from '../report.service';
 import { UtilService } from 'app/core/util.service';
-import { FormBuilder } from '@angular/forms';
+import { UntypedFormBuilder } from '@angular/forms';
 import { Report } from 'app/model/Report';
 import { MatDialogRef, MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from 'app/core/confirm-dialog/confirm-dialog.component';
@@ -35,7 +35,7 @@ export class ReportEditComponent implements OnInit {
   };
 
   constructor(public principalService: ReportService, public confirmDialog: MatDialog, public dialog: MatDialog, public dialogRef: MatDialogRef<ReportEditComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Report, public formBuilder: FormBuilder, private utilService: UtilService, private errorHandler: ErrorHandlerService,
+    @Inject(MAT_DIALOG_DATA) public data: Report, public formBuilder: UntypedFormBuilder, private utilService: UtilService, private errorHandler: ErrorHandlerService,
     private notification: NotificationsComponent) {
     this.dialogRef.disableClose = true;
     this.dataToForm = new Report();

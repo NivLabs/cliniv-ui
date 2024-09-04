@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { UntypedFormBuilder } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from 'app/core/confirm-dialog/confirm-dialog.component';
 import { ErrorHandlerService } from 'app/core/error-handler.service';
@@ -20,7 +20,7 @@ export class HealthPlanComponent implements OnInit {
   public operatorCode: string;
 
   constructor(public principalService: HealthPlanService, public confirmDialog: MatDialog, public dialog: MatDialog, public dialogRef: MatDialogRef<HealthPlanComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: HealthPlan, public formBuilder: FormBuilder, private utilService: UtilService, private errorHandler: ErrorHandlerService,
+    @Inject(MAT_DIALOG_DATA) public data: HealthPlan, public formBuilder: UntypedFormBuilder, private utilService: UtilService, private errorHandler: ErrorHandlerService,
     private notification: NotificationsComponent) {
     this.dialogRef.disableClose = true;
   }

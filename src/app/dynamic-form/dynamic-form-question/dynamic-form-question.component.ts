@@ -3,7 +3,7 @@ import { NotificationsComponent } from 'app/core/notification/notifications.comp
 import { ErrorHandlerService } from 'app/core/error-handler.service';
 import { DynamicFormService } from 'app/visit/dynamicForm/dynamic-form.service';
 import { UtilService } from 'app/core/util.service';
-import { FormBuilder } from '@angular/forms';
+import { UntypedFormBuilder } from '@angular/forms';
 import { MatDialogRef, MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from 'app/core/confirm-dialog/confirm-dialog.component';
 import { DynamicFormQuestion } from 'app/model/DynamicFormQuestion';
@@ -20,7 +20,7 @@ export class DynamicFormQuestionComponent implements OnInit {
     public dynamicFormId: number;
 
     constructor(public principalService: DynamicFormService, public confirmDialog: MatDialog, public dialog: MatDialog, public dialogRef: MatDialogRef<DynamicFormQuestionComponent>,
-        @Inject(MAT_DIALOG_DATA) public data: DynamicFormQuestion, public formBuilder: FormBuilder, private utilService: UtilService, private errorHandler: ErrorHandlerService,
+        @Inject(MAT_DIALOG_DATA) public data: DynamicFormQuestion, public formBuilder: UntypedFormBuilder, private utilService: UtilService, private errorHandler: ErrorHandlerService,
         private notification: NotificationsComponent) {
         this.dialogRef.disableClose = true;
     }

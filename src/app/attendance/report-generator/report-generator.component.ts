@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { DocumentViewerComponent } from 'app/component/document-viewer/document-viewer.component';
 import { NotificationsComponent } from 'app/core/notification/notifications.component';
@@ -23,7 +23,7 @@ export class ReportGeneratorComponent implements OnInit {
   loading: boolean;
   responsibles: any;
   dataToForm: AttendanceReportParams;
-  responsibleControl = new FormControl();
+  responsibleControl = new UntypedFormControl();
 
   constructor(
     private professionalService: ProfessionalService,

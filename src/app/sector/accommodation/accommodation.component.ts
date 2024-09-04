@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { UntypedFormBuilder } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from 'app/core/confirm-dialog/confirm-dialog.component';
 import { ErrorHandlerService } from 'app/core/error-handler.service';
@@ -19,7 +19,7 @@ export class AccommodationComponent implements OnInit {
     public sectorId: number;
 
     constructor(public principalService: SectorService, public confirmDialog: MatDialog, public dialog: MatDialog, public dialogRef: MatDialogRef<AccommodationComponent>,
-        @Inject(MAT_DIALOG_DATA) public data: Accommodation, public formBuilder: FormBuilder, private errorHandler: ErrorHandlerService,
+        @Inject(MAT_DIALOG_DATA) public data: Accommodation, public formBuilder: UntypedFormBuilder, private errorHandler: ErrorHandlerService,
         private notification: NotificationsComponent) {
         this.dialogRef.disableClose = true;
         this.dataForm = new Accommodation();

@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { UntypedFormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import '@ckeditor/ckeditor5-build-decoupled-document/build/translations/pt-br';
 import { AttendanceService } from 'app/attendance/attendance.service';
@@ -24,12 +24,12 @@ export class NewAttendanceComponent implements OnInit {
 
     loading = false;
 
-    eventTypeControl = new FormControl('', [Validators.required]);
-    levelControl = new FormControl('', [Validators.required]);
-    specializationControl = new FormControl('', [Validators.required]);
-    sectorControl = new FormControl('', [Validators.required]);
-    accommodationControl = new FormControl('', [Validators.required]);
-    responsibleControl = new FormControl();
+    eventTypeControl = new UntypedFormControl('', [Validators.required]);
+    levelControl = new UntypedFormControl('', [Validators.required]);
+    specializationControl = new UntypedFormControl('', [Validators.required]);
+    sectorControl = new UntypedFormControl('', [Validators.required]);
+    accommodationControl = new UntypedFormControl('', [Validators.required]);
+    responsibleControl = new UntypedFormControl();
 
     specializationsData: Array<Specialization> = [];
     responsibles: Array<Professional> = [];

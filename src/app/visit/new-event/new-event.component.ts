@@ -1,5 +1,5 @@
 import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { UntypedFormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AttendanceService } from 'app/attendance/attendance.service';
 import { ErrorHandlerService } from 'app/core/error-handler.service';
@@ -29,12 +29,12 @@ export class NewEventComponent implements OnInit {
   loading = false;
   selectedDocumentTemplate = false;
 
-  eventTypeControl = new FormControl('10', [Validators.required]);
-  sectorControl = new FormControl('', [Validators.required]);
-  accommodationControl = new FormControl('', [Validators.required]);
-  responsibleControl = new FormControl('', [Validators.required]);
-  procedureControl = new FormControl('', []);
-  documentTemplateControl = new FormControl('', []);
+  eventTypeControl = new UntypedFormControl('10', [Validators.required]);
+  sectorControl = new UntypedFormControl('', [Validators.required]);
+  accommodationControl = new UntypedFormControl('', [Validators.required]);
+  responsibleControl = new UntypedFormControl('', [Validators.required]);
+  procedureControl = new UntypedFormControl('', []);
+  documentTemplateControl = new UntypedFormControl('', []);
 
   responsibles: Array<Professional> = [];
   sectors: Array<Sector> = [];

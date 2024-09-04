@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { UntypedFormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AttendanceService } from 'app/attendance/attendance.service';
 import { ErrorHandlerService } from 'app/core/error-handler.service';
@@ -24,10 +24,10 @@ export class ChangeSectorAndResponsibleComponent implements OnInit {
 
   loading = false;
 
-  specializationControl = new FormControl('', [Validators.required]);
-  sectorControl = new FormControl('', [Validators.required]);
-  accommodationControl = new FormControl('', [Validators.required]);
-  responsibleControl = new FormControl('', [Validators.required]);
+  specializationControl = new UntypedFormControl('', [Validators.required]);
+  sectorControl = new UntypedFormControl('', [Validators.required]);
+  accommodationControl = new UntypedFormControl('', [Validators.required]);
+  responsibleControl = new UntypedFormControl('', [Validators.required]);
 
   specializationsData: Array<Specialization> = [];
   responsibles: Array<Professional> = [];

@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { UntypedFormBuilder } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -33,7 +33,7 @@ export class HealthOperatorEditComponent implements OnInit {
     public dialog: MatDialog,
     public dialogRef: MatDialogRef<HealthOperatorEditComponent>,
     @Inject(MAT_DIALOG_DATA) public data: HealthOperator,
-    public formBuilder: FormBuilder,
+    public formBuilder: UntypedFormBuilder,
     private errorHandler: ErrorHandlerService,
     private notification: NotificationsComponent) {
 
