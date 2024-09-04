@@ -1,0 +1,229 @@
+<div class="container">
+    <div class="main-header">
+        <h1>Sistema de apoio clínico e psicológico ao Rio Grande do Sul</h1>
+        <h3>O que é o CliNiv?</h3>
+        <p>CliNiv é um sistema de gestão clínica de código aberto focado em clínicas de pequeno porte. Este ambiente foi
+            construído especificamente para apoiar profissionais da saúde no atendimento clínico à desabrigados do Rio
+            Grande do Sul.</p>
+        <p>Seus dados serão enviados para um banco de dados na nuvem e protegido por protocolos de segurança mais usados
+            no mundo.</p>
+        <h3>Para que serve esta página?</h3>
+        <p>Esta página foi criada unicamente para o cadastro de pacientes desabrigados devidos às chuvas dos últimos
+            dias no Rio Grando do Sul. Pessoas que estão em processo de acompanhamento clínico ou psicológico.</p>
+        <small style="color:red">Não se registrar se não for um indivíduo afetado pelos transtornos dos últimos dias no
+            Rio
+            Grande do
+            Sul</small>
+    </div>
+    <div class="main-body">
+        <form #form="ngForm" autocomplete="off" (ngSubmit)="save()">
+            <mat-tab-group>
+                <mat-tab label="Informações gerais *">
+                    <br />
+                    <div class="row">
+                        <div *ngIf="dataToForm.id" class="col-md-1">
+                            <mat-form-field>
+                                <input matInput placeholder="Matrícula do Paciente" name="id"
+                                    [(ngModel)]="dataToForm.id" #id="ngModel" disabled />
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-3">
+                            <mat-form-field>
+                                <input matInput placeholder="CNS (Número)" name="cnsNumber"
+                                    [(ngModel)]="dataToForm.cnsNumber" #cnsNumber="ngModel" />
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-4">
+                            <mat-form-field>
+                                <input matInput placeholder="E-mail" name="email" [(ngModel)]="dataToForm.email"
+                                    #email="ngModel" />
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-4">
+                            <mat-form-field>
+                                <input matInput placeholder="Celular (Apenas números)" name="principalNumber"
+                                    [(ngModel)]="dataToForm.principalNumber" #principalNumber mask="(00) 0 0000-0000" />
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <mat-form-field>
+                                <input matInput placeholder="Cadastro de Pessoa Física (CPF)" name="document"
+                                    [(ngModel)]="dataToForm.document.value" #document type="text" maxlength="14"
+                                    mask="000.000.000-00" required />
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-8">
+                            <mat-form-field>
+                                <input matInput placeholder="Nome Completo" name="fullName"
+                                    [(ngModel)]="dataToForm.fullName" #fullName="ngModel" type="text" required />
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <mat-form-field>
+                                <input matInput placeholder="Nome Completo da Mãe" name="motherName"
+                                    [(ngModel)]="dataToForm.motherName" #motherName="ngModel" type="text" />
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <mat-form-field>
+                                <input matInput placeholder="Nome Completo do Pai" name="fatherName"
+                                    [(ngModel)]="dataToForm.fatherName" #fatherName type="text" />
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <mat-form-field>
+                                <input matInput placeholder="Data de nascimento" name="bornDate"
+                                    [(ngModel)]="dataToForm.bornDate" #bornDate type="date" />
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-6">
+                            <mat-form-field>
+                                <mat-label>Sexo</mat-label>
+                                <mat-select matNativeControl name="gender" (change)="selectGender($event.target.value)"
+                                    [(ngModel)]="dataToForm.gender" #gender required>
+                                    <mat-option value="M">Masculino</mat-option>
+                                    <mat-option value="F">Feminino</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <mat-form-field>
+                                <input matInput placeholder="Código Postal (CEP)" name="cep"
+                                    [(ngModel)]="dataToForm.address.postalCode" maxlength="10" #cep type="text"
+                                    mask="00.000-000" />
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-4">
+                            <mat-form-field>
+                                <input matInput placeholder="Rua" name="street" [(ngModel)]="dataToForm.address.street"
+                                    #street type="text" />
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-2">
+                            <mat-form-field>
+                                <input matInput placeholder="Número" name="addressNumber"
+                                    [(ngModel)]="dataToForm.address.addressNumber" #addressNumber type="text" />
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-2">
+                            <mat-form-field>
+                                <input matInput placeholder="Complemento" name="complement"
+                                    [(ngModel)]="dataToForm.address.complement" #complement type="text" />
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <mat-form-field>
+                                <input matInput placeholder="Bairro" name="neighborhood"
+                                    [(ngModel)]="dataToForm.address.neighborhood" #neighborhood type="text" />
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-4">
+                            <mat-form-field>
+                                <input matInput placeholder="Cidade" name="city" [(ngModel)]="dataToForm.address.city"
+                                    #city type="text" />
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-4">
+                            <mat-form-field>
+                                <mat-label>Estado</mat-label>
+                                <mat-select matNativeControl name="state" (change)="selectState($event.target.value)"
+                                    [(ngModel)]="dataToForm.address.state" #state required>
+                                    <mat-option value="AC">Acre</mat-option>
+                                    <mat-option value="AL">Alagoas</mat-option>
+                                    <mat-option value="AP">Amapá</mat-option>
+                                    <mat-option value="AM">Amazonas</mat-option>
+                                    <mat-option value="BA">Bahia</mat-option>
+                                    <mat-option value="CE">Ceará</mat-option>
+                                    <mat-option value="DF">Distrito Federal</mat-option>
+                                    <mat-option value="ES">Espírito Santo</mat-option>
+                                    <mat-option value="GO">Goiás</mat-option>
+                                    <mat-option value="MA">Maranhão</mat-option>
+                                    <mat-option value="MT">Mato Grosso</mat-option>
+                                    <mat-option value="MS">Mato Grosso do Sul</mat-option>
+                                    <mat-option value="MG">Minas Gerais</mat-option>
+                                    <mat-option value="PA">Pará</mat-option>
+                                    <mat-option value="PB">Paraíba</mat-option>
+                                    <mat-option value="PR">Paraná</mat-option>
+                                    <mat-option value="PE">Pernambuco</mat-option>
+                                    <mat-option value="PI">Piauí</mat-option>
+                                    <mat-option value="RJ">Rio de Janeiro</mat-option>
+                                    <mat-option value="RN">Rio Grande do Norte</mat-option>
+                                    <mat-option value="RS">Rio Grande do Sul</mat-option>
+                                    <mat-option value="RO">Rondônia</mat-option>
+                                    <mat-option value="RR">Roraima</mat-option>
+                                    <mat-option value="SC">Santa Catarina</mat-option>
+                                    <mat-option value="SP">São Paulo</mat-option>
+                                    <mat-option value="SE">Sergipe</mat-option>
+                                    <mat-option value="TO">Tocantins</mat-option>
+                                    <mat-option value="EX">Estrangeiro</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </mat-tab>
+                <mat-tab *ngIf="dataToForm.attendanceHistory?.length > 0" label="Histórico">
+                    <br />
+                    <div class="row">
+                        <div class="col-12">
+                            <mat-table [dataSource]="attendanceHistoryDataSource" matSort>
+                                <!-- ID Column -->
+                                <ng-container matColumnDef="id">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Identificador</mat-header-cell>
+                                    <mat-cell *matCellDef="let row">{{row.id}}</mat-cell>
+                                </ng-container>
+
+                                <!-- Name Column -->
+                                <ng-container matColumnDef="entryDatetime">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Dt. Entrada</mat-header-cell>
+                                    <mat-cell *matCellDef="let row">{{row.entryDatetime | date: 'dd/MM/yyyy HH:mm'}}
+                                    </mat-cell>
+                                </ng-container>
+
+                                <!-- Progress Column -->
+                                <ng-container matColumnDef="entryCause">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Motivo da entrada
+                                    </mat-header-cell>
+                                    <mat-cell *matCellDef="let row">{{row.entryCause}}</mat-cell>
+                                </ng-container>
+
+                                <!-- Color Column -->
+                                <ng-container matColumnDef="isFinished">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Situação</mat-header-cell>
+                                    <mat-cell *matCellDef="let row"
+                                        [style.color]="row.isFinished ? '#ED4E4A' : '#5EB462'">
+                                        <h5>{{showStatus(row.isFinished)}}</h5>
+                                    </mat-cell>
+                                </ng-container>
+                                <mat-header-row *matHeaderRowDef="attendanceHistoryDisplayedColumns"></mat-header-row>
+                                <mat-row *matRowDef="let row; columns: attendanceHistoryDisplayedColumns;"></mat-row>
+                            </mat-table>
+                        </div>
+                    </div>
+                </mat-tab>
+            </mat-tab-group>
+            <div class="row">
+                <div style="overflow:hidden; width: 100%;">
+                    <div class="ccol-12 col-sm-12 col-md-4 col-lg-3 pull-right ml-0 mr-0">
+                        <button mat-raised-button type="submit" class="btn btn-success col-12"
+                            [disabled]="!form.valid || (dataToForm.document.value && !cpfIsValid()) || dataToForm.annotations?.length > 10000 || loading"
+                            matTooltip="Salva informações do formulário"><span class="fa fa-check"></span>
+                            {{loading ? 'Salvando, aguarde...' : 'Cadastrar'}}</button>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </form>
+    </div>
+</div>

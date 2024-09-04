@@ -51,6 +51,9 @@ import { DocumentTemplateComponent } from 'app/document-template/document-templa
 import { DocumentTemplateService } from 'app/document-template/document-template.service';
 import { DynamicFormEditComponent } from 'app/dynamic-form/dynamic-form-edit/dynamic-form-edit.component';
 import { DynamicFormQuestionComponent } from 'app/dynamic-form/dynamic-form-question/dynamic-form-question.component';
+import { CashFlowComponent } from 'app/financial/cash-flow/cash-flow.component';
+import { FinancialReleaseComponent } from 'app/financial/financial-release/financial-release.component';
+import { PayableAndReceivableComponent } from 'app/financial/payable-and-receivable/payable-and-receivable.component';
 import { HealthOperatorEditComponent } from 'app/healthOperator/health-operator-edit/health-operator-edit.component';
 import { HealthOperatorComponent } from 'app/healthOperator/health-operator.component';
 import { HealthOperatorService } from 'app/healthOperator/health-operator.service';
@@ -256,41 +259,11 @@ const maskConfig: Partial<IConfig> = {
     ReportComponent,
     ReportEditComponent,
 
-    ReportGeneratorComponent
-  ],
-  entryComponents: [
-    PatientEditComponent,
-    PatientHistoryComponent,
-    PersonDocumentDialogComponent,
-    ChangePasswordComponent,
-    NewAttendanceComponent,
-    AllergyComponent,
-    PrescriptionComponent,
-    PrescriptionEditComponent,
-    EvolutionComponent,
-    ProfessionalEditComponent,
-    DynamicFormComponent,
-    AppointmentEditComponent,
-    SelectFormComponent,
-    CloseEventComponent,
-    SectorEditComponent,
-    AccommodationComponent,
-    DocumentSelectorComponent,
-    HealthOperatorEditComponent,
-    HealthPlanComponent,
-    UserEditComponent,
-    NewEventComponent,
-    ConfirmDialogComponent,
-    CameraDialogComponent,
-    DocumentViewerComponent,
-    ProcedureEditComponent,
-    DocumentTemplateEditComponent,
-    SpecialityEditComponent,
-    DynamicFormEditComponent,
-    DynamicFormQuestionComponent,
-    AttDynamicFormComponent,
-    ReportComponent,
-    ReportEditComponent
+    ReportGeneratorComponent,
+
+    FinancialReleaseComponent,
+    CashFlowComponent,
+    PayableAndReceivableComponent,
   ],
   providers: [
     UserProfileService,

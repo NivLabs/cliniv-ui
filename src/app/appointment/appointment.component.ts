@@ -111,7 +111,6 @@ export class AppointmentComponent implements OnInit {
     return this.principalService.getByFilter(this.filters).then(resp => {
       this.currentEvents = this.convertAppointmentsToCalendarEvents(resp.content);
       this.changeDetector.detectChanges();
-      this
       this.loading = false;
     }).catch(error => {
       this.currentEvents = [];

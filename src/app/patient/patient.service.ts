@@ -57,6 +57,14 @@ export class PatientService {
         }
     }
 
+    createPublic(patient: PatientInfo): Promise<PatientInfo> {
+        var headers = new HttpHeaders()
+            .append('Content-Type', "application/json");
+        if (patient) {
+            return this.http.post<PatientInfo>(`${this.baseUrl}/public`, patient, { headers }).toPromise();
+        }
+    }
+
     update(patient: PatientInfo): Promise<PatientInfo> {
         var headers = new HttpHeaders()
             .append('Content-Type', "application/json");

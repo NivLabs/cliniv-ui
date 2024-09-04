@@ -12,9 +12,6 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
 import { AdminLayoutModule } from './layouts/admin-layout/admin-layout.module';
 import { SecurityRoutingModule } from './security/security-routing.module';
 import { SecurityModule } from './security/security.module';
-import { FinancialReleaseComponent } from './financial/financial-release/financial-release.component';
-import { CashFlowComponent } from './financial/cash-flow/cash-flow.component';
-import { PayableAndReceivableComponent } from './financial/payable-and-receivable/payable-and-receivable.component';
 
 
 @NgModule({
@@ -33,10 +30,7 @@ import { PayableAndReceivableComponent } from './financial/payable-and-receivabl
    ],
    declarations: [
       AppComponent,
-      AdminLayoutComponent,
-      FinancialReleaseComponent,
-      CashFlowComponent,
-      PayableAndReceivableComponent
+      AdminLayoutComponent
    ],
    providers: [{ provide: MAT_DATE_LOCALE, useValue: 'pt-BR' }],
    bootstrap: [

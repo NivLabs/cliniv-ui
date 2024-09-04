@@ -14,6 +14,7 @@ export class AppComponent {
 
   isAuthenticated() {
     return this.router.url !== '/login'
-      && this.router.url !== "/public-schedule";
+      && this.router.url !== "/public-schedule"
+      && this.router.url !== "/patient-register";
   }
 }
