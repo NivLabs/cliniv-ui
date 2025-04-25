@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject, ViewChild } from '@angular/core';
 import { DigitalDocument } from 'app/model/DigitalDocument';
 import { UtilService } from 'app/core/util.service';
-import { MatLegacyDialogRef as MatDialogRef, MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA } from '@angular/material/legacy-dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ErrorHandlerService } from 'app/core/error-handler.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
@@ -26,7 +26,7 @@ export class DocumentViewerComponent implements OnInit {
   public outline: any[];
   public pdfQuery = '';
   public isOutlineShown = false;
-  @ViewChild(PdfViewerComponent) private pdfComponent: PdfViewerComponent;
+  @ViewChild(PdfViewerComponent) private pdfComponent: any;
 
   constructor(private utilService: UtilService, public dialogDocumentViewer: MatDialogRef<DocumentViewerComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DigitalDocument, public errorHandler: ErrorHandlerService, private sanitizer: DomSanitizer,
@@ -120,7 +120,7 @@ export class DocumentViewerComponent implements OnInit {
    * @param destination
    */
   navigateTo(destination: any) {
-    this.pdfComponent.pdfLinkService.navigateTo(destination);
+    this.pdfComponent.pdfLinkService.goToDestination(destination);
   }
 
   /**
@@ -151,9 +151,10 @@ export class DocumentViewerComponent implements OnInit {
       let blob = new Blob([u8.buffer], {
         type: 'application/pdf'
       });
-      if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+      const nav = (window.navigator as any);
+      if (nav && nav.msSaveOrOpenBlob) {
         // IE11 and Edge
-        window.navigator.msSaveOrOpenBlob(blob, this.document.name);
+        nav.msSaveOrOpenBlob(blob, this.document.name);
       } else {
         // Chrome, Safari, Firefox, Opera
         let url = URL.createObjectURL(blob);

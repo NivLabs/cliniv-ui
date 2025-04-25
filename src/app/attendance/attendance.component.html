@@ -39,9 +39,7 @@
                                         <input type="text" placeholder="Setor" matInput [matAutocomplete]="auto"
                                             #sector>
 
-                                        <mat-autocomplete #auto="matAutocomplete" infiniteScroll
-                                            [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50"
-                                            (opened)="registerPanelScrollEvent()">
+                                        <mat-autocomplete #auto="matAutocomplete" (opened)="registerPanelScrollEvent()">
 
                                             <mat-option *ngFor="let sector of sectors" [value]="sector.description"
                                                 (click)="selectSector(sector.id)">
@@ -108,8 +106,7 @@
             </div>
         </div>
 
-        <div class="search-results" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50"
-            (scrolled)="loadNextPage()">
+        <div class="search-results" (scrolled)="loadNextPage()">
             <div class="row">
                 <div class="center" *ngIf="!loading && dataNotFound">
                     <h1>Nenhum atendimento encontrado...</h1>

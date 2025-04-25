@@ -64,8 +64,7 @@
                 </div>
             </div>
         </div>
-        <div class="search-results" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50"
-            (scrolled)="loadNextPage()">
+        <div class="search-results" (scrolled)="loadNextPage()">
             <div class="row">
                 <div class="center" *ngIf="!loading && dataNotFound">
                     <h1>Nenhuma operadora de saúde encontrada...</h1>
