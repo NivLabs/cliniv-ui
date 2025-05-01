@@ -43,8 +43,8 @@ Atualmente encontra-se na versão 1.0.0 em desenvolvimento - [CLINIV-UI](http://
 
 ## Mínimo para rodar
 Para contribuir com o projeto, existem alguns requisítos mínimos de configurações, são eles?
-- Node 14 + **(Obrigatório)**
-- Angular 9 (Community) **(Obrigatório)**
+- Node 18 + **(Obrigatório)**
+- Angular 14 (Community) **(Obrigatório)**
 - Qualquer editor de texto *(Opcional)*
 
 ---
