@@ -1,7 +1,7 @@
 @use "sass:math";
 
 @function calc-top($line-height-base, $font-size, $component-height) {
-  @return (($line-height-base * $font-size) - $component-height) * 0.5; // vertical center of line-height
+  @return (($line-height-base * $font-size) - $component-height) / 2; // vertical center of line-height
 }
 
 // Emulate the less #contrast function

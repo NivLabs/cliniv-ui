@@ -71,7 +71,7 @@ import { NewEventComponent } from 'app/visit/new-event/new-event.component';
 import { PrescriptionEditComponent } from 'app/visit/prescription/prescription-edit/prescription-edit.component';
 import { PrescriptionComponent } from 'app/visit/prescription/prescription.component';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
-import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
+import { IConfig, NgxMaskModule } from 'ngx-mask';
 import { WebcamModule } from 'ngx-webcam';
 import { AppointmentService } from '../../appointment/appointment.service';
 import { AttendanceService } from '../../attendance/attendance.service';
@@ -151,6 +151,10 @@ const matModules = [
  MatTooltipModule
 ]
 
+const maskConfig: Partial<IConfig> = {
+  validation: true,
+};
+
 @NgModule({
   imports: [
     CommonModule,
@@ -160,8 +164,7 @@ const matModules = [
     ReactiveFormsModule,
     SecurityModule,
     WebcamModule,
-    NgxMaskDirective,
-    NgxMaskPipe,
+    NgxMaskModule.forRoot(maskConfig),
     PdfViewerModule,
     BrowserAnimationsModule,
     CKEditorModule,
@@ -277,7 +280,7 @@ const matModules = [
     ProcedureService,
     SpecialityService,
     ReportService,
-    { provide: MatPaginatorIntl, useClass: CustomPaginatorIntl }
+    { provide: MatPaginatorIntl, useClass: CustomPaginatorIntl },
   ]
 })
 

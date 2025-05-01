@@ -1,7 +1,7 @@
 
 export const environment = {
    production: true,
-   apiUrl: process.env.BASE_URL,
+   apiUrl: 'https://cliniv.cloud',
    appVersion: '1.1.0',
    customerId: 'cliniv',
    customerName: 'NivLabs'

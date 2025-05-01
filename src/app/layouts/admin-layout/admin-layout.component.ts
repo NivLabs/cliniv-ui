@@ -1,10 +1,9 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
-import { Location, LocationStrategy, PathLocationStrategy, PopStateEvent } from '@angular/common';
-import 'rxjs/add/operator/filter';
+import { Location, PopStateEvent } from '@angular/common';
 import { Router, NavigationEnd, NavigationStart } from '@angular/router';
-import { Subscription } from 'rxjs/Subscription';
 import PerfectScrollbar from 'perfect-scrollbar';
 import * as $ from "jquery";
+import { filter, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-admin-layout',
@@ -46,7 +45,7 @@ export class AdminLayoutComponent implements OnInit {
                  window.scrollTo(0, 0);
          }
       });
-      this._router = this.router.events.filter(event => event instanceof NavigationEnd).subscribe((event: NavigationEnd) => {
+      this._router = this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe((event: NavigationEnd) => {
            elemMainPanel.scrollTop = 0;
            elemSidebar.scrollTop = 0;
       });
@@ -129,6 +128,16 @@ export class AdminLayoutComponent implements OnInit {
   }
   ngAfterViewInit() {
       this.runOnRouteChange();
+  }
+  isMaps(path){
+      var titlee = this.location.prepareExternalUrl(this.location.path());
+      titlee = titlee.slice( 1 );
+      if(path == titlee){
+          return false;
+      }
+      else {
+          return true;
+      }
   }
   runOnRouteChange(): void {
     if (window.matchMedia(`(min-width: 960px)`).matches && !this.isMac()) {

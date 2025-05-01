@@ -36,7 +36,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { JwtModule } from '@auth0/angular-jwt';
 import { PublicScheduleComponent } from 'app/professional/public-schedule/public-schedule.component';
 import { PatientRegisterComponent } from 'app/public-pages/patient-register/patient-register.component';
-import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
+import { IConfig, NgxMaskModule } from 'ngx-mask';
 import { AppHttp } from './app-http';
 import { AuthGuard } from './auth.guard';
 import { AuthInterceptor } from './auth.interceptor';
@@ -46,6 +46,10 @@ import { ForgotPasswordComponent } from './login-form/forgot-password/forgot-pas
 import { LoginFormComponent } from './login-form/login-form.component';
 import { SignupComponent } from './login-form/signup/signup.component';
 import { SecurityRoutingModule } from './security-routing.module';
+
+const maskConfig: Partial<IConfig> = {
+    validation: true,
+  };
 
 const matModules = [
   MatAutocompleteModule,
@@ -97,8 +101,7 @@ export function tokenGetter() {
                 tokenGetter: tokenGetter
             }
         }),
-        NgxMaskDirective,
-        NgxMaskPipe,
+        NgxMaskModule.forRoot(maskConfig),
         SecurityRoutingModule
     ],
     exports: [
