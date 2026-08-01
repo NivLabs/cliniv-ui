@@ -1,6 +1,6 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, Inject, OnInit, Optional } from "@angular/core";
 import { UpdatePassword } from "app/model/UpdatePassword";
-import { MatDialogRef } from "@angular/material/dialog";
+import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { UserProfileService } from "../user-profile.service";
 import { ErrorHandlerService } from "app/core/error-handler.service";
 import { NotificationsComponent } from "app/core/notification/notifications.component";
@@ -13,16 +13,26 @@ import { NotificationsComponent } from "app/core/notification/notifications.comp
 export class ChangePasswordComponent implements OnInit {
   dataToForm: UpdatePassword;
   public loading: boolean = false;
+  public mandatory: boolean = false;
 
   constructor(
     public dialogRef: MatDialogRef<ChangePasswordComponent>,
     private service: UserProfileService,
     public errorHandler: ErrorHandlerService,
-    private notification: NotificationsComponent
-  ) {}
+    private notification: NotificationsComponent,
+    @Optional() @Inject(MAT_DIALOG_DATA) public data: any
+  ) {
+    if (this.data && this.data.mandatory) {
+      this.mandatory = true;
+      this.dialogRef.disableClose = true;
+    }
+  }
 
   ngOnInit(): void {
     this.dataToForm = new UpdatePassword();
+    if (this.data && this.data.oldPassword) {
+      this.dataToForm.oldPassword = this.data.oldPassword;
+    }
   }
 
   onChangePassword() {
@@ -36,7 +46,7 @@ export class ChangePasswordComponent implements OnInit {
 
   onSuccess() {
     this.notification.showSucess("Senha alterada com sucesso!");
-    this.dialogRef.close();
+    this.dialogRef.close(true);
   }
 
   onError(error) {

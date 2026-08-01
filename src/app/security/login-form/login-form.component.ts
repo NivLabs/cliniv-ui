@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { UtilService } from 'app/core/util.service';
+import { ChangePasswordComponent } from 'app/user-profile/change-password/change-password.component';
 import { ErrorHandlerService } from './../../core/error-handler.service';
 import { AuthService } from './../auth.service';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
@@ -58,15 +59,35 @@ export class LoginFormComponent implements OnInit {
   login() {
     this.hasResponse = false;
     this.updateSaveInfo();
+    const passwordUsedToLogin = this.user.password;
     this.auth.login(this.user.unitName, this.user.userName, this.user.password)
       .then(() => {
         this.hasResponse = true;
-        this.router.navigate(['/dashboard']);
+        if (this.auth.isFirstSignin()) {
+          this.openMandatoryChangePasswordDialog(passwordUsedToLogin);
+        } else {
+          this.router.navigate(['/dashboard']);
+        }
       })
       .catch(erro => {
         this.hasResponse = true;
         this.errorHandler.handle(erro, null);
       });
+  }
+
+  /**
+   * Obriga a troca de senha no primeiro acesso (ou após um reset administrativo)
+   * antes de liberar a navegação para a aplicação.
+   */
+  openMandatoryChangePasswordDialog(passwordUsedToLogin: string): void {
+    const dialogRef = this.dialog.open(ChangePasswordComponent, {
+      disableClose: true,
+      data: { mandatory: true, oldPassword: passwordUsedToLogin }
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      this.router.navigate(['/dashboard']);
+    });
   }
 
   /**

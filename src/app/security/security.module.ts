@@ -46,6 +46,7 @@ import { ForgotPasswordComponent } from './login-form/forgot-password/forgot-pas
 import { LoginFormComponent } from './login-form/login-form.component';
 import { SignupComponent } from './login-form/signup/signup.component';
 import { SecurityRoutingModule } from './security-routing.module';
+import { UserProfileService } from '../user-profile/user-profile.service';
 
 const maskConfig: Partial<IConfig> = {
     validation: true,
@@ -120,6 +121,7 @@ export function tokenGetter() {
         AuthGuard,
         AuthService,
         CustomerService,
+        UserProfileService,
         AppHttp,
         {
             provide: HTTP_INTERCEPTORS,

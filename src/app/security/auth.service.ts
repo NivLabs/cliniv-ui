@@ -71,6 +71,10 @@ export class AuthService {
     return !token || this.jwtHelper.isTokenExpired(token);
   }
 
+  isFirstSignin(): boolean {
+    return !!(this.jwtPayload && this.jwtPayload.firstSignin);
+  }
+
   hasPermission(permission: string) {
     return this.jwtPayload && this.jwtPayload.authorities.includes(permission);
   }
