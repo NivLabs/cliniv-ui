@@ -1,5 +1,5 @@
 <div [ngClass]="isAuthenticated() ? 'wrapper' : '' ">
-    <div *ngIf="isAuthenticated()" class="sidebar" data-color="danger" data-background-color="white" data-image="./assets/img/sidebar-1.jpg">
+    <div *ngIf="isAuthenticated()" class="sidebar" tourAnchor="dashboardSidebar" data-color="danger" data-background-color="white" data-image="./assets/img/sidebar-1.jpg">
         <app-sidebar></app-sidebar>
     </div>
     <div [ngClass]="isAuthenticated() ? 'main-panel' : '' ">

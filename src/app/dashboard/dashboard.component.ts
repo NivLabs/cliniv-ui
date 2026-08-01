@@ -25,6 +25,13 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private readonly tourSteps: IStepOption[] = [
     {
+      anchorId: 'dashboardSidebar',
+      title: 'Menu de navegação',
+      content: 'É por aqui que você acessa as outras telas do sistema: agenda, pacientes, prontuário, atendimentos, cadastros e configurações.',
+      enableBackdrop: true,
+      isAsync: true
+    },
+    {
       anchorId: 'dashboardStats',
       title: 'Resumo do dia',
       content: 'Aqui você acompanha, em tempo real, os novos pacientes, atendidos, cancelados e confirmados de hoje.',
