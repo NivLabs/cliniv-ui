@@ -50,10 +50,15 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
       title: 'Lembretes',
       content: 'Crie lembretes rápidos clicando no ícone "+" e acompanhe-os por aqui.',
       enableBackdrop: true,
-      isAsync: true,
-      endBtnTitle: 'Concluir'
+      isAsync: true
     }
   ];
+
+  private readonly tourStepDefaults: IStepOption = {
+    prevBtnTitle: 'Anterior',
+    nextBtnTitle: 'Próximo',
+    endBtnTitle: 'Concluir'
+  };
 
   constructor(
     private dashboardService: DashboardService,
@@ -64,7 +69,7 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
     private tourService: TourService) { }
 
   ngAfterViewInit(): void {
-    this.tourService.initialize(this.tourSteps);
+    this.tourService.initialize(this.tourSteps, this.tourStepDefaults);
     this.tourEndSubscription = this.tourService.end$.subscribe(() => localStorage.setItem(DASHBOARD_TOUR_SEEN_KEY, 'true'));
 
     if (!localStorage.getItem(DASHBOARD_TOUR_SEEN_KEY)) {
