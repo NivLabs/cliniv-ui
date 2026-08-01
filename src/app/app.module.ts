@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
+import { TourMatMenuModule } from 'ngx-ui-tour-md-menu';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
@@ -26,7 +27,8 @@ import { SecurityModule } from './security/security.module';
       SecurityModule,
       SecurityRoutingModule,
       AdminLayoutModule,
-      AppRoutingModule
+      AppRoutingModule,
+      TourMatMenuModule.forRoot()
    ],
    declarations: [
       AppComponent,
