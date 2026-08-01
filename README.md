@@ -16,7 +16,7 @@ CliNiv - UI é uma UI RestClient criada inicialmente como doação para hospitai
     <img alt="License" src="https://img.shields.io/badge/license-MIT-%2304D361" />
 </p>
 
-Atualmente encontra-se na versão 1.0.0 em desenvolvimento - [CLINIV-UI](http://app.nivlabs.com.br)
+Atualmente encontra-se na versão 1.1.0 em desenvolvimento - [CLINIV-UI](http://app.nivlabs.com.br)
 
 ---
 
@@ -32,6 +32,7 @@ Atualmente encontra-se na versão 1.0.0 em desenvolvimento - [CLINIV-UI](http://
 ## Índice
 
 <ul>
+  <li><a href="#funcionalidades-da-ui">Funcionalidades da UI</a></li>
   <li><a href="#mínimo-para-rodar">Mínimo para rodar</a></li>
   <li><a href="#como-rodar-a-aplicação">Como rodar a aplicação?</a></li>
   <li><a href="#como-contribuir">Como contribuir?</a></li>
@@ -41,11 +42,32 @@ Atualmente encontra-se na versão 1.0.0 em desenvolvimento - [CLINIV-UI](http://
 
 ---
 
+## Funcionalidades da UI
+
+- [x] Cadastro e busca de Pacientes (identificados e não identificados)
+- [x] Atendimentos ambulatoriais e emergenciais, com histórico em timeline
+- [x] Agendamentos
+- [x] Prontuário: evolução, prescrição, anamnese, formulários dinâmicos
+- [x] Cadastro de Profissionais (Responsáveis) e Usuários com controle de acesso
+- [x] Cadastro de Setores e Acomodações (salas/leitos)
+- [x] Cadastro de Especialidades, Procedimentos, Operadoras e Planos de Saúde
+- [x] Formas de Pagamento
+- [x] Modelos de documento e geração de relatórios (JasperReports via API)
+- [x] Configurações da instituição: dados cadastrais, logo, ativação de licença
+- [x] Login multi-tenant, cadastro de novo ambiente e recuperação de senha
+- [ ] Módulo financeiro (telas existem como placeholder; sem endpoint no backend ainda)
+- [ ] Cadastro de Fornecedores (link existe; sem endpoint no backend ainda)
+
+---
+
 ## Mínimo para rodar
 Para contribuir com o projeto, existem alguns requisítos mínimos de configurações, são eles?
-- Node 18 + **(Obrigatório)**
+- Node 18.19.1 **(Obrigatório — ver `engines` em `package.json`)**
 - Angular 14 (Community) **(Obrigatório)**
+- Uma instância do [CLINIV-API](https://github.com/niv-labs/cliniv-api) rodando (por padrão a UI espera a API em `http://localhost:8080`, configurável em `src/environments/environment.ts`) **(Obrigatório)**
 - Qualquer editor de texto *(Opcional)*
+
+> Se o `node` padrão da sua máquina não for a 18.x, use um gerenciador de versões (ex: `nvm use 18`) antes de rodar os comandos abaixo — em outras versões (ex: Node 21) o build costuma falhar com um erro obscuro do `sass`, sem relação aparente com o projeto.
 
 ---
 
@@ -59,9 +81,9 @@ Para contribuir com o projeto, existem alguns requisítos mínimos de configura�
 
 - 📌 Instale as dependências do projeto usando o comando `npm i`
 
-### Passo 2
+### Passo 3
 
-- 🔃 Rode a aplicação usando o comando `ng serve` e acesse a porta padrão 4200. Caso queira rodar em outra porta, adicione o argumento `-port PORTA_DESEJADA`, ex: `ng serve -port 8080`
+- 🔃 Rode a aplicação usando o comando `ng serve` e acesse a porta padrão 4200. Caso queira rodar em outra porta, adicione o argumento `--port PORTA_DESEJADA`, ex: `ng serve --port 8080`
 
 ---
 
@@ -99,10 +121,7 @@ Depois que seu Pull Request é aceito e o merge é realizado, você pode deletar
 ## Contato
 
 > Você pode me encontrar por aqui...
-
-- NiV Labs      :: [NiV Labs](http://www.nivlabs.com.br)
-- Atendimento   :: [atendimento@nivlabs.com.br](atendimento@nivlabs.com.br)
-- Vinícios (eu) :: [viniciosrodrigues@nivlabs.com.br](viniciosrodrigues@nivlabs.com.br)
+- Vinícios (eu) :: [viniciosarodrigues@gmail.com](viniciosarodrigues@gmail.com)
 
 ---
 
