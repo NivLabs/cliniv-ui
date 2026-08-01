@@ -31,24 +31,20 @@
                 </div>
             </div>
         </div>
-        <div class="search-results" (scrolled)="loadNextPage()">
-            <div class="row">
-                <div class="center" *ngIf="!loading && dataNotFound">
-                    <h1>Nenhum modelo de documento encontrado...</h1>
-                </div>
-                <div *ngFor="let data of datas" class="col-12 col-sm-12 col-md-4 col-lg-4">
-                    <div class="card link-card" (click)="openDialog(data.id)">
-                        <div class="card-body margin-color-active">
-                            <ul>
-                                <li><span class="fa fa-key document-template-form-info"> Identificador:</span> {{data.id}}
-                                </li>
-                                <li><span class="fa fa-map document-template-form-info"> {{data.description}}</span></li>
-                            </ul>
-                        </div>
+        <app-search-result-list [items]="datas" [loading]="loading" [dataNotFound]="dataNotFound"
+            emptyMessage="Nenhum modelo de documento encontrado..." (scrolled)="loadNextPage()">
+            <ng-template let-data>
+                <div class="card link-card" (click)="openDialog(data.id)">
+                    <div class="card-body margin-color-active">
+                        <ul>
+                            <li><span class="fa fa-key document-template-form-info"> Identificador:</span> {{data.id}}
+                            </li>
+                            <li><span class="fa fa-map document-template-form-info"> {{data.description}}</span></li>
+                        </ul>
                     </div>
                 </div>
-            </div>
-        </div>
+            </ng-template>
+        </app-search-result-list>
     </div>
 </div>
 <app-loading [show]="loading"></app-loading>

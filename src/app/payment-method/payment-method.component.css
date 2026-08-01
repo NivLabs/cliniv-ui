@@ -1,0 +1,34 @@
+.payment-method-info {
+    color: rgb(20, 59, 65);
+    font-weight: 400;
+}
+
+.margin-color-active {
+    border-left: 10px solid #00BCD4;
+    height: 180px;
+}
+
+.link-card {
+    cursor: pointer;
+    height: 95px;
+}
+
+.link-card:hover {
+    bottom: 3px;
+    cursor: pointer;
+}
+
+.center {
+    text-align: center;
+    width: 100%;
+}
+
+li {
+    list-style-type: none;
+    text-transform: uppercase;
+    font-size: 12px;
+}
+
+ul {
+    padding: 0;
+}

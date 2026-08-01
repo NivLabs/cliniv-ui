@@ -71,42 +71,38 @@
                 </div>
             </div>
         </div>
-        <div class="search-results" (scrolled)="loadNextPage()">
-            <div class="row">
-                <div class="center" *ngIf="!loading && dataNotFound">
-                    <h1>Nenhum paciente encontrado...</h1>
-                </div>
-                <div *ngFor="let patient of datas" class="col-12 col-sm-12 col-md-4 col-lg-4">
-                    <div class="card link-card" (click)="openDialog(patient.id)">
-                        <div class="card-body margin-color-active"
-                            [ngClass]="{'margin-color-danger' : patient.type === 'NOT_IDENTIFIED'}">
-                            <ul>
-                                <li class="patient-name"
-                                    [ngClass]="{'name-not-identified' : patient.type === 'NOT_IDENTIFIED'}">
-                                    {{patient.fullName + (patient.type === 'NOT_IDENTIFIED' ? ' [Não Identificado]' : '')}}
-                                </li>
-                                <li><span class="fa fa-user patient-info"> Matrícula:</span> {{patient.id}}</li>
-                                <li *ngIf="patient.cnsNumber"><span class="fa fa-lock patient-info"> CNS:</span>
-                                    {{patient.cnsNumber}}</li>
-                                <li *ngIf="patient.bornDate"><span class="fa fa-calendar patient-info">
-                                        Nascimento:</span>
-                                    {{patient.bornDate | date: 'dd/MM/yyyy'}}</li>
-                                <li *ngIf="patient.gender"><span class="fa fa-venus-mars patient-info"> Gênero:</span>
-                                    {{ patient.gender === 'M' ? 'Masculino' : 'Feminino'}}
-                                </li>
-                                <li *ngIf="patient.cpf"><span class="fa fa-id-card patient-info"> CPF:</span>
-                                    {{patient.cpf | mask:'000.000.000-00'}}</li>
-                                <li>
-                                    <span class="fa fa-phone patient-info"> Tel:</span>
-                                    {{patient.principalNumber ? (patient.principalNumber | mask:
-                                    patient.principalNumber.length <= 10 ? '(00) 0000-00009' : '(00) 00000-0000' ) :
-                                        ('Não informado')}} </li>
-                            </ul>
-                        </div>
+        <app-search-result-list [items]="datas" [loading]="loading" [dataNotFound]="dataNotFound"
+            emptyMessage="Nenhum paciente encontrado..." (scrolled)="loadNextPage()">
+            <ng-template let-patient>
+                <div class="card link-card" (click)="openDialog(patient.id)">
+                    <div class="card-body margin-color-active"
+                        [ngClass]="{'margin-color-danger' : patient.type === 'NOT_IDENTIFIED'}">
+                        <ul>
+                            <li class="patient-name"
+                                [ngClass]="{'name-not-identified' : patient.type === 'NOT_IDENTIFIED'}">
+                                {{patient.fullName + (patient.type === 'NOT_IDENTIFIED' ? ' [Não Identificado]' : '')}}
+                            </li>
+                            <li><span class="fa fa-user patient-info"> Matrícula:</span> {{patient.id}}</li>
+                            <li *ngIf="patient.cnsNumber"><span class="fa fa-lock patient-info"> CNS:</span>
+                                {{patient.cnsNumber}}</li>
+                            <li *ngIf="patient.bornDate"><span class="fa fa-calendar patient-info">
+                                    Nascimento:</span>
+                                {{patient.bornDate | date: 'dd/MM/yyyy'}}</li>
+                            <li *ngIf="patient.gender"><span class="fa fa-venus-mars patient-info"> Gênero:</span>
+                                {{ patient.gender === 'M' ? 'Masculino' : 'Feminino'}}
+                            </li>
+                            <li *ngIf="patient.cpf"><span class="fa fa-id-card patient-info"> CPF:</span>
+                                {{patient.cpf | mask:'000.000.000-00'}}</li>
+                            <li>
+                                <span class="fa fa-phone patient-info"> Tel:</span>
+                                {{patient.principalNumber ? (patient.principalNumber | mask:
+                                patient.principalNumber.length <= 10 ? '(00) 0000-00009' : '(00) 00000-0000' ) :
+                                    ('Não informado')}} </li>
+                        </ul>
                     </div>
                 </div>
-            </div>
-        </div>
+            </ng-template>
+        </app-search-result-list>
     </div>
 </div>
 <app-loading [show]="loading"></app-loading>

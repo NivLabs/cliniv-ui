@@ -4,6 +4,7 @@ import { AppointmentComponent } from 'app/appointment/appointment.component';
 import { DocumentTemplateComponent } from 'app/document-template/document-template.component';
 import { DynamicFormComponent } from 'app/dynamic-form/dynamic-form.component';
 import { HealthOperatorComponent } from 'app/healthOperator/health-operator.component';
+import { PaymentMethodComponent } from 'app/payment-method/payment-method.component';
 import { ReportComponent } from 'app/report/report.component';
 import { SpecialityComponent } from 'app/speciality/speciality.component';
 import { AttendanceComponent } from '../../attendance/attendance.component';
@@ -31,6 +32,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'dynamic-form', component: DynamicFormComponent, canLoad: [AuthGuard] },
     { path: 'speciality', component: SpecialityComponent, canLoad: [AuthGuard] },
     { path: 'health-operator', component: HealthOperatorComponent, canLoad: [AuthGuard] },
+    { path: 'payment-methods', component: PaymentMethodComponent, canLoad: [AuthGuard] },
     { path: 'user', component: UserComponent, canLoad: [AuthGuard] },
     { path: 'user-profile', component: UserProfileComponent, canLoad: [AuthGuard] },
     { path: 'settings', component: SettingsComponent, canLoad: [AuthGuard] },

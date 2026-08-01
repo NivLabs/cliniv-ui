@@ -38,23 +38,19 @@
                 </div>
             </div>
         </div>
-        <div class="search-results" (scrolled)="loadNextPage()">
-            <div class="row">
-                <div class="center" *ngIf="!loading && dataNotFound">
-                    <h1>Nenhuma especialidade encontrada...</h1>
-                </div>
-                <div *ngFor="let speciality of datas" class="col-12 col-sm-12 col-md-4 col-lg-4">
-                    <div class="card link-card" (click)="openDialog(speciality.id)">
-                        <div class="card-body margin-color-active">
-                            <ul>
-                                <li><span class="fa fa-key speciality-info"> Identificador:</span> {{speciality.id}}</li>
-                                <li><span class="fa fa-pencil-square-o speciality-info"> Nome:</span> {{speciality.name}}</li>
-                            </ul>
-                        </div>
+        <app-search-result-list [items]="datas" [loading]="loading" [dataNotFound]="dataNotFound"
+            emptyMessage="Nenhuma especialidade encontrada..." (scrolled)="loadNextPage()">
+            <ng-template let-speciality>
+                <div class="card link-card" (click)="openDialog(speciality.id)">
+                    <div class="card-body margin-color-active">
+                        <ul>
+                            <li><span class="fa fa-key speciality-info"> Identificador:</span> {{speciality.id}}</li>
+                            <li><span class="fa fa-pencil-square-o speciality-info"> Nome:</span> {{speciality.name}}</li>
+                        </ul>
                     </div>
                 </div>
-            </div>
-        </div>
+            </ng-template>
+        </app-search-result-list>
     </div>
 </div>
 <app-loading [show]="loading"></app-loading>

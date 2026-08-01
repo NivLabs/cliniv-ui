@@ -4,7 +4,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header card-header-info">
-                        <h4 class="card-title">Relatórios</h4>
+                        <h4 class="card-title">Formas de Pagamento</h4>
                     </div>
                     <div class="card-body">
                         <form #form="ngForm" autocomplete="off">
@@ -12,13 +12,13 @@
                                 <div class="col-md-2">
                                     <mat-form-field>
                                         <input matInput type="number"
-                                            placeholder="Código do layout [ENTER]" name="id"
+                                            placeholder="Código da forma de pagamento [ENTER]" name="id"
                                             [(ngModel)]="filters.id" #id (keypress)="enterKeyPress($event)" />
                                     </mat-form-field>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <mat-form-field>
-                                        <input matInput placeholder="Nome do layout [ENTER]"
+                                        <input matInput placeholder="Nome da forma de pagamento [ENTER]"
                                             name="name" [(ngModel)]="filters.name" #name
                                             type="text" (keypress)="enterKeyPress($event)" />
                                     </mat-form-field>
@@ -29,9 +29,9 @@
                                 matTooltip="Aplica Filtro">
                                 <span class="fa fa-search"></span> Filtrar</button>
                             <button mat-raised-button type="button" (click)="openDialog(null)"
-                                matTooltip="Adiciona layout"
+                                matTooltip="Adiciona forma de pagamento"
                                 class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-info pull-right"><span
-                                    class="fa fa-plus"></span> Novo Layout</button>
+                                    class="fa fa-plus"></span> Nova Forma de Pagamento</button>
                             <div class="clearfix"></div>
                         </form>
                     </div>
@@ -39,14 +39,13 @@
             </div>
         </div>
         <app-search-result-list [items]="datas" [loading]="loading" [dataNotFound]="dataNotFound"
-            emptyMessage="Nenhum relatório encontrado..." (scrolled)="loadNextPage()">
-            <ng-template let-report>
-                <div class="card link-card" (click)="openDialog(report.id)">
+            emptyMessage="Nenhuma forma de pagamento encontrada..." (scrolled)="loadNextPage()">
+            <ng-template let-paymentMethod>
+                <div class="card link-card" (click)="openDialog(paymentMethod)">
                     <div class="card-body margin-color-active">
-                        <div class="card-title text-right" style="margin-bottom: 0px; z-index: 1000;"><i class="fa fa-trash-o" aria-hidden="true"  (click)="openDeleteReportDialog(report.id)"></i></div>
                         <ul>
-                            <li><span class="fa fa-key report-info"> Identificador:</span> {{report.id}}</li>
-                            <li><span class="fa fa-map report-info"> {{report.name}}</span></li>
+                            <li><span class="fa fa-key payment-method-info"> Identificador:</span> {{paymentMethod.id}}</li>
+                            <li><span class="fa fa-pencil-square-o payment-method-info"> Nome:</span> {{paymentMethod.name}}</li>
                         </ul>
                     </div>
                 </div>

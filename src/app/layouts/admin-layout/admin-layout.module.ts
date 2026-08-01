@@ -89,6 +89,11 @@ import { ProcedureService } from '../../procedure/procedure.service';
 import { ProfessionalEditComponent } from '../../professional/professional-edit/professional-edit.component';
 import { ProfessionalComponent } from '../../professional/professional.component';
 import { ProfessionalService } from '../../professional/professional.service';
+import { DialogFormActionsComponent } from '../../components/dialog-form-actions/dialog-form-actions.component';
+import { SearchResultListComponent } from '../../components/search-result-list/search-result-list.component';
+import { PaymentMethodEditComponent } from '../../payment-method/payment-method-edit/payment-method-edit.component';
+import { PaymentMethodComponent } from '../../payment-method/payment-method.component';
+import { PaymentMethodService } from '../../payment-method/payment-method.service';
 import { AccommodationComponent } from '../../sector/accommodation/accommodation.component';
 import { SectorEditComponent } from '../../sector/sector-edit/sector-edit.component';
 import { SectorComponent } from '../../sector/sector.component';
@@ -242,6 +247,8 @@ const maskConfig: Partial<IConfig> = {
     AllergyComponent,
 
     LoadingComponent,
+    DialogFormActionsComponent,
+    SearchResultListComponent,
 
     HealthOperatorComponent,
     HealthOperatorEditComponent,
@@ -252,6 +259,9 @@ const maskConfig: Partial<IConfig> = {
 
     SpecialityComponent,
     SpecialityEditComponent,
+
+    PaymentMethodComponent,
+    PaymentMethodEditComponent,
 
     ReportComponent,
     ReportEditComponent,
@@ -279,6 +289,7 @@ const maskConfig: Partial<IConfig> = {
     SettingsService,
     ProcedureService,
     SpecialityService,
+    PaymentMethodService,
     ReportService,
     { provide: MatPaginatorIntl, useClass: CustomPaginatorIntl },
   ]

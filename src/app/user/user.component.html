@@ -52,29 +52,25 @@
                 </div>
             </div>
         </div>
-        <div class="search-results" (scrolled)="loadNextPage()">
-            <div class="row">
-                <div class="center" *ngIf="!loading && dataNotFound">
-                    <h1>Nenhum usuário encontrado...</h1>
-                </div>
-                <div *ngFor="let user of datas" class="col-12 col-sm-12 col-md-4 col-lg-4">
-                    <div class="card link-card" (click)="openDialog(user.id)">
-                        <div class="card-body margin-color-active">
-                            <ul>
-                                <li class="user-name"> {{user.fullName}}</li>
-                                <li><span class="fa fa-key user-info"> Matrícula:</span> {{user.id}}</li>
-                                <li><span class="fa fa-user user-info"> Usuário:</span> {{user.userName}}</li>
-                                <li><span class="fa fa-id-card user-info"> CPF:</span>
-                                    {{user.cpf | mask: '000.000.000-00'}}</li>
-                                <li><span class="fa fa-phone user-info"> Telefone:</span>
-                                    {{user.principalNumber ? (user.principalNumber | mask: user.principalNumber.length <= 10 ? '(00) 0000-00009' : '(00) 00000-0000') : ('Não informado')}}
-                                </li>
-                            </ul>
-                        </div>
+        <app-search-result-list [items]="datas" [loading]="loading" [dataNotFound]="dataNotFound"
+            emptyMessage="Nenhum usuário encontrado..." (scrolled)="loadNextPage()">
+            <ng-template let-user>
+                <div class="card link-card" (click)="openDialog(user.id)">
+                    <div class="card-body margin-color-active">
+                        <ul>
+                            <li class="user-name"> {{user.fullName}}</li>
+                            <li><span class="fa fa-key user-info"> Matrícula:</span> {{user.id}}</li>
+                            <li><span class="fa fa-user user-info"> Usuário:</span> {{user.userName}}</li>
+                            <li><span class="fa fa-id-card user-info"> CPF:</span>
+                                {{user.cpf | mask: '000.000.000-00'}}</li>
+                            <li><span class="fa fa-phone user-info"> Telefone:</span>
+                                {{user.principalNumber ? (user.principalNumber | mask: user.principalNumber.length <= 10 ? '(00) 0000-00009' : '(00) 00000-0000') : ('Não informado')}}
+                            </li>
+                        </ul>
                     </div>
                 </div>
-            </div>
-        </div>
+            </ng-template>
+        </app-search-result-list>
     </div>
 </div>
 <app-loading [show]="loading"></app-loading>

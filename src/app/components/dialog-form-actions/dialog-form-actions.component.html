@@ -1,0 +1,20 @@
+<div class="row">
+    <div style="overflow:hidden; width: 100%;">
+        <div *ngIf="showNew" class="col-12 col-sm-12 col-md-4 col-lg-3 pull-left ml-0 mr-0">
+            <button mat-raised-button type="button" class="btn btn-info col-12" (click)="new.emit()"
+                [matTooltip]="newTooltip"><span class="fa fa-plus"></span> {{newLabel}}</button>
+        </div>
+
+        <ng-content select="[extraActions]"></ng-content>
+
+        <div class="col-12 col-sm-12 col-md-4 col-lg-3 pull-right ml-0 mr-0">
+            <button mat-raised-button type="button" class="btn btn-danger col-12" (click)="cancel.emit()"
+                matTooltip="Fecha formulário"><span class="fa fa-close"></span> Fechar</button>
+        </div>
+        <div class="col-12 col-sm-12 col-md-4 col-lg-3 pull-right ml-0 mr-0">
+            <button mat-raised-button type="submit" class="btn btn-success col-12"
+                matTooltip="Salvar informações do formulário" [disabled]="saveDisabled"
+                (click)="save.emit()"><span class="fa fa-check"></span>Salvar</button>
+        </div>
+    </div>
+</div>

@@ -137,29 +137,14 @@
                     </div>
                 </mat-tab>
             </mat-tab-group>
-            <div class="row">
-                <div style="overflow:hidden; width: 100%;">
-                    <div *ngIf="dataToForm.id" class="col-12 col-sm-12 col-md-4 col-lg-3 pull-left ml-0 mr-0">
-                        <button mat-raised-button type="button" class="btn btn-info col-12" (click)="resetForm()"
-                            matTooltip="Adciona paciente"><span class="fa fa-plus"></span> Novo
-                            Paciente</button>
-                    </div>
-                    <div *ngIf="dataToForm.id" class="col-12 col-sm-12 col-md-4 col-lg-3 pull-left ml-0 mr-0">
-                        <button mat-raised-button type="button" (click)="resetPassword()" class="col-12 btn btn-warning"
-                            matTooltip="Altera a senha atual"><span class="fa fa-lock"></span> Resetar senha</button>
-                    </div>
-                    <div class="col-12 col-sm-12 col-md-4 col-lg-3 pull-right ml-0 mr-0">
-                        <button mat-raised-button type="submit" [disabled]="!form.valid"
-                            matTooltip="Salvar informações do formulário" class="col-12 btn btn-success"><span
-                                class="fa fa-check"></span>
-                            Salvar</button>
-                    </div>
-                    <div class="col-12 col-sm-12 col-md-4 col-lg-3 pull-right ml-0 mr-0">
-                        <button mat-raised-button type="button" (click)="onCancelClick()" class="col-12 btn btn-danger"
-                            matTooltip="Fecha formulário"><span class="fa fa-close"></span> Fechar</button>
-                    </div>
+            <app-dialog-form-actions [showNew]="!!dataToForm.id" newLabel="Novo Paciente"
+                newTooltip="Adciona paciente" [saveDisabled]="!form.valid" (new)="resetForm()"
+                (cancel)="onCancelClick()" (save)="save()">
+                <div extraActions *ngIf="dataToForm.id" class="col-12 col-sm-12 col-md-4 col-lg-3 pull-left ml-0 mr-0">
+                    <button mat-raised-button type="button" (click)="resetPassword()" class="col-12 btn btn-warning"
+                        matTooltip="Altera a senha atual"><span class="fa fa-lock"></span> Resetar senha</button>
                 </div>
-            </div>
+            </app-dialog-form-actions>
             <div class="clearfix"></div>
         </form>
     </div>

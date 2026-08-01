@@ -58,26 +58,9 @@
                             </mat-form-field>
                         </div>
                     </div>
-                    <div class="row">
-                        <div style="overflow:hidden; width: 100%;">
-                            <div *ngIf="dataToForm.id" class="col-12 col-sm-12 col-md-4 col-lg-3 pull-left ml-0 mr-0">
-                                <button mat-raised-button type="button" class="btn btn-info col-12"
-                                    (click)="resetForm()" matTooltip="Adiciona setor"><span class="fa fa-plus"></span>
-                                    Nova operadora</button>
-                            </div>
-
-                            <div class="col-12 col-sm-12 col-md-4 col-lg-3 pull-right ml-0 mr-0">
-                                <button mat-raised-button type="button" class="btn btn-danger col-12"
-                                    (click)="onCancelClick()" matTooltip="Fecha formulário"><span
-                                        class="fa fa-close"></span> Fechar</button>
-                            </div>
-                            <div class="col-12 col-sm-12 col-md-4 col-lg-3 pull-right ml-0 mr-0">
-                                <button mat-raised-button type="submit" class="btn btn-success col-12"
-                                    matTooltip="Salvar informações do formulário" [disabled]="!form.valid"
-                                    (click)="save()"><span class="fa fa-check"></span>Salvar</button>
-                            </div>
-                        </div>
-                    </div>
+                    <app-dialog-form-actions [showNew]="!!dataToForm.id" newLabel="Nova operadora"
+                        newTooltip="Adiciona setor" [saveDisabled]="!form.valid" (new)="resetForm()"
+                        (cancel)="onCancelClick()" (save)="save()"></app-dialog-form-actions>
                     <div class="clearfix"></div>
                 </form>
 
