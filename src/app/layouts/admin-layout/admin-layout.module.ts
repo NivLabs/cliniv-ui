@@ -35,6 +35,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { TourMatMenuModule } from 'ngx-ui-tour-md-menu';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { AppointmentEditComponent } from 'app/appointment/appointment-edit/appointment-edit.component';
 import { AppointmentComponent } from 'app/appointment/appointment.component';
@@ -173,7 +174,8 @@ const maskConfig: Partial<IConfig> = {
     PdfViewerModule,
     BrowserAnimationsModule,
     CKEditorModule,
-    FullCalendarModule
+    FullCalendarModule,
+    TourMatMenuModule
   ],
   exports: [
     CommonModule,
