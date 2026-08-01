@@ -1,4 +1,7 @@
 <div class="main-content">
+    <button mat-icon-button matTooltip="Ver tour guiado" class="tour-trigger" (click)="startTour()">
+        <mat-icon>help_outline</mat-icon>
+    </button>
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
@@ -8,7 +11,7 @@
                     </div>
                     <div class="card-body">
                         <form #form="ngForm" autocomplete="off">
-                            <div class="row">
+                            <div class="row" tourAnchor="patientFilters">
                                 <div class="col-md-2">
                                     <mat-form-field>
                                         <mat-label>Tipo Paciente</mat-label>
@@ -57,21 +60,23 @@
                                     </mat-form-field>
                                 </div>
                             </div>
-                            <button mat-raised-button type="button" (click)="applyFilter()" matTooltip="Aplica Filtro"
-                                class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-danger pull-right"><span
-                                    class="fa fa-search"></span> Filtrar</button>
-                            <button mat-raised-button type="button" (click)="openDialog(null)"
-                                matTooltip="Adiciona paciente"
-                                class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-info pull-right"><span
-                                    class="fa fa-plus"></span> Novo
-                                Paciente</button>
-                            <div class="clearfix"></div>
+                            <div tourAnchor="patientActions">
+                                <button mat-raised-button type="button" (click)="applyFilter()" matTooltip="Aplica Filtro"
+                                    class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-danger pull-right"><span
+                                        class="fa fa-search"></span> Filtrar</button>
+                                <button mat-raised-button type="button" (click)="openDialog(null)"
+                                    matTooltip="Adiciona paciente"
+                                    class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-info pull-right"><span
+                                        class="fa fa-plus"></span> Novo
+                                    Paciente</button>
+                                <div class="clearfix"></div>
+                            </div>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
-        <app-search-result-list [items]="datas" [loading]="loading" [dataNotFound]="dataNotFound"
+        <app-search-result-list tourAnchor="patientResults" [items]="datas" [loading]="loading" [dataNotFound]="dataNotFound"
             emptyMessage="Nenhum paciente encontrado..." (scrolled)="loadNextPage()">
             <ng-template let-patient>
                 <div class="card link-card" (click)="openDialog(patient.id)">

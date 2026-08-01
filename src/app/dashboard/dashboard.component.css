@@ -81,19 +81,3 @@ span.displayed-log {
     margin-top: -12px;
     padding-top: 5px;
 }
-
-.tour-trigger {
-    position: fixed;
-    right: 24px;
-    bottom: 24px;
-    z-index: 10;
-    background-color: #fff;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, .3);
-}
-
-::ng-deep .touranchor--is-active {
-    position: relative;
-    z-index: 1000;
-    box-shadow: 0 0 0 3px #00bcd4, 0 0 12px 4px rgba(0, 188, 212, .6);
-    border-radius: 4px;
-}

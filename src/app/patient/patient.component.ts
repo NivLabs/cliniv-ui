@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { PatientService } from './patient.service';
 import { ErrorHandlerService } from 'app/core/error-handler.service';
 import { NotificationsComponent } from 'app/core/notification/notifications.component';
@@ -7,13 +7,17 @@ import { PatientEditComponent } from './patient-edit/patient-edit.component';
 import { Page, Pageable } from 'app/model/Util';
 import { PatientFilters } from '../model/Patient'
 import { ActivatedRoute, Router } from '@angular/router';
+import { IStepOption, TourService } from 'ngx-ui-tour-md-menu';
+import { Subscription } from 'rxjs';
+
+const PATIENT_TOUR_SEEN_KEY = '__patient_tour_seen';
 
 @Component({
   selector: 'app-patient',
   templateUrl: './patient.component.html',
   styleUrls: ['./patient.component.css']
 })
-export class PatientComponent implements OnInit {
+export class PatientComponent implements OnInit, AfterViewInit, OnDestroy {
 
   public loading: boolean;
   public dataNotFound: boolean;
@@ -21,8 +25,56 @@ export class PatientComponent implements OnInit {
   page: Page;
   pageSettings: Pageable;
   filters: PatientFilters;
+  private tourEndSubscription: Subscription;
 
-  constructor(public dialog: MatDialog, private router: Router, private principalService: PatientService, private errorHandler: ErrorHandlerService, private notification: NotificationsComponent, private route: ActivatedRoute) { }
+  private readonly tourSteps: IStepOption[] = [
+    {
+      anchorId: 'patientFilters',
+      title: 'Filtros de busca',
+      content: 'Combine tipo de paciente, matrícula, CNS, nome, nome social e CPF para encontrar um paciente rapidamente. Aperte [ENTER] em qualquer campo pra aplicar.',
+      enableBackdrop: true,
+      isAsync: true
+    },
+    {
+      anchorId: 'patientActions',
+      title: 'Filtrar e cadastrar',
+      content: '"Filtrar" aplica os campos preenchidos acima. "Novo Paciente" abre o cadastro de um paciente novo.',
+      enableBackdrop: true,
+      isAsync: true
+    },
+    {
+      anchorId: 'patientResults',
+      title: 'Resultados',
+      content: 'Clique em qualquer paciente da lista para ver ou editar os dados completos.',
+      enableBackdrop: true,
+      isAsync: true
+    }
+  ];
+
+  private readonly tourStepDefaults: IStepOption = {
+    prevBtnTitle: 'Anterior',
+    nextBtnTitle: 'Próximo',
+    endBtnTitle: 'Concluir'
+  };
+
+  constructor(public dialog: MatDialog, private router: Router, private principalService: PatientService, private errorHandler: ErrorHandlerService, private notification: NotificationsComponent, private route: ActivatedRoute, private tourService: TourService) { }
+
+  ngAfterViewInit(): void {
+    this.tourService.initialize(this.tourSteps, this.tourStepDefaults);
+    this.tourEndSubscription = this.tourService.end$.subscribe(() => localStorage.setItem(PATIENT_TOUR_SEEN_KEY, 'true'));
+
+    if (!localStorage.getItem(PATIENT_TOUR_SEEN_KEY)) {
+      this.tourService.start();
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.tourEndSubscription?.unsubscribe();
+  }
+
+  startTour(): void {
+    this.tourService.start();
+  }
 
   ngOnInit() {
     var patientIdFromUrl = this.route.snapshot.paramMap.get('patientId');
