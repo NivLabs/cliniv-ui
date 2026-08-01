@@ -10,6 +10,9 @@ import { Dashboard, DashboardService } from './dashboard.service';
 import { StickerEditComponent } from './sticker-edit/sticker-edit.component';
 
 const DASHBOARD_TOUR_SEEN_KEY = '__dashboard_tour_seen';
+// Breakpoint em que o menu lateral vira off-canvas (escondido até o usuário abrir
+// pelo botão de hambúrguer) — ver @media (max-width: 991px) em _responsive.scss.
+const MOBILE_BREAKPOINT_PX = 991;
 
 @Component({
   selector: 'app-dashboard',
@@ -76,7 +79,7 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
     private tourService: TourService) { }
 
   ngAfterViewInit(): void {
-    this.tourService.initialize(this.tourSteps, this.tourStepDefaults);
+    this.tourService.initialize(this.getTourSteps(), this.tourStepDefaults);
     this.tourEndSubscription = this.tourService.end$.subscribe(() => localStorage.setItem(DASHBOARD_TOUR_SEEN_KEY, 'true'));
 
     if (!localStorage.getItem(DASHBOARD_TOUR_SEEN_KEY)) {
@@ -86,6 +89,19 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.tourEndSubscription?.unsubscribe();
+  }
+
+  /**
+   * Em telas móveis o menu lateral fica escondido (off-canvas) até o usuário
+   * abri-lo pelo ícone de hambúrguer, então o passo do tour que aponta pra ele
+   * fica com o popover mal posicionado (âncora fora da tela). Pula esse passo
+   * nessas telas em vez de tentar reproduzir a lógica de abertura do menu.
+   */
+  private getTourSteps(): IStepOption[] {
+    if (window.innerWidth <= MOBILE_BREAKPOINT_PX) {
+      return this.tourSteps.filter(step => step.anchorId !== 'dashboardSidebar');
+    }
+    return this.tourSteps;
   }
 
   startTour(): void {
