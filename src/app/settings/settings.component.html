@@ -94,11 +94,18 @@
                                     #startDate [(ngModel)]="settings.customerInfo.license.startDate" disabled />
                             </mat-form-field>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <mat-form-field>
                                 <input matInput placeholder="Data de Término" name="endDate" type="datetime-local"
                                     #endDate [(ngModel)]="settings.customerInfo.license.endDate" disabled />
                             </mat-form-field>
+                        </div>
+                        <div class="col-md-1" style="text-align: center;">
+                            <a href="javascript:void(0)" matTooltip="Ativar licença">
+                                <i class="material-icons" (click)="licenseInput.click()">vpn_key</i>
+                            </a>
+                            <input #licenseInput hidden="true" type="file" onclick="this.value=null"
+                                (change)="activateLicense($event)" />
                         </div>
                     </div>
                     <div class="row">

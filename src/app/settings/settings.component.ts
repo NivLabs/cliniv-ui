@@ -141,6 +141,31 @@ export class SettingsComponent implements OnInit {
     reader.readAsBinaryString(file);
   }
 
+  activateLicense(fileInputEvent: any) {
+
+    var t = this;
+    var file = fileInputEvent.target.files[0];
+
+    var fileInfo = new FileInfo();
+    fileInfo.name = file.name;
+    var reader = new FileReader();
+
+    reader.onload = function (readerEvt) {
+      var binaryString = readerEvt.target.result.toString();
+      fileInfo.base64 = btoa(binaryString);
+      t.loading = true;
+      t.principalService.activateLicense(fileInfo).then(() => {
+        t.notification.showSucess("Licença ativada com sucesso!");
+        t.ngOnInit();
+      }).catch(error => {
+        t.loading = false;
+        t.errorHandler.handle(error, null);
+      });
+    };
+
+    reader.readAsBinaryString(file);
+  }
+
   openWebCam() {
     const dialogRef = this.confirmDialog.open(CameraDialogComponent, {
       width: '500px',

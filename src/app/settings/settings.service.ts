@@ -47,4 +47,9 @@ export class SettingsService {
     return this.http.post<FileInfo>(`${this.baseUrl}/logo`, file, { headers }).toPromise();
   }
 
+  activateLicense(file: FileInfo): Promise<void> {
+    var headers = new HttpHeaders().append('Content-Type', "application/json");
+    return this.http.post<void>(`${this.baseUrl}/license`, file, { headers }).toPromise();
+  }
+
 }
