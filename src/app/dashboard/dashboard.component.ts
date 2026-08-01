@@ -28,25 +28,29 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
       anchorId: 'dashboardStats',
       title: 'Resumo do dia',
       content: 'Aqui você acompanha, em tempo real, os novos pacientes, atendidos, cancelados e confirmados de hoje.',
-      enableBackdrop: true
+      enableBackdrop: true,
+      isAsync: true
     },
     {
       anchorId: 'dashboardAppointments',
       title: 'Agendamentos confirmados',
       content: 'Os agendamentos já confirmados para hoje aparecem nesta lista.',
-      enableBackdrop: true
+      enableBackdrop: true,
+      isAsync: true
     },
     {
       anchorId: 'dashboardProfessionalStats',
       title: 'Suas estatísticas',
       content: 'Um resumo pessoal: seus atendimentos ativos, quantos pacientes você já atendeu hoje e quantos agendamentos ainda não foram confirmados.',
-      enableBackdrop: true
+      enableBackdrop: true,
+      isAsync: true
     },
     {
       anchorId: 'dashboardStickers',
       title: 'Lembretes',
       content: 'Crie lembretes rápidos clicando no ícone "+" e acompanhe-os por aqui.',
       enableBackdrop: true,
+      isAsync: true,
       endBtnTitle: 'Concluir'
     }
   ];
