@@ -38,7 +38,6 @@
     "@angular/router": "^14.2.0",
     "@angular/cli": "^14.2.0",
     "@angular/compiler-cli": "^14.2.0",
-    "@angular/material-moment-adapter": "^17.3.10",
     "@angular/platform-server": "^14.2.0",
     "@auth0/angular-jwt": "^5.0.2",
     "@ckeditor/ckeditor5-angular": "^2.0.2",
