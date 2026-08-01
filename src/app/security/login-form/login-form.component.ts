@@ -88,7 +88,7 @@ export class LoginFormComponent implements OnInit {
     const dialogRef = this.dialog.open(ForgotPasswordComponent, {
       data: this.user.userName
     });
-    dialogRef.afterClosed.arguments(result => {
+    dialogRef.afterClosed().subscribe(result => {
     });
   }
 

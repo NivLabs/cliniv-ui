@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 
 import { JwtHelperService } from '@auth0/angular-jwt';
 
-
+import { ForgotPasswordRequest } from 'app/model/ForgotPasswordRequest';
 import { environment } from './../../environments/environment';
 
 @Injectable()
@@ -43,6 +43,12 @@ export class AuthService {
         }
         return Promise.reject(response);
       });
+  }
+
+  forgotPassword(request: ForgotPasswordRequest): Promise<void> {
+    var headers = new HttpHeaders()
+      .append('Content-Type', 'application/json');
+    return this.http.put<void>(`${this.resourceUrl}/forgot`, request, { headers }).toPromise();
   }
 
   getUnitName() {
