@@ -104,10 +104,6 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
     return this.tourSteps;
   }
 
-  startTour(): void {
-    this.tourService.start();
-  }
-
   openDialog(sticker: Sticker): void {
     const dialogRef = this.dialog.open(StickerEditComponent, {
       width: '100%',

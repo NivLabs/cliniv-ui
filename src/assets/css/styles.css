@@ -112,18 +112,9 @@ html::-webkit-scrollbar-thumb
   min-height: 400px;
 }
 
-/* Tour guiado (ngx-ui-tour-md-menu) — botão flutuante que reabre o tour da tela
-   e destaque do elemento com a âncora ativa no momento. Compartilhado por
-   todas as telas com tour (ver CLAUDE.md, seção "Guided tours"). */
-.tour-trigger {
-  position: fixed;
-  right: 24px;
-  bottom: 24px;
-  z-index: 10;
-  background-color: #fff;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, .3);
-}
-
+/* Tour guiado (ngx-ui-tour-md-menu) — destaque do elemento com a âncora ativa
+   no momento, auto-iniciado no primeiro acesso de cada tela. Compartilhado
+   por todas as telas com tour (ver CLAUDE.md, seção "Guided tours"). */
 .touranchor--is-active {
   position: relative;
   z-index: 1000;

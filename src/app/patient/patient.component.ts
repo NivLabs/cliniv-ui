@@ -72,10 +72,6 @@ export class PatientComponent implements OnInit, AfterViewInit, OnDestroy {
     this.tourEndSubscription?.unsubscribe();
   }
 
-  startTour(): void {
-    this.tourService.start();
-  }
-
   ngOnInit() {
     var patientIdFromUrl = this.route.snapshot.paramMap.get('patientId');
     this.router.navigate(['patient']);
