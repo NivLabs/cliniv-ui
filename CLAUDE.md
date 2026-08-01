@@ -1,0 +1,53 @@
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Overview
+
+CliNiv-UI is the Angular 14 frontend for a hospital/clinic EMR (electronic medical record) system. It is a multi-tenant client for [CliNiv-API](https://github.com/niv-labs/cliniv-api) (Spring Boot/Java), a sibling repo typically checked out alongside this one — when a task needs backend context (endpoint shape, DTO fields, available operations), read it directly from `cliniv-api/src/main/java/br/com/nivlabs/cliniv/` rather than guessing.
+
+**Required Node version: 18.19.1** (see `package.json` `engines`). On a machine where the default `node` is a different major version, `ng build`/`ng serve` can fail with an unrelated-looking `dart-sass` crash (`Cannot read properties of undefined (reading 'indexOf')`). Switch first, e.g. via `nvm use 18` (or install 18.19.1), before running any Angular CLI command.
+
+## Commands
+
+```bash
+npm install                # install deps
+ng serve                   # dev server on :4200 (use -o to open browser, --port to override)
+ng build                   # production-config build → dist/
+ng build --configuration development  # dev build, faster/unminified, useful for iterating
+ng test                    # Karma/Jasmine unit tests (Chrome, not headless by default — see karma.conf.js)
+ng lint                    # TSLint (legacy `@angular-devkit/build-angular:tslint` builder)
+ng e2e                     # Protractor e2e tests
+npm run config -- --environment=prod   # regenerate src/environments/environment.prod.ts from env vars (BASE_URL, CUSTOMER_ID, CUSTOMER_NAME) via scripts/setenv.ts + dotenv
+npm start                  # node server.js — serves an already-built dist/ via Express (production self-host, not a dev server)
+```
+
+To run a single spec file with Karma, there's no built-in CLI filter flag in this Angular version — narrow with Jasmine's `fdescribe`/`fit` in the spec, or pass `--include` to the underlying builder (`ng test --include=src/app/path/to/thing.spec.ts`).
+
+The `postinstall` script runs `ngcc` — if dependency resolution looks stale after switching Node versions or branches, rerun `npm install` rather than just `ngcc` manually.
+
+## Architecture
+
+**NgModule-based (not standalone components).** This predates Angular's standalone-component APIs; every new component must be declared in an `NgModule`, generally following the pattern already used nearby rather than introducing standalone components.
+
+**Module layout:**
+- `AppModule` (`src/app/app.module.ts`) — root; imports `SecurityModule`, `CoreModule`, `ComponentsModule`, `AdminLayoutModule`.
+- `SecurityModule` (`src/app/security/`) — auth: login, signup, forgot-password, JWT handling (`AuthService`, `AuthGuard`, `AuthInterceptor`, `AppHttp`), public unauthenticated routes (`/login`, `/public-schedule`, `/patient-register`).
+- `AdminLayoutModule` (`src/app/layouts/admin-layout/admin-layout.module.ts`) — the big one. Nearly every business-domain component, service, and route across the entire app is declared here, lazy-loaded as a single chunk from `app.routing.ts`. When adding a new domain feature, this is where you register the component/service/route, following the existing entries.
+- `CoreModule` (`src/app/core/`) — cross-cutting singleton providers: `ErrorHandlerService`, `NotificationsComponent`, `AddressService`, `UtilService`. These are available app-wide via DI without re-importing the module (declared once as providers in `AppModule`'s import graph).
+- `ComponentsModule` (`src/app/components/`) — shell chrome (`NavbarComponent`, `SidebarComponent`, `FooterComponent`) plus shared presentational pieces referenced from `AdminLayoutModule`: `LoadingComponent` (`<app-loading [show]="loading">`), `DialogFormActionsComponent` (`<app-dialog-form-actions>` — standard New/Fechar/Salvar footer used across edit dialogs, with an `extraActions` content-projection slot for one-off buttons), `SearchResultListComponent` (`<app-search-result-list>` — standard filtered list grid with empty-state message and an `<ng-template let-item>` for per-item card markup).
+
+**Per-domain structure.** Business domains (patient, attendance, procedure, appointment, sector, speciality, health-operator, payment-method, user, professional, document-template, dynamic-form, report, settings, ...) each live in their own `src/app/<domain>/` folder, generally:
+```
+<domain>/
+  <domain>.component.ts/html/css       — list/search screen
+  <domain>.service.ts                  — HttpClient calls to the backend
+  <domain>-edit/<domain>-edit.component.ts/html  — create/update dialog (MatDialog)
+```
+List screens follow: filter form card → `<app-search-result-list>` grid. Edit dialogs follow: `mat-tab-group` card → form fields → `<app-dialog-form-actions>`. New domains should reuse these two shared components rather than hand-rolling the grid/footer markup — see `src/app/speciality/` or `src/app/payment-method/` as reference implementations.
+
+**Known gotcha:** list screens bind `(scrolled)="loadNextPage()"` but there is no infinite-scroll library/directive registered anywhere in the app — it's listening for a native DOM event that never fires, so this binding is currently inert everywhere. Don't assume it works; don't silently "fix" it as a side effect of unrelated changes since a real fix touches every list screen at once.
+
+**Multi-tenancy / white-labeling:** the app is deployed per-customer via env vars baked into `src/environments/environment*.ts` at build time (`apiUrl`, `customerId`, `customerName` — see `scripts/setenv.ts`). `AuthService` also sends the tenant as an `X-Customer-Id` header (stored in `localStorage`), matching the backend's schema-per-tenant model.
+
+**HTTP/auth:** `AppHttp` (extends `HttpClient` usage patterns) + `AuthInterceptor` attach the JWT (`Authorization: Bearer ...`) and tenant header to outgoing requests; `AuthGuard` protects `AdminLayoutModule` routes (`canLoad`). `ErrorHandlerService.handle(error, dialogRefToClose)` is the standard way service-layer HTTP errors are surfaced to the user (snackbar via `NotificationsComponent`, with special-cased handling for 401/403/expired-token that also closes the passed dialog ref and redirects to `/login`).
