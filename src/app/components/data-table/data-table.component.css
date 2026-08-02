@@ -1,0 +1,68 @@
+.center {
+    text-align: center;
+    width: 100%;
+}
+
+.table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.app-data-table {
+    min-width: 100%;
+    width: max-content;
+}
+
+.app-data-table .mat-header-cell,
+.app-data-table .mat-cell {
+    padding: 0 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.mat-header-cell {
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.mat-cell {
+    font-size: 13px;
+}
+
+.clickable-row {
+    cursor: pointer;
+}
+
+.clickable-row:hover {
+    background-color: rgba(0, 0, 0, 0.035);
+}
+
+.app-data-table .actions-cell {
+    flex: 0 0 60px;
+    min-width: 60px;
+    justify-content: flex-end;
+}
+
+.actions-cell i {
+    cursor: pointer;
+    padding: 0 6px;
+}
+
+.row-active {
+    border-left: 4px solid #00BCD4;
+}
+
+.row-medium {
+    border-left: 4px solid #da9922;
+}
+
+.row-danger {
+    border-left: 4px solid #F44336;
+}
+
+.name-not-identified {
+    color: #F44336 !important;
+    font-weight: 500;
+}

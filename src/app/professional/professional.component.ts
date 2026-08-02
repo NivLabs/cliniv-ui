@@ -7,6 +7,9 @@ import { ProfessionalService } from './professional.service';
 import { ProfessionalEditComponent } from './professional-edit/professional-edit.component';
 import { Page, Pageable } from 'app/model/Util';
 import { ProfessionalFilters } from 'app/model/Professional';
+import { PageEvent } from '@angular/material/paginator';
+import { DataTableColumn } from '../components/data-table/data-table.component';
+import { formatCpf, formatDate, formatPhone } from '../model/format.util';
 
 @Component({
   selector: 'app-professional',
@@ -23,13 +26,32 @@ export class ProfessionalComponent implements OnInit {
   pageSettings: Pageable;
   filters: ProfessionalFilters;
 
+  columns: Array<DataTableColumn> = [
+    { key: 'fullName', label: 'Nome' },
+    { key: 'id', label: 'Matrícula' },
+    { key: 'bornDate', label: 'Nascimento', cell: row => formatDate(row.bornDate) },
+    { key: 'gender', label: 'Gênero', cell: row => row.gender === 'M' ? 'Masculino' : (row.gender === 'F' ? 'Feminino' : '-') },
+    { key: 'cpf', label: 'CPF', cell: row => row.cpf ? formatCpf(row.cpf) : '-' },
+    { key: 'principalNumber', label: 'Telefone', cell: row => formatPhone(row.principalNumber) }
+  ];
+
   constructor(public dialog: MatDialog, private utilService: UtilService, private principalService: ProfessionalService, private errorHandler: ErrorHandlerService, private notification: NotificationsComponent) { }
 
   ngOnInit() {
-    this.loading = true;
     this.page = new Page();
     this.filters = new ProfessionalFilters();
     this.pageSettings = new Pageable();
+    this.fetch();
+  }
+
+  onPageChange(event: PageEvent) {
+    this.pageSettings.page = event.pageIndex;
+    this.pageSettings.size = event.pageSize;
+    this.fetch();
+  }
+
+  private fetch() {
+    this.loading = true;
     this.principalService.getPage(this.filters, this.pageSettings).then(response => {
       this.loading = false;
       this.datas = response.content;
@@ -43,42 +65,12 @@ export class ProfessionalComponent implements OnInit {
   }
 
   /**
-   * Realiza a paginação dos componentes
-   */
-  loadNextPage() {
-    if (this.page && !this.page.last) {
-      this.loading = true;
-      this.pageSettings.page = this.pageSettings.page + 1;
-      this.principalService.getPage(this.filters, this.pageSettings).then(response => {
-        this.loading = false;
-        response.content.forEach(newItem => {
-          this.datas.push(newItem);
-        })
-        this.page = response;
-      }).catch(error => {
-        this.loading = false;
-        this.errorHandler.handle(error, null);
-      })
-    }
-  }
-
-  /**
    * Aplica filtros de pesquisa
    */
   applyFilter() {
     if (this.filters) {
-      this.loading = true;
-      this.pageSettings = new Pageable();
-      this.principalService.getPage(this.filters, this.pageSettings).then(response => {
-        this.loading = false;
-        this.datas = response.content;
-        this.page = response;
-        this.dataNotFound = this.datas.length === 0;
-      }).catch(error => {
-        this.dataNotFound = this.datas !== undefined ? this.datas.length === 0 : true;
-        this.loading = false;
-        this.errorHandler.handle(error, null);
-      });
+      this.pageSettings.page = 0;
+      this.fetch();
     }
   }
 

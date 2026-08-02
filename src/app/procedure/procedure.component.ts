@@ -7,6 +7,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from 'app/core/confirm-dialog/confirm-dialog.component';
 import { NotificationsComponent } from 'app/core/notification/notifications.component';
 import { ProcedureEditComponent } from './procedure-edit/procedure-edit.component';
+import { PageEvent } from '@angular/material/paginator';
+import { DataTableColumn } from '../components/data-table/data-table.component';
+import { formatCurrency } from '../model/format.util';
 
 @Component({
   selector: 'app-procedure',
@@ -22,27 +25,24 @@ export class ProcedureComponent implements OnInit {
   pageSettings: Pageable;
   filters: ProcedureFilters;
 
+  columns: Array<DataTableColumn> = [
+    { key: 'description', label: 'Descrição', cellClass: row => row.active === false ? 'name-not-identified' : '' },
+    { key: 'id', label: 'Código' },
+    { key: 'baseValue', label: 'Valor Base', cell: row => row.baseValue != null ? formatCurrency(row.baseValue) : '-' },
+    { key: 'specialAuthorization', label: 'Req. Autorização Espec.', cell: row => row.specialAuthorization ? 'SIM' : 'NÃO' },
+    { key: 'frequency', label: 'Periocidade', cell: row => row.frequency || '-' }
+  ];
+
+  getRowClass = (row: any) => row.active === false ? 'row-danger' : 'row-active';
+
   constructor(private principalService: ProcedureService, private errorHandler: ErrorHandlerService, public dialog: MatDialog,
     private notification: NotificationsComponent) { }
 
   ngOnInit() {
-
-    this.loading = true;
     this.page = new Page();
     this.filters = new ProcedureFilters();
     this.pageSettings = new Pageable();
-
-    this.principalService.getPage(this.filters, this.pageSettings).then(response => {
-      this.loading = false;
-      this.datas = response.content;
-      this.page = response;
-      this.dataNotFound = this.datas.length === 0;
-    }).catch(error => {
-      this.dataNotFound = this.datas ? this.datas.length === 0 : true;
-      this.loading = false;
-      this.errorHandler.handle(error, null);
-    });
-
+    this.fetch();
   }
 
   enterKeyPress(event: any) {
@@ -53,36 +53,29 @@ export class ProcedureComponent implements OnInit {
 
   applyFilter() {
     if (this.filters) {
-      this.loading = true;
-      this.pageSettings = new Pageable();
-      this.principalService.getPage(this.filters, this.pageSettings).then(response => {
-        this.loading = false;
-        this.datas = response.content;
-        this.page = response;
-        this.dataNotFound = this.datas.length === 0;
-      }).catch(error => {
-        this.dataNotFound = this.datas ? this.datas.length === 0 : true;
-        this.loading = false;
-        this.errorHandler.handle(error, null);
-      });
+      this.pageSettings.page = 0;
+      this.fetch();
     }
   }
 
-  loadNextPage() {
-    if (this.page && !this.page.last) {
-      this.loading = true;
-      this.pageSettings.page = this.pageSettings.page + 1;
-      this.principalService.getPage(this.filters, this.pageSettings).then(response => {
-        this.loading = false;
-        response.content.forEach(newItem => {
-          this.datas.push(newItem);
-        })
-        this.page = response;
-      }).catch(error => {
-        this.loading = false;
-        this.errorHandler.handle(error, null);
-      })
-    }
+  onPageChange(event: PageEvent) {
+    this.pageSettings.page = event.pageIndex;
+    this.pageSettings.size = event.pageSize;
+    this.fetch();
+  }
+
+  private fetch() {
+    this.loading = true;
+    this.principalService.getPage(this.filters, this.pageSettings).then(response => {
+      this.loading = false;
+      this.datas = response.content;
+      this.page = response;
+      this.dataNotFound = this.datas.length === 0;
+    }).catch(error => {
+      this.dataNotFound = this.datas ? this.datas.length === 0 : true;
+      this.loading = false;
+      this.errorHandler.handle(error, null);
+    });
   }
 
   openDialog(procedure: ProcedureInfo) {

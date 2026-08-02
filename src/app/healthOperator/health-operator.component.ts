@@ -5,6 +5,8 @@ import { HealthOperatorService } from './health-operator.service';
 import { ErrorHandlerService } from 'app/core/error-handler.service';
 import { MatDialog } from '@angular/material/dialog';
 import { HealthOperatorEditComponent } from './health-operator-edit/health-operator-edit.component';
+import { PageEvent } from '@angular/material/paginator';
+import { DataTableColumn } from '../components/data-table/data-table.component';
 
 @Component({
   selector: 'app-health-operator',
@@ -20,13 +22,46 @@ export class HealthOperatorComponent implements OnInit {
   public pageSettings: Pageable;
   public filters: HealthOperatorFilter;
 
+  columns: Array<DataTableColumn> = [
+    { key: 'companyName', label: 'Nome' },
+    { key: 'fantasyName', label: 'Nome Fantasia' },
+    { key: 'id', label: 'Matrícula' },
+    { key: 'ansCode', label: 'Código ANS' },
+    { key: 'cnpj', label: 'CNPJ' },
+    { key: 'modality', label: 'Modalidade', cell: row => this.getModalityDescription(row.modality) }
+  ];
+
   constructor(public dialog: MatDialog, private principalService: HealthOperatorService, private errorHandler: ErrorHandlerService) { }
 
   ngOnInit(): void {
-    this.loading = true;
     this.page = new Page();
     this.filters = new HealthOperatorFilter();
     this.pageSettings = new Pageable();
+    this.fetch();
+  }
+
+
+  enterKeyPress(event: any) {
+    if (event.key === "Enter") {
+      this.applyFilter();
+    }
+  }
+
+  applyFilter() {
+    if (this.filters) {
+      this.pageSettings.page = 0;
+      this.fetch();
+    }
+  }
+
+  onPageChange(event: PageEvent) {
+    this.pageSettings.page = event.pageIndex;
+    this.pageSettings.size = event.pageSize;
+    this.fetch();
+  }
+
+  private fetch() {
+    this.loading = true;
     this.principalService.getPage(this.filters, this.pageSettings).then(response => {
       this.loading = false;
       this.datas = response.content;
@@ -39,52 +74,8 @@ export class HealthOperatorComponent implements OnInit {
     });
   }
 
-
-  enterKeyPress(event: any) {
-    if (event.key === "Enter") {
-      this.applyFilter();
-    }
-  }
-
   /**
-   * Realiza a paginação dos componentes
-   */
-  loadNextPage() {
-    if (this.page && !this.page.last) {
-      this.loading = true;
-      this.pageSettings.page = this.pageSettings.page + 1;
-      this.principalService.getPage(this.filters, this.pageSettings).then(response => {
-        this.loading = false;
-        response.content.forEach(newItem => {
-          this.datas.push(newItem);
-        })
-        this.page = response;
-      }).catch(error => {
-        this.loading = false;
-        this.errorHandler.handle(error, null);
-      })
-    }
-  }
-
-  applyFilter() {
-    if (this.filters) {
-      this.loading = true;
-      this.pageSettings = new Pageable();
-      this.principalService.getPage(this.filters, this.pageSettings).then(response => {
-        this.loading = false;
-        this.datas = response.content;
-        this.page = response;
-        this.dataNotFound = this.datas.length === 0;
-      }).catch(error => {
-        this.dataNotFound = this.datas ? this.datas.length === 0 : true;
-        this.loading = false;
-        this.errorHandler.handle(error, null);
-      });
-    }
-  }
-
-  /**
-   * 
+   *
    * Converte o ENUM de modalidade para a descrição
    * @param modality Modalidade
    */
@@ -107,9 +98,9 @@ export class HealthOperatorComponent implements OnInit {
 
   /**
    * Abre dialog com informações da Operadora de saúde
-   * 
+   *
    * @param id Identificador único da operadora
-   * 
+   *
    */
   openDialog(id) {
     const dialogRef = this.dialog.open(HealthOperatorEditComponent, {

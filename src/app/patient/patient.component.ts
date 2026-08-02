@@ -3,12 +3,15 @@ import { PatientService } from './patient.service';
 import { ErrorHandlerService } from 'app/core/error-handler.service';
 import { NotificationsComponent } from 'app/core/notification/notifications.component';
 import { MatDialog } from '@angular/material/dialog';
+import { PageEvent } from '@angular/material/paginator';
 import { PatientEditComponent } from './patient-edit/patient-edit.component';
 import { Page, Pageable } from 'app/model/Util';
 import { PatientFilters } from '../model/Patient'
 import { ActivatedRoute, Router } from '@angular/router';
 import { IStepOption, TourService } from 'ngx-ui-tour-md-menu';
 import { Subscription } from 'rxjs';
+import { DataTableColumn } from '../components/data-table/data-table.component';
+import { formatCpf, formatDate, formatPhone } from '../model/format.util';
 
 const PATIENT_TOUR_SEEN_KEY = '__patient_tour_seen';
 
@@ -26,6 +29,22 @@ export class PatientComponent implements OnInit, AfterViewInit, OnDestroy {
   pageSettings: Pageable;
   filters: PatientFilters;
   private tourEndSubscription: Subscription;
+
+  columns: Array<DataTableColumn> = [
+    {
+      key: 'fullName', label: 'Nome',
+      cell: row => row.fullName + (row.type === 'NOT_IDENTIFIED' ? ' [Não Identificado]' : ''),
+      cellClass: row => row.type === 'NOT_IDENTIFIED' ? 'name-not-identified' : ''
+    },
+    { key: 'id', label: 'Matrícula' },
+    { key: 'cnsNumber', label: 'CNS', cell: row => row.cnsNumber || '-' },
+    { key: 'bornDate', label: 'Nascimento', cell: row => formatDate(row.bornDate) },
+    { key: 'gender', label: 'Gênero', cell: row => row.gender === 'M' ? 'Masculino' : (row.gender === 'F' ? 'Feminino' : '-') },
+    { key: 'cpf', label: 'CPF', cell: row => row.cpf ? formatCpf(row.cpf) : '-' },
+    { key: 'principalNumber', label: 'Telefone', cell: row => formatPhone(row.principalNumber) }
+  ];
+
+  getRowClass = (row: any) => row.type === 'NOT_IDENTIFIED' ? 'row-danger' : 'row-active';
 
   private readonly tourSteps: IStepOption[] = [
     {
@@ -75,17 +94,31 @@ export class PatientComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit() {
     var patientIdFromUrl = this.route.snapshot.paramMap.get('patientId');
     this.router.navigate(['patient']);
-    this.loading = true;
     this.page = new Page();
     this.filters = new PatientFilters();
     this.pageSettings = new Pageable();
+    this.fetch(() => {
+      if (patientIdFromUrl) {
+        this.openDialog(Number.parseInt(patientIdFromUrl));
+      }
+    });
+  }
+
+  onPageChange(event: PageEvent) {
+    this.pageSettings.page = event.pageIndex;
+    this.pageSettings.size = event.pageSize;
+    this.fetch();
+  }
+
+  private fetch(onSuccess?: () => void) {
+    this.loading = true;
     this.principalService.getPage(this.filters, this.pageSettings).then(response => {
       this.loading = false;
       this.datas = response.content;
       this.page = response;
       this.dataNotFound = this.datas.length === 0;
-      if (patientIdFromUrl) {
-        this.openDialog(Number.parseInt(patientIdFromUrl));
+      if (onSuccess) {
+        onSuccess();
       }
     }).catch(error => {
       this.dataNotFound = this.datas ? this.datas.length === 0 : true;
@@ -94,41 +127,10 @@ export class PatientComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
-  /**
-   * Realiza a paginação dos componentes
-   */
-  loadNextPage() {
-    if (this.page && !this.page.last) {
-      this.loading = true;
-      this.pageSettings.page = this.pageSettings.page + 1;
-      this.principalService.getPage(this.filters, this.pageSettings).then(response => {
-        this.loading = false;
-        response.content.forEach(newItem => {
-          this.datas.push(newItem);
-        })
-        this.page = response;
-      }).catch(error => {
-        this.loading = false;
-        this.errorHandler.handle(error, null);
-      })
-    }
-  }
-
   applyFilter() {
     if (this.filters) {
-      this.loading = true;
-      this.pageSettings = new Pageable();
-      this.principalService.getPage(this.filters, this.pageSettings).then(response => {
-        this.loading = false;
-        this.datas = response.content;
-        this.page = response;
-        this.dataNotFound = this.datas.length === 0;
-        console.log(this.dataNotFound);
-      }).catch(error => {
-        this.dataNotFound = this.datas ? this.datas.length === 0 : true;
-        this.loading = false;
-        this.errorHandler.handle(error, null);
-      });
+      this.pageSettings.page = 0;
+      this.fetch();
     }
   }
 

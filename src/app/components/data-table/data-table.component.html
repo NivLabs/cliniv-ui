@@ -1,0 +1,31 @@
+<div class="center" *ngIf="!loading && dataNotFound">
+    <h1>{{emptyMessage}}</h1>
+</div>
+<div *ngIf="!dataNotFound">
+    <div class="table-responsive">
+        <mat-table [dataSource]="items" class="app-data-table">
+
+            <ng-container *ngFor="let column of columns" [matColumnDef]="column.key">
+                <mat-header-cell *matHeaderCellDef [class]="column.cssClass" [style.flex]="columnFlex(column)">
+                    {{column.label}} </mat-header-cell>
+                <mat-cell *matCellDef="let row" [class]="column.cssClass" [style.flex]="columnFlex(column)"
+                    [ngClass]="column.cellClass ? column.cellClass(row) : ''"> {{cellValue(column, row)}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="actions" *ngIf="actions?.length">
+                <mat-header-cell *matHeaderCellDef class="actions-cell"></mat-header-cell>
+                <mat-cell *matCellDef="let row" class="actions-cell">
+                    <i *ngFor="let action of actions" class="fa {{action.icon}}" [matTooltip]="action.tooltip"
+                        (click)="onActionClick($event, action, row)"></i>
+                </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;" [class.clickable-row]="clickable"
+                [ngClass]="rowClass ? rowClass(row) : ''" (click)="onRowClick(row)"></mat-row>
+        </mat-table>
+    </div>
+
+    <mat-paginator [length]="length" [pageIndex]="pageIndex" [pageSize]="pageSize"
+        [pageSizeOptions]="pageSizeOptions" (page)="page.emit($event)" showFirstLastButtons></mat-paginator>
+</div>

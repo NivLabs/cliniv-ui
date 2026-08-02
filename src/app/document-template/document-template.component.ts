@@ -4,8 +4,10 @@ import { ErrorHandlerService } from 'app/core/error-handler.service';
 import { NotificationsComponent } from 'app/core/notification/notifications.component';
 import { DocumentTemplateFilter } from 'app/model/DocumentTemplate';
 import { Page, Pageable } from 'app/model/Util';
+import { PageEvent } from '@angular/material/paginator';
 import { DocumentTemplateEditComponent } from './document-template-edit/document-template-edit.component';
 import { DocumentTemplateService } from './document-template.service';
+import { DataTableColumn } from '../components/data-table/data-table.component';
 
 @Component({
   selector: 'app-document-template',
@@ -23,27 +25,22 @@ export class DocumentTemplateComponent implements OnInit {
   filters: DocumentTemplateFilter;
   card: boolean;
 
+  columns: Array<DataTableColumn> = [
+    { key: 'id', label: 'Identificador' },
+    { key: 'description', label: 'Descrição' }
+  ];
+
   constructor(
     private principalService: DocumentTemplateService,
     private errorHandler: ErrorHandlerService,
-    private dialog: MatDialog, 
+    private dialog: MatDialog,
     private notification: NotificationsComponent) { }
 
   ngOnInit(): void {
-    this.loading = true;
     this.page = new Page();
     this.filters = new DocumentTemplateFilter();
     this.pageSettings = new Pageable();
-    this.principalService.getPage(this.filters, this.pageSettings).then(response => {
-      this.loading = false;
-      this.datas = response.content;
-      this.page = response;
-      this.dataNotFound = this.datas.length === 0;
-    }).catch(error => {
-      this.dataNotFound = this.datas ? this.datas.length === 0 : true;
-      this.loading = false;
-      this.handlerException(error);
-    });
+    this.fetch();
   }
 
 
@@ -55,33 +52,29 @@ export class DocumentTemplateComponent implements OnInit {
 
   applyFilter() {
     if (this.filters) {
-      this.loading = true;
-      this.pageSettings = new Pageable();
-      this.principalService.getPage(this.filters, this.pageSettings).then(response => {
-        this.loading = false;
-        this.datas = response.content;
-        this.page = response;
-        this.dataNotFound = this.datas.length === 0;
-      }).catch(error => {
-        this.dataNotFound = this.datas ? this.datas.length === 0 : true;
-        this.loading = false;
-        this.handlerException(error);
-      });
+      this.pageSettings.page = 0;
+      this.fetch();
     }
   }
 
-  loadNextPage() {
-    if (this.page && !this.page.last) {
-      this.loading = true;
-      this.pageSettings.page = this.pageSettings.page + 1;
-      this.principalService.getPage(this.filters, this.pageSettings).then(response => {
-        this.loading = false;
-        response.content.forEach(newItem => {
-          this.datas.push(newItem);
-        })
-        this.page = response;
-      }).catch((error) => this.handlerException(error));
-    }
+  onPageChange(event: PageEvent) {
+    this.pageSettings.page = event.pageIndex;
+    this.pageSettings.size = event.pageSize;
+    this.fetch();
+  }
+
+  private fetch() {
+    this.loading = true;
+    this.principalService.getPage(this.filters, this.pageSettings).then(response => {
+      this.loading = false;
+      this.datas = response.content;
+      this.page = response;
+      this.dataNotFound = this.datas.length === 0;
+    }).catch(error => {
+      this.dataNotFound = this.datas ? this.datas.length === 0 : true;
+      this.loading = false;
+      this.handlerException(error);
+    });
   }
 
   handlerException(error) {

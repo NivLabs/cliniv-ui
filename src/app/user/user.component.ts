@@ -6,6 +6,9 @@ import { Page, Pageable } from 'app/model/Util';
 import { UserFilters } from 'app/model/User';
 import { UserEditComponent } from './user-edit/user-edit.component';
 import { MatDialog } from '@angular/material/dialog';
+import { PageEvent } from '@angular/material/paginator';
+import { DataTableColumn } from '../components/data-table/data-table.component';
+import { formatCpf, formatPhone } from '../model/format.util';
 
 @Component({
   selector: 'app-user',
@@ -21,13 +24,31 @@ export class UserComponent implements OnInit {
   pageSettings: Pageable;
   filters: UserFilters;
 
+  columns: Array<DataTableColumn> = [
+    { key: 'fullName', label: 'Nome' },
+    { key: 'id', label: 'Matrícula' },
+    { key: 'userName', label: 'Usuário' },
+    { key: 'cpf', label: 'CPF', cell: row => row.cpf ? formatCpf(row.cpf) : '-' },
+    { key: 'principalNumber', label: 'Telefone', cell: row => formatPhone(row.principalNumber) }
+  ];
+
   constructor(public dialog: MatDialog, private principalService: UserService, private errorHandler: ErrorHandlerService, private notification: NotificationsComponent) { }
 
   ngOnInit(): void {
-    this.loading = true;
     this.page = new Page();
     this.filters = new UserFilters();
     this.pageSettings = new Pageable();
+    this.fetch();
+  }
+
+  onPageChange(event: PageEvent) {
+    this.pageSettings.page = event.pageIndex;
+    this.pageSettings.size = event.pageSize;
+    this.fetch();
+  }
+
+  private fetch() {
+    this.loading = true;
     this.principalService.getPage(this.filters, this.pageSettings).then(response => {
       this.loading = false;
       this.datas = response.content;
@@ -40,40 +61,10 @@ export class UserComponent implements OnInit {
     });
   }
 
-  /**
-   * Realiza a paginação dos componentes
-   */
-  loadNextPage() {
-    if (this.page && !this.page.last) {
-      this.loading = true;
-      this.pageSettings.page = this.pageSettings.page + 1;
-      this.principalService.getPage(this.filters, this.pageSettings).then(response => {
-        this.loading = false;
-        response.content.forEach(newItem => {
-          this.datas.push(newItem);
-        })
-        this.page = response;
-      }).catch(error => {
-        this.loading = false;
-        this.errorHandler.handle(error, null);
-      })
-    }
-  }
-
   applyFilter() {
     if (this.filters) {
-      this.loading = true;
-      this.pageSettings = new Pageable();
-      this.principalService.getPage(this.filters, this.pageSettings).then(response => {
-        this.loading = false;
-        this.datas = response.content;
-        this.page = response;
-        this.dataNotFound = this.datas.length === 0;
-      }).catch(error => {
-        this.errorHandler.handle(error, null);
-        this.dataNotFound = this.datas ? this.datas.length === 0 : true;
-        this.loading = false;
-      });
+      this.pageSettings.page = 0;
+      this.fetch();
     }
   }
 

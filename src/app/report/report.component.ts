@@ -7,6 +7,8 @@ import { Page, Pageable } from 'app/model/Util';
 import { ReportFilters } from '../model/Report';
 import { ConfirmDialogComponent } from 'app/core/confirm-dialog/confirm-dialog.component';
 import { NotificationsComponent } from 'app/core/notification/notifications.component';
+import { PageEvent } from '@angular/material/paginator';
+import { DataTableColumn, DataTableAction } from '../components/data-table/data-table.component';
 
 @Component({
   selector: 'app-report',
@@ -23,25 +25,23 @@ export class ReportComponent implements OnInit {
   filters: ReportFilters;
   card: boolean;
 
+  columns: Array<DataTableColumn> = [
+    { key: 'id', label: 'Identificador' },
+    { key: 'name', label: 'Nome' }
+  ];
+
+  actions: Array<DataTableAction> = [
+    { icon: 'fa-trash-o', tooltip: 'Excluir', onClick: row => this.openDeleteReportDialog(row.id) }
+  ];
+
   constructor(public dialog: MatDialog, private errorHandler: ErrorHandlerService, private principalService: ReportService, private notification: NotificationsComponent) { }
 
   ngOnInit() {
     this.card = true;
-    this.loading = true;
     this.page = new Page();
     this.filters = new ReportFilters();
     this.pageSettings = new Pageable();
-
-    this.principalService.getPage(this.filters, this.pageSettings).then(response => {
-      this.loading = false;
-      this.datas = response.content;
-      this.page = response;
-      this.dataNotFound = this.datas.length === 0;
-    }).catch(error => {
-      this.dataNotFound = this.datas ? this.datas.length === 0 : true;
-      this.loading = false;
-      this.errorHandler.handle(error, null);
-    });
+    this.fetch();
   }
 
   enterKeyPress(event: any) {
@@ -52,36 +52,29 @@ export class ReportComponent implements OnInit {
 
   applyFilter() {
     if (this.filters) {
-      this.loading = true;
-      this.pageSettings = new Pageable();
-      this.principalService.getPage(this.filters, this.pageSettings).then(response => {
-        this.loading = false;
-        this.datas = response.content;
-        this.page = response;
-        this.dataNotFound = this.datas.length === 0;
-      }).catch(error => {
-        this.dataNotFound = this.datas ? this.datas.length === 0 : true;
-        this.loading = false;
-        this.errorHandler.handle(error, null);
-      });
+      this.pageSettings.page = 0;
+      this.fetch();
     }
   }
 
-  loadNextPage() {
-    if (this.page && !this.page.last) {
-      this.loading = true;
-      this.pageSettings.page = this.pageSettings.page + 1;
-      this.principalService.getPage(this.filters, this.pageSettings).then(response => {
-        this.loading = false;
-        response.content.forEach(newItem => {
-          this.datas.push(newItem);
-        })
-        this.page = response;
-      }).catch(error => {
-        this.loading = false;
-        this.errorHandler.handle(error, null);
-      })
-    }
+  onPageChange(event: PageEvent) {
+    this.pageSettings.page = event.pageIndex;
+    this.pageSettings.size = event.pageSize;
+    this.fetch();
+  }
+
+  private fetch() {
+    this.loading = true;
+    this.principalService.getPage(this.filters, this.pageSettings).then(response => {
+      this.loading = false;
+      this.datas = response.content;
+      this.page = response;
+      this.dataNotFound = this.datas.length === 0;
+    }).catch(error => {
+      this.dataNotFound = this.datas ? this.datas.length === 0 : true;
+      this.loading = false;
+      this.errorHandler.handle(error, null);
+    });
   }
 
   openDialog(id): void {

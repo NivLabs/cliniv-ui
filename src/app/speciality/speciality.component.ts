@@ -2,9 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ErrorHandlerService } from 'app/core/error-handler.service';
 import { SpecialityService } from './speciality.service';
 import { MatDialog } from '@angular/material/dialog';
+import { PageEvent } from '@angular/material/paginator';
 import { Page, Pageable } from 'app/model/Util';
 import { SpecialityFilters } from '../model/Speciality';
 import { SpecialityEditComponent } from '../speciality/speciality-edit/speciality-edit.component';
+import { DataTableColumn } from '../components/data-table/data-table.component';
 
 @Component({
   selector: 'app-speciality',
@@ -20,25 +22,19 @@ export class SpecialityComponent implements OnInit {
   pageSettings: Pageable;
   filters: SpecialityFilters;
 
+  columns: Array<DataTableColumn> = [
+    { key: 'id', label: 'Identificador' },
+    { key: 'name', label: 'Nome' }
+  ];
+
 
   constructor(public dialog: MatDialog, private errorHandler: ErrorHandlerService, private principalService: SpecialityService) { }
 
   ngOnInit() {
-    this.loading = true;
     this.page = new Page();
     this.filters = new SpecialityFilters();
     this.pageSettings = new Pageable();
-
-    this.principalService.getPage(this.filters, this.pageSettings).then(response => {
-      this.loading = false;
-      this.datas = response.content;
-      this.page = response;
-      this.dataNotFound = this.datas.length === 0;
-    }).catch(error => {
-      this.dataNotFound = this.datas ? this.datas.length === 0 : true;
-      this.loading = false;
-      this.errorHandler.handle(error, null);
-    });
+    this.fetch();
   }
 
   enterKeyPress(event: any) {
@@ -49,36 +45,29 @@ export class SpecialityComponent implements OnInit {
 
   applyFilter() {
     if (this.filters) {
-      this.loading = true;
-      this.pageSettings = new Pageable();
-      this.principalService.getPage(this.filters, this.pageSettings).then(response => {
-        this.loading = false;
-        this.datas = response.content;
-        this.page = response;
-        this.dataNotFound = this.datas.length === 0;
-      }).catch(error => {
-        this.dataNotFound = this.datas ? this.datas.length === 0 : true;
-        this.loading = false;
-        this.errorHandler.handle(error, null);
-      });
+      this.pageSettings.page = 0;
+      this.fetch();
     }
   }
 
-  loadNextPage() {
-    if (this.page && !this.page.last) {
-      this.loading = true;
-      this.pageSettings.page = this.pageSettings.page + 1;
-      this.principalService.getPage(this.filters, this.pageSettings).then(response => {
-        this.loading = false;
-        response.content.forEach(newItem => {
-          this.datas.push(newItem);
-        })
-        this.page = response;
-      }).catch(error => {
-        this.loading = false;
-        this.errorHandler.handle(error, null);
-      })
-    }
+  onPageChange(event: PageEvent) {
+    this.pageSettings.page = event.pageIndex;
+    this.pageSettings.size = event.pageSize;
+    this.fetch();
+  }
+
+  private fetch() {
+    this.loading = true;
+    this.principalService.getPage(this.filters, this.pageSettings).then(response => {
+      this.loading = false;
+      this.datas = response.content;
+      this.page = response;
+      this.dataNotFound = this.datas.length === 0;
+    }).catch(error => {
+      this.dataNotFound = this.datas ? this.datas.length === 0 : true;
+      this.loading = false;
+      this.errorHandler.handle(error, null);
+    });
   }
 
   openDialog(id): void {

@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { PageEvent } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 import { AttendanceService } from 'app/attendance/attendance.service';
 import { ErrorHandlerService } from 'app/core/error-handler.service';
@@ -11,6 +12,8 @@ import { fromEvent } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, map } from "rxjs/operators";
 import { AttendanceFilters } from '../model/Attendance';
 import { ReportGeneratorComponent } from './report-generator/report-generator.component';
+import { DataTableColumn } from '../components/data-table/data-table.component';
+import { formatCpf, formatDateTime } from '../model/format.util';
 
 @Component({
   selector: 'app-attendance',
@@ -34,6 +37,33 @@ export class AttendanceComponent implements OnInit {
 
   private readonly RELOAD_TOP_SCROLL_POSITION = 30;
   @ViewChild('sector', { static: true }) searchInput: ElementRef;
+
+  columns: Array<DataTableColumn> = [
+    {
+      key: 'fullName', label: 'Paciente',
+      cell: row => row.fullName + (row.patientType === 'NOT_IDENTIFIED' ? ' [Não Identificado]' : ''),
+      cellClass: row => row.patientType === 'NOT_IDENTIFIED' ? 'name-not-identified' : ''
+    },
+    { key: 'patientId', label: 'Matrícula' },
+    { key: 'id', label: 'Atendimento' },
+    { key: 'cpf', label: 'CPF', cell: row => row.cpf ? formatCpf(row.cpf) : '-' },
+    { key: 'cnsNumber', label: 'CNS', cell: row => row.cnsNumber || '-' },
+    { key: 'type', label: 'Tipo', cell: row => row.type === 'EMERGENCY' ? 'Emergência' : 'Ambulatório' },
+    { key: 'sectorDescription', label: 'Setor' },
+    { key: 'entryDatetime', label: 'Entrada', cell: row => formatDateTime(row.entryDatetime) },
+    { key: 'responsibleName', label: 'Profissional', cell: row => row.responsibleName || 'Não informado' },
+    { key: 'time', label: 'Tempo', cell: row => this.getTime(row.entryDatetime, undefined) }
+  ];
+
+  getRowClass = (row: any) => {
+    if (row.level === 'HIGH') {
+      return 'row-danger';
+    }
+    if (row.level === 'MEDIUM') {
+      return 'row-medium';
+    }
+    return 'row-active';
+  };
 
   constructor(
     private principalService: AttendanceService,
@@ -108,6 +138,17 @@ export class AttendanceComponent implements OnInit {
   }
 
   applyFilter() {
+    this.pageSettings.page = 0;
+    this.fetch();
+  }
+
+  onPageChange(event: PageEvent) {
+    this.pageSettings.page = event.pageIndex;
+    this.pageSettings.size = event.pageSize;
+    this.fetch();
+  }
+
+  private fetch() {
     this.loading = true;
     this.principalService.getPage(this.filters, this.pageSettings).then(response => {
       this.page = response;
@@ -155,23 +196,6 @@ export class AttendanceComponent implements OnInit {
   loadAllOnScroll(event) {
     if (event.target.scrollTop > this.RELOAD_TOP_SCROLL_POSITION) {
       this.loadAutoCompleteNextPage();
-    }
-  }
-
-  loadNextPage() {
-    if (this.page && !this.page.last) {
-      this.loading = true;
-      this.pageSettings.page = this.pageSettings.page + 1;
-      this.principalService.getPage(this.filters, this.pageSettings).then(response => {
-        this.loading = false;
-        response.content.forEach(newItem => {
-          this.datas.push(newItem);
-        })
-        this.page = response;
-      }).catch(error => {
-        this.loading = false;
-        this.errorHandler.handle(error, null);
-      })
     }
   }
 

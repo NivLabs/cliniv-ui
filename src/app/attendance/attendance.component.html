@@ -106,58 +106,11 @@
             </div>
         </div>
 
-        <app-search-result-list [items]="datas" [loading]="loading" [dataNotFound]="dataNotFound"
-            emptyMessage="Nenhum atendimento encontrado..." (scrolled)="loadNextPage()">
-            <ng-template let-attendance>
-                <div class="card link-card" (click)="goToVisit(attendance.patientId)">
-                    <div class="card-body margin-color-active"
-                        [ngClass]="{'margin-color-danger' : attendance.level === 'HIGH', 'margin-color-medium' : attendance.level == 'MEDIUM'}">
-                        <ul>
-                            <li class="patient-name"
-                                [ngClass]="{'name-not-identified' : attendance.patientType === 'NOT_IDENTIFIED'}">
-                                {{attendance.fullName + (attendance.patientType === 'NOT_IDENTIFIED' ? ' [Não
-                                Identificado]' : '')}}
-                            </li>
-
-                            <li><span class="fa fa-user patient-info"> Matrícula: </span> {{attendance.patientId}}
-                            </li>
-
-                            <li><span class="fa fa-address-card patient-info"> Atendimento: </span>
-                                {{attendance.id}}
-                            </li>
-
-                            <li *ngIf="attendance.cpf"><span class="fa fa-id-card patient-info">
-                                    CPF: </span> {{attendance.cpf | mask:'000.000.000-00'}}
-                            </li>
-
-                            <li *ngIf="attendance.cnsNumber"><span class="fa fa-lock patient-info">
-                                    CNS: </span> {{attendance.cnsNumber}}
-                            </li>
-
-                            <li><span class="fa fa-plus-square patient-info"> Tipo:
-                                </span> {{attendance.type === 'EMERGENCY' ? 'Emergência' : 'Ambulatório'}}
-                            </li>
-
-                            <li><span class="fa fa-map-marker patient-info"> Setor: </span>
-                                {{attendance.sectorDescription}}
-                            </li>
-
-                            <li><span class="fa fa-clock-o patient-info"> Entrada: </span>
-                                {{attendance.entryDatetime | date: 'dd/MM/yyyy HH:mm'}}
-                            </li>
-
-                            <li><span class="fa fa-user patient-info"> Profissional: </span>
-                                {{attendance.responsibleName || 'Não informado' }}
-                            </li>
-
-
-
-                        </ul>
-                    </div>
-                    <div class="timer"><i class="fa fa-clock-o"></i> {{ getTime(attendance.entryDatetime) }}</div>
-                </div>
-            </ng-template>
-        </app-search-result-list>
+        <app-data-table [items]="datas" [columns]="columns" [loading]="loading" [dataNotFound]="dataNotFound"
+            emptyMessage="Nenhum atendimento encontrado..." [length]="page.totalElements"
+            [pageIndex]="pageSettings.page" [pageSize]="pageSettings.size" [rowClass]="getRowClass"
+            (page)="onPageChange($event)" (rowClick)="goToVisit($event.patientId)">
+        </app-data-table>
     </div>
 </div>
 <app-loading [show]="loading"></app-loading>

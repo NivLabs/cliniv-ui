@@ -38,42 +38,11 @@
                 </div>
             </div>
         </div>
-        <app-search-result-list [items]="datas" [loading]="loading" [dataNotFound]="dataNotFound"
-            emptyMessage="Nenhum procedimento encontrado..." itemColClass="col-12 col-sm-12 col-md-6 col-lg-4"
-            (scrolled)="loadNextPage()">
-            <ng-template let-procedure>
-                <div class="card link-card" (click)="openDialog(procedure)">
-                    <div id="card_body_{{procedure.id}}" class="card-body margin-color-active"
-                        [ngClass]="{'margin-color-danger' : procedure.active === false}">
-                        <ul>
-                            <li id="li_name_{{procedure.id}}" class="procedure-name"
-                                [ngClass]="{'name-not-identified' : procedure.active === false}">
-                                {{procedure.description}}
-                            </li>
-
-                            <li><span class="fa fa-sort-numeric-asc procedure-info"> Código: </span>
-                                {{procedure.id}}
-                            </li>
-
-                            <li *ngIf="procedure.baseValue"><span id="span_{{procedure.baseValue}}"
-                                    class="fa fa-money procedure-info"> Valor Base: </span>
-                                {{procedure.baseValue | currency:'BRL'}}
-                            </li>
-
-                            <li><span id="span_{{procedure.specialAuthorization}}"
-                                    class="fa fa-sign-in procedure-info"> Req. Autorização Espec.: </span>
-                                {{procedure.specialAuthorization ? 'SIM' : 'NÃO'}}
-                            </li>
-
-                            <li *ngIf="procedure.frequency"><span id="span_{{procedure.frequency}}"
-                                    class="fa fa-refresh procedure-info"> Periocidade: </span>
-                                {{procedure.frequency}}
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </ng-template>
-        </app-search-result-list>
+        <app-data-table [items]="datas" [columns]="columns" [loading]="loading" [dataNotFound]="dataNotFound"
+            emptyMessage="Nenhum procedimento encontrado..." [length]="page.totalElements"
+            [pageIndex]="pageSettings.page" [pageSize]="pageSettings.size" [rowClass]="getRowClass"
+            (page)="onPageChange($event)" (rowClick)="openDialog($event)">
+        </app-data-table>
     </div>
 </div>
 <app-loading [show]="loading"></app-loading>

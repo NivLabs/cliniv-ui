@@ -38,19 +38,11 @@
                 </div>
             </div>
         </div>
-        <app-search-result-list [items]="datas" [loading]="loading" [dataNotFound]="dataNotFound"
-            emptyMessage="Nenhuma forma de pagamento encontrada..." (scrolled)="loadNextPage()">
-            <ng-template let-paymentMethod>
-                <div class="card link-card" (click)="openDialog(paymentMethod)">
-                    <div class="card-body margin-color-active">
-                        <ul>
-                            <li><span class="fa fa-key payment-method-info"> Identificador:</span> {{paymentMethod.id}}</li>
-                            <li><span class="fa fa-pencil-square-o payment-method-info"> Nome:</span> {{paymentMethod.name}}</li>
-                        </ul>
-                    </div>
-                </div>
-            </ng-template>
-        </app-search-result-list>
+        <app-data-table [items]="datas" [columns]="columns" [loading]="loading" [dataNotFound]="dataNotFound"
+            emptyMessage="Nenhuma forma de pagamento encontrada..." [length]="page.totalElements"
+            [pageIndex]="pageSettings.page" [pageSize]="pageSettings.size" (page)="onPageChange($event)"
+            (rowClick)="openDialog($event)">
+        </app-data-table>
     </div>
 </div>
 <app-loading [show]="loading"></app-loading>

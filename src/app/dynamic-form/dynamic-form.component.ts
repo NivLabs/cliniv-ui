@@ -7,6 +7,8 @@ import { DynamicFormService } from 'app/visit/dynamicForm/dynamic-form.service';
 import { DynamicFormEditComponent } from './dynamic-form-edit/dynamic-form-edit.component';
 import { ConfirmDialogComponent } from 'app/core/confirm-dialog/confirm-dialog.component';
 import { NotificationsComponent } from 'app/core/notification/notifications.component';
+import { PageEvent } from '@angular/material/paginator';
+import { DataTableColumn, DataTableAction } from '../components/data-table/data-table.component';
 
 @Component({
   selector: 'app-dynamic-form',
@@ -24,26 +26,26 @@ export class DynamicFormComponent implements OnInit {
   filters: DynamicFormFilter;
   card: boolean;
 
+  columns: Array<DataTableColumn> = [
+    { key: 'id', label: 'Identificador' },
+    { key: 'title', label: 'Título' }
+  ];
+
+  actions: Array<DataTableAction> = [
+    { icon: 'fa-trash-o', tooltip: 'Excluir', onClick: row => this.openDeleteDynamicFormDialog(row.id) }
+  ];
+
   constructor(private principalService: DynamicFormService,
     private errorHandler: ErrorHandlerService,
-    private dialog: MatDialog, 
+    private dialog: MatDialog,
     private notification: NotificationsComponent) { }
 
   ngOnInit(): void {
     this.card = true;
-    this.loading = true;
     this.page = new Page();
     this.filters = new DynamicFormFilter();
     this.pageSettings = new Pageable();
-    this.principalService.getPageOfForms(this.filters, this.pageSettings).then(response => {
-      this.loading = false;
-      this.datas = response.content;
-      this.page = response;
-      this.dataNotFound = this.datas.length === 0;
-    }).catch(error => {
-      this.dataNotFound = this.datas ? this.datas.length === 0 : true;
-      this.handlerException(error);
-    });
+    this.fetch();
   }
 
   enterKeyPress(event: any) {
@@ -54,32 +56,28 @@ export class DynamicFormComponent implements OnInit {
 
   applyFilter() {
     if (this.filters) {
-      this.loading = true;
-      this.pageSettings = new Pageable();
-      this.principalService.getPageOfForms(this.filters, this.pageSettings).then(response => {
-        this.loading = false;
-        this.datas = response.content;
-        this.page = response;
-        this.dataNotFound = this.datas.length === 0;
-      }).catch(error => {
-        this.dataNotFound = this.datas ? this.datas.length === 0 : true;
-        this.handlerException(error);
-      });
+      this.pageSettings.page = 0;
+      this.fetch();
     }
   }
 
-  loadNextPage() {
-    if (this.page && !this.page.last) {
-      this.loading = true;
-      this.pageSettings.page = this.pageSettings.page + 1;
-      this.principalService.getPageOfForms(this.filters, this.pageSettings).then(response => {
-        this.loading = false;
-        response.content.forEach(newItem => {
-          this.datas.push(newItem);
-        })
-        this.page = response;
-      }).catch((error) => this.handlerException(error));
-    }
+  onPageChange(event: PageEvent) {
+    this.pageSettings.page = event.pageIndex;
+    this.pageSettings.size = event.pageSize;
+    this.fetch();
+  }
+
+  private fetch() {
+    this.loading = true;
+    this.principalService.getPageOfForms(this.filters, this.pageSettings).then(response => {
+      this.loading = false;
+      this.datas = response.content;
+      this.page = response;
+      this.dataNotFound = this.datas.length === 0;
+    }).catch(error => {
+      this.dataNotFound = this.datas ? this.datas.length === 0 : true;
+      this.handlerException(error);
+    });
   }
 
 

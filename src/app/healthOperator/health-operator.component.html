@@ -64,24 +64,11 @@
                 </div>
             </div>
         </div>
-        <app-search-result-list [items]="datas" [loading]="loading" [dataNotFound]="dataNotFound"
-            emptyMessage="Nenhuma operadora de saúde encontrada..." (scrolled)="loadNextPage()">
-            <ng-template let-data>
-                <div class="card link-card" (click)="openDialog(data.id)">
-                    <div class="card-body margin-color-active">
-                        <ul>
-                            <li class="data-name"> {{data.companyName}}</li>
-                            <li><span class="fa fa-user data-info"> Nome Fantasia:</span> {{data.fantasyName}}</li>
-                            <li><span class="fa fa-key data-info"> Matrícula:</span> {{data.id}}</li>
-                            <li><span class="fa fa-key data-info"> Código ANS:</span> {{data.ansCode}}</li>
-                            <li><span class="fa fa-id-card data-info"> CNPJ:</span> {{data.cnpj}}</li>
-                            <li><span class="fa fa-phone data-info"> Modalidade:</span>
-                                {{getModalityDescription(data.modality)}}</li>
-                        </ul>
-                    </div>
-                </div>
-            </ng-template>
-        </app-search-result-list>
+        <app-data-table [items]="datas" [columns]="columns" [loading]="loading" [dataNotFound]="dataNotFound"
+            emptyMessage="Nenhuma operadora de saúde encontrada..." [length]="page.totalElements"
+            [pageIndex]="pageSettings.page" [pageSize]="pageSettings.size" (page)="onPageChange($event)"
+            (rowClick)="openDialog($event.id)">
+        </app-data-table>
     </div>
 </div>
 <app-loading [show]="loading"></app-loading>

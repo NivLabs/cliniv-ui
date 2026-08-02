@@ -52,30 +52,11 @@
                 </div>
             </div>
         </div>
-        <app-search-result-list [items]="datas" [loading]="loading" [dataNotFound]="dataNotFound"
-            emptyMessage="Nenhum profissional encontrado..." (scrolled)="loadNextPage()">
-            <ng-template let-responsible>
-                <div class="card link-card" (click)="openDialog(responsible.id)">
-                    <div class="card-body margin-color-active">
-                        <ul>
-                            <li class="responsible-name"> {{responsible.fullName}}
-                            </li>
-                            <li><span class="fa fa-user responsible-info"> Matrícula:</span> {{responsible.id}}</li>
-                            <li><span class="fa fa-calendar responsible-info"> Nascimento:</span>
-                                {{responsible.bornDate | date: 'dd/MM/yyyy'}}</li>
-                            <li><span class="fa fa-venus-mars responsible-info"> Gênero:</span>
-                                {{ responsible.gender === 'M' ? 'Masculino' : 'Feminino'}}</li>
-                            <li><span class="fa fa-id-card responsible-info"> CPF:</span>
-                                {{responsible.cpf | mask: '000.000.000-00'}}
-                            </li>
-                            <li><span class="fa fa-phone responsible-info"> Tel:</span>
-                                {{responsible.principalNumber ? (responsible.principalNumber | mask: responsible.principalNumber.length <= 10 ? '(00) 0000-00009' : '(00) 00000-0000') : ('Não informado')}}
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </ng-template>
-        </app-search-result-list>
+        <app-data-table [items]="datas" [columns]="columns" [loading]="loading" [dataNotFound]="dataNotFound"
+            emptyMessage="Nenhum profissional encontrado..." [length]="page.totalElements"
+            [pageIndex]="pageSettings.page" [pageSize]="pageSettings.size" (page)="onPageChange($event)"
+            (rowClick)="openDialog($event.id)">
+        </app-data-table>
     </div>
 </div>
 <app-loading [show]="loading"></app-loading>

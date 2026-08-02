@@ -74,6 +74,7 @@ import { WebcamModule } from 'ngx-webcam';
 import { AppointmentService } from '../../appointment/appointment.service';
 import { AttendanceService } from '../../attendance/attendance.service';
 import { LoadingComponent } from '../../components/loading/loading.component';
+import { DataTableComponent } from '../../components/data-table/data-table.component';
 import { ConfirmDialogComponent } from '../../core/confirm-dialog/confirm-dialog.component';
 import { NotificationsComponent } from '../../core/notification/notifications.component';
 import { DashboardComponent } from '../../dashboard/dashboard.component';
@@ -88,7 +89,6 @@ import { ProfessionalEditComponent } from '../../professional/professional-edit/
 import { ProfessionalComponent } from '../../professional/professional.component';
 import { ProfessionalService } from '../../professional/professional.service';
 import { DialogFormActionsComponent } from '../../components/dialog-form-actions/dialog-form-actions.component';
-import { SearchResultListComponent } from '../../components/search-result-list/search-result-list.component';
 import { PaymentMethodEditComponent } from '../../payment-method/payment-method-edit/payment-method-edit.component';
 import { PaymentMethodComponent } from '../../payment-method/payment-method.component';
 import { PaymentMethodService } from '../../payment-method/payment-method.service';
@@ -247,7 +247,7 @@ const maskConfig: Partial<IConfig> = {
 
     LoadingComponent,
     DialogFormActionsComponent,
-    SearchResultListComponent,
+    DataTableComponent,
 
     HealthOperatorComponent,
     HealthOperatorEditComponent,

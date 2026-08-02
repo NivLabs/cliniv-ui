@@ -38,20 +38,11 @@
                 </div>
             </div>
         </div>
-        <app-search-result-list [items]="datas" [loading]="loading" [dataNotFound]="dataNotFound"
-            emptyMessage="Nenhum relatório encontrado..." (scrolled)="loadNextPage()">
-            <ng-template let-report>
-                <div class="card link-card" (click)="openDialog(report.id)">
-                    <div class="card-body margin-color-active">
-                        <div class="card-title text-right" style="margin-bottom: 0px; z-index: 1000;"><i class="fa fa-trash-o" aria-hidden="true"  (click)="openDeleteReportDialog(report.id)"></i></div>
-                        <ul>
-                            <li><span class="fa fa-key report-info"> Identificador:</span> {{report.id}}</li>
-                            <li><span class="fa fa-map report-info"> {{report.name}}</span></li>
-                        </ul>
-                    </div>
-                </div>
-            </ng-template>
-        </app-search-result-list>
+        <app-data-table [items]="datas" [columns]="columns" [actions]="actions" [loading]="loading" [dataNotFound]="dataNotFound"
+            emptyMessage="Nenhum relatório encontrado..." [length]="page.totalElements"
+            [pageIndex]="pageSettings.page" [pageSize]="pageSettings.size" (page)="onPageChange($event)"
+            (rowClick)="openDialog($event.id)">
+        </app-data-table>
     </div>
 </div>
 <app-loading [show]="loading"></app-loading>
