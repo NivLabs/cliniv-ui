@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
@@ -166,7 +167,11 @@ export class PatientEditComponent implements OnInit {
         this.notification.showSucess("Paciente alterado com sucesso!");
       }).catch(error => {
         this.loading = false;
-        this.errorHandler.handle(error, this.dialogRef);
+        if (error instanceof HttpErrorResponse && error.status == 409) {
+          this.handleMergeConflict();
+        } else {
+          this.errorHandler.handle(error, this.dialogRef);
+        }
       });
     } else {
       this.patientService.create(this.dataToForm).then(resp => {
@@ -179,6 +184,40 @@ export class PatientEditComponent implements OnInit {
         this.errorHandler.handle(error, this.dialogRef);
       });
     }
+  }
+
+  /**
+   * Chamado quando o PUT /patient/{id} retorna 409: o paciente sendo editado é um pré-cadastro
+   * (NOT_IDENTIFIED) e o CPF informado já pertence a outro paciente. Busca o cadastro conflitante
+   * e pede confirmação antes de mesclar (une histórico de atendimentos/agendamentos/alergias e
+   * remove este pré-cadastro duplicado).
+   */
+  handleMergeConflict() {
+    this.patientService.getByDocument('CPF', this.dataToForm.document.value).then(conflictingPatient => {
+      const confirmDialogRef = this.confirmDialog.open(ConfirmDialogComponent, {
+        data: {
+          title: 'Cadastro duplicado',
+          message: `Já existe um paciente cadastrado com este CPF: ${conflictingPatient.fullName} (matrícula ${conflictingPatient.id}). Deseja mesclar os cadastros? O histórico de atendimentos e agendamentos será unificado e este cadastro duplicado será removido.`
+        }
+      });
+
+      confirmDialogRef.afterClosed().subscribe(result => {
+        if (result !== undefined && result.isConfirmed) {
+          this.loading = true;
+          this.patientService.merge(this.dataToForm.id, conflictingPatient.id).then(mergedPatient => {
+            this.loading = false;
+            this.notification.showSucess("Cadastros mesclados com sucesso!");
+            this.dialogRef.componentInstance.data['selectedPatient'] = mergedPatient.id;
+            this.ngOnInit();
+          }).catch(error => {
+            this.loading = false;
+            this.errorHandler.handle(error, this.dialogRef);
+          });
+        }
+      });
+    }).catch(error => {
+      this.errorHandler.handle(error, this.dialogRef);
+    });
   }
 
   searchAddressByCEP() {

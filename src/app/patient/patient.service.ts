@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { HttpHeaders } from '@angular/common/http';
 import { DigitalDocument } from 'app/model/DigitalDocument';
-import { PatientFilters, PatientInfo } from 'app/model/Patient';
+import { PatientFilters, PatientInfo, PatientQuickCreate } from 'app/model/Patient';
 import { Page, Pageable } from 'app/model/Util';
 import { environment } from '../../environments/environment';
 import { AppHttp } from '../security/app-http';
@@ -55,6 +55,18 @@ export class PatientService {
         if (patient) {
             return this.http.post<PatientInfo>(`${this.baseUrl}`, patient, { headers }).toPromise();
         }
+    }
+
+    createQuick(patient: PatientQuickCreate): Promise<PatientInfo> {
+        var headers = new HttpHeaders()
+            .append('Content-Type', "application/json");
+        if (patient) {
+            return this.http.post<PatientInfo>(`${this.baseUrl}/quick`, patient, { headers }).toPromise();
+        }
+    }
+
+    merge(sourceId: number, targetId: number): Promise<PatientInfo> {
+        return this.http.post<PatientInfo>(`${this.baseUrl}/${sourceId}/merge/${targetId}`, null).toPromise();
     }
 
     createPublic(patient: PatientInfo): Promise<PatientInfo> {

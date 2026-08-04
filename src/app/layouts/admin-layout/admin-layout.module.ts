@@ -81,6 +81,7 @@ import { DashboardComponent } from '../../dashboard/dashboard.component';
 import { DashboardService } from '../../dashboard/dashboard.service';
 import { DynamicFormComponent } from '../../dynamic-form/dynamic-form.component';
 import { PatientEditComponent } from '../../patient/patient-edit/patient-edit.component';
+import { PatientQuickCreateComponent } from '../../patient/patient-quick-create/patient-quick-create.component';
 import { PatientComponent } from '../../patient/patient.component';
 import { PatientService } from '../../patient/patient.service';
 import { ProcedureComponent } from '../../procedure/procedure.component';
@@ -195,6 +196,7 @@ const maskConfig: Partial<IConfig> = {
 
     PatientComponent,
     PatientEditComponent,
+    PatientQuickCreateComponent,
     PersonDocumentDialogComponent,
 
     ProfessionalComponent,

@@ -11,6 +11,7 @@ import { Address } from 'app/model/Address';
 import { Document } from 'app/model/Document';
 import { AppointmentInfo, AppointmentParameters, AppointmentRecurrenceSettings } from 'app/model/Appointment';
 import { PatientService } from 'app/patient/patient.service';
+import { PatientQuickCreateComponent } from 'app/patient/patient-quick-create/patient-quick-create.component';
 import { AppointmentService } from '../appointment.service';
 import '@ckeditor/ckeditor5-build-decoupled-document/build/translations/pt-br';
 import * as DecoupledEditor from '@ckeditor/ckeditor5-build-decoupled-document';
@@ -116,12 +117,27 @@ export class AppointmentEditComponent implements OnInit {
         this.loading = false;
         this.doResetForm();
         if (error instanceof HttpErrorResponse && error.status == 404) {
-          this.notification.showWarning('Cadastro não encontrado, realize o cadastro do paciente antes de iniciar o agendamento');
+          this.openQuickCreateDialog();
         } else {
           this.errorHandler.handle(error, this.dialogRef);
         }
       });
     }
+  }
+
+  openQuickCreateDialog() {
+    const quickCreateDialogRef = this.confirmDialog.open(PatientQuickCreateComponent);
+    quickCreateDialogRef.afterClosed().subscribe(createdPatient => {
+      if (createdPatient) {
+        this.dataToForm.patient = createdPatient;
+        if (!createdPatient.address) {
+          this.dataToForm.patient.address = new Address();
+        }
+        if (!createdPatient.document) {
+          this.dataToForm.patient.document = new Document('CPF');
+        }
+      }
+    });
   }
 
   openRepeatSettingsDialog() {
@@ -163,7 +179,7 @@ export class AppointmentEditComponent implements OnInit {
         this.loading = false;
         this.doResetForm();
         if (error instanceof HttpErrorResponse && error.status == 404) {
-          this.notification.showWarning('Cadastro não encontrado, realize o cadastro do paciente antes de iniciar o agendamento');
+          this.openQuickCreateDialog();
         } else {
           this.errorHandler.handle(error, this.dialogRef);
         }

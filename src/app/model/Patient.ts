@@ -11,10 +11,22 @@ export class PatientInfo extends Person {
     type: string;
     healthPlan?: HealthPlan = new HealthPlan();
     annotations: string;
+    isMinor?: boolean = false;
+    guardianName?: string;
     attendanceHistory: Array<PatientHistory> = [];
     allergies: Array<any> = [];
     lifetimeDescription: string;
     upcomingAppointments: Array<Appointment> = []
+}
+
+/**
+ * Pré-cadastro rápido de paciente (nome + telefone), usado no agendamento
+ */
+export class PatientQuickCreate {
+    fullName: string = "";
+    principalNumber: string = "";
+    isMinor: boolean = false;
+    guardianName: string;
 }
 
 export class PatientFilters {
