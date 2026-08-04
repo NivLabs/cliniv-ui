@@ -336,7 +336,8 @@ export class PatientEditComponent implements OnInit {
       this.dataToForm.document = new Document("CPF");
     } else {
       this.loading = true;
-      this.patientService.getByDocument('CPF', this.dataToForm.document.value).then(resp => {
+      const cpfPesquisado = this.dataToForm.document.value;
+      this.patientService.getByDocument('CPF', cpfPesquisado).then(resp => {
         this.loading = false;
         this.dataToForm = resp;
         if (!resp.address) {
@@ -355,8 +356,15 @@ export class PatientEditComponent implements OnInit {
         }
       }).catch(error => {
         this.loading = false;
-        this.dataToForm.document = new Document('CPF');
-        this.errorHandler.handle(error, this.dialogRef);
+        if (error instanceof HttpErrorResponse && error.status == 404) {
+          // CPF não pertence a ninguém: está disponível para uso neste cadastro, não é um erro
+          this.dataToForm.document.value = cpfPesquisado;
+          this.isNewCpf = true;
+          this.notification.showSucess("CPF disponível, você pode continuar o cadastro.");
+        } else {
+          this.dataToForm.document = new Document('CPF');
+          this.errorHandler.handle(error, this.dialogRef);
+        }
       });
     }
   }
