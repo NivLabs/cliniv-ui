@@ -37,7 +37,7 @@
                             <mat-label>CPF do Paciente [ENTER]</mat-label>
                             <input matInput type="text" placeholder="CPF do paciente [ENTER]" name="patientDocument"
                                 (keypress)="enterKeyPress($event, 'CPF')"
-                                [(ngModel)]="dataToForm.patient.document.value" #patientDocument required maxlength="14"
+                                [(ngModel)]="dataToForm.patient.document.value" #patientDocument maxlength="14"
                                 mask="000.000.000-00"
                                 [disabled]="(dataToForm.patient.id && dataToForm.patient.document.value && dataToForm.patient.fullName) || dataToForm.id" />
                         </mat-form-field>
