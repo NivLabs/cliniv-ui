@@ -23,24 +23,34 @@
                 <mat-divider></mat-divider>
                 <br />
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-6" *ngIf="!dataToForm.patient.id">
                         <mat-form-field>
-                            <mat-label>Matrícula do paciente [ENTER]</mat-label>
-                            <input matInput type="text" placeholder="Matrícula do Paciente [ENTER]" name="patientId"
-                                (keypress)="enterKeyPress($event, 'ID')" [(ngModel)]="dataToForm.patient.id" #patientId
-                                required
-                                [disabled]="(dataToForm.patient.id && dataToForm.patient.document.value && dataToForm.patient.fullName) || dataToForm.id" />
+                            <mat-label>Buscar paciente pelo nome (mínimo 3 letras)</mat-label>
+                            <input matInput type="text" placeholder="Digite o nome do paciente" [matAutocomplete]="patientAuto"
+                                #patientSearch autocomplete="off" />
+
+                            <mat-autocomplete #patientAuto="matAutocomplete">
+                                <mat-option *ngFor="let patient of patients" [value]="patient.fullName"
+                                    (click)="selectPatient(patient.id)">
+                                    {{patient.fullName}} <span *ngIf="patient.cpf">— CPF {{patient.cpf}}</span>
+                                </mat-option>
+
+                                <mat-option *ngIf="loadingPatientAutocomplete">
+                                    <mat-spinner diameter="20" style="margin: 0 auto;"></mat-spinner>
+                                </mat-option>
+
+                                <mat-option
+                                    *ngIf="!loadingPatientAutocomplete && !patientSearchTermTooShort && patients.length === 0"
+                                    (click)="openQuickCreateDialog()">
+                                    <span class="fa fa-plus"></span> Nenhum paciente encontrado — cadastro rápido
+                                </mat-option>
+                            </mat-autocomplete>
                         </mat-form-field>
                     </div>
-                    <div class="col-md-3">
-                        <mat-form-field>
-                            <mat-label>CPF do Paciente [ENTER]</mat-label>
-                            <input matInput type="text" placeholder="CPF do paciente [ENTER]" name="patientDocument"
-                                (keypress)="enterKeyPress($event, 'CPF')"
-                                [(ngModel)]="dataToForm.patient.document.value" #patientDocument maxlength="14"
-                                mask="000.000.000-00"
-                                [disabled]="(dataToForm.patient.id && dataToForm.patient.document.value && dataToForm.patient.fullName) || dataToForm.id" />
-                        </mat-form-field>
+                    <div class="col-md-6" *ngIf="dataToForm.patient.id">
+                        <button mat-raised-button type="button" class="col-12 btn btn-info"
+                            (click)="clearSelectedPatient()"><span class="fa fa-search"></span>
+                            Buscar outro paciente</button>
                     </div>
                     <div *ngIf="dataToForm.patient?.principalNumber && dataToForm.professional?.fullName && dataToForm.schedulingDateAndTime"
                         class="col-md-3">
