@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { UntypedFormControl, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from 'app/core/confirm-dialog/confirm-dialog.component';
@@ -16,7 +16,7 @@ import { AppointmentService } from '../appointment.service';
 import '@ckeditor/ckeditor5-build-decoupled-document/build/translations/pt-br';
 import * as DecoupledEditor from '@ckeditor/ckeditor5-build-decoupled-document';
 import { Router } from '@angular/router';
-import { fromEvent } from 'rxjs';
+import { fromEvent, Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 
 const PATIENT_SEARCH_MIN_LENGTH = 3;
@@ -26,7 +26,7 @@ const PATIENT_SEARCH_MIN_LENGTH = 3;
   templateUrl: './appointment-edit.component.html',
   styleUrls: ['./appointment-edit.component.css']
 })
-export class AppointmentEditComponent implements OnInit {
+export class AppointmentEditComponent implements OnInit, OnDestroy {
 
   public dataToForm: AppointmentInfo;
   public scheduleParameters: AppointmentParameters;
@@ -49,7 +49,33 @@ export class AppointmentEditComponent implements OnInit {
     language: 'pt-br'
   };
 
-  @ViewChild('patientSearch', { static: true }) patientSearchInput: ElementRef;
+  private patientSearchInputEl: ElementRef;
+  private patientSearchSub: Subscription;
+
+  // O input só existe no DOM quando nenhum paciente ainda foi selecionado (*ngIf="!dataToForm.patient.id"
+  // no template) — usar setter em vez de {static: true} garante que a assinatura seja refeita sempre que
+  // o elemento entrar/sair da view, em vez de quebrar quando o diálogo abre com paciente já pré-associado.
+  @ViewChild('patientSearch') set patientSearchInput(el: ElementRef) {
+    this.patientSearchInputEl = el;
+    if (this.patientSearchSub) {
+      this.patientSearchSub.unsubscribe();
+      this.patientSearchSub = null;
+    }
+    if (el) {
+      this.patientSearchSub = fromEvent(el.nativeElement, 'keyup').pipe(
+        map((event: any) => event.target.value),
+        distinctUntilChanged(),
+        debounceTime(300)
+      ).subscribe((text: string) => {
+        this.patientSearchTermTooShort = !text || text.length < PATIENT_SEARCH_MIN_LENGTH;
+        if (this.patientSearchTermTooShort) {
+          this.patients = [];
+          return;
+        }
+        this.searchPatientsByName(text);
+      });
+    }
+  }
 
   constructor(
     private dialogRef: MatDialogRef<AppointmentEditComponent>,
@@ -84,19 +110,12 @@ export class AppointmentEditComponent implements OnInit {
     this.patientFilters = new PatientFilters();
     this.patientPageSettings = new Pageable();
     this.patientPageSettings.size = 20;
+  }
 
-    fromEvent(this.patientSearchInput.nativeElement, 'keyup').pipe(
-      map((event: any) => event.target.value),
-      distinctUntilChanged(),
-      debounceTime(300)
-    ).subscribe((text: string) => {
-      this.patientSearchTermTooShort = !text || text.length < PATIENT_SEARCH_MIN_LENGTH;
-      if (this.patientSearchTermTooShort) {
-        this.patients = [];
-        return;
-      }
-      this.searchPatientsByName(text);
-    });
+  ngOnDestroy(): void {
+    if (this.patientSearchSub) {
+      this.patientSearchSub.unsubscribe();
+    }
   }
 
   searchPatientsByName(text: string) {
@@ -138,7 +157,6 @@ export class AppointmentEditComponent implements OnInit {
   clearSelectedPatient() {
     this.dataToForm.patient = new PatientInfo();
     this.patients = [];
-    this.patientSearchInput.nativeElement.value = '';
   }
 
   openQuickCreateDialog() {

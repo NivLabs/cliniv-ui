@@ -32,7 +32,7 @@
                             <mat-autocomplete #patientAuto="matAutocomplete">
                                 <mat-option *ngFor="let patient of patients" [value]="patient.fullName"
                                     (click)="selectPatient(patient.id)">
-                                    {{patient.fullName}} <span *ngIf="patient.cpf">— CPF {{patient.cpf}}</span>
+                                    {{patient.fullName}} <span *ngIf="patient.cpf">- {{patient.cpf}}</span>
                                 </mat-option>
 
                                 <mat-option *ngIf="loadingPatientAutocomplete">
