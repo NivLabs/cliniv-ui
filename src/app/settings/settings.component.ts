@@ -104,7 +104,7 @@ export class SettingsComponent implements OnInit {
           this.loading = false;
           this.errorHandler.handle(error, confirmDialogRef);
         });
-      } else {
+      } else if (element) {
         element.checked = !element.checked;
       }
     });

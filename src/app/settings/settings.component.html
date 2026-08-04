@@ -279,7 +279,7 @@
                             <span *ngIf="element.metaType === 'GROUP'">
                                 <mat-form-field>
                                     <mat-select [value]="element.value"
-                                        (change)="changeSelectParameter(element.id, element.value)">
+                                        (selectionChange)="changeSelectParameter(element.id, $event.value)">
                                         <mat-option *ngFor="let option of element.groupValues" [value]="option">
                                             {{option}}</mat-option>
                                     </mat-select>
