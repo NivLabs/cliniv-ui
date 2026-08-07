@@ -153,52 +153,30 @@ export class SidebarComponent implements OnInit {
     }
   }
 
-  active(element) {
-
-    const lis = document.getElementsByClassName('active');
-
-    if (lis) {
-
-      if (lis.length > 1) {
-
-        for (let li in lis) {
-          if (lis.length != 0) {
-            lis[0].classList.remove('active');
-          }
-        }
-      }
-      else {
-        lis[0].classList.remove('active');
-      }
-
-    }
-
-    element.parentElement.parentElement.classList.add('active');
-
+  active(event: Event) {
+    this.markActiveNavItem(event);
   }
 
-  activeToggle(element) {
+  activeToggle(event: Event) {
+    this.markActiveNavItem(event);
+  }
 
-    const lis = document.getElementsByClassName('active');
-
-    if (lis) {
-
-      if (lis.length > 1) {
-
-        for (let li in lis) {
-          if (lis.length != 0) {
-            lis[0].classList.remove('active');
-          }
-        }
-      }
-      else {
-        lis[0].classList.remove('active');
-      }
-
+  /**
+   * Marca o <li class="nav-item"> correspondente ao link clicado como 'active',
+   * removendo o estado dos demais. Usa closest() a partir do elemento em que o
+   * (click) foi registrado (currentTarget), em vez de contar níveis fixos de
+   * parentElement — robusto independente de quanto o <a> esteja aninhado
+   * (ex: <span class="sidebar-mini">/<span class="sidebar-normal"> por dentro).
+   */
+  private markActiveNavItem(event: Event): void {
+    const link = event.currentTarget as HTMLElement;
+    const navItem = link.closest('li.nav-item');
+    if (!navItem) {
+      return;
     }
 
-    element.parentElement.parentElement.parentElement.classList.add('active');
-
+    document.querySelectorAll('li.nav-item.active').forEach(li => li.classList.remove('active'));
+    navItem.classList.add('active');
   }
 
 }
