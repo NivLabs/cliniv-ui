@@ -61,9 +61,7 @@
 }
 
 /* ===== WELCOME MESSAGE ===== */
-/* Em modo normal, boas-vindas sempre visível */
 .welcome-message {
-  display: block !important;
   margin: 0 15px;
 }
 
@@ -74,24 +72,16 @@
   max-width: 200px;
 }
 
-/* Modo mini: esconder o texto de boas-vindas */
+/* Modo mini: esconde boas-vindas, mas reaparece ao expandir no hover */
 @media (min-width: 991px) {
   body.sidebar-mini .welcome-message {
     display: none !important;
   }
-}
 
-/* ===== SIDEBAR REGULAR ONLY (esconde em modo mini) ===== */
-.sidebar-regular-only {
-  display: block !important;
-}
-
-@media (min-width: 991px) {
-  body.sidebar-mini .sidebar-regular-only {
-    display: none !important;
+  body.sidebar-mini .sidebar:hover .welcome-message {
+    display: block !important;
   }
 }
-
 
 /* ===== TOGGLE SIDEBAR PIN ===== */
 .nav-item .nav-link i.material-icons {
