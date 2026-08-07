@@ -500,4 +500,35 @@
         }
       }
     }
+
+    /* Sidebar Fixado: mantém largura completa (não encolhe no desktop) */
+    .sidebar-fixed {
+        .sidebar,
+        .sidebar .sidebar-wrapper {
+            width: 260px !important;
+        }
+
+        .sidebar .logo a.logo-normal {
+            opacity: 1 !important;
+            @include transform-translate-x(0px);
+        }
+
+        .sidebar .sidebar-wrapper {
+            > .nav [data-toggle="collapse"] ~ div > ul > li > a .sidebar-normal,
+            .user .user-info [data-toggle="collapse"] ~ div > ul > li > a .sidebar-normal,
+            .user .user-info > a > span,
+            > .nav li > a p {
+                @include transform-translate-x(0px);
+                opacity: 1 !important;
+            }
+        }
+
+        .sidebar:hover {
+            width: 260px;
+        }
+
+        .main-panel {
+            width: calc(100% - 260px);
+        }
+    }
 }

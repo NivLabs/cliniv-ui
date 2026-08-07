@@ -67,6 +67,9 @@ export class SidebarComponent implements OnInit {
   menuItems: any[];
   personName: string;
   logoName: string;
+  sidebarFixed: boolean = false;
+
+  private readonly SIDEBAR_FIXED_KEY = 'sidebar_fixed';
 
   constructor(
     private auth: AuthService,
@@ -81,6 +84,45 @@ export class SidebarComponent implements OnInit {
   ngOnInit() {
     this.menuItems = ROUTES.filter(menuItem => menuItem);
     this.logoName = this.utilService.getLogo();
+    this.loadSidebarPreference();
+    this.applySidebarState();
+  }
+
+  /**
+   * Carrega a preferência de sidebar (fixado ou não) do localStorage
+   */
+  private loadSidebarPreference(): void {
+    const stored = localStorage.getItem(this.SIDEBAR_FIXED_KEY);
+    this.sidebarFixed = stored === 'true' ? true : false;
+  }
+
+  /**
+   * Aplica o estado do sidebar (fixado ou não) ao DOM
+   */
+  private applySidebarState(): void {
+    const body = document.getElementsByTagName('body')[0];
+    const wrapper = document.querySelector('.wrapper');
+
+    if (this.sidebarFixed) {
+      body.classList.remove('sidebar-mini');
+      if (wrapper) {
+        wrapper.classList.add('sidebar-fixed');
+      }
+    } else {
+      body.classList.add('sidebar-mini');
+      if (wrapper) {
+        wrapper.classList.remove('sidebar-fixed');
+      }
+    }
+  }
+
+  /**
+   * Alterna entre sidebar fixado e não fixado
+   */
+  toggleSidebarFixed(): void {
+    this.sidebarFixed = !this.sidebarFixed;
+    localStorage.setItem(this.SIDEBAR_FIXED_KEY, this.sidebarFixed.toString());
+    this.applySidebarState();
   }
 
   isMobileMenu() {

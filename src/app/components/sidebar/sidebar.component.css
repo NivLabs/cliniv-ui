@@ -59,3 +59,12 @@
   padding-top: 0;
   padding-bottom: 0;
 }
+
+/* ===== TOGGLE SIDEBAR PIN ===== */
+.nav-item .nav-link i.material-icons {
+  transition: transform 0.2s ease;
+}
+
+.nav-item .nav-link:hover i.material-icons {
+  transform: rotate(180deg);
+}
