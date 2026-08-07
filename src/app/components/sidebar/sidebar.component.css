@@ -117,6 +117,14 @@
   }
 }
 
+/* ===== OVERFLOW ===== */
+/* Remove overflow em modo mini */
+@media (min-width: 991px) {
+  body.sidebar-mini .sidebar-wrapper {
+    overflow: hidden !important;
+  }
+}
+
 /* ===== TOGGLE SIDEBAR PIN ===== */
 .nav-item .nav-link i.material-icons {
   transition: transform 0.2s ease;
