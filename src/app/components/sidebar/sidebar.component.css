@@ -60,6 +60,38 @@
   padding-bottom: 0;
 }
 
+/* ===== WELCOME MESSAGE ===== */
+/* Em modo normal, boas-vindas sempre visível */
+.welcome-message {
+  display: block !important;
+  margin: 0 15px;
+}
+
+.welcome-message p {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
+}
+
+/* Modo mini: esconder o texto de boas-vindas */
+@media (min-width: 991px) {
+  body.sidebar-mini .welcome-message {
+    display: none !important;
+  }
+}
+
+/* ===== SIDEBAR REGULAR ONLY (esconde em modo mini) ===== */
+.sidebar-regular-only {
+  display: block !important;
+}
+
+@media (min-width: 991px) {
+  body.sidebar-mini .sidebar-regular-only {
+    display: none !important;
+  }
+}
+
 /* ===== TOGGLE SIDEBAR PIN ===== */
 .nav-item .nav-link i.material-icons {
   transition: transform 0.2s ease;
