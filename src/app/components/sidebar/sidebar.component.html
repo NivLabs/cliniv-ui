@@ -9,7 +9,7 @@
     <div class="nav-container">
         <ul class="nav">
 
-            <li class="nav-item welcome-message">
+            <li class="nav-item welcome-message visible-on-sidebar-regular">
                 <a class="nav-link">
                     <p>Bem vindo, {{personName}}</p>
                 </a>
@@ -19,8 +19,12 @@
 
                 <a *ngIf="menuItem.collapse" data-toggle="collapse" class="nav-link"
                     (click)="toggle(menuItem.icon)" style="cursor: pointer;" aria-expanded="false">
-                    <i class="material-icons">{{menuItem.icon}}</i>
-                    <p>{{menuItem.title}}<b class="caret" id="caret_{{menuItem.icon}}"></b></p>
+                    <span class="sidebar-mini">
+                        <i class="material-icons">{{menuItem.icon}}</i>
+                    </span>
+                    <span class="sidebar-normal">
+                        <p>{{menuItem.title}}<b class="caret" id="caret_{{menuItem.icon}}"></b></p>
+                    </span>
                 </a>
 
                 <div *ngIf="menuItem.collapse" class="collapse" id="{{menuItem.icon}}">
@@ -38,8 +42,12 @@
 
                 <a *ngIf="!menuItem.collapse" class="nav-link" [routerLink]="[menuItem.path]"
                     (click)="active($event.target)">
-                    <i class="material-icons">{{menuItem.icon}}</i>
-                    <p>{{menuItem.title}}</p>
+                    <span class="sidebar-mini">
+                        <i class="material-icons">{{menuItem.icon}}</i>
+                    </span>
+                    <span class="sidebar-normal">
+                        <p>{{menuItem.title}}</p>
+                    </span>
                 </a>
             </li>
             <li class="nav-item separator visible-on-sidebar-regular"></li>
