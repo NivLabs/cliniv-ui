@@ -64,9 +64,13 @@
             </li>
 
             <li routerLinkActive="active" class="nav-item">
-                <a class="nav-link" href="#" (click)="logoff()">
-                    <i class="material-icons logoff">power_settings_new</i>
-                    <p>Desconectar</p>
+                <a class="nav-link" href="#" (click)="logoff()" style="cursor: pointer;">
+                    <span class="sidebar-mini" [matTooltip]="'Desconectar'">
+                        <i class="material-icons logoff">power_settings_new</i>
+                    </span>
+                    <span class="sidebar-normal">
+                        <p>Desconectar</p>
+                    </span>
                 </a>
             </li>
         </ul>
