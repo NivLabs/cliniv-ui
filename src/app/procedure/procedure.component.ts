@@ -8,6 +8,7 @@ import { ConfirmDialogComponent } from 'app/core/confirm-dialog/confirm-dialog.c
 import { NotificationsComponent } from 'app/core/notification/notifications.component';
 import { ProcedureEditComponent } from './procedure-edit/procedure-edit.component';
 import { PageEvent } from '@angular/material/paginator';
+import { Sort } from '@angular/material/sort';
 import { DataTableColumn } from '../components/data-table/data-table.component';
 import { formatCurrency } from '../model/format.util';
 
@@ -26,11 +27,11 @@ export class ProcedureComponent implements OnInit {
   filters: ProcedureFilters;
 
   columns: Array<DataTableColumn> = [
-    { key: 'description', label: 'Descrição', cellClass: row => row.active === false ? 'name-not-identified' : '' },
-    { key: 'id', label: 'Código' },
-    { key: 'baseValue', label: 'Valor Base', cell: row => row.baseValue != null ? formatCurrency(row.baseValue) : '-' },
-    { key: 'specialAuthorization', label: 'Req. Autorização Espec.', cell: row => row.specialAuthorization ? 'SIM' : 'NÃO' },
-    { key: 'frequency', label: 'Periocidade', cell: row => row.frequency || '-' }
+    { key: 'description', label: 'Descrição', cellClass: row => row.active === false ? 'name-not-identified' : '', sortable: true },
+    { key: 'id', label: 'Código', sortable: true },
+    { key: 'baseValue', label: 'Valor Base', cell: row => row.baseValue != null ? formatCurrency(row.baseValue) : '-', sortable: true },
+    { key: 'specialAuthorization', label: 'Req. Autorização Espec.', cell: row => row.specialAuthorization ? 'SIM' : 'NÃO', sortable: true },
+    { key: 'frequency', label: 'Periocidade', cell: row => row.frequency || '-', sortable: true }
   ];
 
   getRowClass = (row: any) => row.active === false ? 'row-danger' : 'row-active';
@@ -61,6 +62,18 @@ export class ProcedureComponent implements OnInit {
   onPageChange(event: PageEvent) {
     this.pageSettings.page = event.pageIndex;
     this.pageSettings.size = event.pageSize;
+    this.fetch();
+  }
+
+  onSortChange(sort: Sort) {
+    this.pageSettings.page = 0;
+    if (sort.direction) {
+      this.pageSettings.orderBy = sort.active;
+      this.pageSettings.direction = sort.direction.toUpperCase() as 'ASC' | 'DESC';
+    } else {
+      delete this.pageSettings.orderBy;
+      delete this.pageSettings.direction;
+    }
     this.fetch();
   }
 

@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
+import { Sort } from '@angular/material/sort';
 import { Router } from '@angular/router';
 import { AttendanceService } from 'app/attendance/attendance.service';
 import { ErrorHandlerService } from 'app/core/error-handler.service';
@@ -42,15 +43,19 @@ export class AttendanceComponent implements OnInit {
     {
       key: 'fullName', label: 'Paciente',
       cell: row => row.fullName + (row.patientType === 'NOT_IDENTIFIED' ? ' [Não Identificado]' : ''),
-      cellClass: row => row.patientType === 'NOT_IDENTIFIED' ? 'name-not-identified' : ''
+      cellClass: row => row.patientType === 'NOT_IDENTIFIED' ? 'name-not-identified' : '',
+      sortable: true, sortKey: 'patient.person.fullName'
     },
-    { key: 'patientId', label: 'Matrícula' },
-    { key: 'id', label: 'Atendimento' },
+    { key: 'patientId', label: 'Matrícula', sortable: true, sortKey: 'patient.id' },
+    { key: 'id', label: 'Atendimento', sortable: true },
     { key: 'cpf', label: 'CPF', cell: row => row.cpf ? formatCpf(row.cpf) : '-' },
-    { key: 'cnsNumber', label: 'CNS', cell: row => row.cnsNumber || '-' },
-    { key: 'type', label: 'Tipo', cell: row => row.type === 'EMERGENCY' ? 'Emergência' : 'Ambulatório' },
+    { key: 'cnsNumber', label: 'CNS', cell: row => row.cnsNumber || '-', sortable: true, sortKey: 'patient.cnsNumber' },
+    {
+      key: 'type', label: 'Tipo', cell: row => row.type === 'EMERGENCY' ? 'Emergência' : 'Ambulatório',
+      sortable: true, sortKey: 'entryType'
+    },
     { key: 'sectorDescription', label: 'Setor' },
-    { key: 'entryDatetime', label: 'Entrada', cell: row => formatDateTime(row.entryDatetime) },
+    { key: 'entryDatetime', label: 'Entrada', cell: row => formatDateTime(row.entryDatetime), sortable: true, sortKey: 'entryDateTime' },
     { key: 'responsibleName', label: 'Profissional', cell: row => row.responsibleName || 'Não informado' },
     { key: 'time', label: 'Tempo', cell: row => this.getTime(row.entryDatetime, undefined) }
   ];
@@ -145,6 +150,18 @@ export class AttendanceComponent implements OnInit {
   onPageChange(event: PageEvent) {
     this.pageSettings.page = event.pageIndex;
     this.pageSettings.size = event.pageSize;
+    this.fetch();
+  }
+
+  onSortChange(sort: Sort) {
+    this.pageSettings.page = 0;
+    if (sort.direction) {
+      this.pageSettings.orderBy = sort.active;
+      this.pageSettings.direction = sort.direction.toUpperCase() as 'ASC' | 'DESC';
+    } else {
+      delete this.pageSettings.orderBy;
+      delete this.pageSettings.direction;
+    }
     this.fetch();
   }
 

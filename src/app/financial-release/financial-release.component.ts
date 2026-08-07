@@ -1,39 +1,47 @@
-import { Component, OnInit, ErrorHandler } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ErrorHandlerService } from 'app/core/error-handler.service';
-import { SectorService } from './sector.service';
-import { SectorEditComponent } from './sector-edit/sector-edit.component';
+import { FinancialReleaseService } from './financial-release.service';
 import { MatDialog } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
 import { Sort } from '@angular/material/sort';
 import { Page, Pageable } from 'app/model/Util';
-import { SectorFilters } from '../model/Sector';
+import { FinancialReleaseFilters, financialReleaseStatuses, financialReleaseTypes } from '../model/FinancialRelease';
+import { FinancialReleaseEditComponent } from './financial-release-edit/financial-release-edit.component';
 import { DataTableColumn } from '../components/data-table/data-table.component';
+import { formatCurrency, formatDate } from 'app/model/format.util';
 
 @Component({
-  selector: 'app-sector',
-  templateUrl: './sector.component.html',
-  styleUrls: ['./sector.component.css']
+  selector: 'app-financial-release',
+  templateUrl: './financial-release.component.html',
+  styleUrls: ['./financial-release.component.css']
 })
-
-export class SectorComponent implements OnInit {
+export class FinancialReleaseComponent implements OnInit {
 
   public loading: boolean;
   public dataNotFound: boolean;
   datas: Array<any>;
   page: Page;
   pageSettings: Pageable;
-  filters: SectorFilters;
+  filters: FinancialReleaseFilters;
+
+  public financialReleaseTypes = financialReleaseTypes;
+  public financialReleaseStatuses = financialReleaseStatuses;
 
   columns: Array<DataTableColumn> = [
-    { key: 'id', label: 'Identificador', sortable: true },
-    { key: 'description', label: 'Descrição', sortable: true }
+    { key: 'title', label: 'Título', sortable: true },
+    { key: 'categoryDescription', label: 'Categoria', sortable: true, sortKey: 'category.description' },
+    { key: 'type', label: 'Tipo', cell: row => row.type === 'RECEIVABLE' ? 'A Receber' : 'A Pagar', sortable: true },
+    { key: 'status', label: 'Situação', sortable: true },
+    { key: 'grossValue', label: 'Valor Bruto', cell: row => formatCurrency(row.grossValue), sortable: true },
+    { key: 'netValue', label: 'Valor Líquido', cell: row => formatCurrency(row.netValue), sortable: true },
+    { key: 'dueDate', label: 'Vencimento', cell: row => formatDate(row.dueDate), sortable: true }
   ];
 
-  constructor(public dialog: MatDialog, private errorHandler: ErrorHandlerService, private principalService: SectorService) { }
+  constructor(public dialog: MatDialog, private errorHandler: ErrorHandlerService, private principalService: FinancialReleaseService) { }
 
   ngOnInit() {
     this.page = new Page();
-    this.filters = new SectorFilters();
+    this.filters = new FinancialReleaseFilters();
     this.pageSettings = new Pageable();
     this.fetch();
   }
@@ -83,15 +91,16 @@ export class SectorComponent implements OnInit {
     });
   }
 
-  openDialog(id): void {
-    const dialogRef = this.dialog.open(SectorEditComponent, {
+  openDialog(release): void {
+    const dialogRef = this.dialog.open(FinancialReleaseEditComponent, {
       width: '100%',
       height: 'auto',
-      data: {selectedSector: id}
+      data: { selectedRelease: release }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       this.ngOnInit();
     });
   }
+
 }

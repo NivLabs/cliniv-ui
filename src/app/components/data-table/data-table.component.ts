@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
+import { Sort } from '@angular/material/sort';
 
 export interface DataTableColumn {
   key: string;
@@ -8,6 +9,14 @@ export interface DataTableColumn {
   cssClass?: string;
   cellClass?: (row: any) => string;
   width?: string;
+  /** Habilita ordenação por essa coluna (clique no cabeçalho). Padrão: não ordenável. */
+  sortable?: boolean;
+  /**
+   * Nome do atributo enviado como `orderBy` ao backend, quando difere de `key` — necessário
+   * para colunas vindas de join (ex: key 'categoryDescription' -> sortKey 'category.description',
+   * mesmo caminho aninhado usado nas projeções de SELECT dos repositórios).
+   */
+  sortKey?: string;
 }
 
 export interface DataTableAction {
@@ -35,13 +44,20 @@ export class DataTableComponent {
   @Input() pageIndex: number = 0;
   @Input() pageSize: number = 24;
   @Input() pageSizeOptions: Array<number> = [12, 24, 48, 96];
+  @Input() sortActive: string = '';
+  @Input() sortDirection: 'asc' | 'desc' | '' = '';
 
   @Output() rowClick = new EventEmitter<any>();
   @Output() page = new EventEmitter<PageEvent>();
+  @Output() sortChange = new EventEmitter<Sort>();
 
   get displayedColumns(): Array<string> {
     const keys = this.columns.map(column => column.key);
     return this.actions?.length ? [...keys, 'actions'] : keys;
+  }
+
+  sortId(column: DataTableColumn): string {
+    return column.sortKey || column.key;
   }
 
   cellValue(column: DataTableColumn, row: any): string {

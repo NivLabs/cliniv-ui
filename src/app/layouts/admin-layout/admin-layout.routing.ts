@@ -3,6 +3,8 @@ import { Routes } from '@angular/router';
 import { AppointmentComponent } from 'app/appointment/appointment.component';
 import { DocumentTemplateComponent } from 'app/document-template/document-template.component';
 import { DynamicFormComponent } from 'app/dynamic-form/dynamic-form.component';
+import { FinancialCategoryComponent } from 'app/financial-category/financial-category.component';
+import { FinancialReleaseComponent } from 'app/financial-release/financial-release.component';
 import { HealthOperatorComponent } from 'app/healthOperator/health-operator.component';
 import { PaymentMethodComponent } from 'app/payment-method/payment-method.component';
 import { ReportComponent } from 'app/report/report.component';
@@ -33,6 +35,8 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'speciality', component: SpecialityComponent, canLoad: [AuthGuard] },
     { path: 'health-operator', component: HealthOperatorComponent, canLoad: [AuthGuard] },
     { path: 'payment-methods', component: PaymentMethodComponent, canLoad: [AuthGuard] },
+    { path: 'financial-release', component: FinancialReleaseComponent, canLoad: [AuthGuard] },
+    { path: 'financial-category', component: FinancialCategoryComponent, canLoad: [AuthGuard] },
     { path: 'user', component: UserComponent, canLoad: [AuthGuard] },
     { path: 'user-profile', component: UserProfileComponent, canLoad: [AuthGuard] },
     { path: 'settings', component: SettingsComponent, canLoad: [AuthGuard] },

@@ -8,6 +8,7 @@ import { DynamicFormEditComponent } from './dynamic-form-edit/dynamic-form-edit.
 import { ConfirmDialogComponent } from 'app/core/confirm-dialog/confirm-dialog.component';
 import { NotificationsComponent } from 'app/core/notification/notifications.component';
 import { PageEvent } from '@angular/material/paginator';
+import { Sort } from '@angular/material/sort';
 import { DataTableColumn, DataTableAction } from '../components/data-table/data-table.component';
 
 @Component({
@@ -27,8 +28,8 @@ export class DynamicFormComponent implements OnInit {
   card: boolean;
 
   columns: Array<DataTableColumn> = [
-    { key: 'id', label: 'Identificador' },
-    { key: 'title', label: 'Título' }
+    { key: 'id', label: 'Identificador', sortable: true },
+    { key: 'title', label: 'Título', sortable: true }
   ];
 
   actions: Array<DataTableAction> = [
@@ -64,6 +65,18 @@ export class DynamicFormComponent implements OnInit {
   onPageChange(event: PageEvent) {
     this.pageSettings.page = event.pageIndex;
     this.pageSettings.size = event.pageSize;
+    this.fetch();
+  }
+
+  onSortChange(sort: Sort) {
+    this.pageSettings.page = 0;
+    if (sort.direction) {
+      this.pageSettings.orderBy = sort.active;
+      this.pageSettings.direction = sort.direction.toUpperCase() as 'ASC' | 'DESC';
+    } else {
+      delete this.pageSettings.orderBy;
+      delete this.pageSettings.direction;
+    }
     this.fetch();
   }
 

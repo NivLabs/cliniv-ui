@@ -1,0 +1,150 @@
+<div class="card">
+    <div class="card-header card-header-info">
+        <h4 class="card-title">Dados do lançamento financeiro</h4>
+        <p class="card-category">Dados completos do lançamento financeiro</p>
+    </div>
+    <div class="card-body">
+        <form #form="ngForm" autocomplete="off">
+            <div class="row">
+                <div class="col-md-4">
+                    <mat-form-field>
+                        <mat-label>Tipo</mat-label>
+                        <mat-select name="type" [(ngModel)]="dataToForm.type" #type="ngModel" required>
+                            <mat-option *ngFor="let t of financialReleaseTypes" [value]="t.value">
+                                {{t.label}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                    <mat-form-field>
+                        <mat-label>Categoria</mat-label>
+                        <mat-select name="categoryId" [(ngModel)]="dataToForm.categoryId" #categoryId="ngModel" required>
+                            <mat-option *ngFor="let c of categories" [value]="c.id">
+                                {{c.description}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                    <mat-form-field>
+                        <mat-label>Situação</mat-label>
+                        <mat-select name="status" [(ngModel)]="dataToForm.status" #status="ngModel">
+                            <mat-option *ngFor="let s of financialReleaseStatuses" [value]="s.value">
+                                {{s.label}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <mat-form-field>
+                        <input matInput placeholder="Título" name="title" [(ngModel)]="dataToForm.title" #title="ngModel" required />
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6" *ngIf="!dataToForm.patientId">
+                    <mat-form-field>
+                        <mat-label>Buscar paciente pelo nome (mínimo 3 letras, opcional)</mat-label>
+                        <input matInput type="text" placeholder="Digite o nome do paciente" [matAutocomplete]="patientAuto"
+                            #patientSearch autocomplete="off" />
+
+                        <mat-autocomplete #patientAuto="matAutocomplete">
+                            <mat-option *ngFor="let patient of patients" [value]="patient.fullName"
+                                (click)="selectPatient(patient)">
+                                {{patient.fullName}} <span *ngIf="patient.cpf">- {{patient.cpf}}</span>
+                            </mat-option>
+                            <mat-option *ngIf="loadingPatientAutocomplete">
+                                <mat-spinner diameter="20" style="margin: 0 auto;"></mat-spinner>
+                            </mat-option>
+                        </mat-autocomplete>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-6" *ngIf="dataToForm.patientId">
+                    <mat-form-field>
+                        <mat-label>Paciente vinculado</mat-label>
+                        <input matInput [ngModel]="dataToForm.patientName" name="patientName" disabled />
+                        <button mat-icon-button matSuffix type="button" matTooltip="Remover paciente"
+                            (click)="clearSelectedPatient()">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                    <mat-form-field>
+                        <mat-label>Método de pagamento (opcional)</mat-label>
+                        <mat-select name="paymentMethodId" [(ngModel)]="dataToForm.paymentMethodId">
+                            <mat-option [value]="null">Nenhum</mat-option>
+                            <mat-option *ngFor="let pm of paymentMethods" [value]="pm.id">
+                                {{pm.name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <mat-form-field>
+                        <mat-label>Valor Bruto</mat-label>
+                        <span matPrefix>R$&nbsp;</span>
+                        <input matInput name="grossValue" type="text" mask="separator.2" thousandSeparator="."
+                            decimalMarker="," [(ngModel)]="grossValueDisplay" (ngModelChange)="onGrossValueChange($event)"
+                            #grossValue="ngModel" required />
+                    </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                    <mat-form-field>
+                        <mat-label>Desconto</mat-label>
+                        <input matInput [ngModel]="discountSummary" name="discountSummary" disabled />
+                        <button mat-icon-button matSuffix type="button" matTooltip="Definir desconto"
+                            (click)="openDiscountDialog()" style="cursor: pointer;">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                    <mat-form-field>
+                        <mat-label>Valor Líquido</mat-label>
+                        <span matPrefix>R$&nbsp;</span>
+                        <input matInput name="netValue" type="text" [ngModel]="netValueDisplay" #netValue="ngModel" disabled />
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <mat-form-field>
+                        <input matInput placeholder="Data de competência" name="competenceDate" type="date"
+                            [(ngModel)]="dataToForm.competenceDate" #competenceDate="ngModel" required />
+                    </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                    <mat-form-field>
+                        <input matInput placeholder="Data de vencimento" name="dueDate" type="date"
+                            [(ngModel)]="dataToForm.dueDate" #dueDate="ngModel" required />
+                    </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                    <mat-form-field>
+                        <input matInput placeholder="Data/hora do pagamento" name="paymentDateTime" type="datetime-local"
+                            [(ngModel)]="dataToForm.paymentDateTime" #paymentDateTime="ngModel" />
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <mat-form-field>
+                        <textarea matInput placeholder="Observações" name="observation"
+                            [(ngModel)]="dataToForm.observation" #observation="ngModel"></textarea>
+                    </mat-form-field>
+                </div>
+            </div>
+            <app-dialog-form-actions [showNew]="!!dataToForm.id" newLabel="Novo Lançamento"
+                newTooltip="Novo lançamento financeiro" [saveDisabled]="!form.valid" (new)="resetForm()"
+                (cancel)="onCancelClick()" (save)="save()"></app-dialog-form-actions>
+            <div class="clearfix"></div>
+        </form>
+    </div>
+</div>
+<app-loading [show]="loading"></app-loading>

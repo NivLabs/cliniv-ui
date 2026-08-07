@@ -1,0 +1,39 @@
+<h1 mat-dialog-title>Desconto</h1>
+<div mat-dialog-content>
+    <div class="row">
+        <div class="col-md-12">
+            <mat-radio-group [(ngModel)]="type" (ngModelChange)="onTypeChange()" name="discountType">
+                <mat-radio-button [value]="'FIXED'" class="mr-3">Valor fixo</mat-radio-button>
+                <mat-radio-button [value]="'PERCENTAGE'">Percentual</mat-radio-button>
+            </mat-radio-group>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12" *ngIf="type === 'FIXED'">
+            <mat-form-field>
+                <mat-label>Valor do desconto</mat-label>
+                <span matPrefix>R$&nbsp;</span>
+                <input matInput type="text" name="discountValue" mask="separator.2" thousandSeparator="."
+                    decimalMarker="," [(ngModel)]="valueDisplay" (ngModelChange)="onValueDisplayChange($event)" />
+            </mat-form-field>
+        </div>
+        <div class="col-md-12" *ngIf="type === 'PERCENTAGE'">
+            <mat-form-field>
+                <mat-label>Percentual de desconto</mat-label>
+                <input matInput type="text" name="discountPercentage" mask="percent.2" decimalMarker="," suffix=" %"
+                    [(ngModel)]="valueDisplay" (ngModelChange)="onValueDisplayChange($event)" />
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="row" *ngIf="type === 'PERCENTAGE'">
+        <div class="col-md-12">
+            <small>Equivale a {{previewValueFormatted}} sobre o valor bruto</small>
+        </div>
+    </div>
+</div>
+<div class="card-footer">
+    <div mat-dialog-actions>
+        <button mat-button (click)="onCancelClick()">Cancelar</button>
+        <button mat-button class="btn btn-success" (click)="confirm()" cdkFocusInitial>Confirmar</button>
+    </div>
+</div>

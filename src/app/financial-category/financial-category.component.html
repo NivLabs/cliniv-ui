@@ -4,16 +4,16 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header card-header-info">
-                        <h4 class="card-title">Modelos de documentos</h4>
+                        <h4 class="card-title">Categorias Financeiras</h4>
                     </div>
                     <div class="card-body">
                         <form #form="ngForm" autocomplete="off">
                             <div class="row">
                                 <div class="col-md-4">
                                     <mat-form-field>
-                                        <input matInput placeholder="Descrição do modelo de documento [ENTER]" name="description"
-                                            [(ngModel)]="filters.description" #title type="text"
-                                            (keypress)="enterKeyPress($event)" />
+                                        <input matInput placeholder="Descrição da categoria [ENTER]"
+                                            name="description" [(ngModel)]="filters.description" #description
+                                            type="text" (keypress)="enterKeyPress($event)" />
                                     </mat-form-field>
                                 </div>
                             </div>
@@ -22,9 +22,9 @@
                                 matTooltip="Aplica Filtro">
                                 <span class="fa fa-search"></span> Filtrar</button>
                             <button mat-raised-button type="button" (click)="openDialog(null)"
-                                matTooltip="Adiciona setor"
+                                matTooltip="Adiciona categoria financeira"
                                 class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-info pull-right"><span
-                                    class="fa fa-plus"></span> Novo Modelo</button>
+                                    class="fa fa-plus"></span> Nova Categoria</button>
                             <div class="clearfix"></div>
                         </form>
                     </div>
@@ -32,11 +32,11 @@
             </div>
         </div>
         <app-data-table [items]="datas" [columns]="columns" [loading]="loading" [dataNotFound]="dataNotFound"
-            emptyMessage="Nenhum modelo de documento encontrado..." [length]="page.totalElements"
+            emptyMessage="Nenhuma categoria financeira encontrada..." [length]="page.totalElements"
             [pageIndex]="pageSettings.page" [pageSize]="pageSettings.size" (page)="onPageChange($event)"
             [sortActive]="pageSettings.orderBy || ''"
             [sortDirection]="pageSettings.direction ? pageSettings.direction.toLowerCase() : ''"
-            (sortChange)="onSortChange($event)" (rowClick)="openDialog($event.id)">
+            (sortChange)="onSortChange($event)" (rowClick)="openDialog($event)">
         </app-data-table>
     </div>
 </div>

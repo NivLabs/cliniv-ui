@@ -3,10 +3,12 @@
 </div>
 <div *ngIf="!dataNotFound">
     <div class="table-responsive">
-        <mat-table [dataSource]="items" class="app-data-table">
+        <mat-table [dataSource]="items" matSort [matSortActive]="sortActive" [matSortDirection]="sortDirection"
+            (matSortChange)="sortChange.emit($event)" class="app-data-table">
 
             <ng-container *ngFor="let column of columns" [matColumnDef]="column.key">
-                <mat-header-cell *matHeaderCellDef [class]="column.cssClass" [style.flex]="columnFlex(column)">
+                <mat-header-cell *matHeaderCellDef [mat-sort-header]="sortId(column)" [disabled]="!column.sortable"
+                    [class]="column.cssClass" [style.flex]="columnFlex(column)">
                     {{column.label}} </mat-header-cell>
                 <mat-cell *matCellDef="let row" [class]="column.cssClass" [style.flex]="columnFlex(column)"
                     [ngClass]="column.cellClass ? column.cellClass(row) : ''"> {{cellValue(column, row)}} </mat-cell>

@@ -7,6 +7,7 @@ import { UserFilters } from 'app/model/User';
 import { UserEditComponent } from './user-edit/user-edit.component';
 import { MatDialog } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
+import { Sort } from '@angular/material/sort';
 import { DataTableColumn } from '../components/data-table/data-table.component';
 import { formatCpf, formatPhone } from '../model/format.util';
 
@@ -25,11 +26,14 @@ export class UserComponent implements OnInit {
   filters: UserFilters;
 
   columns: Array<DataTableColumn> = [
-    { key: 'fullName', label: 'Nome' },
-    { key: 'id', label: 'Matrícula' },
-    { key: 'userName', label: 'Usuário' },
-    { key: 'cpf', label: 'CPF', cell: row => row.cpf ? formatCpf(row.cpf) : '-' },
-    { key: 'principalNumber', label: 'Telefone', cell: row => formatPhone(row.principalNumber) }
+    { key: 'fullName', label: 'Nome', sortable: true, sortKey: 'person.fullName' },
+    { key: 'id', label: 'Matrícula', sortable: true },
+    { key: 'userName', label: 'Usuário', sortable: true },
+    { key: 'cpf', label: 'CPF', cell: row => row.cpf ? formatCpf(row.cpf) : '-', sortable: true, sortKey: 'person.cpf' },
+    {
+      key: 'principalNumber', label: 'Telefone', cell: row => formatPhone(row.principalNumber),
+      sortable: true, sortKey: 'person.principalNumber'
+    }
   ];
 
   constructor(public dialog: MatDialog, private principalService: UserService, private errorHandler: ErrorHandlerService, private notification: NotificationsComponent) { }
@@ -44,6 +48,18 @@ export class UserComponent implements OnInit {
   onPageChange(event: PageEvent) {
     this.pageSettings.page = event.pageIndex;
     this.pageSettings.size = event.pageSize;
+    this.fetch();
+  }
+
+  onSortChange(sort: Sort) {
+    this.pageSettings.page = 0;
+    if (sort.direction) {
+      this.pageSettings.orderBy = sort.active;
+      this.pageSettings.direction = sort.direction.toUpperCase() as 'ASC' | 'DESC';
+    } else {
+      delete this.pageSettings.orderBy;
+      delete this.pageSettings.direction;
+    }
     this.fetch();
   }
 

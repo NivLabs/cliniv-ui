@@ -20,6 +20,8 @@ export class Page {
 export class Pageable {
     page: number = 0;
     size: number = 24;
+    orderBy?: string;
+    direction?: 'ASC' | 'DESC';
 }
 
 

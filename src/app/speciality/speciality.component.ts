@@ -3,6 +3,7 @@ import { ErrorHandlerService } from 'app/core/error-handler.service';
 import { SpecialityService } from './speciality.service';
 import { MatDialog } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
+import { Sort } from '@angular/material/sort';
 import { Page, Pageable } from 'app/model/Util';
 import { SpecialityFilters } from '../model/Speciality';
 import { SpecialityEditComponent } from '../speciality/speciality-edit/speciality-edit.component';
@@ -23,8 +24,8 @@ export class SpecialityComponent implements OnInit {
   filters: SpecialityFilters;
 
   columns: Array<DataTableColumn> = [
-    { key: 'id', label: 'Identificador' },
-    { key: 'name', label: 'Nome' }
+    { key: 'id', label: 'Identificador', sortable: true },
+    { key: 'name', label: 'Nome', sortable: true }
   ];
 
 
@@ -53,6 +54,18 @@ export class SpecialityComponent implements OnInit {
   onPageChange(event: PageEvent) {
     this.pageSettings.page = event.pageIndex;
     this.pageSettings.size = event.pageSize;
+    this.fetch();
+  }
+
+  onSortChange(sort: Sort) {
+    this.pageSettings.page = 0;
+    if (sort.direction) {
+      this.pageSettings.orderBy = sort.active;
+      this.pageSettings.direction = sort.direction.toUpperCase() as 'ASC' | 'DESC';
+    } else {
+      delete this.pageSettings.orderBy;
+      delete this.pageSettings.direction;
+    }
     this.fetch();
   }
 

@@ -1,39 +1,37 @@
-import { Component, OnInit, ErrorHandler } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ErrorHandlerService } from 'app/core/error-handler.service';
-import { SectorService } from './sector.service';
-import { SectorEditComponent } from './sector-edit/sector-edit.component';
+import { FinancialCategoryService } from './financial-category.service';
 import { MatDialog } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
 import { Sort } from '@angular/material/sort';
 import { Page, Pageable } from 'app/model/Util';
-import { SectorFilters } from '../model/Sector';
+import { FinancialCategoryFilters } from '../model/FinancialCategory';
+import { FinancialCategoryEditComponent } from './financial-category-edit/financial-category-edit.component';
 import { DataTableColumn } from '../components/data-table/data-table.component';
 
 @Component({
-  selector: 'app-sector',
-  templateUrl: './sector.component.html',
-  styleUrls: ['./sector.component.css']
+  selector: 'app-financial-category',
+  templateUrl: './financial-category.component.html',
+  styleUrls: ['./financial-category.component.css']
 })
-
-export class SectorComponent implements OnInit {
+export class FinancialCategoryComponent implements OnInit {
 
   public loading: boolean;
   public dataNotFound: boolean;
   datas: Array<any>;
   page: Page;
   pageSettings: Pageable;
-  filters: SectorFilters;
+  filters: FinancialCategoryFilters;
 
   columns: Array<DataTableColumn> = [
-    { key: 'id', label: 'Identificador', sortable: true },
     { key: 'description', label: 'Descrição', sortable: true }
   ];
 
-  constructor(public dialog: MatDialog, private errorHandler: ErrorHandlerService, private principalService: SectorService) { }
+  constructor(public dialog: MatDialog, private errorHandler: ErrorHandlerService, private principalService: FinancialCategoryService) { }
 
   ngOnInit() {
     this.page = new Page();
-    this.filters = new SectorFilters();
+    this.filters = new FinancialCategoryFilters();
     this.pageSettings = new Pageable();
     this.fetch();
   }
@@ -83,15 +81,16 @@ export class SectorComponent implements OnInit {
     });
   }
 
-  openDialog(id): void {
-    const dialogRef = this.dialog.open(SectorEditComponent, {
+  openDialog(category): void {
+    const dialogRef = this.dialog.open(FinancialCategoryEditComponent, {
       width: '100%',
       height: 'auto',
-      data: {selectedSector: id}
+      data: { selectedCategory: category }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       this.ngOnInit();
     });
   }
+
 }

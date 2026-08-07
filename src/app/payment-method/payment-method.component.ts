@@ -3,6 +3,7 @@ import { ErrorHandlerService } from 'app/core/error-handler.service';
 import { PaymentMethodService } from './payment-method.service';
 import { MatDialog } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
+import { Sort } from '@angular/material/sort';
 import { Page, Pageable } from 'app/model/Util';
 import { PaymentMethodFilters } from '../model/PaymentMethod';
 import { PaymentMethodEditComponent } from './payment-method-edit/payment-method-edit.component';
@@ -23,8 +24,8 @@ export class PaymentMethodComponent implements OnInit {
   filters: PaymentMethodFilters;
 
   columns: Array<DataTableColumn> = [
-    { key: 'id', label: 'Identificador' },
-    { key: 'name', label: 'Nome' }
+    { key: 'id', label: 'Identificador', sortable: true },
+    { key: 'name', label: 'Nome', sortable: true }
   ];
 
   constructor(public dialog: MatDialog, private errorHandler: ErrorHandlerService, private principalService: PaymentMethodService) { }
@@ -52,6 +53,18 @@ export class PaymentMethodComponent implements OnInit {
   onPageChange(event: PageEvent) {
     this.pageSettings.page = event.pageIndex;
     this.pageSettings.size = event.pageSize;
+    this.fetch();
+  }
+
+  onSortChange(sort: Sort) {
+    this.pageSettings.page = 0;
+    if (sort.direction) {
+      this.pageSettings.orderBy = sort.active;
+      this.pageSettings.direction = sort.direction.toUpperCase() as 'ASC' | 'DESC';
+    } else {
+      delete this.pageSettings.orderBy;
+      delete this.pageSettings.direction;
+    }
     this.fetch();
   }
 

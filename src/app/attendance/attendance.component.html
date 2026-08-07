@@ -109,7 +109,9 @@
         <app-data-table [items]="datas" [columns]="columns" [loading]="loading" [dataNotFound]="dataNotFound"
             emptyMessage="Nenhum atendimento encontrado..." [length]="page.totalElements"
             [pageIndex]="pageSettings.page" [pageSize]="pageSettings.size" [rowClass]="getRowClass"
-            (page)="onPageChange($event)" (rowClick)="goToVisit($event.patientId)">
+            [sortActive]="pageSettings.orderBy || ''"
+            [sortDirection]="pageSettings.direction ? pageSettings.direction.toLowerCase() : ''"
+            (sortChange)="onSortChange($event)" (page)="onPageChange($event)" (rowClick)="goToVisit($event.patientId)">
         </app-data-table>
     </div>
 </div>

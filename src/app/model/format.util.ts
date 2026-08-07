@@ -39,3 +39,24 @@ export function formatDateTime(value: string | Date): string {
 export function formatCurrency(value: number): string {
     return value !== null && value !== undefined ? currencyPipe.transform(value, 'BRL') : '';
 }
+
+/**
+ * Converte para number uma string no formato pt-BR usado pelos inputs com máscara ngx-mask
+ * deste app ('.' como separador de milhar, ',' como marcador decimal — ex: "1.234,56").
+ */
+export function parseMaskedNumber(display: string): number {
+    if (!display) {
+        return 0;
+    }
+    const normalized = display.toString().replace(/\./g, '').replace(',', '.');
+    const value = parseFloat(normalized);
+    return isNaN(value) ? 0 : value;
+}
+
+/**
+ * Formata um number no mesmo padrão pt-BR ('.' milhar, ',' decimal) usado pelos inputs com
+ * máscara — usado para preencher o valor inicial desses campos a partir de dados já carregados.
+ */
+export function formatMaskedNumber(value: number): string {
+    return (value || 0).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}

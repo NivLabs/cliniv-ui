@@ -6,6 +6,7 @@ import { ErrorHandlerService } from 'app/core/error-handler.service';
 import { MatDialog } from '@angular/material/dialog';
 import { HealthOperatorEditComponent } from './health-operator-edit/health-operator-edit.component';
 import { PageEvent } from '@angular/material/paginator';
+import { Sort } from '@angular/material/sort';
 import { DataTableColumn } from '../components/data-table/data-table.component';
 
 @Component({
@@ -23,12 +24,12 @@ export class HealthOperatorComponent implements OnInit {
   public filters: HealthOperatorFilter;
 
   columns: Array<DataTableColumn> = [
-    { key: 'companyName', label: 'Nome' },
-    { key: 'fantasyName', label: 'Nome Fantasia' },
-    { key: 'id', label: 'Matrícula' },
-    { key: 'ansCode', label: 'Código ANS' },
-    { key: 'cnpj', label: 'CNPJ' },
-    { key: 'modality', label: 'Modalidade', cell: row => this.getModalityDescription(row.modality) }
+    { key: 'companyName', label: 'Nome', sortable: true },
+    { key: 'fantasyName', label: 'Nome Fantasia', sortable: true },
+    { key: 'id', label: 'Matrícula', sortable: true },
+    { key: 'ansCode', label: 'Código ANS', sortable: true },
+    { key: 'cnpj', label: 'CNPJ', sortable: true },
+    { key: 'modality', label: 'Modalidade', cell: row => this.getModalityDescription(row.modality), sortable: true }
   ];
 
   constructor(public dialog: MatDialog, private principalService: HealthOperatorService, private errorHandler: ErrorHandlerService) { }
@@ -57,6 +58,18 @@ export class HealthOperatorComponent implements OnInit {
   onPageChange(event: PageEvent) {
     this.pageSettings.page = event.pageIndex;
     this.pageSettings.size = event.pageSize;
+    this.fetch();
+  }
+
+  onSortChange(sort: Sort) {
+    this.pageSettings.page = 0;
+    if (sort.direction) {
+      this.pageSettings.orderBy = sort.active;
+      this.pageSettings.direction = sort.direction.toUpperCase() as 'ASC' | 'DESC';
+    } else {
+      delete this.pageSettings.orderBy;
+      delete this.pageSettings.direction;
+    }
     this.fetch();
   }
 

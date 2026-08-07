@@ -4,23 +4,38 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header card-header-info">
-                        <h4 class="card-title">Formas de Pagamento</h4>
+                        <h4 class="card-title">Lançamentos Financeiros</h4>
                     </div>
                     <div class="card-body">
                         <form #form="ngForm" autocomplete="off">
                             <div class="row">
-                                <div class="col-md-2">
-                                    <mat-form-field>
-                                        <input matInput type="number"
-                                            placeholder="Código da forma de pagamento [ENTER]" name="id"
-                                            [(ngModel)]="filters.id" #id (keypress)="enterKeyPress($event)" />
-                                    </mat-form-field>
-                                </div>
                                 <div class="col-md-3">
                                     <mat-form-field>
-                                        <input matInput placeholder="Nome da forma de pagamento [ENTER]"
-                                            name="name" [(ngModel)]="filters.name" #name
-                                            type="text" (keypress)="enterKeyPress($event)" />
+                                        <input matInput placeholder="Título [ENTER]" name="title"
+                                            [(ngModel)]="filters.title" #title type="text"
+                                            (keypress)="enterKeyPress($event)" />
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-2">
+                                    <mat-form-field>
+                                        <mat-label>Tipo</mat-label>
+                                        <mat-select name="type" [(ngModel)]="filters.type">
+                                            <mat-option [value]="null">Todos</mat-option>
+                                            <mat-option *ngFor="let t of financialReleaseTypes" [value]="t.value">
+                                                {{t.label}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-2">
+                                    <mat-form-field>
+                                        <mat-label>Situação</mat-label>
+                                        <mat-select name="status" [(ngModel)]="filters.status">
+                                            <mat-option [value]="null">Todas</mat-option>
+                                            <mat-option *ngFor="let s of financialReleaseStatuses" [value]="s.value">
+                                                {{s.label}}
+                                            </mat-option>
+                                        </mat-select>
                                     </mat-form-field>
                                 </div>
                             </div>
@@ -29,9 +44,9 @@
                                 matTooltip="Aplica Filtro">
                                 <span class="fa fa-search"></span> Filtrar</button>
                             <button mat-raised-button type="button" (click)="openDialog(null)"
-                                matTooltip="Adiciona forma de pagamento"
+                                matTooltip="Novo lançamento financeiro"
                                 class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-info pull-right"><span
-                                    class="fa fa-plus"></span> Nova Forma de Pagamento</button>
+                                    class="fa fa-plus"></span> Novo Lançamento</button>
                             <div class="clearfix"></div>
                         </form>
                     </div>
@@ -39,7 +54,7 @@
             </div>
         </div>
         <app-data-table [items]="datas" [columns]="columns" [loading]="loading" [dataNotFound]="dataNotFound"
-            emptyMessage="Nenhuma forma de pagamento encontrada..." [length]="page.totalElements"
+            emptyMessage="Nenhum lançamento financeiro encontrado..." [length]="page.totalElements"
             [pageIndex]="pageSettings.page" [pageSize]="pageSettings.size" (page)="onPageChange($event)"
             [sortActive]="pageSettings.orderBy || ''"
             [sortDirection]="pageSettings.direction ? pageSettings.direction.toLowerCase() : ''"

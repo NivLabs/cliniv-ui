@@ -76,6 +76,7 @@ import { AttendanceService } from '../../attendance/attendance.service';
 import { LoadingComponent } from '../../components/loading/loading.component';
 import { DataTableComponent } from '../../components/data-table/data-table.component';
 import { ConfirmDialogComponent } from '../../core/confirm-dialog/confirm-dialog.component';
+import { DiscountDialogComponent } from '../../core/discount-dialog/discount-dialog.component';
 import { NotificationsComponent } from '../../core/notification/notifications.component';
 import { DashboardComponent } from '../../dashboard/dashboard.component';
 import { DashboardService } from '../../dashboard/dashboard.service';
@@ -93,6 +94,12 @@ import { DialogFormActionsComponent } from '../../components/dialog-form-actions
 import { PaymentMethodEditComponent } from '../../payment-method/payment-method-edit/payment-method-edit.component';
 import { PaymentMethodComponent } from '../../payment-method/payment-method.component';
 import { PaymentMethodService } from '../../payment-method/payment-method.service';
+import { FinancialCategoryEditComponent } from '../../financial-category/financial-category-edit/financial-category-edit.component';
+import { FinancialCategoryComponent } from '../../financial-category/financial-category.component';
+import { FinancialCategoryService } from '../../financial-category/financial-category.service';
+import { FinancialReleaseEditComponent } from '../../financial-release/financial-release-edit/financial-release-edit.component';
+import { FinancialReleaseComponent } from '../../financial-release/financial-release.component';
+import { FinancialReleaseService } from '../../financial-release/financial-release.service';
 import { AccommodationComponent } from '../../sector/accommodation/accommodation.component';
 import { SectorEditComponent } from '../../sector/sector-edit/sector-edit.component';
 import { SectorComponent } from '../../sector/sector.component';
@@ -217,6 +224,7 @@ const maskConfig: Partial<IConfig> = {
 
     NotificationsComponent,
     ConfirmDialogComponent,
+    DiscountDialogComponent,
 
     CameraComponent,
     CameraDialogComponent,
@@ -264,6 +272,11 @@ const maskConfig: Partial<IConfig> = {
     PaymentMethodComponent,
     PaymentMethodEditComponent,
 
+    FinancialCategoryComponent,
+    FinancialCategoryEditComponent,
+    FinancialReleaseComponent,
+    FinancialReleaseEditComponent,
+
     ReportComponent,
     ReportEditComponent,
 
@@ -287,6 +300,8 @@ const maskConfig: Partial<IConfig> = {
     ProcedureService,
     SpecialityService,
     PaymentMethodService,
+    FinancialCategoryService,
+    FinancialReleaseService,
     ReportService,
     { provide: MatPaginatorIntl, useClass: CustomPaginatorIntl },
   ]

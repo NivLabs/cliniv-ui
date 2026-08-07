@@ -40,7 +40,9 @@
         <app-data-table [items]="datas" [columns]="columns" [actions]="actions" [loading]="loading" [dataNotFound]="dataNotFound"
             emptyMessage="Nenhum formulário encontrado..." [length]="page.totalElements"
             [pageIndex]="pageSettings.page" [pageSize]="pageSettings.size" (page)="onPageChange($event)"
-            (rowClick)="openDialog($event.id)">
+            [sortActive]="pageSettings.orderBy || ''"
+            [sortDirection]="pageSettings.direction ? pageSettings.direction.toLowerCase() : ''"
+            (sortChange)="onSortChange($event)" (rowClick)="openDialog($event.id)">
         </app-data-table>
     </div>
 </div>

@@ -4,6 +4,7 @@ import { ErrorHandlerService } from 'app/core/error-handler.service';
 import { NotificationsComponent } from 'app/core/notification/notifications.component';
 import { MatDialog } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
+import { Sort } from '@angular/material/sort';
 import { PatientEditComponent } from './patient-edit/patient-edit.component';
 import { Page, Pageable } from 'app/model/Util';
 import { PatientFilters } from '../model/Patient'
@@ -34,14 +35,21 @@ export class PatientComponent implements OnInit, AfterViewInit, OnDestroy {
     {
       key: 'fullName', label: 'Nome',
       cell: row => row.fullName + (row.type === 'NOT_IDENTIFIED' ? ' [Não Identificado]' : ''),
-      cellClass: row => row.type === 'NOT_IDENTIFIED' ? 'name-not-identified' : ''
+      cellClass: row => row.type === 'NOT_IDENTIFIED' ? 'name-not-identified' : '',
+      sortable: true, sortKey: 'person.fullName'
     },
-    { key: 'id', label: 'Matrícula' },
-    { key: 'cnsNumber', label: 'CNS', cell: row => row.cnsNumber || '-' },
-    { key: 'bornDate', label: 'Nascimento', cell: row => formatDate(row.bornDate) },
-    { key: 'gender', label: 'Gênero', cell: row => row.gender === 'M' ? 'Masculino' : (row.gender === 'F' ? 'Feminino' : '-') },
-    { key: 'cpf', label: 'CPF', cell: row => row.cpf ? formatCpf(row.cpf) : '-' },
-    { key: 'principalNumber', label: 'Telefone', cell: row => formatPhone(row.principalNumber) }
+    { key: 'id', label: 'Matrícula', sortable: true },
+    { key: 'cnsNumber', label: 'CNS', cell: row => row.cnsNumber || '-', sortable: true },
+    { key: 'bornDate', label: 'Nascimento', cell: row => formatDate(row.bornDate), sortable: true, sortKey: 'person.bornDate' },
+    {
+      key: 'gender', label: 'Gênero', cell: row => row.gender === 'M' ? 'Masculino' : (row.gender === 'F' ? 'Feminino' : '-'),
+      sortable: true, sortKey: 'person.gender'
+    },
+    { key: 'cpf', label: 'CPF', cell: row => row.cpf ? formatCpf(row.cpf) : '-', sortable: true, sortKey: 'person.cpf' },
+    {
+      key: 'principalNumber', label: 'Telefone', cell: row => formatPhone(row.principalNumber),
+      sortable: true, sortKey: 'person.principalNumber'
+    }
   ];
 
   getRowClass = (row: any) => row.type === 'NOT_IDENTIFIED' ? 'row-danger' : 'row-active';
@@ -107,6 +115,18 @@ export class PatientComponent implements OnInit, AfterViewInit, OnDestroy {
   onPageChange(event: PageEvent) {
     this.pageSettings.page = event.pageIndex;
     this.pageSettings.size = event.pageSize;
+    this.fetch();
+  }
+
+  onSortChange(sort: Sort) {
+    this.pageSettings.page = 0;
+    if (sort.direction) {
+      this.pageSettings.orderBy = sort.active;
+      this.pageSettings.direction = sort.direction.toUpperCase() as 'ASC' | 'DESC';
+    } else {
+      delete this.pageSettings.orderBy;
+      delete this.pageSettings.direction;
+    }
     this.fetch();
   }
 

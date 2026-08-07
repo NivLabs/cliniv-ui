@@ -5,6 +5,7 @@ import { NotificationsComponent } from 'app/core/notification/notifications.comp
 import { DocumentTemplateFilter } from 'app/model/DocumentTemplate';
 import { Page, Pageable } from 'app/model/Util';
 import { PageEvent } from '@angular/material/paginator';
+import { Sort } from '@angular/material/sort';
 import { DocumentTemplateEditComponent } from './document-template-edit/document-template-edit.component';
 import { DocumentTemplateService } from './document-template.service';
 import { DataTableColumn } from '../components/data-table/data-table.component';
@@ -27,7 +28,7 @@ export class DocumentTemplateComponent implements OnInit {
 
   columns: Array<DataTableColumn> = [
     { key: 'id', label: 'Identificador' },
-    { key: 'description', label: 'Descrição' }
+    { key: 'description', label: 'Descrição', sortable: true }
   ];
 
   constructor(
@@ -60,6 +61,18 @@ export class DocumentTemplateComponent implements OnInit {
   onPageChange(event: PageEvent) {
     this.pageSettings.page = event.pageIndex;
     this.pageSettings.size = event.pageSize;
+    this.fetch();
+  }
+
+  onSortChange(sort: Sort) {
+    this.pageSettings.page = 0;
+    if (sort.direction) {
+      this.pageSettings.orderBy = sort.active;
+      this.pageSettings.direction = sort.direction.toUpperCase() as 'ASC' | 'DESC';
+    } else {
+      delete this.pageSettings.orderBy;
+      delete this.pageSettings.direction;
+    }
     this.fetch();
   }
 
