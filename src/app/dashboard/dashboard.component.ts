@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { ErrorHandlerService } from 'app/core/error-handler.service';
 import { UtilService } from 'app/core/util.service';
 import { Sticker } from 'app/model/Sticker';
@@ -76,7 +77,8 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
     private errorHandler: ErrorHandlerService,
     private notification: NotificationsComponent,
     private dialog: MatDialog,
-    private tourService: TourService) { }
+    private tourService: TourService,
+    private router: Router) { }
 
   ngAfterViewInit(): void {
     this.tourService.initialize(this.getTourSteps(), this.tourStepDefaults);
@@ -138,6 +140,9 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
       this.loading = false;
       this.errorHandler.handle(err, null);
     });
+  }
 
+  navigateTo(route: string): void {
+    this.router.navigate([route]);
   }
 }

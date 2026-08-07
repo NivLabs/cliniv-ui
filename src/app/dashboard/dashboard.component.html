@@ -1,166 +1,243 @@
-<div class="main-content">
-    <img class="displayed-log" alt="NLGP Logo" src="{{'/assets/img/' + logoName + '.png'}}" width="20%" />
-    <div class="container-fluid">
-        <div class="row" tourAnchor="dashboardStats">
-            <div class="col-lg-3 col-md-6 col-sm-6">
-                <div class="card card-stats">
-                    <div class="card-header card-header-warning card-header-icon">
-                        <div class="card-icon">
-                            <i class="material-icons">person_add</i>
-                        </div>
-                        <p class="card-category">Novos pacientes</p>
-                        <h3 class="card-title">{{data.newPatients}}
-                        </h3>
-                    </div>
-                    <div class="card-footer">
-                        <div class="stats">
-                            <i class="material-icons">date_range</i> Hoje
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-6">
-                <div class="card card-stats">
-                    <div class="card-header card-header-success card-header-icon">
-                        <div class="card-icon">
-                            <i class="material-icons">check</i>
-                        </div>
-                        <p class="card-category">Atendidos</p>
-                        <h3 class="card-title">{{data.medicalCareProvided}}</h3>
-                    </div>
-                    <div class="card-footer">
-                        <div class="stats">
-                            <i class="material-icons">date_range</i> Hoje
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-6">
-                <div class="card card-stats">
-                    <div class="card-header card-header-danger card-header-icon">
-                        <div class="card-icon">
-                            <i class="material-icons">trending_down</i>
-                        </div>
-                        <p class="card-category">Cancelados</p>
-                        <h3 class="card-title">{{data.canceled}}</h3>
-                    </div>
-                    <div class="card-footer">
-                        <div class="stats">
-                            <i class="material-icons">date_range</i> Hoje
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-6">
-                <div class="card card-stats">
-                    <div class="card-header card-header-info card-header-icon">
-                        <div class="card-icon">
-                            <i class="material-icons">trending_up</i>
-                        </div>
-                        <p class="card-category">Confirmados</p>
-                        <h3 class="card-title">{{data.confirmed}}</h3>
-                    </div>
-                    <div class="card-footer">
-                        <div class="stats">
-                            <i class="material-icons">date_range</i> Hoje
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="card" tourAnchor="dashboardAppointments">
-                    <div class="card-header card-header-success">
-                        <h4 class="card-title">Agendamentos confirmados <small>(hoje)</small></h4>
-                    </div>
-                    <div class="card-body">
-                        <div *ngIf="data.appointments.length == 0" class="next-appointment">
-                            Nenhum agendamento confirmado para hoje
-                        </div>
-                        <div *ngFor="let appointment of data.appointments" class="next-appointment">
-                            {{appointment.schedulingDateAndTime | date: 'dd/MM/yyyy, HH:mm'}} |
-                            {{appointment.patientName}}
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card" tourAnchor="dashboardProfessionalStats">
-                    <div class="card-header card-header-info">
-                        <h4 class="card-title">Estatísticas do profissional</h4>
-                    </div>
-                    <div class="card-body">
-                        <div class="container">
-                            <div class="row">
-                                <div class="statistics-card col-md-4">
-                                    <div class="statistics-card-title">
-                                        Você possui
-                                    </div>
-                                    <div class="statistics-card-value">
-                                        {{data.totalActiveAttendance}}
-                                    </div>
-                                    <div class="statistics-card-footer">atendimentos ativos</div>
-                                </div>
-
-                                <div class="statistics-card col-md-4">
-                                    <div class="statistics-card-title">
-                                        Você já atendeu
-                                    </div>
-                                    <div class="statistics-card-value">
-                                        {{data.totalAttendanceProvided}}
-                                    </div>
-                                    <div class="statistics-card-footer">pacientes hoje</div>
-                                </div>
-
-                                <div class="statistics-card col-md-4">
-                                    <div class="statistics-card-title">
-                                        Existem
-                                    </div>
-                                    <div class="statistics-card-value">
-                                        {{data.totalUnconfirmedAppointment}}
-                                    </div>
-                                    <div class="statistics-card-footer">pacientes não confirmados</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class="card" tourAnchor="dashboardStickers">
-                    <div class="card-header card-header-warning">
-                        <h4 class="card-title">Lembretes
-                            <button matTooltip="Adicionar lembrete" (click)="openDialog(null)" mat-icon-button
-                                class="add-sticker">
-                                <mat-icon>add</mat-icon>
-                            </button>
-                        </h4>
-                    </div>
-                    <div class="card-body">
-                        <div class="container">
-                            <div class="row">
-                                <div *ngIf="data.stickers.length == 0" class="col-md-12 next-appointment">
-                                    Nenhum lembrete encontrado
-                                </div>
-                                <div *ngFor="let sticker of data.stickers" class="col-md-6">
-                                    <div class="postit">
-                                        <div class="postit-header">
-                                            <div class="postit-header-title">{{sticker.createdAt | date: 'dd/MM/yyyy'}}
-                                            </div>
-                                            <div class="postit-header-action" (click)="deleteSticker(sticker.id)"><i
-                                                    class="fa fa-trash"></i></div>
-                                        </div>
-                                        <div class="postit-body" (click)="openDialog(sticker)">{{sticker.description}}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+<div class="dashboard-container">
+  <!-- Header com Logo e Saudação -->
+  <div class="dashboard-header">
+    <div class="header-left">
+      <img class="dashboard-logo" alt="Logo" src="{{'/assets/img/' + logoName + '.png'}}" />
+      <div class="header-text">
+        <h1>Bem-vindo ao CliNiv</h1>
+        <p>Gerencie seus atendimentos e pacientes de forma eficiente</p>
+      </div>
     </div>
+    <div class="header-date">
+      <span class="date-display">{{ 'today' | date: 'EEEE, dd MMMM yyyy' | uppercase }}</span>
+    </div>
+  </div>
+
+  <!-- Grid Principal de KPIs -->
+  <div class="kpi-grid">
+    <!-- Card 1: Novos Pacientes -->
+    <div class="kpi-card kpi-card-primary">
+      <div class="kpi-icon">
+        <mat-icon>person_add</mat-icon>
+      </div>
+      <div class="kpi-content">
+        <p class="kpi-label">Novos Pacientes</p>
+        <h2 class="kpi-value">{{ data.newPatients }}</h2>
+        <span class="kpi-period">Hoje</span>
+      </div>
+      <div class="kpi-trend up">
+        <mat-icon>trending_up</mat-icon>
+      </div>
+    </div>
+
+    <!-- Card 2: Atendidos -->
+    <div class="kpi-card kpi-card-success">
+      <div class="kpi-icon">
+        <mat-icon>check_circle</mat-icon>
+      </div>
+      <div class="kpi-content">
+        <p class="kpi-label">Atendidos</p>
+        <h2 class="kpi-value">{{ data.medicalCareProvided }}</h2>
+        <span class="kpi-period">Hoje</span>
+      </div>
+      <div class="kpi-trend up">
+        <mat-icon>trending_up</mat-icon>
+      </div>
+    </div>
+
+    <!-- Card 3: Confirmados -->
+    <div class="kpi-card kpi-card-info">
+      <div class="kpi-icon">
+        <mat-icon>event_available</mat-icon>
+      </div>
+      <div class="kpi-content">
+        <p class="kpi-label">Confirmados</p>
+        <h2 class="kpi-value">{{ data.confirmed }}</h2>
+        <span class="kpi-period">Hoje</span>
+      </div>
+      <div class="kpi-trend up">
+        <mat-icon>trending_up</mat-icon>
+      </div>
+    </div>
+
+    <!-- Card 4: Cancelados -->
+    <div class="kpi-card kpi-card-danger">
+      <div class="kpi-icon">
+        <mat-icon>cancel</mat-icon>
+      </div>
+      <div class="kpi-content">
+        <p class="kpi-label">Cancelados</p>
+        <h2 class="kpi-value">{{ data.canceled }}</h2>
+        <span class="kpi-period">Hoje</span>
+      </div>
+      <div class="kpi-trend">
+        <mat-icon>trending_down</mat-icon>
+      </div>
+    </div>
+  </div>
+
+  <!-- Seção Principal: Atendimentos e Estatísticas -->
+  <div class="main-grid">
+    <!-- Próximos Atendimentos -->
+    <div class="card card-large card-appointments" tourAnchor="dashboardAppointments">
+      <div class="card-header">
+        <div class="header-title">
+          <mat-icon class="header-icon">schedule</mat-icon>
+          <h3>Próximos Atendimentos</h3>
+        </div>
+        <span class="badge badge-count">{{ data.appointments.length }}</span>
+      </div>
+      <div class="card-body">
+        <div *ngIf="data.appointments.length === 0" class="empty-state">
+          <mat-icon class="empty-icon">event_busy</mat-icon>
+          <p>Nenhum agendamento confirmado para hoje</p>
+        </div>
+        <div *ngIf="data.appointments.length > 0" class="appointments-list">
+          <div *ngFor="let appointment of data.appointments; let last = last" class="appointment-item" [class.last]="last">
+            <div class="appointment-time">
+              <span class="time">{{ appointment.schedulingDateAndTime | date: 'HH:mm' }}</span>
+              <span class="date">{{ appointment.schedulingDateAndTime | date: 'dd/MM' }}</span>
+            </div>
+            <div class="appointment-info">
+              <p class="patient-name">{{ appointment.patientName }}</p>
+              <p class="patient-detail">ID: {{ appointment.patientId }}</p>
+            </div>
+            <div class="appointment-action">
+              <button mat-icon-button matTooltip="Abrir atendimento">
+                <mat-icon>arrow_forward</mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Estatísticas Profissional -->
+    <div class="card card-medium card-stats" tourAnchor="dashboardProfessionalStats">
+      <div class="card-header">
+        <div class="header-title">
+          <mat-icon class="header-icon">bar_chart</mat-icon>
+          <h3>Suas Estatísticas</h3>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="stat-item">
+          <div class="stat-icon stat-icon-primary">
+            <mat-icon>assignment</mat-icon>
+          </div>
+          <div class="stat-info">
+            <p class="stat-label">Atendimentos Ativos</p>
+            <h3 class="stat-value">{{ data.totalActiveAttendance }}</h3>
+          </div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-icon stat-icon-success">
+            <mat-icon>person_check</mat-icon>
+          </div>
+          <div class="stat-info">
+            <p class="stat-label">Pacientes Atendidos Hoje</p>
+            <h3 class="stat-value">{{ data.totalAttendanceProvided }}</h3>
+          </div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-icon stat-icon-warning">
+            <mat-icon>pending_actions</mat-icon>
+          </div>
+          <div class="stat-info">
+            <p class="stat-label">Não Confirmados</p>
+            <h3 class="stat-value">{{ data.totalUnconfirmedAppointment }}</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lembretes -->
+    <div class="card card-medium card-reminders" tourAnchor="dashboardStickers">
+      <div class="card-header">
+        <div class="header-title">
+          <mat-icon class="header-icon">sticky_note_2</mat-icon>
+          <h3>Lembretes</h3>
+        </div>
+        <button mat-fab class="add-reminder-btn" matTooltip="Adicionar lembrete" (click)="openDialog(null)">
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+      <div class="card-body">
+        <div *ngIf="data.stickers.length === 0" class="empty-state">
+          <mat-icon class="empty-icon">edit_note</mat-icon>
+          <p>Nenhum lembrete criado</p>
+        </div>
+        <div *ngIf="data.stickers.length > 0" class="reminders-grid">
+          <div *ngFor="let sticker of data.stickers" class="reminder-card" (click)="openDialog(sticker)">
+            <div class="reminder-header">
+              <span class="reminder-date">{{ sticker.createdAt | date: 'dd/MM/yyyy' }}</span>
+              <button mat-icon-button class="delete-btn" (click)="deleteSticker(sticker.id); $event.stopPropagation()">
+                <mat-icon>delete_outline</mat-icon>
+              </button>
+            </div>
+            <div class="reminder-content">{{ sticker.description }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Seção Adicional: Informações de Faturamento (Fase 3) -->
+  <div class="secondary-grid">
+    <!-- Card de Faturamento -->
+    <div class="card card-financial">
+      <div class="card-header">
+        <div class="header-title">
+          <mat-icon class="header-icon">payments</mat-icon>
+          <h3>Faturamento</h3>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="financial-summary">
+          <div class="financial-item">
+            <span class="financial-label">Lançamentos Pendentes</span>
+            <h4 class="financial-value">0</h4>
+          </div>
+          <div class="financial-item">
+            <span class="financial-label">Lotes TISS</span>
+            <h4 class="financial-value">0</h4>
+          </div>
+          <div class="financial-item">
+            <span class="financial-label">Glosas</span>
+            <h4 class="financial-value">0</h4>
+          </div>
+        </div>
+        <button mat-stroked-button class="financial-link" (click)="navigateTo('/financial-release')">
+          <mat-icon>arrow_forward</mat-icon>
+          Ver Detalhes
+        </button>
+      </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="card card-quick-actions">
+      <div class="card-header">
+        <div class="header-title">
+          <mat-icon class="header-icon">lightning_bolt</mat-icon>
+          <h3>Ações Rápidas</h3>
+        </div>
+      </div>
+      <div class="card-body">
+        <button mat-raised-button class="quick-action-btn btn-primary" (click)="navigateTo('/appointment')">
+          <mat-icon>add_event</mat-icon>
+          Novo Agendamento
+        </button>
+        <button mat-raised-button class="quick-action-btn btn-success" (click)="navigateTo('/patient')">
+          <mat-icon>person_add</mat-icon>
+          Novo Paciente
+        </button>
+        <button mat-raised-button class="quick-action-btn btn-info" (click)="navigateTo('/attendance')">
+          <mat-icon>assignment</mat-icon>
+          Novo Atendimento
+        </button>
+      </div>
+    </div>
+  </div>
 </div>
+
 <app-loading [show]="loading"></app-loading>
