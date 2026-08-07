@@ -92,6 +92,31 @@
   }
 }
 
+/* ===== CARET (seta de submenu) ===== */
+/* Esconde o caret em modo mini */
+@media (min-width: 991px) {
+  body.sidebar-mini .caret {
+    display: none !important;
+  }
+}
+
+/* ===== ACTIVE STATE ===== */
+/* Remove styling de active em modo mini */
+@media (min-width: 991px) {
+  body.sidebar-mini .nav-item.active > [data-toggle="collapse"],
+  body.sidebar-mini .nav-item.active > a,
+  body.sidebar-mini .nav-item.active > a i {
+    background-color: transparent !important;
+    color: inherit !important;
+    box-shadow: none !important;
+  }
+
+  /* Remove a barra de lado (pseudo-elemento) do active em modo mini */
+  body.sidebar-mini .nav-item.active::before {
+    display: none !important;
+  }
+}
+
 /* ===== TOGGLE SIDEBAR PIN ===== */
 .nav-item .nav-link i.material-icons {
   transition: transform 0.2s ease;
