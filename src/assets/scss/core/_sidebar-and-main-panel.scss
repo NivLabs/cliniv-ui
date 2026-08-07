@@ -456,89 +456,62 @@
                 }
             }
 
-            .sidebar-wrapper{
-                > .nav [data-toggle="collapse"] ~ div > ul > li > a .sidebar-normal,
-                .user .user-info [data-toggle="collapse"] ~ div > ul > li > a .sidebar-normal,
-                .user .user-info > a > span,
-                > .nav li > a p{
-                    @include transform-translate-x(-25px);
-                    opacity: 0;
+            /* Enquanto genuinamente recolhido (sem hover): esconde texto/caret e a
+               marcação de item ativo. Escopado em ':not(:hover)' — ao passar o mouse,
+               essas regras deixam de bater e o CSS original (mais acima no arquivo, e
+               os mixins de cor por tema em _sidebar-color.scss) volta a valer sozinho,
+               sem precisarmos re-declarar cor/background manualmente aqui. */
+            &:not(:hover){
+                .sidebar-wrapper{
+                    /* Seletor descendente (sem '>'), pra não depender de .nav ser filho
+                       direto de .sidebar-wrapper (há um .nav-container no meio no HTML). */
+                    .nav .sidebar-normal,
+                    .user .user-info [data-toggle="collapse"] ~ div > ul > li > a .sidebar-normal,
+                    .user .user-info > a > span{
+                        @include transform-translate-x(-25px);
+                        opacity: 0;
+                    }
+
+                    /* Sem scroll enquanto recolhido — todo conteúdo precisa caber */
+                    overflow: hidden !important;
+                }
+
+                .nav .nav-item{
+                    .caret{
+                        display: none !important;
+                    }
+
+                    &.active > [data-toggle="collapse"],
+                    &.active > a{
+                        background-color: transparent !important;
+                        box-shadow: none !important;
+
+                        i, p{
+                            color: #a9afbb !important;
+                        }
+                    }
                 }
             }
         }
 
-        .sidebar-wrapper{
-            /* Esconde texto/caret dos itens (top-level e submenu) enquanto recolhido.
-               Usa seletor descendente (sem '>') pra não depender de .nav ser filho
-               direto de .sidebar-wrapper (há um .nav-container no meio no nosso HTML). */
-            .nav .sidebar-normal{
-                @include transform-translate-x(-25px);
-                opacity: 0;
-            }
-
-            .user .user-info [data-toggle="collapse"] ~ div > ul > li > a .sidebar-normal,
-            .user .user-info > a > span{
-                @include transform-translate-x(-25px);
-                opacity: 0;
-            }
-        }
-
-        .nav .nav-item{
-            /* Esconde caret e remove styling de active enquanto recolhido */
-            .caret{
-                display: none !important;
-            }
-
-            &.active > [data-toggle="collapse"],
-            &.active > a{
-                background-color: transparent !important;
-                box-shadow: none !important;
-
-                i, p{
-                    color: #a9afbb !important;
-                }
-            }
-        }
-
-        /* Sem scroll enquanto recolhido — todo o conteúdo precisa caber */
-        .sidebar-wrapper{
-            overflow: hidden !important;
-        }
-    }
-
-    .sidebar-mini .sidebar:hover{
-        width: 260px;
-
-        .logo{
-            a.logo-normal{
-                opacity: 1;
-                @include transform-translate-x(0px);
-            }
-        }
-
-        .sidebar-wrapper{
+        .sidebar:hover{
             width: 260px;
-            overflow: auto !important;
 
-            .nav .sidebar-normal,
-            .user .user-info [data-toggle="collapse"] ~ div > ul > li > a .sidebar-normal,
-            .user .user-info > a > span{
-                @include transform-translate-x(0px);
-                opacity: 1;
-            }
-        }
-
-        .nav .nav-item{
-            .caret{
-                display: inline-block !important;
+            .logo{
+                a.logo-normal{
+                    opacity: 1;
+                    @include transform-translate-x(0px);
+                }
             }
 
-            &.active > [data-toggle="collapse"],
-            &.active > a{
-                background-color: rgba(200, 200, 200, 0.2) !important;
+            .sidebar-wrapper{
+                width: 260px;
 
-                i, p{
-                    color: $white-color !important;
+                .nav .sidebar-normal,
+                .user .user-info [data-toggle="collapse"] ~ div > ul > li > a .sidebar-normal,
+                .user .user-info > a > span{
+                    @include transform-translate-x(0px);
+                    opacity: 1;
                 }
             }
         }
@@ -554,50 +527,9 @@
       }
     }
 
-    /* Sidebar Fixado: mantém largura completa (não encolhe no desktop) */
-    .sidebar-fixed {
-        .sidebar,
-        .sidebar .sidebar-wrapper {
-            width: 260px !important;
-        }
-
-        .sidebar .logo a.logo-normal {
-            opacity: 1 !important;
-            @include transform-translate-x(0px);
-        }
-
-        .sidebar .sidebar-wrapper {
-            overflow: auto !important;
-
-            .nav .sidebar-normal,
-            .user .user-info [data-toggle="collapse"] ~ div > ul > li > a .sidebar-normal,
-            .user .user-info > a > span {
-                @include transform-translate-x(0px);
-                opacity: 1 !important;
-            }
-        }
-
-        .sidebar .nav .nav-item {
-            .caret {
-                display: inline-block !important;
-            }
-
-            &.active > [data-toggle="collapse"],
-            &.active > a {
-                background-color: rgba(200, 200, 200, 0.2) !important;
-
-                i, p {
-                    color: $white-color !important;
-                }
-            }
-        }
-
-        .sidebar:hover {
-            width: 260px;
-        }
-
-        .main-panel {
-            width: calc(100% - 260px);
-        }
-    }
+    /* Sidebar Fixado: nenhuma regra extra necessária aqui. Fixar só remove a
+       classe 'sidebar-mini' do body (ver SidebarComponent.applySidebarState()),
+       então a sidebar volta ao comportamento padrão do arquivo — sempre 260px,
+       texto sempre visível, caret e cor de item ativo do tema (mixins em
+       _sidebar-color.scss) — sem precisar reafirmar nada disso aqui. */
 }
