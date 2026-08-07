@@ -1,0 +1,80 @@
+<div class="card">
+    <div class="card-header card-header-info">
+        <h4 class="card-title">Repasse TISS</h4>
+        <p class="card-category">Pagamento e dados bancários do repasse</p>
+    </div>
+    <div class="card-body">
+        <form #form="ngForm" autocomplete="off">
+            <div class="row">
+                <div class="col-md-2">
+                    <mat-form-field>
+                        <input matInput placeholder="ID" name="id" [(ngModel)]="dataToForm.id" #id disabled />
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <mat-form-field>
+                        <mat-label>ID Lote TISS *</mat-label>
+                        <input matInput type="number" name="tissBatchId"
+                            [(ngModel)]="dataToForm.tissBatchId" required />
+                    </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                    <mat-form-field>
+                        <mat-label>ID Lançamento Repasse *</mat-label>
+                        <input matInput type="text" name="repaymentFinancialReleaseId"
+                            [(ngModel)]="dataToForm.repaymentFinancialReleaseId" required />
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <mat-form-field>
+                        <mat-label>Valor do Repasse (R$) *</mat-label>
+                        <span matPrefix>R$ </span>
+                        <input matInput type="number" name="repaymentValue"
+                            [(ngModel)]="dataToForm.repaymentValue" step="0.01" required />
+                    </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                    <mat-form-field>
+                        <mat-label>Data de Pagamento *</mat-label>
+                        <input matInput type="date" name="paymentDate"
+                            [(ngModel)]="dataToForm.paymentDate" required />
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <mat-form-field>
+                        <mat-label>Banco *</mat-label>
+                        <input matInput type="number" name="bankNumber"
+                            [(ngModel)]="dataToForm.bankNumber" required />
+                    </mat-form-field>
+                </div>
+                <div class="col-md-3">
+                    <mat-form-field>
+                        <mat-label>Agência *</mat-label>
+                        <input matInput type="text" name="agencyNumber"
+                            [(ngModel)]="dataToForm.agencyNumber" required />
+                    </mat-form-field>
+                </div>
+                <div class="col-md-3">
+                    <mat-form-field>
+                        <mat-label>Conta *</mat-label>
+                        <input matInput type="text" name="accountNumber"
+                            [(ngModel)]="dataToForm.accountNumber" required />
+                    </mat-form-field>
+                </div>
+            </div>
+            <app-dialog-form-actions [showNew]="!!dataToForm.id" newLabel="Novo Repasse"
+                newTooltip="Adiciona repasse" [saveDisabled]="!form.valid" [showDelete]="!!dataToForm.id"
+                (new)="dataToForm = new TissRepasse(); form.resetForm()"
+                (delete)="delete()"
+                (cancel)="onCancelClick()" (save)="save()"></app-dialog-form-actions>
+            <div class="clearfix"></div>
+        </form>
+    </div>
+</div>
+<app-loading [show]="loading"></app-loading>

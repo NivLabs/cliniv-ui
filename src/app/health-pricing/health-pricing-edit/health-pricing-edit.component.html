@@ -1,0 +1,64 @@
+<div class="card">
+    <div class="card-header card-header-info">
+        <h4 class="card-title">Tabela de Preço</h4>
+        <p class="card-category">Preço negociado entre operadora e procedimento</p>
+    </div>
+    <div class="card-body">
+        <form #form="ngForm" autocomplete="off">
+            <div class="row">
+                <div class="col-md-3">
+                    <mat-form-field>
+                        <input matInput placeholder="ID" name="id" [(ngModel)]="dataToForm.id" #id disabled />
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <mat-form-field>
+                        <mat-label>Operadora *</mat-label>
+                        <input matInput placeholder="ID da Operadora" name="healthOperatorId"
+                            [(ngModel)]="dataToForm.healthOperatorId" required />
+                    </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                    <mat-form-field>
+                        <input matInput placeholder="Nome da Operadora" name="healthOperatorName"
+                            [(ngModel)]="dataToForm.healthOperatorName" disabled />
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <mat-form-field>
+                        <mat-label>Procedimento *</mat-label>
+                        <input matInput placeholder="ID do Procedimento" name="procedureId"
+                            [(ngModel)]="dataToForm.procedureId" required />
+                    </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                    <mat-form-field>
+                        <input matInput placeholder="Descrição do Procedimento" name="procedureDescription"
+                            [(ngModel)]="dataToForm.procedureDescription" disabled />
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <mat-form-field>
+                        <mat-label>Valor Negociado (R$) *</mat-label>
+                        <span matPrefix>R$ </span>
+                        <input matInput type="number" name="negotiatedValue"
+                            [(ngModel)]="dataToForm.negotiatedValue" step="0.01" required />
+                    </mat-form-field>
+                </div>
+            </div>
+            <app-dialog-form-actions [showNew]="!!dataToForm.id" newLabel="Nova Tabela de Preço"
+                newTooltip="Adiciona tabela de preço" [saveDisabled]="!form.valid" [showDelete]="!!dataToForm.id"
+                (new)="dataToForm = new HealthPricingTable(); form.resetForm()"
+                (delete)="delete()"
+                (cancel)="onCancelClick()" (save)="save()"></app-dialog-form-actions>
+            <div class="clearfix"></div>
+        </form>
+    </div>
+</div>
+<app-loading [show]="loading"></app-loading>

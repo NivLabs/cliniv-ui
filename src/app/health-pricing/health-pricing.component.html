@@ -1,0 +1,51 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-info">
+                        <h4 class="card-title">Tabelas de Preço</h4>
+                        <p class="card-category">Gerenciar preços negociados por operadora e procedimento</p>
+                    </div>
+                    <div class="card-body">
+                        <form #form="ngForm" autocomplete="off">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <mat-form-field>
+                                        <input matInput placeholder="ID Operadora [ENTER]" name="healthOperatorId"
+                                            [(ngModel)]="filters.healthOperatorId" type="number"
+                                            (keypress)="enterKeyPress($event)" />
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-3">
+                                    <mat-form-field>
+                                        <input matInput placeholder="ID Procedimento [ENTER]" name="procedureId"
+                                            [(ngModel)]="filters.procedureId" type="number"
+                                            (keypress)="enterKeyPress($event)" />
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <button mat-raised-button type="button" (click)="applyFilter()"
+                                class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-danger pull-right"
+                                matTooltip="Aplica Filtro">
+                                <span class="fa fa-search"></span> Filtrar</button>
+                            <button mat-raised-button type="button" (click)="openDialog(null)"
+                                matTooltip="Nova tabela de preço"
+                                class="col-12 col-sm-12 col-md-4 col-lg-3 btn btn-info pull-right"><span
+                                    class="fa fa-plus"></span> Nova Tabela</button>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <app-data-table [items]="datas" [columns]="columns" [loading]="loading" [dataNotFound]="dataNotFound"
+            emptyMessage="Nenhuma tabela de preço encontrada..." [length]="page.totalElements"
+            [pageIndex]="pageSettings.page" [pageSize]="pageSettings.size" (page)="onPageChange($event)"
+            [sortActive]="pageSettings.orderBy || ''"
+            [sortDirection]="pageSettings.direction ? pageSettings.direction.toLowerCase() : ''"
+            (sortChange)="onSortChange($event)" (rowClick)="openDialog($event)">
+        </app-data-table>
+    </div>
+</div>
+<app-loading [show]="loading"></app-loading>

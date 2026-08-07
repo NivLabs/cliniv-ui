@@ -19,7 +19,15 @@ export const ROUTES: RouteInfo[] = [
   {
     path: '', title: 'Financeiro', icon: 'attach_money', class: '', collapse: true, routes: [
       { path: '/financial-release', title: 'Lançamentos', icon: 'label_important', class: '', collapse: false, routes: null },
-      { path: '/financial-category', title: 'Categorias', icon: 'label_important', class: '', collapse: false, routes: null }
+      { path: '/financial-category', title: 'Categorias', icon: 'label_important', class: '', collapse: false, routes: null },
+      { path: '/health-pricing', title: 'Tabelas de Preço', icon: 'label_important', class: '', collapse: false, routes: null }
+    ]
+  },
+  {
+    path: '', title: 'Faturamento TISS', icon: 'description', class: '', collapse: true, routes: [
+      { path: '/tiss/batch', title: 'Lotes TISS', icon: 'label_important', class: '', collapse: false, routes: null },
+      { path: '/tiss/glosa', title: 'Glosas', icon: 'label_important', class: '', collapse: false, routes: null },
+      { path: '/tiss/repasse', title: 'Repartes', icon: 'label_important', class: '', collapse: false, routes: null }
     ]
   },
   { path: '/appointment', title: 'Agenda', icon: 'schedule', class: '', collapse: false, routes: null },

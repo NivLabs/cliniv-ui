@@ -6,6 +6,10 @@ import { DynamicFormComponent } from 'app/dynamic-form/dynamic-form.component';
 import { FinancialCategoryComponent } from 'app/financial-category/financial-category.component';
 import { FinancialReleaseComponent } from 'app/financial-release/financial-release.component';
 import { HealthOperatorComponent } from 'app/healthOperator/health-operator.component';
+import { HealthPricingComponent } from 'app/health-pricing/health-pricing.component';
+import { TissBatchComponent } from 'app/tiss/tiss-batch/tiss-batch.component';
+import { TissGlosaComponent } from 'app/tiss/tiss-glosa/tiss-glosa.component';
+import { TissRepasseComponent } from 'app/tiss/tiss-repasse/tiss-repasse.component';
 import { PaymentMethodComponent } from 'app/payment-method/payment-method.component';
 import { ReportComponent } from 'app/report/report.component';
 import { SpecialityComponent } from 'app/speciality/speciality.component';
@@ -37,6 +41,10 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'payment-methods', component: PaymentMethodComponent, canLoad: [AuthGuard] },
     { path: 'financial-release', component: FinancialReleaseComponent, canLoad: [AuthGuard] },
     { path: 'financial-category', component: FinancialCategoryComponent, canLoad: [AuthGuard] },
+    { path: 'health-pricing', component: HealthPricingComponent, canLoad: [AuthGuard] },
+    { path: 'tiss/batch', component: TissBatchComponent, canLoad: [AuthGuard] },
+    { path: 'tiss/glosa', component: TissGlosaComponent, canLoad: [AuthGuard] },
+    { path: 'tiss/repasse', component: TissRepasseComponent, canLoad: [AuthGuard] },
     { path: 'user', component: UserComponent, canLoad: [AuthGuard] },
     { path: 'user-profile', component: UserProfileComponent, canLoad: [AuthGuard] },
     { path: 'settings', component: SettingsComponent, canLoad: [AuthGuard] },

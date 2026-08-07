@@ -125,6 +125,18 @@ import { MedicalRecordComponent } from '../../visit/medical-record.component';
 import { MedicalRecordService } from '../../visit/medical-record.service';
 import { NewAttendanceComponent } from '../../visit/newVisit/new-attendance.component';
 import { AdminLayoutRoutes } from './admin-layout.routing';
+import { HealthPricingComponent } from '../../health-pricing/health-pricing.component';
+import { HealthPricingEditComponent } from '../../health-pricing/health-pricing-edit/health-pricing-edit.component';
+import { HealthPricingService } from '../../health-pricing/health-pricing.service';
+import { TissBatchComponent } from '../../tiss/tiss-batch/tiss-batch.component';
+import { TissBatchEditComponent } from '../../tiss/tiss-batch/tiss-batch-edit/tiss-batch-edit.component';
+import { TissBatchService } from '../../tiss/tiss-batch.service';
+import { TissGlosaComponent } from '../../tiss/tiss-glosa/tiss-glosa.component';
+import { TissGlosaEditComponent } from '../../tiss/tiss-glosa/tiss-glosa-edit/tiss-glosa-edit.component';
+import { TissGlosaService } from '../../tiss/tiss-glosa.service';
+import { TissRepasseComponent } from '../../tiss/tiss-repasse/tiss-repasse.component';
+import { TissRepasseEditComponent } from '../../tiss/tiss-repasse/tiss-repasse-edit/tiss-repasse-edit.component';
+import { TissRepasseService } from '../../tiss/tiss-repasse.service';
 
 const matModules = [
  MatAutocompleteModule,
@@ -277,6 +289,15 @@ const maskConfig: Partial<IConfig> = {
     FinancialReleaseComponent,
     FinancialReleaseEditComponent,
 
+    HealthPricingComponent,
+    HealthPricingEditComponent,
+    TissBatchComponent,
+    TissBatchEditComponent,
+    TissGlosaComponent,
+    TissGlosaEditComponent,
+    TissRepasseComponent,
+    TissRepasseEditComponent,
+
     ReportComponent,
     ReportEditComponent,
 
@@ -302,6 +323,10 @@ const maskConfig: Partial<IConfig> = {
     PaymentMethodService,
     FinancialCategoryService,
     FinancialReleaseService,
+    HealthPricingService,
+    TissBatchService,
+    TissGlosaService,
+    TissRepasseService,
     ReportService,
     { provide: MatPaginatorIntl, useClass: CustomPaginatorIntl },
   ]

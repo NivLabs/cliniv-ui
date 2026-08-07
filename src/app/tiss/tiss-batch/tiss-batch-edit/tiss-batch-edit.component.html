@@ -1,0 +1,99 @@
+<div class="card">
+    <div class="card-header card-header-info">
+        <h4 class="card-title">Lote TISS</h4>
+        <p class="card-category">Faturamento de operadora em período específico</p>
+    </div>
+    <div class="card-body">
+        <form #form="ngForm" autocomplete="off">
+            <div class="row">
+                <div class="col-md-2">
+                    <mat-form-field>
+                        <input matInput placeholder="ID" name="id" [(ngModel)]="dataToForm.id" #id disabled />
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <mat-form-field>
+                        <mat-label>Operadora *</mat-label>
+                        <input matInput placeholder="ID da Operadora" name="healthOperatorId"
+                            [(ngModel)]="dataToForm.healthOperatorId" required />
+                    </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                    <mat-form-field>
+                        <input matInput placeholder="Nome da Operadora" name="healthOperatorName"
+                            [(ngModel)]="dataToForm.healthOperatorName" disabled />
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <mat-form-field>
+                        <mat-label>Mês *</mat-label>
+                        <input matInput type="number" name="referenceMonth"
+                            [(ngModel)]="dataToForm.referenceMonth" min="1" max="12" required />
+                    </mat-form-field>
+                </div>
+                <div class="col-md-2">
+                    <mat-form-field>
+                        <mat-label>Ano *</mat-label>
+                        <input matInput type="number" name="referenceYear"
+                            [(ngModel)]="dataToForm.referenceYear" required />
+                    </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                    <mat-form-field>
+                        <mat-label>Status</mat-label>
+                        <mat-select name="status" [(ngModel)]="dataToForm.status">
+                            <mat-option *ngFor="let s of tissBatchStatuses" [value]="s.value">
+                                {{s.label}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <mat-form-field>
+                        <mat-label>Valor Bruto (R$)</mat-label>
+                        <span matPrefix>R$ </span>
+                        <input matInput type="number" name="totalGross"
+                            [(ngModel)]="dataToForm.totalGross" step="0.01" disabled />
+                    </mat-form-field>
+                </div>
+                <div class="col-md-3">
+                    <mat-form-field>
+                        <mat-label>Glosa (R$)</mat-label>
+                        <span matPrefix>R$ </span>
+                        <input matInput type="number" name="totalGlosa"
+                            [(ngModel)]="dataToForm.totalGlosa" step="0.01" disabled />
+                    </mat-form-field>
+                </div>
+                <div class="col-md-3">
+                    <mat-form-field>
+                        <mat-label>Valor Líquido (R$)</mat-label>
+                        <span matPrefix>R$ </span>
+                        <input matInput type="number" name="totalNet"
+                            [(ngModel)]="dataToForm.totalNet" step="0.01" disabled />
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <mat-form-field>
+                        <mat-label>Observações</mat-label>
+                        <textarea matInput name="observations" [(ngModel)]="dataToForm.observations" rows="4"></textarea>
+                    </mat-form-field>
+                </div>
+            </div>
+            <app-dialog-form-actions [showNew]="!!dataToForm.id" newLabel="Novo Lote TISS"
+                newTooltip="Adiciona lote TISS" [saveDisabled]="!form.valid" [showDelete]="!!dataToForm.id"
+                (new)="dataToForm = new TissBatch(); form.resetForm()"
+                (delete)="delete()"
+                (cancel)="onCancelClick()" (save)="save()"></app-dialog-form-actions>
+            <div class="clearfix"></div>
+        </form>
+    </div>
+</div>
+<app-loading [show]="loading"></app-loading>
