@@ -42,12 +42,16 @@
                     <p>{{menuItem.title}}</p>
                 </a>
             </li>
-            <li class="nav-item separator"></li>
+            <li class="nav-item separator visible-on-sidebar-regular"></li>
 
-            <li routerLinkActive="active" class="nav-item">
+            <li routerLinkActive="active" class="nav-item visible-on-sidebar-regular">
                 <a class="nav-link" href="#" (click)="toggleSidebarFixed(); $event.preventDefault()">
-                    <i class="material-icons">{{sidebarFixed ? 'unfold_less' : 'unfold_more'}}</i>
-                    <p>{{sidebarFixed ? 'Desafixar' : 'Fixar'}} Menu</p>
+                    <span class="sidebar-mini">
+                        <i class="material-icons" [matTooltip]="sidebarFixed ? 'Desafixar Menu' : 'Fixar Menu'">{{sidebarFixed ? 'unfold_less' : 'unfold_more'}}</i>
+                    </span>
+                    <span class="sidebar-normal">
+                        <p>{{sidebarFixed ? 'Desafixar' : 'Fixar'}} Menu</p>
+                    </span>
                 </a>
             </li>
 
