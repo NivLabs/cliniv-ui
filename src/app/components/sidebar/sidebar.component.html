@@ -45,7 +45,7 @@
             <li class="nav-item separator visible-on-sidebar-regular"></li>
 
             <li routerLinkActive="active" class="nav-item visible-on-sidebar-regular">
-                <a class="nav-link" href="#" (click)="toggleSidebarFixed(); $event.preventDefault()">
+                <a class="nav-link" style="cursor: pointer;" (click)="toggleSidebarFixed()">
                     <span class="sidebar-mini" [matTooltip]="sidebarFixed ? 'Desafixar Menu' : 'Fixar Menu'">
                         <i class="material-icons">{{sidebarFixed ? 'unfold_less' : 'unfold_more'}}</i>
                     </span>
