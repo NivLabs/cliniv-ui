@@ -65,6 +65,10 @@ export class TissGlosaEditComponent implements OnInit {
     this.dialogRef.close();
   }
 
+  resetForm(): void {
+    this.dataToForm = new TissGlosa();
+  }
+
   private handlerException(error) {
     this.loading = false;
     this.errorHandler.handle(error, this.dialogRef);

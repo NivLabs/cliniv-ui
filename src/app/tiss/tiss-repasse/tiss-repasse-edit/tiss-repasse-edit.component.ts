@@ -65,6 +65,10 @@ export class TissRepasseEditComponent implements OnInit {
     this.dialogRef.close();
   }
 
+  resetForm(): void {
+    this.dataToForm = new TissRepasse();
+  }
+
   private handlerException(error) {
     this.loading = false;
     this.errorHandler.handle(error, this.dialogRef);

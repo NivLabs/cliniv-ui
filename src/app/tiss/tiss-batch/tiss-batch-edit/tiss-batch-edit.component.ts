@@ -66,6 +66,10 @@ export class TissBatchEditComponent implements OnInit {
     this.dialogRef.close();
   }
 
+  resetForm(): void {
+    this.dataToForm = new TissBatch();
+  }
+
   private handlerException(error) {
     this.loading = false;
     this.errorHandler.handle(error, this.dialogRef);

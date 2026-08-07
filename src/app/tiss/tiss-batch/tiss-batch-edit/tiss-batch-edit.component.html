@@ -88,9 +88,8 @@
                 </div>
             </div>
             <app-dialog-form-actions [showNew]="!!dataToForm.id" newLabel="Novo Lote TISS"
-                newTooltip="Adiciona lote TISS" [saveDisabled]="!form.valid" [showDelete]="!!dataToForm.id"
-                (new)="dataToForm = new TissBatch(); form.resetForm()"
-                (delete)="delete()"
+                newTooltip="Adiciona lote TISS" [saveDisabled]="!form.valid"
+                (new)="resetForm()"
                 (cancel)="onCancelClick()" (save)="save()"></app-dialog-form-actions>
             <div class="clearfix"></div>
         </form>
