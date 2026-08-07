@@ -53,9 +53,8 @@
                 </div>
             </div>
             <app-dialog-form-actions [showNew]="!!dataToForm.id" newLabel="Nova Tabela de Preço"
-                newTooltip="Adiciona tabela de preço" [saveDisabled]="!form.valid" [showDelete]="!!dataToForm.id"
-                (new)="dataToForm = new HealthPricingTable(); form.resetForm()"
-                (delete)="delete()"
+                newTooltip="Adiciona tabela de preço" [saveDisabled]="!form.valid"
+                (new)="resetForm()"
                 (cancel)="onCancelClick()" (save)="save()"></app-dialog-form-actions>
             <div class="clearfix"></div>
         </form>

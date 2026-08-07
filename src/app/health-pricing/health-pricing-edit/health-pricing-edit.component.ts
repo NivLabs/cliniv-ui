@@ -65,6 +65,10 @@ export class HealthPricingEditComponent implements OnInit {
     this.dialogRef.close();
   }
 
+  resetForm(): void {
+    this.dataToForm = new HealthPricingTable();
+  }
+
   private handlerException(error) {
     this.loading = false;
     this.errorHandler.handle(error, this.dialogRef);
