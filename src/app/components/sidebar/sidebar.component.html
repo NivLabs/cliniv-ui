@@ -18,7 +18,7 @@
             <li routerLinkActive="active" *ngFor="let menuItem of menuItems" class="{{menuItem.class}} nav-item">
 
                 <a *ngIf="menuItem.collapse" data-toggle="collapse" class="nav-link"
-                    (click)="toggle(menuItem.icon, $event.target)" style="cursor: pointer;" aria-expanded="false">
+                    (click)="toggle(menuItem.icon)" style="cursor: pointer;" aria-expanded="false">
                     <i class="material-icons">{{menuItem.icon}}</i>
                     <p>{{menuItem.title}}<b class="caret" id="caret_{{menuItem.icon}}"></b></p>
                 </a>
