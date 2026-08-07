@@ -498,6 +498,32 @@
           width: 100%;
           bottom: 13px;
         }
+
+        /* Esconde caret em modo mini */
+        .caret {
+          display: none !important;
+        }
+
+        /* Remove styling de active em modo mini */
+        &.active > [data-toggle="collapse"],
+        &.active > a {
+          background-color: transparent !important;
+          box-shadow: none !important;
+
+          i {
+            color: #a9afbb !important;
+          }
+        }
+
+        /* Remove barra azul esquerda em modo mini */
+        &.active::before {
+          display: none !important;
+        }
+      }
+
+      /* Remove overflow da sidebar em modo mini */
+      .sidebar-wrapper {
+        overflow: hidden !important;
       }
     }
 
