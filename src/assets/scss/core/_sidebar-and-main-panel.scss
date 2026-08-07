@@ -513,6 +513,10 @@
           i {
             color: #a9afbb !important;
           }
+
+          p {
+            color: #a9afbb !important;
+          }
         }
 
         /* Remove barra azul esquerda em modo mini */
@@ -524,7 +528,40 @@
       /* Remove overflow da sidebar em modo mini */
       .sidebar-wrapper {
         overflow: hidden !important;
+        padding-right: 15px;
       }
+    }
+  }
+
+  /* Restaura active em modo normal (quando não é sidebar-mini) */
+  .sidebar {
+    .nav .nav-item {
+      .caret {
+        display: inline-block !important;
+      }
+
+      &.active > [data-toggle="collapse"],
+      &.active > a,
+      &.active > a i,
+      &.active > a p {
+        background-color: rgba(200, 200, 200, 0.2);
+        color: $black-color;
+        box-shadow: none;
+      }
+
+      &.active > a,
+      &.active > a i {
+        color: $white-color;
+      }
+
+      &.active::before {
+        display: block;
+      }
+    }
+
+    .sidebar-wrapper {
+      overflow: auto;
+      padding-right: 0;
     }
 
     /* Sidebar Fixado: mantém largura completa (não encolhe no desktop) */
